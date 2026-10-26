@@ -76,4 +76,5 @@ test('MIDI has valid independent tracks, real tempo and balanced note events', (
 test('single-file distribution has no network, imports or external assets',()=>{
   const fs=require('node:fs'),path=require('node:path');const html=fs.readFileSync(path.join(__dirname,'..','打开星轨留声机.html'),'utf8');
   assert.ok(html.includes('window.Stargram'));assert.ok(!/\b(?:src|href)=["']https?:/i.test(html));assert.ok(!/\bfetch\(|XMLHttpRequest|WebSocket|import\(/.test(html));assert.ok(!html.includes('<!-- SCRIPTS -->'));
+  assert.equal(fs.readFileSync(path.join(__dirname,'..','index.html'),'utf8'),html,'online and offline entries must be identical');
 });
