@@ -51,7 +51,7 @@ def main():
         else:raise RuntimeError('Repository already exists or could not be inspected; inspect it before reusing.')
     if code not in [200,201]:
         print(json.dumps({'account':OWNER,'repository_exists':False,'http_status':code,'message':repo.get('message')},ensure_ascii=False));return
-    output={'account':OWNER,'repository':repo['full_name'],'repository_url':repo['html_url'],'private':repo['private'],'empty':repo['size']==0,'default_branch':repo['default_branch']}
+    output={'account':OWNER,'repository':repo['full_name'],'repository_url':repo['html_url'],'private':repo['private'],'default_branch':repo['default_branch']}
     pages_code,pages=request(token,'GET',base+'/pages')
     if args.mode=='enable':
         if pages_code==404:

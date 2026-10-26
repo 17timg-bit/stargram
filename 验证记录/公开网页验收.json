@@ -1,0 +1,22 @@
+{
+  "checks": [
+    "public URL opens",
+    "audio clock and encounters run after click",
+    "pause clears scheduled voices",
+    "note edit persists across real reload",
+    "preset restored"
+  ],
+  "errors": [],
+  "httpStatus": 200,
+  "screenshot": {
+    "file": "公开网页实测.png",
+    "width": 2189,
+    "height": 1235
+  },
+  "title": "星轨留声机 · STARGRAM",
+  "url": "https://17timg-bit.github.io/stargram/",
+  "repository_url": "https://github.com/17timg-bit/stargram",
+  "date": "2026-10-26",
+  "anonymous_http_verified": true,
+  "application_sha256": "7003719643a82f4b89e66ad6aa7d43490a5be519c3565fc935bd13543b19d588"
+}
