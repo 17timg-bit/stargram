@@ -1,0 +1,10 @@
+await page.getByRole('button',{name:/晨雾中的信号/}).click();
+await page.getByRole('button',{name:/带走这片星空/}).click();
+await page.getByRole('button',{name:/一段音乐/}).click();
+await page.waitForFunction(()=>document.getElementById('exportStatus').textContent.startsWith('WAV 已交给'),{timeout:30000});
+const status=await page.locator('#exportStatus').textContent();
+await page.getByRole('button',{name:/继续编曲/}).click();
+await page.getByRole('button',{name:/保存这张星图/}).click();
+await page.getByRole('button',{name:'关闭导出',exact:true}).click();
+await page.getByRole('button',{name:/拍张照/}).click();
+return {status, snapshot:await page.evaluate(()=>Stargram.snapshot()), errors:qa.errors};

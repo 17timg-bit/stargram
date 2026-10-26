@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0c171b">
+  <meta name="description" content="点亮星星，让轨道替你作曲。一台可以离线使用的星空音乐玩具。">
+  <title>星轨留声机 · STARGRAM</title>
+  <!-- STYLE -->
+</head>
+<body>
+  <header class="masthead">
+    <a class="brand" href="#" aria-label="星轨留声机首页"><svg viewBox="0 0 40 40" aria-hidden="true"><ellipse cx="20" cy="20" rx="17" ry="8" transform="rotate(-35 20 20)"/><ellipse cx="20" cy="20" rx="17" ry="8" transform="rotate(35 20 20)"/><circle cx="20" cy="20" r="3"/><circle cx="32" cy="10" r="2"/></svg><span>星轨留声机<small>STARGRAM / AN ORBITAL MUSIC TOY</small></span></a>
+    <div class="header-note"><span class="status-dot"></span> 一小片宇宙，一首偶然的歌</div>
+    <nav class="header-actions" aria-label="作品操作"><button id="helpBtn" class="quiet">玩法 <kbd>?</kbd></button><button id="exportBtn" class="outline">带走这片星空 <span>↗</span></button></nav>
+  </header>
+  <main class="workspace">
+    <aside class="library">
+      <div class="eyebrow">01 / OBSERVATORY</div>
+      <h1>让星星<br>替你作曲<span class="gold">。</span></h1>
+      <p class="intro">在轨道上留下光点，<br>等一颗彗星与它相遇。</p>
+      <div class="section-label">从一张星图开始 <span>03</span></div>
+      <div class="presets" aria-label="预设星图">
+        <button class="preset active" data-preset="dawn"><span class="preset-art dawn">☼</span><span><strong>晨雾中的信号</strong><small>温暖 / 明亮 / 88 BPM</small></span><span class="preset-arrow">↗</span></button>
+        <button class="preset" data-preset="tide"><span class="preset-art tide">≋</span><span><strong>潮汐来信</strong><small>流动 / 交错 / 104 BPM</small></span><span class="preset-arrow">↗</span></button>
+        <button class="preset" data-preset="glass"><span class="preset-art glass">◇</span><span><strong>夜航的玻璃船</strong><small>空灵 / 缓慢 / 72 BPM</small></span><span class="preset-arrow">↗</span></button>
+      </div>
+      <button id="randomBtn" class="random-button"><span>✧</span> 偶遇一片新星空 <span>↻</span></button>
+      <div class="field-notes">
+        <div class="section-label">你的观测手记 <span id="discoveryCount">0 / 3</span></div>
+        <div class="discovery" data-discovery="plant"><span>01</span> 亲手点亮一颗星星 <b>○</b></div>
+        <div class="discovery" data-discovery="orbit"><span>02</span> 改变一次轨道周期 <b>○</b></div>
+        <div class="discovery" data-discovery="listen"><span>03</span> 听见三十二次相遇 <b>○</b></div>
+        <p id="discoveryMessage">不必懂乐理，只需要一点好奇心。</p>
+      </div>
+      <div class="edition">A LITTLE INSTRUMENT FOR WANDERING MINDS<br><span>VOL. 001 — MADE OF LIGHT & SOUND</span></div>
+    </aside>
+    <section class="observatory" aria-label="互动星图">
+      <div class="stage-heading"><div><div class="eyebrow">NOW EXPLORING</div><h2 id="sceneTitle">晨雾中的信号</h2></div><span class="live-label" id="liveLabel">静候相遇</span></div>
+      <canvas id="universe" tabindex="0" aria-label="互动星图：点击轨道添加或删除音符，拖动星星移动；也可使用右侧音符编辑器。"></canvas>
+      <div class="stage-hint" id="stageHint"><span>＋</span> 点击轨道种下星星 · 拖动星星改变节奏</div>
+      <div class="stage-bottom"><span><b id="noteCount">17</b> 颗星星 <i>·</i> <span id="cycleLabel">240 拍后重逢</span></span><div><button id="undoBtn" class="tiny" title="撤销 Ctrl+Z" disabled>↶ 撤销</button><button id="captureBtn" class="tiny" title="保存星图明信片">⤓ 拍张照</button></div></div>
+      <div class="canvas-tooltip" id="tooltip" hidden></div>
+    </section>
+    <aside class="inspector">
+      <div class="eyebrow">02 / ORBIT DESIGN</div>
+      <div class="inspector-title"><h2>五条轨道，五种声音</h2><span>点击选中</span></div>
+      <div id="tracks" class="tracks" aria-label="选择音轨"></div>
+      <section class="orbit-editor" aria-label="选中轨道的设置">
+        <div class="editor-heading"><span id="selectedName">浮光</span><span id="selectedVoice">PLUCK</span></div>
+        <label class="control-label" for="lengthSelect">一圈的长度 <span>每格为半拍</span></label>
+        <div class="orbit-settings"><select id="lengthSelect" aria-label="轨道长度"><option value="8">8 格</option><option value="12">12 格</option><option value="16">16 格</option><option value="20">20 格</option><option value="24">24 格</option></select><button id="rotateBtn" class="outline" title="让这条轨道的所有音符晚一格响起">↻ 旋转一格</button></div>
+        <div class="control-label"><span>星星排列</span><button id="clearBtn" class="text-button">清空本轨</button></div>
+        <div id="steps" class="steps" aria-label="逐格音符编辑器"></div>
+        <label class="control-label" for="pitchSelect">新星的音高 <span id="pitchLabel">第 3 音</span></label>
+        <select id="pitchSelect" aria-label="新音符音高"><option value="0">1 · 低处的光</option><option value="1">2 · 向上一步</option><option value="2" selected>3 · 透亮</option><option value="3">4 · 远一点</option><option value="4">5 · 天际线</option><option value="5">6 · 高八度</option><option value="6">7 · 微光</option><option value="7">8 · 星尘</option><option value="8">9 · 云端</option><option value="9">10 · 最远的星</option></select>
+        <p class="editor-tip">点格子开关音符；右击已有星星，让它升高一音。轨道旁的小圆点可静音。</p>
+      </section>
+      <div class="save-note"><span class="status-dot"></span><span id="saveStatus">星图会自动保存在此浏览器</span></div>
+    </aside>
+  </main>
+  <footer class="transport">
+    <div class="playback"><button id="playBtn" class="play-button" aria-label="开始演奏"><span id="playIcon">▶</span></button><div class="play-copy"><strong id="playText">让宇宙开始转动</strong><small><kbd>Space</kbd> 播放 / 暂停</small></div><button id="restartBtn" class="restart" aria-label="从头演奏" title="从头演奏">↺</button></div>
+    <div class="tempo-control"><label for="tempo">时间流速 <output id="tempoValue">88 <small>BPM</small></output></label><input id="tempo" type="range" min="48" max="160" value="88"></div>
+    <div class="scale-control"><label for="scaleSelect">星空的色彩</label><select id="scaleSelect"><option value="dawn">晨光 · 大调五声</option><option value="tide">浮潮 · 小调五声</option><option value="glass">琉璃 · 悬浮音阶</option></select></div>
+    <div class="space-control"><label for="space">回响 <output id="spaceValue">48%</output></label><input id="space" type="range" min="0" max="100" value="48"></div>
+    <div class="volume-control"><label for="volume">音量 <output id="volumeValue">55%</output></label><input id="volume" type="range" min="0" max="100" value="55"></div>
+  </footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <dialog id="helpDialog"><button class="dialog-close" data-close aria-label="关闭玩法">×</button><div class="eyebrow">A SMALL GUIDE TO YOUR UNIVERSE</div><h2>这片星空，由你来调音。</h2><p class="dialog-intro">每一圈都是一条旋律。彗星与星星相遇，声音就会发生。</p><ol class="guide"><li><b>先听，再动手。</b>点击播放，或者按空格。选一张喜欢的星图作起点。</li><li><b>把音符种在轨道上。</b>点击空位添加，再点一次删除。拖到另一个位置改变时机，拖到另一圈改变音色。右击星星可升高音高。</li><li><b>让循环错开。</b>选中一条轨道，把一圈从 16 格改成 12 格。相同音符会在下一圈遇到不同的伙伴。</li><li><b>留下属于你的偶然。</b>导出 WAV 带走 8 小节音乐；MIDI 可以继续编曲；星图文件保留全部设置。</li></ol><div class="shortcut-row"><span><kbd>Space</kbd> 播放</span><span><kbd>Ctrl Z</kbd> 撤销</span><span><kbd>1–5</kbd> 选轨</span><span><kbd>?</kbd> 玩法</span></div><p class="fine-print">完全离线 · 无账号 · 无上传 · 所有声音在本机合成<br>切到其他标签页会自动暂停。浏览器首次播放需要你点击一下。</p><button class="primary wide" data-close>知道了，去种星星</button></dialog>
+  <dialog id="exportDialog"><button class="dialog-close" data-close aria-label="关闭导出">×</button><div class="eyebrow">TAKE A PIECE OF THE UNIVERSE</div><h2>把这次相遇带走。</h2><p class="dialog-intro">音乐从第一格开始导出；星图保留你现在的全部编排。</p><div class="export-options"><button id="wavBtn"><span class="export-icon">♫</span><span><strong>一段音乐</strong><small>WAV · 8 小节 + 混响尾音 · 44.1 kHz 立体声</small></span><b>↓</b></button><button id="midiBtn"><span class="export-icon">♮</span><span><strong>继续编曲</strong><small>MIDI · 五条独立音轨 · 含速度信息</small></span><b>↓</b></button><button id="jsonBtn"><span class="export-icon">✧</span><span><strong>保存这张星图</strong><small>STARGRAM JSON · 可重新导入继续玩</small></span><b>↓</b></button></div><div class="import-row"><span>有一张以前保存的星图？</span><button id="importBtn" class="outline">导入星图 ↗</button><input type="file" id="importInput" accept=".json,application/json" hidden></div><p id="exportStatus" class="fine-print" aria-live="polite">文件由浏览器保存到下载位置。MIDI 音色由播放软件决定。</p></dialog>
+  <!-- SCRIPTS -->
+</body>
+</html>

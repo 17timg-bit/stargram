@@ -1,0 +1,66 @@
+{
+  "audio": {
+    "clipped": 0,
+    "densePeak": 0.8176028728485107,
+    "nonzero": 499106,
+    "silentPeak": 0
+  },
+  "checks": [
+    "step editor adds note",
+    "delete and undo restore note",
+    "length change and rotation",
+    "mute and unmute",
+    "real file URL reload preserves star map",
+    "audio clock runs, encounters occur, pause freezes phase",
+    "rewind resets transport",
+    "help modal opens and closes",
+    "main layout and transport do not overlap",
+    "canvas drag swaps occupied notes; undo restores both; canvas add, raise and delete work",
+    "invalid import leaves current state untouched; valid file imports; import can be undone",
+    "keyboard tempo limits, undo and scale selection",
+    "dense full-volume audio has no clipped PCM; muted tracks render exact silence"
+  ],
+  "desktop": {
+    "footer": {
+      "bottom": 900,
+      "height": 110,
+      "left": 34,
+      "right": 1406,
+      "top": 790,
+      "width": 1372,
+      "x": 34,
+      "y": 790
+    },
+    "height": 900,
+    "inspectorHeight": 700,
+    "inspectorScroll": 700,
+    "scrollWidth": 1440,
+    "stage": {
+      "bottom": 790,
+      "height": 700,
+      "left": 269,
+      "right": 1152,
+      "top": 90,
+      "width": 883,
+      "x": 269,
+      "y": 90
+    },
+    "width": 1440
+  },
+  "errors": [],
+  "screenshot": {
+    "file": "桌面实测.png",
+    "width": 1440,
+    "height": 900
+  },
+  "status": {
+    "audioState": "running",
+    "encounters": 683,
+    "phase": 20.984088888888685,
+    "playing": false,
+    "saved": true,
+    "selected": 2
+  },
+  "date": "2026-10-26",
+  "environment": "Windows / Tabbit Chromium / direct file URL"
+}

@@ -1,0 +1,6 @@
+.DS_Store
+Thumbs.db
+验证记录/*.log
+验证记录/*-temporary.*
+__pycache__/
+node_modules/

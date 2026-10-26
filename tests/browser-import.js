@@ -1,0 +1,12 @@
+await page.getByRole('button',{name:/带走这片星空/}).click();
+const before=await page.evaluate(()=>Stargram.snapshot());
+await page.locator('#importInput').setInputFiles('D:/学习/project/自由发挥/星轨留声机/tests/fixtures/invalid.json');
+await expect(page.locator('#exportStatus')).toContainText('导入失败');
+expect(await page.evaluate(()=>Stargram.snapshot())).toEqual(before);
+await page.locator('#importInput').setInputFiles('D:/学习/project/自由发挥/星轨留声机/示例作品/星图/晨雾中的信号.json');
+await expect(page.locator('#exportDialog')).not.toBeVisible();
+assert.equal(await page.evaluate(()=>Stargram.snapshot().title),'晨雾中的信号');
+await page.getByRole('button',{name:'↶ 撤销',exact:true}).click();
+expect(await page.evaluate(()=>Stargram.snapshot())).toEqual(before);
+qa.checks.push('invalid import leaves current state untouched; valid file imports; import can be undone');
+return {checks:qa.checks,errors:qa.errors};

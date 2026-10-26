@@ -1,0 +1,28 @@
+{
+  "checks": [
+    "step editor adds note",
+    "delete and undo restore note",
+    "length change and rotation",
+    "mute and unmute",
+    "real file URL reload preserves star map",
+    "audio clock runs, encounters occur, pause freezes phase",
+    "rewind resets transport",
+    "help modal opens and closes",
+    "main layout and transport do not overlap",
+    "canvas drag swaps occupied notes; undo restores both; canvas add, raise and delete work",
+    "invalid import leaves current state untouched; valid file imports; import can be undone",
+    "keyboard tempo limits, undo and scale selection",
+    "dense full-volume audio has no clipped PCM; muted tracks render exact silence",
+    "switch preset while playing; pause cancels all scheduled voices"
+  ],
+  "errors": [],
+  "status": {
+    "activeVoices": 0,
+    "audioState": "running",
+    "encounters": 14,
+    "phase": 0,
+    "playing": false,
+    "saved": true,
+    "selected": 2
+  }
+}

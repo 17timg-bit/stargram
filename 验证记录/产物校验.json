@@ -1,0 +1,107 @@
+{
+  "date": "2026-10-26",
+  "audio_and_midi": [
+    {
+      "title": "夜航的玻璃船",
+      "seconds": 29.866667,
+      "sample_rate": 44100,
+      "channels": 2,
+      "bit_depth": 16,
+      "peak_dbfs": -10.296,
+      "rms_dbfs": -29.862,
+      "clipped_samples": 0,
+      "midi_tracks": 6,
+      "midi_notes": 56,
+      "midi_matches_map": true
+    },
+    {
+      "title": "晨雾中的信号",
+      "seconds": 25.018186,
+      "sample_rate": 44100,
+      "channels": 2,
+      "bit_depth": 16,
+      "peak_dbfs": -10.157,
+      "rms_dbfs": -28.68,
+      "clipped_samples": 0,
+      "midi_tracks": 6,
+      "midi_notes": 66,
+      "midi_matches_map": true
+    },
+    {
+      "title": "潮汐来信",
+      "seconds": 21.661542,
+      "sample_rate": 44100,
+      "channels": 2,
+      "bit_depth": 16,
+      "peak_dbfs": -8.728,
+      "rms_dbfs": -27.458,
+      "clipped_samples": 0,
+      "midi_tracks": 6,
+      "midi_notes": 70,
+      "midi_matches_map": true
+    }
+  ],
+  "postcards": [
+    {
+      "file": "晨雾中的信号.png",
+      "width": 1600,
+      "height": 1200
+    }
+  ],
+  "files": [
+    {
+      "path": "示例作品\\明信片\\晨雾中的信号.png",
+      "bytes": 1437642,
+      "sha256": "646dbc299271e6a5ff44036b729a9fd741d10947541bec6d5a9ae1981a770c79"
+    },
+    {
+      "path": "示例作品\\星图\\夜航的玻璃船.json",
+      "bytes": 1788,
+      "sha256": "1c25a0dd92472e9266739f3c03650968f6e72a8cdd1b098ba1b88341403b9f60"
+    },
+    {
+      "path": "示例作品\\星图\\晨雾中的信号.json",
+      "bytes": 1689,
+      "sha256": "abbafac213cfd2c0d3bef8ea4c36ca30ac04bbf0a63ad99dfb70add1888bb8ab"
+    },
+    {
+      "path": "示例作品\\星图\\潮汐来信.json",
+      "bytes": 1778,
+      "sha256": "40c415130fce4dc7d679d11715d41b78c89a812408c9ef506af533c44cd43c99"
+    },
+    {
+      "path": "示例作品\\音乐\\夜航的玻璃船.mid",
+      "bytes": 732,
+      "sha256": "6de2aee524ebd74ecac1242347d63bbb76b53933670de9aff3f59cf5e02f5b96"
+    },
+    {
+      "path": "示例作品\\音乐\\夜航的玻璃船.wav",
+      "bytes": 5268524,
+      "sha256": "87f6d185971ea9c2861312e704734d91b1eda2cc84d58ce65bf739459410942d"
+    },
+    {
+      "path": "示例作品\\音乐\\晨雾中的信号.mid",
+      "bytes": 832,
+      "sha256": "5a466a56a976413f2489b484a5390746b53061a7c6776cbeaa72ee5974b94804"
+    },
+    {
+      "path": "示例作品\\音乐\\晨雾中的信号.wav",
+      "bytes": 4413252,
+      "sha256": "59162927dd7a61c059de1a0499156a94bfa94c2da8ba5eb214aac849b58e2618"
+    },
+    {
+      "path": "示例作品\\音乐\\潮汐来信.mid",
+      "bytes": 871,
+      "sha256": "46a3f43862d7e0366d5845fba06a1eb2cb3ba4cd09e2b5734823b935b809763b"
+    },
+    {
+      "path": "示例作品\\音乐\\潮汐来信.wav",
+      "bytes": 3821140,
+      "sha256": "02de377a62d564410fa947b4ddd18772a449a2e0cf90cb0904ea11b6268ab9bd"
+    }
+  ],
+  "application": {
+    "bytes": 67362,
+    "sha256": "7003719643a82f4b89e66ad6aa7d43490a5be519c3565fc935bd13543b19d588"
+  }
+}

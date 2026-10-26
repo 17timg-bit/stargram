@@ -1,0 +1,20 @@
+await page.getByRole('button',{name:/晨雾中的信号/}).click();
+const box=await page.locator('#universe').boundingBox();
+// The viewed canvas exposes concentric rings; positions are mapped from its actual bounds.
+const max=Math.min(box.width*.435,box.height*.358),cx=box.x+box.width/2,cy=box.y+box.height*.53;
+const pos=(track,step,length)=>{const r=max*[.28,.46,.64,.82,1][track],a=step/length*Math.PI*2-Math.PI/2;return{x:cx+Math.cos(a)*r,y:cy+Math.sin(a)*r};};
+const a=pos(2,6,16),b=pos(3,5,12);
+const before=await page.evaluate(()=>Stargram.snapshot());
+await page.mouse.move(a.x,a.y);await page.mouse.down();await page.mouse.move(b.x,b.y,{steps:12});await page.mouse.up();
+const after=await page.evaluate(()=>Stargram.snapshot());
+assert.equal(after.tracks[2].notes[6],before.tracks[3].notes[5]);assert.equal(after.tracks[3].notes[5],before.tracks[2].notes[6]);
+await page.getByRole('button',{name:'↶ 撤销',exact:true}).click();
+expect(await page.evaluate(()=>Stargram.snapshot())).toEqual(before);
+const empty=pos(2,1,16);await page.mouse.click(empty.x,empty.y);
+assert.equal(await page.evaluate(()=>Stargram.snapshot().tracks[2].notes[1]),2);
+await page.mouse.click(empty.x,empty.y,{button:'right'});
+assert.equal(await page.evaluate(()=>Stargram.snapshot().tracks[2].notes[1]),3);
+await page.mouse.click(empty.x,empty.y);
+assert.equal(await page.evaluate(()=>Stargram.snapshot().tracks[2].notes[1]),-1);
+qa.checks.push('canvas drag swaps occupied notes; undo restores both; canvas add, raise and delete work');
+return {checks:qa.checks,errors:qa.errors};
