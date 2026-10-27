@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-27",
+  "version": "1.2.0",
+  "url": "https://17timg-bit.github.io/stargram/",
+  "repository_url": "https://github.com/17timg-bit/stargram",
+  "pages": {
+    "html_url": "https://17timg-bit.github.io/stargram/",
+    "status": "built",
+    "build_type": "legacy",
+    "source": {
+      "branch": "main",
+      "path": "/"
+    },
+    "https_enforced": true
+  },
+  "verified_build": {
+    "status": "built",
+    "commit": "fddd363276d8612737e6ac86152411496d92df22",
+    "duration": 24082,
+    "error": {
+      "message": null
+    },
+    "created_at": "2026-10-27T11:41:22Z",
+    "updated_at": "2026-10-27T11:41:46Z"
+  },
+  "anonymous_http": {
+    "status": 200,
+    "bytes": 107727,
+    "sha256": "387cdf104c7cf60c03783baf265ca1b45f99b53a58be58d149f0a721c53a8b47",
+    "matches_local": true
+  },
+  "browser": {
+    "checks": [
+      "public v1.2 opens",
+      "tuning and strong accent work",
+      "audio clock produces encounters",
+      "pause clears voices",
+      "shelf and notes persist across reload",
+      "original storage preserved and QA keys removed"
+    ],
+    "errors": [],
+    "httpStatus": 200,
+    "storage": {
+      "originalUnchanged": true,
+      "testKeysRemaining": 0,
+      "testKeysRemoved": 3
+    },
+    "url": "https://17timg-bit.github.io/stargram/",
+    "version": "1.2.0"
+  },
+  "screenshot": "公开网页实测.png"
+}
