@@ -249,9 +249,10 @@
     catch (error) { $('shelfFeedback').textContent = error.message; }
   };
 
-  function geometry(w = width, h = height) {
-    const max = Math.min(w * 0.435, h * (immersive ? 0.40 : 0.358));
-    return { cx: w / 2, cy: h * (immersive ? 0.52 : 0.53), radii: [0.28, 0.46, 0.64, 0.82, 1].map(v => v * max), max };
+  function geometry(w = width, h = height, forPoster = false) {
+    const expanded = immersive && !forPoster;
+    const max = Math.min(w * 0.435, h * (expanded ? 0.40 : 0.358));
+    return { cx: w / 2, cy: h * (expanded ? 0.52 : 0.53), radii: [0.28, 0.46, 0.64, 0.82, 1].map(v => v * max), max };
   }
   function location(track, step, g = geometry()) {
     const t = state.tracks[track], angle = (step + t.shift) / t.length * Math.PI * 2 - Math.PI / 2;
@@ -310,29 +311,39 @@
   }
   function circle(c, x, y, radius, color) { c.beginPath(); c.arc(x, y, radius, 0, Math.PI * 2); c.fillStyle = color; c.fill(); }
   function scene(c, w, h, phase, now, poster = false) {
-    const g = geometry(w, h), scale = poster ? 1.8 : 1;
+    const g = geometry(w, h, poster), scale = poster ? 1.8 : 1;
     c.clearRect(0, 0, w, h);
-    const bg = c.createRadialGradient(g.cx, g.cy, 0, g.cx, g.cy, g.max * 1.65); bg.addColorStop(0, '#193338'); bg.addColorStop(.55, '#10262c'); bg.addColorStop(1, '#0c171b'); c.fillStyle = bg; c.fillRect(0, 0, w, h);
+    const bg = c.createRadialGradient(g.cx, g.cy, 0, g.cx, g.cy, g.max * 1.8); bg.addColorStop(0, '#1a3837'); bg.addColorStop(.48, '#102d30'); bg.addColorStop(1, '#0a1d21'); c.fillStyle = bg; c.fillRect(0, 0, w, h);
     const colors = { dawn: ['#dfba88', '#89cfb6'], tide: ['#7cbcc9', '#7bc9b1'], glass: ['#b9a0d1', '#86b4d2'] }[state.scale];
     colors.forEach((color, i) => {
       const drift = reducedMotion ? 0 : Math.sin(now * .00008 + i * 2) * g.max * .07;
       const x = g.cx + (i ? -.42 : .46) * g.max + drift, y = g.cy + (i ? .4 : -.35) * g.max;
       const wash = c.createRadialGradient(x, y, 0, x, y, g.max * .95); wash.addColorStop(0, color + '10'); wash.addColorStop(1, color + '00'); c.fillStyle = wash; c.fillRect(0, 0, w, h);
     });
-    for (const star of stars) { c.globalAlpha = star.a * (reducedMotion ? 1 : .8 + Math.sin(now * .0005 + star.phase) * .2); circle(c, star.x * w, star.y * h, star.r * scale, '#b2d6d3'); } c.globalAlpha = 1;
+    stars.forEach((star, i) => { c.globalAlpha = star.a * (reducedMotion ? 1 : .8 + Math.sin(now * .0005 + star.phase) * .2); circle(c, star.x * w, star.y * h, star.r * scale, i % 9 ? '#b2cdbc' : '#dfc68e'); }); c.globalAlpha = 1;
+    // Fine brass arcs make the moving score feel like an engraved instrument.
+    c.lineWidth = .65 * scale;
+    for (const [start, end] of [[-.95, -.38], [.1, .48], [.75, 1.3]]) {
+      c.globalAlpha = .36; c.strokeStyle = '#c9b27b'; c.beginPath(); c.arc(g.cx, g.cy, g.max + 10 * scale, start * Math.PI, end * Math.PI); c.stroke();
+      c.globalAlpha = .11; c.strokeStyle = '#d6c08d'; c.beginPath(); c.arc(g.cx, g.cy, g.max + 13 * scale, start * Math.PI, end * Math.PI); c.stroke();
+    }
+    c.globalAlpha = 1;
     // Fine survey marks: an observatory, rather than a literal gravity simulation.
-    c.strokeStyle = '#34525b'; c.lineWidth = .6 * scale;
+    c.strokeStyle = '#8f9f7b'; c.lineWidth = .6 * scale;
     for (let k = 0; k < 72; k++) {
       const a = k / 72 * Math.PI * 2, r = g.max + 16 * scale;
-      c.globalAlpha = k % 6 ? .35 : .7; c.beginPath(); c.moveTo(g.cx + Math.cos(a) * r, g.cy + Math.sin(a) * r); c.lineTo(g.cx + Math.cos(a) * (r + (k % 6 ? 3 : 7) * scale), g.cy + Math.sin(a) * (r + (k % 6 ? 3 : 7) * scale)); c.stroke();
+      c.globalAlpha = k % 6 ? .24 : .5; c.beginPath(); c.moveTo(g.cx + Math.cos(a) * r, g.cy + Math.sin(a) * r); c.lineTo(g.cx + Math.cos(a) * (r + (k % 6 ? 3 : 7) * scale), g.cy + Math.sin(a) * (r + (k % 6 ? 3 : 7) * scale)); c.stroke();
     }
     c.globalAlpha = 1; c.setLineDash([2 * scale, 7 * scale]); c.strokeStyle = '#29474e'; c.beginPath(); c.moveTo(g.cx, g.cy - g.max - 30 * scale); c.lineTo(g.cx, g.cy + g.max + 20 * scale); c.moveTo(g.cx - g.max - 25 * scale, g.cy); c.lineTo(g.cx + g.max + 25 * scale, g.cy); c.stroke(); c.setLineDash([]);
     state.tracks.forEach((t, track) => {
       const color = C.ROLES[track].color, r = g.radii[track], audible = C.audible(state, track);
       c.globalAlpha = audible ? 1 : .18;
-      c.beginPath(); c.arc(g.cx, g.cy, r, 0, Math.PI * 2); c.strokeStyle = track === selected ? '#557c7e' : '#2b4b53'; c.lineWidth = (track === selected ? 1.15 : .75) * scale; c.stroke();
+      const metal = c.createLinearGradient(g.cx - r, g.cy - r, g.cx + r, g.cy + r);
+      metal.addColorStop(0, track === selected ? '#a8c2a0' : '#657f70'); metal.addColorStop(.35, '#335858'); metal.addColorStop(.72, track === selected ? '#719d89' : '#385e5b'); metal.addColorStop(1, '#2d514d');
+      c.beginPath(); c.arc(g.cx, g.cy, r, 0, Math.PI * 2); c.strokeStyle = metal; c.lineWidth = (track === selected ? 1.2 : .75) * scale; c.stroke();
+      c.globalAlpha = audible ? .13 : .025; c.strokeStyle = color; c.lineWidth = .45 * scale; c.beginPath(); c.arc(g.cx, g.cy, r + 2.3 * scale, 0, Math.PI * 2); c.stroke();
       const active = t.notes.map((p, i) => p >= 0 ? location(track, i, g) : null).filter(Boolean);
-      if (active.length > 1) { c.beginPath(); active.forEach((p, i) => i ? c.lineTo(p.x, p.y) : c.moveTo(p.x, p.y)); c.closePath(); c.strokeStyle = color; c.lineWidth = .6 * scale; c.globalAlpha = audible ? .12 : .025; c.stroke(); }
+      if (active.length > 1) { c.beginPath(); active.forEach((p, i) => i ? c.lineTo(p.x, p.y) : c.moveTo(p.x, p.y)); c.closePath(); c.strokeStyle = color; c.lineWidth = .6 * scale; c.globalAlpha = audible ? (track === selected ? .16 : .075) : .02; c.stroke(); }
       t.notes.forEach((pitch, step) => {
         const p = location(track, step, g), hot = hover && hover.track === track && hover.step === step;
         const focused = focusNote?.track === track && focusNote.step === step;
@@ -359,15 +370,21 @@
     const breathe = reducedMotion ? 0 : Math.sin(now * .001) * .08;
     const heart = reducedMotion ? 0 : Math.max(0, 1 - (now - lastEncounterAt) / 650);
     if (heart > 0) { c.globalAlpha = heart * .2; c.strokeStyle = '#e7c593'; c.lineWidth = scale; c.beginPath(); c.arc(g.cx, g.cy, (18 + (1 - heart) * 20) * scale, 0, Math.PI * 2); c.stroke(); c.globalAlpha = 1; }
-    const halo = c.createRadialGradient(g.cx, g.cy, 0, g.cx, g.cy, g.radii[0] * .8); halo.addColorStop(0, '#d7ac6c30'); halo.addColorStop(1, '#d7ac6c00'); c.fillStyle = halo; c.beginPath(); c.arc(g.cx, g.cy, g.radii[0] * .8, 0, 6.284); c.fill();
+    const halo = c.createRadialGradient(g.cx, g.cy, 0, g.cx, g.cy, g.radii[0] * .9); halo.addColorStop(0, '#dbbc7e36'); halo.addColorStop(1, '#d7ac6c00'); c.fillStyle = halo; c.beginPath(); c.arc(g.cx, g.cy, g.radii[0] * .9, 0, 6.284); c.fill();
+    c.strokeStyle = '#d3ba81'; c.lineWidth = .6 * scale; c.globalAlpha = .5;
+    for (const radius of [18, 22]) { c.beginPath(); c.arc(g.cx, g.cy, radius * scale, 0, Math.PI * 2); c.stroke(); }
+    c.globalAlpha = .7;
+    for (let k = 0; k < 8; k++) { const a = k / 8 * Math.PI * 2; c.beginPath(); c.moveTo(g.cx + Math.cos(a) * 23 * scale, g.cy + Math.sin(a) * 23 * scale); c.lineTo(g.cx + Math.cos(a) * 26 * scale, g.cy + Math.sin(a) * 26 * scale); c.stroke(); }
+    c.globalAlpha = 1;
     c.save(); c.translate(g.cx, g.cy); c.rotate(Math.PI / 4); c.strokeStyle = '#b8996d'; c.lineWidth = .8 * scale; c.globalAlpha = .7 + breathe; c.strokeRect(-8 * scale, -8 * scale, 16 * scale, 16 * scale); c.rotate(Math.PI / 4); c.strokeRect(-6 * scale, -6 * scale, 12 * scale, 12 * scale); c.restore(); circle(c, g.cx, g.cy, 2 * scale, '#e8c08d');
     if (!poster) {
       particles = particles.filter(p => now - p.born < 1400).slice(-150);
       particles.forEach(p => { const age = (now - p.born) / 1000; c.globalAlpha = Math.max(0, 1 - age / 1.4) * .65; circle(c, p.x + p.vx * age, p.y + p.vy * age, 1.2, p.color); }); c.globalAlpha = 1;
       if (drag && drag.moved && drag.pitch >= 0) { const p = drag.target ? location(drag.target.track, drag.target.step, g) : drag; c.globalAlpha = .8; circle(c, p.x, p.y, 7, C.ROLES[drag.target?.track ?? drag.track].color); c.globalAlpha = 1; }
     } else {
-      c.textAlign = 'center'; c.fillStyle = '#8faaa9'; c.font = '15px Consolas, monospace'; c.fillText('S T A R G R A M   /   A N   O R B I T A L   P O S T C A R D', w / 2, 75);
-      c.fillStyle = '#e8e5da'; c.font = '38px "Microsoft YaHei", sans-serif'; c.fillText(state.title, w / 2, 132);
+      c.strokeStyle = '#a4b08255'; c.lineWidth = 1; c.strokeRect(32, 32, w - 64, h - 64);
+      c.textAlign = 'center'; c.fillStyle = '#b6bc97'; c.font = '15px Consolas, monospace'; c.fillText('S T A R G R A M   /   A N   O R B I T A L   P O S T C A R D', w / 2, 75);
+      c.fillStyle = '#e8e1c8'; c.font = '42px "SimSun", serif'; c.fillText(state.title, w / 2, 138);
       c.fillStyle = '#92b7b0'; c.font = '18px "Microsoft YaHei", sans-serif'; c.fillText(`${C.countNotes(state)} 颗星星  ·  ${state.bpm} BPM  ·  ${C.SCALES[state.scale].label}`, w / 2, h - 90);
       c.fillStyle = '#64878a'; c.font = '14px "Microsoft YaHei", sans-serif'; c.fillText('星轨留声机  /  每一次相遇，都是一首新的歌。', w / 2, h - 50);
     }

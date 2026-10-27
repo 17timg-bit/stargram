@@ -1,6 +1,7 @@
 """Read actual v1.1 exports independently of the JavaScript sequencer."""
 from pathlib import Path
 import array
+import argparse
 import hashlib
 import json
 import math
@@ -46,5 +47,10 @@ assert entry.read_bytes()==(ROOT/'index.html').read_bytes()
 report={'date':'2026-10-27','version':'1.1.0','map_version':2,'title':state['title'],'wav':{'seconds':seconds,'sample_rate':44100,'bit_depth':16,'channels':2,'peak_dbfs':20*math.log10(peak),'rms_dbfs':20*math.log10(rms),'clipped_samples':clipped},'midi':{'tracks':len(tracks),'notes':total,'pitch_time_velocity_match':True,'maximum_velocity':127},'application':{'bytes':entry.stat().st_size,'sha256':hashlib.sha256(entry.read_bytes()).hexdigest()},'files':[]}
 for path in sorted(FOLDER.iterdir()):
     if path.is_file():report['files'].append({'path':str(path.relative_to(ROOT)),'bytes':path.stat().st_size,'sha256':hashlib.sha256(path.read_bytes()).hexdigest()})
-(ROOT/'验证记录'/'v1.1.0'/'产物校验.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),'utf-8',newline='\n')
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--report',type=Path,default=Path('验证记录/v1.1.0/产物校验.json'),help='report path, relative to the project root unless absolute')
+args=parser.parse_args()
+report_path=args.report if args.report.is_absolute() else ROOT/args.report
+report_path.parent.mkdir(parents=True,exist_ok=True)
+report_path.write_text(json.dumps(report,ensure_ascii=False,indent=2),'utf-8',newline='\n')
 print(json.dumps({k:v for k,v in report.items() if k!='files'},ensure_ascii=False,indent=2))

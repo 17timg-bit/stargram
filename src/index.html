@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0c171b">
+  <meta name="theme-color" content="#091719">
   <meta name="description" content="点亮星星，让轨道替你作曲。一台可以离线使用的星空音乐玩具。">
   <title>星轨留声机 · STARGRAM</title>
   <!-- STYLE -->
@@ -21,9 +21,9 @@
       <p class="intro">在轨道上留下光点，<br>等一颗彗星与它相遇。</p>
       <div class="section-label">从一张星图开始 <span>03</span></div>
       <div class="presets" aria-label="预设星图">
-        <button class="preset active" data-preset="dawn"><span class="preset-art dawn">☼</span><span><strong>晨雾中的信号</strong><small>温暖 / 明亮 / 88 BPM</small></span><span class="preset-arrow">↗</span></button>
-        <button class="preset" data-preset="tide"><span class="preset-art tide">≋</span><span><strong>潮汐来信</strong><small>流动 / 交错 / 104 BPM</small></span><span class="preset-arrow">↗</span></button>
-        <button class="preset" data-preset="glass"><span class="preset-art glass">◇</span><span><strong>夜航的玻璃船</strong><small>空灵 / 缓慢 / 72 BPM</small></span><span class="preset-arrow">↗</span></button>
+        <button class="preset active" data-preset="dawn"><span class="preset-art dawn" aria-hidden="true"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="11"/><circle cx="22" cy="22" r="5"/><path d="M22 4v5m0 26v5M4 22h5m26 0h5M9 9l4 4m18 18 4 4M9 35l4-4m18-18 4-4"/><path d="M7 29h30M11 33h22" opacity=".5"/></svg></span><span><strong>晨雾中的信号</strong><small>温暖 / 明亮 / 88 BPM</small></span><span class="preset-arrow">↗</span></button>
+        <button class="preset" data-preset="tide"><span class="preset-art tide" aria-hidden="true"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="16" opacity=".6"/><path d="M6 20c6-10 13-10 19 0s11 8 15 1M5 25c6-10 13-10 19 0s11 8 15 1M8 30c5-8 12-8 18 0s9 6 12 0"/><circle cx="26" cy="11" r="2"/></svg></span><span><strong>潮汐来信</strong><small>流动 / 交错 / 104 BPM</small></span><span class="preset-arrow">↗</span></button>
+        <button class="preset" data-preset="glass"><span class="preset-art glass" aria-hidden="true"><svg viewBox="0 0 44 44"><path d="m22 5 14 17-14 17L8 22Z"/><path d="m22 5 5 17-5 17-5-17Zm-14 17h28M14 13h16M14 31h16" opacity=".7"/><circle cx="35" cy="7" r="1.3"/><path d="M8 36h5m-2.5-2.5v5"/></svg></span><span><strong>夜航的玻璃船</strong><small>空灵 / 缓慢 / 72 BPM</small></span><span class="preset-arrow">↗</span></button>
       </div>
       <div class="library-actions"><button id="randomBtn" class="random-button"><span>✧</span> 偶遇一片新星空 <span>↻</span></button>
       <button id="shelfBtn" class="shelf-button"><span>▤</span><span>我的星图书架<small id="shelfCount">0 张本地收藏</small></span><span>↗</span></button>
@@ -35,7 +35,7 @@
         <div class="discovery" data-discovery="listen"><span>03</span> 听见三十二次相遇 <b>○</b></div>
         <p id="discoveryMessage">不必懂乐理，只需要一点好奇心。</p>
       </div>
-      <div class="edition">A LITTLE INSTRUMENT FOR WANDERING MINDS<br><span>VOL. 002 — THE PRIVATE ATLAS / v1.1</span></div>
+      <div class="edition">A LITTLE INSTRUMENT FOR WANDERING MINDS<br><span>VOL. 003 — THE NOCTURNAL ATELIER / v1.2</span></div>
     </aside>
     <section class="observatory" aria-label="互动星图">
       <div class="stage-heading"><div><div class="eyebrow">NOW EXPLORING</div><div class="scene-title-row"><h2 id="sceneTitle">晨雾中的信号</h2><button id="renameBtn" aria-label="为星图命名" title="为星图命名">✎</button></div></div><div class="stage-actions"><span class="live-label" id="liveLabel">静候相遇</span><button id="immerseBtn" class="tiny" aria-pressed="false">⛶ 沉浸</button></div></div>
@@ -46,8 +46,8 @@
       <div class="canvas-tooltip" id="tooltip" hidden></div>
     </section>
     <aside class="inspector">
-      <div class="eyebrow">02 / ORBIT DESIGN</div>
-      <div class="inspector-title"><h2>五条轨道，五种声音</h2><span>点击选中</span></div>
+      <div class="eyebrow">02 / THE INSTRUMENT</div>
+      <div class="inspector-title"><h2>五条轨道，五种声音</h2><span>选择一条轨道</span></div>
       <div id="tracks" class="tracks" aria-label="选择音轨"></div>
       <section class="orbit-editor" aria-label="选中轨道的设置">
         <div class="editor-heading"><span id="selectedName">浮光</span><span id="selectedVoice">PLUCK</span></div>

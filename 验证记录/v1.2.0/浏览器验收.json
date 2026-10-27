@@ -1,0 +1,272 @@
+{
+  "date": "2026-10-27",
+  "version": "1.2.0",
+  "scope": "local preview; not published",
+  "test_origin": "http://127.0.0.1:49831",
+  "interaction_checks": [
+    "five instrument keys share a row; the editorial headline stays on two lines without clipping",
+    "instrument keys, tuning, strong accent and solo still operate through the redesigned controls",
+    "the engraved canvas still maps real pointer clicks to the correct musical step",
+    "playback, live beat text and pause work after the layout change",
+    "printed collection cards save, load and preserve the full map across reload",
+    "immersive framing and Escape restore the workbench"
+  ],
+  "page_errors": [],
+  "viewports": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "document_scroll_width": 1440,
+      "stage": {
+        "bottom": 792,
+        "height": 708,
+        "left": 283,
+        "right": 1115,
+        "top": 84,
+        "width": 832,
+        "x": 283,
+        "y": 84
+      },
+      "transport": {
+        "bottom": 900,
+        "height": 108,
+        "left": 28,
+        "right": 1412,
+        "top": 792,
+        "width": 1384,
+        "x": 28,
+        "y": 792
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        823
+      ],
+      "document_scroll_width": 1440,
+      "stage": {
+        "bottom": 715.3333740234375,
+        "height": 631.3333740234375,
+        "left": 283,
+        "right": 1115,
+        "top": 84,
+        "width": 832,
+        "x": 283,
+        "y": 84
+      },
+      "transport": {
+        "bottom": 823.3333740234375,
+        "height": 108,
+        "left": 28,
+        "right": 1412,
+        "top": 715.3333740234375,
+        "width": 1384,
+        "x": 28,
+        "y": 715.3333740234375
+      }
+    },
+    {
+      "viewport": [
+        1200,
+        800
+      ],
+      "document_scroll_width": 1200,
+      "stage": {
+        "bottom": 692,
+        "height": 608,
+        "left": 241,
+        "right": 909,
+        "top": 84,
+        "width": 668,
+        "x": 241,
+        "y": 84
+      },
+      "transport": {
+        "bottom": 800,
+        "height": 108,
+        "left": 20,
+        "right": 1180,
+        "top": 692,
+        "width": 1160,
+        "x": 20,
+        "y": 692
+      }
+    },
+    {
+      "viewport": [
+        1100,
+        800
+      ],
+      "document_scroll_width": 1085,
+      "stage": {
+        "bottom": 902,
+        "height": 700,
+        "left": 20,
+        "right": 789.6666870117188,
+        "top": 202,
+        "width": 769.6666870117188,
+        "x": 20,
+        "y": 202
+      },
+      "transport": {
+        "bottom": 1057,
+        "height": 155,
+        "left": 20,
+        "right": 1064.666748046875,
+        "top": 902,
+        "width": 1044.666748046875,
+        "x": 20,
+        "y": 902
+      }
+    },
+    {
+      "viewport": [
+        800,
+        900
+      ],
+      "document_scroll_width": 785,
+      "stage": {
+        "bottom": 902,
+        "height": 700,
+        "left": 20,
+        "right": 501.66668701171875,
+        "top": 202,
+        "width": 481.66668701171875,
+        "x": 20,
+        "y": 202
+      },
+      "transport": {
+        "bottom": 1057,
+        "height": 155,
+        "left": 20,
+        "right": 764.6666870117188,
+        "top": 902,
+        "width": 744.6666870117188,
+        "x": 20,
+        "y": 902
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "document_scroll_width": 375,
+      "stage": {
+        "bottom": 718.6666717529297,
+        "height": 500,
+        "left": 14,
+        "right": 360.66668701171875,
+        "top": 218.6666717529297,
+        "width": 346.66668701171875,
+        "x": 14,
+        "y": 218.6666717529297
+      },
+      "transport": {
+        "bottom": 1832.3125457763672,
+        "height": 252.6666717529297,
+        "left": 14,
+        "right": 360.66668701171875,
+        "top": 1579.6458740234375,
+        "width": 346.66668701171875,
+        "x": 14,
+        "y": 1579.6458740234375
+      }
+    },
+    {
+      "viewport": [
+        320,
+        700
+      ],
+      "document_scroll_width": 305,
+      "stage": {
+        "bottom": 718.6666717529297,
+        "height": 500,
+        "left": 10,
+        "right": 294.66668701171875,
+        "top": 218.6666717529297,
+        "width": 284.66668701171875,
+        "x": 10,
+        "y": 218.6666717529297
+      },
+      "transport": {
+        "bottom": 1828.2291717529297,
+        "height": 252.6666717529297,
+        "left": 10,
+        "right": 294.66668701171875,
+        "top": 1575.5625,
+        "width": 284.66668701171875,
+        "x": 10,
+        "y": 1575.5625
+      }
+    }
+  ],
+  "mobile_cover_fonts": [
+    {
+      "width": 390,
+      "fonts": [
+        11,
+        11,
+        11
+      ]
+    },
+    {
+      "width": 320,
+      "fonts": [
+        10,
+        10,
+        10
+      ]
+    }
+  ],
+  "reduced_motion": {
+    "matches": true,
+    "transition": "0s"
+  },
+  "shelf_dialog_mobile": {
+    "box": {
+      "bottom": 716.65625,
+      "height": 589.3125,
+      "left": 6.333333492279053,
+      "right": 368.33333349227905,
+      "top": 127.34375,
+      "width": 362,
+      "x": 6.333333492279053,
+      "y": 127.34375
+    },
+    "clientWidth": 361,
+    "scrollWidth": 361
+  },
+  "postcard": {
+    "width": 1600,
+    "height": 1200,
+    "bytes": 1872652,
+    "normal_and_immersive_bytes_identical": true,
+    "sha256": "a7ad512e791d159686ba48dd20a627c50a00f57ad51259f854a851ef14474cb5"
+  },
+  "model_tests": {
+    "passed": 17,
+    "failed": 0
+  },
+  "application": {
+    "bytes": 107727,
+    "sha256": "387cdf104c7cf60c03783baf265ca1b45f99b53a58be58d149f0a721c53a8b47",
+    "offline_and_web_identical": true
+  },
+  "screenshots": [
+    "工作台.png",
+    "平板布局.png",
+    "星图书架.png",
+    "窄屏书架.png",
+    "沉浸视图.png",
+    "窄屏390.png",
+    "窄屏320.png"
+  ],
+  "limitations": [
+    "Viewport simulation only; no physical phone test.",
+    "Visual approval awaits the user.",
+    "Old sample audio revalidated; audio engine unchanged."
+  ]
+}
