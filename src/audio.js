@@ -18,7 +18,8 @@
     master.gain.value = state.volume * 1.2;
     input.connect(dry).connect(compressor); input.connect(convolver).connect(wet).connect(compressor);
     compressor.connect(master).connect(ctx.destination);
-    return { input, master, wet };
+    const channels = state.tracks.map((track, i) => { const node = ctx.createGain(); node.gain.value = C.audible(state, i) ? track.gain : 0; node.connect(input); return node; });
+    return { input, master, wet, channels };
   }
   function voice(ctx, input, event, when, duration = 1, onFinished = () => {}) {
     const f = 440 * Math.pow(2, (event.midi - 69) / 12), type = C.ROLES[event.track].voice;
@@ -53,7 +54,10 @@
   }
   class Engine {
     constructor(getState, onTick) { this.getState = getState; this.onTick = onTick; this.running = false; this.tick = 0; this.lastPhase = 0; this.voices = new Set(); }
-    sound(event, when, duration = 1) { this.voices.add(voice(this.ctx, this.bus.input, event, when, duration, handle => this.voices.delete(handle))); }
+    sound(event, when, duration = 1) {
+      const gain = event.gain / (this.getState().tracks[event.track].gain || 1);
+      this.voices.add(voice(this.ctx, this.bus.channels[event.track], { ...event, gain }, when, duration, handle => this.voices.delete(handle)));
+    }
     cutVoices() { this.voices.forEach(handle => handle.stop()); }
     async ready() {
       if (!this.ctx) { this.ctx = new AudioContext(); this.bus = graph(this.ctx, this.getState()); }
@@ -87,14 +91,15 @@
       this.bus.master.gain.setTargetAtTime(0, this.ctx.currentTime, 0.025);
     }
     reset() { const playing = this.running; this.pause(); this.cutVoices(); this.tick = 0; this.lastPhase = 0; if (playing) return this.play(); }
-    update() {
+    update(audition = false) {
       if (!this.ctx) return;
       const s = this.getState();
-      this.bus.master.gain.setTargetAtTime(s.volume * 1.2, this.ctx.currentTime, 0.025);
+      this.bus.master.gain.setTargetAtTime(this.running || audition ? s.volume * 1.2 : 0, this.ctx.currentTime, 0.025);
       this.bus.wet.gain.setTargetAtTime(s.space * 0.65, this.ctx.currentTime, 0.06);
+      this.bus.channels.forEach((node, i) => node.gain.setTargetAtTime(C.audible(s, i) ? s.tracks[i].gain : 0, this.ctx.currentTime, 0.025));
     }
     async preview(event) {
-      await this.ready(); this.update(); this.sound(event, this.ctx.currentTime + 0.01, 0.65);
+      await this.ready(); this.update(true); this.sound(event, this.ctx.currentTime + 0.01, 0.65);
     }
   }
   function wavBytes(buffer) {
@@ -116,7 +121,7 @@
   async function renderWav(state, ticks = 64) {
     const snapshot = C.validate(state), step = 30 / snapshot.bpm, seconds = ticks * step + 3.2;
     const ctx = new OfflineAudioContext(2, Math.ceil(seconds * 44100), 44100), bus = graph(ctx, snapshot);
-    for (let tick = 0; tick < ticks; tick++) C.eventsAt(snapshot, tick).forEach(e => voice(ctx, bus.input, e, tick * step + 0.04));
+    for (let tick = 0; tick < ticks; tick++) C.eventsAt(snapshot, tick).forEach(e => voice(ctx, bus.channels[e.track], { ...e, gain: e.gain / (snapshot.tracks[e.track].gain || 1) }, tick * step + 0.04));
     return wavBytes(await ctx.startRendering());
   }
   window.OrbitAudio = { Engine, renderWav, wavBytes };

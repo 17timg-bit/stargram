@@ -6,6 +6,8 @@
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
   const LENGTHS = [8, 12, 16, 20, 24];
+  const ACCENTS = [0.55, 1, 1.35];
+  const COLLECTION_LIMIT = 24;
   const SCALES = {
     dawn: { label: '晨光 · 大调五声音阶', notes: [0, 2, 4, 7, 9], root: 48 },
     tide: { label: '浮潮 · 小调五声音阶', notes: [0, 3, 5, 7, 10], root: 45 },
@@ -27,7 +29,7 @@
   function makeTrack(length, pairs) {
     const notes = Array(length).fill(-1);
     pairs.forEach(([i, p]) => { notes[i] = p; });
-    return { length, notes, muted: false, gain: 0.72, shift: 0 };
+    return { length, notes, accents: Array(length).fill(1), muted: false, solo: false, gain: 0.72, shift: 0 };
   }
   function preset(id = 'dawn') {
     const states = {
@@ -44,21 +46,25 @@
         makeTrack(12, [[0, 0], [4, 3], [7, 4], [10, 1]]),
         makeTrack(16, [[3, 2], [9, 4], [14, 0]]), makeTrack(24, [[6, 0], [16, 4]]) ] }
     };
-    return { format: 'stargram', version: 1, volume: 0.55, ...clone(states[id] || states.dawn) };
+    return { format: 'stargram', version: 2, volume: 0.55, ...clone(states[id] || states.dawn) };
   }
   function validate(raw) {
-    const fail = () => { throw new Error('这不是有效的星轨文件（需要 Stargram v1 星图）。'); };
+    const fail = () => { throw new Error('这不是有效的星轨文件（支持 Stargram v1 / v2 星图）。'); };
     const number = (n, lo, hi) => typeof n === 'number' && Number.isFinite(n) && n >= lo && n <= hi;
-    if (!raw || raw.format !== 'stargram' || raw.version !== 1 || !Object.hasOwn(SCALES, raw.scale)) fail();
+    if (!raw || raw.format !== 'stargram' || ![1, 2].includes(raw.version) || !Object.hasOwn(SCALES, raw.scale)) fail();
     if (typeof raw.title !== 'string' || raw.title.length > 60 || !number(raw.bpm, 48, 160) || !Number.isInteger(raw.bpm) || !number(raw.space, 0, 1) || !number(raw.volume, 0, 1)) fail();
     if (!Array.isArray(raw.tracks) || raw.tracks.length !== 5) fail();
     const tracks = raw.tracks.map(t => {
       if (!t || !LENGTHS.includes(t.length) || !Array.isArray(t.notes) || t.notes.length !== t.length ||
         !t.notes.every(n => Number.isInteger(n) && n >= -1 && n <= 9) || typeof t.muted !== 'boolean' ||
         !number(t.gain, 0, 1) || !Number.isInteger(t.shift) || t.shift < 0 || t.shift >= t.length) fail();
-      return { length: t.length, notes: [...t.notes], muted: t.muted, gain: t.gain, shift: t.shift };
+      // v1.0 files remain valid: absent expressive fields retain their old sound.
+      if (raw.version === 2 && (t.solo === undefined || t.accents === undefined)) fail();
+      if (t.solo !== undefined && typeof t.solo !== 'boolean') fail();
+      if (t.accents !== undefined && (!Array.isArray(t.accents) || t.accents.length !== t.length || !t.accents.every(v => ACCENTS.includes(v)))) fail();
+      return { length: t.length, notes: [...t.notes], accents: t.accents ? [...t.accents] : Array(t.length).fill(1), muted: t.muted, solo: t.solo ?? false, gain: t.gain, shift: t.shift };
     });
-    return { format: 'stargram', version: 1, title: raw.title.trim() || '未命名星图', bpm: raw.bpm, scale: raw.scale, volume: raw.volume, space: raw.space, tracks };
+    return { format: 'stargram', version: 2, title: raw.title.trim() || '未命名星图', bpm: raw.bpm, scale: raw.scale, volume: raw.volume, space: raw.space, tracks };
   }
   function midiNote(state, track, pitch) {
     const scale = SCALES[state.scale];
@@ -67,14 +73,18 @@
   function eventsAt(state, tick) {
     return state.tracks.flatMap((t, i) => {
       const step = mod(tick - t.shift, t.length), pitch = t.notes[step];
-      return t.muted || t.gain === 0 || pitch < 0 ? [] : [{ track: i, step, pitch, midi: midiNote(state, i, pitch), gain: t.gain }];
+      return !audible(state, i) || pitch < 0 ? [] : [{ track: i, step, pitch, midi: midiNote(state, i, pitch), gain: t.gain * (t.accents?.[step] ?? 1) }];
     });
+  }
+  function audible(state, index) {
+    const t = state.tracks[index];
+    return !t.muted && t.gain > 0 && (!state.tracks.some(track => track.solo) || t.solo === true);
   }
   function resizeTrack(t, length) {
     if (!LENGTHS.includes(length)) throw new Error('Unsupported orbit length');
-    const notes = Array(length).fill(-1);
-    t.notes.forEach((p, i) => { if (p >= 0) notes[Math.floor(i / t.length * length)] = p; });
-    t.shift = Math.floor(t.shift / t.length * length); t.length = length; t.notes = notes;
+    const notes = Array(length).fill(-1), accents = Array(length).fill(1);
+    t.notes.forEach((p, i) => { if (p >= 0) { const at = Math.floor(i / t.length * length); notes[at] = p; accents[at] = t.accents?.[i] ?? 1; } });
+    t.shift = Math.floor(t.shift / t.length * length); t.length = length; t.notes = notes; t.accents = accents;
   }
   function generate(seed, base = preset()) {
     const random = rng(seed), s = clone(base);
@@ -82,17 +92,18 @@
     const motif = motifs[Math.floor(random() * motifs.length)];
     s.tracks.forEach((t, i) => {
       const count = [2, 4, 5, 3, 2][i];
-      t.notes.fill(-1); t.muted = false; t.shift = 0;
+      t.notes.fill(-1); t.accents = Array(t.length).fill(1); t.muted = false; t.solo = false; t.shift = 0;
       for (let k = 0; k < count; k++) {
         const pos = mod(Math.floor(k * t.length / count) + (i > 1 ? Math.floor(random() * 3) : 0), t.length);
         t.notes[pos] = i === 0 ? [0, 3][k % 2] : motif[(k + i) % motif.length];
+        t.accents[pos] = k === 0 ? 1.35 : k % 3 === 2 ? 0.55 : 1;
       }
     });
     s.title = '偶遇 · ' + (seed >>> 0).toString(36).toUpperCase().slice(-6);
     return s;
   }
   function gcd(a, b) { return b ? gcd(b, a % b) : a; }
-  function cycleTicks(state) { return state.tracks.filter(t => !t.muted).reduce((a, t) => a * t.length / gcd(a, t.length), 1); }
+  function cycleTicks(state) { return state.tracks.filter((t, i) => audible(state, i)).reduce((a, t) => a * t.length / gcd(a, t.length), 1); }
   function countNotes(state) { return state.tracks.reduce((n, t) => n + t.notes.filter(p => p >= 0).length, 0); }
   function vlq(value) {
     const bytes = [value & 127];
@@ -110,7 +121,7 @@
       const name = ascii(ROLES[track].english), ev = [];
       for (let tick = 0; tick < ticks; tick++) {
         eventsAt(state, tick).filter(e => e.track === track).forEach(e => {
-          const vel = Math.max(1, Math.round(e.gain * 95));
+          const vel = Math.min(127, Math.max(1, Math.round(e.gain * 95)));
           ev.push({ at: tick * 240, type: 1, bytes: [0x90 + track, e.midi, vel] });
           ev.push({ at: tick * 240 + (track === 0 ? 240 : 180), type: 0, bytes: [0x80 + track, e.midi, 0] });
         });
@@ -123,5 +134,15 @@
     });
     return new Uint8Array([...chunk('MThd', [0, 1, 0, 6, 1, 224]), ...tracks.flat()]);
   }
-  return { LENGTHS, SCALES, ROLES, clone, mod, rng, preset, validate, midiNote, eventsAt, resizeTrack, generate, cycleTicks, countNotes, midiBytes };
+  function validateCollection(raw) {
+    if (!Array.isArray(raw) || raw.length > COLLECTION_LIMIT) throw new Error('星图书架格式无效');
+    const ids = new Set();
+    return raw.map(entry => {
+      if (!entry || typeof entry.id !== 'string' || !/^[a-zA-Z0-9-]{1,64}$/.test(entry.id) || ids.has(entry.id) ||
+        !Number.isSafeInteger(entry.created) || entry.created < 0) throw new Error('星图书架格式无效');
+      ids.add(entry.id);
+      return { id: entry.id, created: entry.created, state: validate(entry.state) };
+    });
+  }
+  return { LENGTHS, ACCENTS, COLLECTION_LIMIT, SCALES, ROLES, clone, mod, rng, preset, validate, validateCollection, midiNote, audible, eventsAt, resizeTrack, generate, cycleTicks, countNotes, midiBytes };
 });

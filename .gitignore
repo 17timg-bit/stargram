@@ -4,3 +4,5 @@ Thumbs.db
 验证记录/*-temporary.*
 __pycache__/
 node_modules/
+验证记录/v1.1.0/测试入口.html
+验证记录/v1.1.0/*原始结果.json
