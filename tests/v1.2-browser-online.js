@@ -1,0 +1,56 @@
+// Run through Tabbit on a new scratch page. Only dedicated QA storage keys are written.
+page.setDefaultTimeout(10000);
+globalThis.releaseErrors=[];
+page.on('pageerror',e=>releaseErrors.push(String(e)));
+await page.addInitScript(()=>{
+  const prefix='stargram.qa.release.v12.20261027.';
+  const keys=new Set(['stargram.universe.v1','stargram.discoveries.v1','stargram.collection.v1']);
+  const prototype=Storage.prototype,get=prototype.getItem,set=prototype.setItem,remove=prototype.removeItem;
+  const fingerprint=value=>{
+    if(value===null)return null;
+    let hash=2166136261;
+    for(let i=0;i<value.length;i++)hash=Math.imul(hash^value.charCodeAt(i),16777619);
+    return {length:value.length,hash:hash>>>0};
+  };
+  window.releaseStorage={prefix,baseline:[...keys].map(k=>({key:k,fingerprint:fingerprint(get.call(localStorage,k))})),current:()=>[...keys].map(k=>({key:k,fingerprint:fingerprint(get.call(localStorage,k))}))};
+  prototype.getItem=function(key){return get.call(this,this===localStorage&&keys.has(key)?prefix+key:key);};
+  prototype.setItem=function(key,value){return set.call(this,this===localStorage&&keys.has(key)?prefix+key:key,value);};
+  prototype.removeItem=function(key){return remove.call(this,this===localStorage&&keys.has(key)?prefix+key:key);};
+});
+const response=await page.goto('https://17timg-bit.github.io/stargram/',{waitUntil:'domcontentloaded'});
+assert.equal(response.status(),200);
+await page.setViewportSize({width:1440,height:900});
+await expect(page).toHaveTitle('星轨留声机 · STARGRAM');
+await expect(page.locator('.edition')).toContainText('v1.2');
+const baseline=await page.evaluate(()=>releaseStorage.baseline);
+await page.getByRole('button',{name:/晨雾中的信号/}).click();
+await page.getByRole('button',{name:'选择浮光轨道',exact:true}).click();
+await page.getByRole('button',{name:'♫ 调音',exact:true}).click();
+await page.getByRole('button',{name:'第1格，音高1',exact:true}).click();
+await page.getByRole('combobox',{name:'新音符音高',exact:true}).selectOption('4');
+await page.getByRole('button',{name:'● 重',exact:true}).click();
+assert.equal(await page.evaluate(()=>Stargram.snapshot().tracks[2].accents[0]),1.35);
+await page.getByRole('button',{name:'开始演奏',exact:true}).click();
+await page.waitForFunction(()=>Stargram.status().encounters>=6,null,{timeout:20000});
+assert.equal(await page.evaluate(()=>Stargram.status().audioState),'running');
+await page.getByRole('button',{name:'暂停演奏',exact:true}).click();
+await page.waitForFunction(()=>Stargram.status().activeVoices===0,null,{timeout:5000});
+await page.getByRole('button',{name:/我的星图书架/}).click();
+await page.getByRole('textbox',{name:'这次相遇的名字',exact:true}).fill('发布验收 · 夜色观测室');
+await page.getByRole('button',{name:'收藏当前星图',exact:true}).click();
+await page.getByRole('button',{name:'打开星图 发布验收 · 夜色观测室',exact:true}).click();
+await page.reload({waitUntil:'domcontentloaded'});
+assert.equal(await page.evaluate(()=>Stargram.snapshot().title),'发布验收 · 夜色观测室');
+assert.equal(await page.evaluate(()=>Stargram.snapshot().tracks[2].notes[0]),4);
+assert.equal(await page.evaluate(()=>Stargram.collection().length),1);
+const storageCheck=await page.evaluate(()=>{
+  const before=releaseStorage.baseline,current=releaseStorage.current();
+  const testKeys=Object.keys(localStorage).filter(key=>key.startsWith(releaseStorage.prefix));
+  testKeys.forEach(key=>localStorage.removeItem(key));
+  return {originalUnchanged:JSON.stringify(before)===JSON.stringify(current),testKeysRemoved:testKeys.length,testKeysRemaining:Object.keys(localStorage).filter(key=>key.startsWith(releaseStorage.prefix)).length,current};
+});
+expect(storageCheck.current).toEqual(baseline);
+assert.equal(storageCheck.originalUnchanged,true);assert.equal(storageCheck.testKeysRemaining,0);
+assert.equal(releaseErrors.length,0);
+const screenshot=await page.screenshot({fullPage:false});
+return {url:page.url(),httpStatus:response.status(),version:'1.2.0',checks:['public v1.2 opens','tuning and strong accent work','audio clock produces encounters','pause clears voices','shelf and notes persist across reload','original storage preserved and QA keys removed'],storage:{originalUnchanged:storageCheck.originalUnchanged,testKeysRemoved:storageCheck.testKeysRemoved,testKeysRemaining:storageCheck.testKeysRemaining},errors:releaseErrors,screenshot};
