@@ -26,6 +26,7 @@
 }
 
 * { box-sizing: border-box; }
+html:has(dialog[open]) { overflow: hidden; }
 body {
   margin: 0 auto;
   padding: 0 28px;
@@ -174,7 +175,7 @@ input[type=range]::-moz-range-thumb { width: 11px; height: 11px; background: #d1
 .orbit-editor { margin-top: 18px; padding-top: 15px; border-top: 1px solid #99ac7f2d; }
 .editor-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; color: var(--accent); }
 .editor-heading>span:first-child { font-family: var(--serif); font-size: 23px; letter-spacing: 3px; }
-.editor-heading>span:last-child { font: 9px var(--mono); letter-spacing: 2px; color: #9db29b; }
+.editor-heading .editor-voice { font: 9px var(--mono); letter-spacing: 2px; color: #9db29b; margin-left: auto; }
 .edit-modes { display: flex; gap: 4px; border: 1px solid #66845d55; border-radius: 7px; padding: 4px; margin-top: 13px; background: #091d2170; }
 .edit-modes button { flex: 1; padding: 7px 5px; border-radius: 4px; font-size: 11px; color: #a5bca6; white-space: nowrap; }
 .edit-modes .active { background: #849d7340; color: #e1e8ce; box-shadow: inset 0 1px #b4c49b33; }
@@ -220,7 +221,7 @@ input[type=range]::-moz-range-thumb { width: 11px; height: 11px; background: #d1
 
 .toast { position: fixed; bottom: 130px; left: 50%; z-index: 30; transform: translate(-50%,10px); opacity: 0; pointer-events: none; background: #e0e0c5; border: 1px solid #eee9cf; color: #273d2d; padding: 12px 22px; max-width: 90vw; text-align: center; border-radius: 6px; box-shadow: 0 9px 30px #0005; font-size: 12px; transition: opacity .22s,transform .22s; }
 .toast.visible { opacity: 1; transform: translate(-50%,0); }
-dialog { color: var(--text); border: 1px solid #aaa77b66; border-radius: 15px; background: radial-gradient(ellipse at 10% 0%,#7a8a5217,transparent 65%),#11272a; padding: 38px; width: 560px; max-width: calc(100vw - 28px); max-height: 90svh; overflow: auto; box-shadow: 0 30px 120px #000a, inset 0 0 0 6px #d8d1a304; }
+dialog { color: var(--text); border: 1px solid #aaa77b66; border-radius: 15px; background: radial-gradient(ellipse at 10% 0%,#7a8a5217,transparent 65%),#11272a; padding: 38px; width: 560px; max-width: calc(100vw - 28px); max-height: 90svh; overflow: auto; scrollbar-width: thin; scrollbar-color: #7a936366 transparent; box-shadow: 0 30px 120px #000a, inset 0 0 0 6px #d8d1a304; }
 dialog::backdrop { background: #031114c9; backdrop-filter: blur(9px); }
 .dialog-close { position: absolute; top: 11px; right: 14px; font-size: 27px; color: #a6bda7; padding: 3px 8px; }
 dialog h2 { font: 400 28px/1.5 var(--serif); letter-spacing: 2px; color: #e9e3c9; margin: 15px 0 12px; }
@@ -483,6 +484,73 @@ body.immersive .scene-title-row h2 { font-size: 29px; max-width: 600px; }
   .toast { transform: translateX(-50%); }
 }
 
+/* The loom is a small paper study placed on the observatory desk. */
+.loom-launch { font-size: 10px; white-space: nowrap; color: #d8c393; border: 1px solid #b5a57755; border-radius: 5px; padding: 5px 7px; background: #b5a56a0c; }
+.loom-launch:hover { background: #b5a56a24; }
+.loom-dialog { width: 850px; padding: 32px; }
+.loom-dialog h2 { margin-bottom: 7px; font-size: 30px; }
+.loom-layout { display: grid; grid-template-columns: minmax(0,1.12fr) minmax(0,1fr); gap: 30px; margin-top: 24px; }
+.loom-paper { min-width: 0; color: #344c3c; background: radial-gradient(ellipse at 20% 10%,#f7f0d8aa,transparent 80%),#dedcc4; border: 1px solid #e6e1c2; border-radius: 4px; box-shadow: 0 7px 20px #0003; padding: 17px 16px 14px; position: relative; align-self: start; }
+.loom-paper::before { content: ""; position: absolute; inset: 5px; border: 1px solid #536e4c22; pointer-events: none; }
+.loom-paper-header { display: flex; justify-content: space-between; gap: 8px; font: 9px var(--mono); letter-spacing: 1.4px; color: #566b4e; }
+#loomCanvas { display: block; width: 100%; aspect-ratio: 1; margin: 1px 0; }
+.loom-paper-caption { display: flex; justify-content: space-between; gap: 10px; font-size: 9px; color: #657659; }
+.loom-phrase { display: flex; flex-wrap: wrap; gap: 5px; border-top: 1px solid #7e896d55; padding-top: 12px; margin-top: 13px; min-height: 29px; }
+.loom-phrase span { font: 10px var(--mono); color: #3a5e4a; min-width: 16px; text-align: center; }
+.loom-phrase span.strong { font-weight: 700; border-bottom: 2px solid #526f4b; }
+.loom-phrase span.soft { opacity: .65; }
+.loom-controls { min-width: 0; }
+.loom-section { display: flex; gap: 10px; align-items: baseline; margin-bottom: 14px; }
+.loom-section>span { font: 9px var(--mono); color: #bba56f; }
+.loom-section strong { font: 400 17px var(--serif); letter-spacing: 1px; color: #dedfc3; }
+.loom-rhythm-row { display: flex; align-items: center; justify-content: space-between; gap: 15px; font-size: 11px; color: #bacab0; }
+.loom-rhythm-row select { width: 106px; padding: 7px 9px; font-size: 11px; }
+.loom-controls .control-label { margin-top: 14px; font-size: 11px; }
+.loom-controls output { font: 13px var(--mono); color: #dbd5aa; }
+.loom-hint { font-size: 10px; line-height: 1.7; color: #9eb195; margin: 6px 0 23px; }
+.loom-shapes { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 6px; }
+.loom-shapes button { border: 1px solid #6b86604d; border-radius: 6px; padding: 9px 4px 8px; font-size: 11px; color: #a6b9a1; background: #07191d44; }
+.loom-shapes svg { width: 100%; height: 24px; display: block; margin-bottom: 5px; fill: none; stroke: currentColor; stroke-width: 1; }
+.loom-shapes [aria-pressed=true] { color: #e0d8ad; border-color: #d3ba7b9c; background: #a3a36c19; }
+#loomRegister { width: 100%; font-size: 11px; padding: 9px; }
+.loom-dynamics { display: flex; gap: 9px; align-items: start; font-size: 11px; color: #c3cdb2; margin-top: 18px; cursor: pointer; }
+.loom-dynamics input { margin: 2px 0 0; width: 14px; height: 14px; accent-color: #c8c391; }
+.loom-dynamics small { display: block; margin-top: 6px; font-size: 9px; color: #91a98f; }
+.loom-variants { display: flex; justify-content: space-between; gap: 10px; padding-top: 17px; margin-top: 17px; border-top: 1px solid #b8bf8b29; }
+.loom-variants .text-button { font-size: 11px; color: #c5c49d; padding: 3px 0; }
+.loom-audition { display: flex; align-items: center; gap: 15px; border: 1px solid #8494663d; border-radius: 7px; padding: 13px; margin-top: 22px; background: #061a1d55; }
+.loom-audition .outline { flex-shrink: 0; min-width: 125px; padding: 11px; color: #e3d9ad; font-size: 12px; }
+.loom-audition>div { min-width: 0; }
+#loomAudioStatus { display: block; color: #c1cba9; font-size: 10px; line-height: 1.7; }
+#loomPosition { display: block; color: #92aa91; font: 9px/1.7 var(--sans); margin-top: 3px; }
+.loom-footer { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-top: 20px; }
+.loom-footer p { color: #a1b39b; font-size: 10px; line-height: 1.9; }
+.loom-footer .primary { font-size: 12px; padding: 14px 20px; white-space: nowrap; }
+.loom-footer .primary span { margin-left: 15px; }
+
+@media (max-width:700px) {
+  .loom-dialog { padding: 29px 20px 23px; }
+  .loom-dialog>.eyebrow { font-size: 7px; letter-spacing: 1px; }
+  .loom-dialog h2 { font-size: 25px; letter-spacing: 1px; }
+  .loom-layout { grid-template-columns: 1fr; gap: 24px; margin-top: 20px; }
+  .loom-paper { padding: 16px 15px; }
+  #loomCanvas { max-width: 250px; margin-left: auto; margin-right: auto; }
+  .loom-paper-header { font-size: 8px; }
+  .loom-section strong { font-size: 19px; }
+  .loom-shapes button { padding: 10px 5px; font-size: 12px; }
+  .loom-controls .control-label, .loom-rhythm-row, .loom-dynamics { font-size: 12px; }
+  .loom-hint { font-size: 11px; }
+  .loom-controls select { font-size: 12px; padding: 12px; }
+  .loom-dynamics small { font-size: 10px; }
+  .loom-variants .text-button { padding: 8px 0; font-size: 12px; }
+  .loom-audition { gap: 10px; padding: 12px; }
+  .loom-audition .outline { min-width: 106px; font-size: 11px; padding: 12px 7px; }
+  .loom-footer { align-items: stretch; flex-direction: column-reverse; gap: 11px; }
+  .loom-footer p { text-align: center; font-size: 10px; }
+  .loom-footer p br { display: none; }
+  .loom-launch { font-size: 11px; padding: 6px 8px; }
+}
+
 </style>
 </head>
 <body>
@@ -512,7 +580,7 @@ body.immersive .scene-title-row h2 { font-size: 29px; max-width: 600px; }
         <div class="discovery" data-discovery="listen"><span>03</span> 听见三十二次相遇 <b>○</b></div>
         <p id="discoveryMessage">不必懂乐理，只需要一点好奇心。</p>
       </div>
-      <div class="edition">A LITTLE INSTRUMENT FOR WANDERING MINDS<br><span>VOL. 003 — THE NOCTURNAL ATELIER / v1.2</span></div>
+      <div class="edition">A LITTLE INSTRUMENT FOR WANDERING MINDS<br><span>VOL. 004 — THE CONSTELLATION LOOM / v1.3</span></div>
     </aside>
     <section class="observatory" aria-label="互动星图">
       <div class="stage-heading"><div><div class="eyebrow">NOW EXPLORING</div><div class="scene-title-row"><h2 id="sceneTitle">晨雾中的信号</h2><button id="renameBtn" aria-label="为星图命名" title="为星图命名">✎</button></div></div><div class="stage-actions"><span class="live-label" id="liveLabel">静候相遇</span><button id="immerseBtn" class="tiny" aria-pressed="false">⛶ 沉浸</button></div></div>
@@ -527,7 +595,7 @@ body.immersive .scene-title-row h2 { font-size: 29px; max-width: 600px; }
       <div class="inspector-title"><h2>五条轨道，五种声音</h2><span>选择一条轨道</span></div>
       <div id="tracks" class="tracks" aria-label="选择音轨"></div>
       <section class="orbit-editor" aria-label="选中轨道的设置">
-        <div class="editor-heading"><span id="selectedName">浮光</span><span id="selectedVoice">PLUCK</span></div>
+        <div class="editor-heading"><span id="selectedName">浮光</span><span id="selectedVoice" class="editor-voice">PLUCK</span><button id="loomBtn" class="loom-launch" title="为当前轨道织一段新旋律">✧ 织星台</button></div>
         <div class="edit-modes" role="group" aria-label="星星编辑方式"><button data-mode="plant" class="active" aria-pressed="true">✧ 种星</button><button data-mode="tune" aria-pressed="false">♫ 调音</button><button id="soloBtn" aria-pressed="false" title="只听这条轨道">独奏</button></div>
         <label class="control-label" for="lengthSelect">一圈的长度 <span>每格为半拍</span></label>
         <div class="orbit-settings"><select id="lengthSelect" aria-label="轨道长度"><option value="8">8 格</option><option value="12">12 格</option><option value="16">16 格</option><option value="20">20 格</option><option value="24">24 格</option></select><button id="rotateBtn" class="outline" title="让这条轨道的所有音符晚一格响起">↻ 旋转一格</button></div>
@@ -550,9 +618,41 @@ body.immersive .scene-title-row h2 { font-size: 29px; max-width: 600px; }
     <div class="volume-control"><label for="volume">音量 <output id="volumeValue">55%</output></label><input id="volume" type="range" min="0" max="100" value="55"></div>
   </footer>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <dialog id="loomDialog" class="loom-dialog" aria-labelledby="loomTitle">
+    <button class="dialog-close" data-close aria-label="关闭织星台">×</button>
+    <div class="eyebrow">THE CONSTELLATION LOOM / A STUDY IN LIGHT</div>
+    <h2 id="loomTitle">把一圈光，织成旋律。</h2>
+    <p class="dialog-intro">先听一个小小的念头。喜欢，再把它种进你的宇宙。</p>
+    <div class="loom-layout">
+      <section class="loom-paper" aria-label="旋律草稿">
+        <div class="loom-paper-header"><span id="loomTrackLabel">03 / 浮光</span><span>ORBIT STUDY</span></div>
+        <canvas id="loomCanvas" width="720" height="720" aria-label="织星草稿预览，内圈音低，外圈音高"></canvas>
+        <div class="loom-paper-caption"><span>内圈音低，外圈音高</span><span id="loomDraftMeta">5 颗星 / 16 格</span></div>
+        <div id="loomPhrase" class="loom-phrase" aria-label="草稿的音符序列"></div>
+      </section>
+      <div class="loom-controls">
+        <div class="loom-section"><span>01</span><strong>留多少次相遇</strong></div>
+        <div class="loom-rhythm-row"><label for="loomLength">一圈长度</label><select id="loomLength"><option value="8">8 格</option><option value="12">12 格</option><option value="16">16 格</option><option value="20">20 格</option><option value="24">24 格</option></select></div>
+        <label class="control-label" for="loomCount">星星数量 <output id="loomCountValue">5 颗</output></label><input id="loomCount" type="range" min="1" max="16" value="5">
+        <p class="loom-hint">星星均匀散开，留白也成为节奏。</p>
+        <div class="loom-section"><span>02</span><strong>让旋律往哪里走</strong></div>
+        <div class="loom-shapes" role="group" aria-label="旋律走向">
+          <button data-shape="arc" aria-pressed="true"><svg viewBox="0 0 60 26" aria-hidden="true"><path d="m4 21 13-10 13-7 13 7 13 10"/></svg>回旋</button>
+          <button data-shape="rise" aria-pressed="false"><svg viewBox="0 0 60 26" aria-hidden="true"><path d="m4 22 13-5 13-5 13-5 13-4"/></svg>升起</button>
+          <button data-shape="fall" aria-pressed="false"><svg viewBox="0 0 60 26" aria-hidden="true"><path d="m4 3 13 4 13 5 13 5 13 5"/></svg>落下</button>
+          <button data-shape="wander" aria-pressed="false"><svg viewBox="0 0 60 26" aria-hidden="true"><path d="m4 16 13-11 13 16 13-12 13 5"/></svg>漫游</button>
+        </div>
+        <label class="control-label" for="loomRegister">音区</label><select id="loomRegister"><option value="0">低处的星光 · 第 1–5 音</option><option value="5">高一层的星光 · 第 6–10 音</option></select>
+        <label class="loom-dynamics"><input id="loomDynamics" type="checkbox" checked><span>让轻重音自然呼吸<small>第一颗更亮，最后一颗轻轻落下</small></span></label>
+        <div class="loom-variants"><button id="loomAgain" class="text-button">↻ 再织一次</button><button id="loomRotate" class="text-button">↗ 错开一格</button></div>
+      </div>
+    </div>
+    <div class="loom-audition"><button id="loomListen" class="outline">▷ 试听这一圈</button><div><span id="loomAudioStatus" role="status" aria-live="polite">只听这条轨道 · 沿用当前音量与回响</span><small id="loomPosition">草稿还没有改变原星图</small></div></div>
+    <div class="loom-footer"><p>只替换当前轨道的旋律与周期。<br>种进星图后，也可以撤销。</p><button id="loomApply" class="primary">种进这条轨道 <span>↗</span></button></div>
+  </dialog>
   <dialog id="renameDialog"><button class="dialog-close" data-close aria-label="关闭命名">×</button><div class="eyebrow">NAME THIS LITTLE UNIVERSE</div><h2>给这片星空一个名字。</h2><form id="renameForm"><label class="control-label" for="titleInput">星图名称 <span>最多 60 字</span></label><input id="titleInput" type="text" maxlength="60" required autocomplete="off"><button class="primary wide" type="submit">保存名字</button></form></dialog>
   <dialog id="shelfDialog" class="shelf-dialog"><button class="dialog-close" data-close aria-label="关闭星图书架">×</button><div class="eyebrow">THE PRIVATE ATLAS / 24 LITTLE UNIVERSES</div><h2>把喜欢的偶然，收进书架。</h2><p class="dialog-intro">每一张都是独立快照。随时回来看，继续拨动它的星星。</p><form id="shelfForm" class="shelf-save"><label for="shelfTitle" class="control-label">这次相遇的名字</label><div><input id="shelfTitle" type="text" maxlength="60" required autocomplete="off"><button class="primary" type="submit">收藏当前星图</button></div></form><div class="shelf-meta"><span id="shelfSummary">0 / 24 张星图</span><span>仅保存在此浏览器 · 可另存 JSON</span></div><div id="shelfFeedback" class="shelf-feedback" role="status" aria-live="polite"></div><div id="shelfUndo" class="shelf-undo" hidden><span>一张星图已移出书架</span><button id="restoreShelfBtn" class="text-button">撤销移除</button></div><div id="shelfGrid" class="shelf-grid"></div></dialog>
-  <dialog id="helpDialog"><button class="dialog-close" data-close aria-label="关闭玩法">×</button><div class="eyebrow">A SMALL GUIDE TO YOUR UNIVERSE</div><h2>这片星空，由你来调音。</h2><p class="dialog-intro">每一圈都是一条旋律。彗星与星星相遇，声音就会发生。</p><ol class="guide"><li><b>先听，再动手。</b>点击播放，或者按空格。选一张喜欢的星图作起点。</li><li><b>把音符种在轨道上。</b>点击空位添加，再点一次删除。拖到另一个位置改变时机，拖到另一圈改变音色。右击星星可升高音高。切到「调音」可选中星星改音高、轻重；Shift+点击可快速改变力度。</li><li><b>让循环错开。</b>选中一条轨道，把一圈从 16 格改成 12 格。相同音符会在下一圈遇到不同的伙伴。</li><li><b>留下属于你的偶然。</b>给星图命名，收藏进自己的星图书架；也可以导出 WAV、MIDI 和保留全部设置的星图文件。</li></ol><div class="shortcut-row"><span><kbd>Space</kbd> 播放</span><span><kbd>Ctrl Z</kbd> 撤销</span><span><kbd>Ctrl Shift Z</kbd> 重做</span><span><kbd>1–5</kbd> 选轨</span><span><kbd>?</kbd> 玩法</span></div><p class="fine-print">完全离线 · 无账号 · 无上传 · 所有声音在本机合成<br>切到其他标签页会自动暂停。浏览器首次播放需要你点击一下。</p><button class="primary wide" data-close>知道了，去种星星</button></dialog>
+  <dialog id="helpDialog"><button class="dialog-close" data-close aria-label="关闭玩法">×</button><div class="eyebrow">A SMALL GUIDE TO YOUR UNIVERSE</div><h2>这片星空，由你来调音。</h2><p class="dialog-intro">每一圈都是一条旋律。彗星与星星相遇，声音就会发生。</p><ol class="guide"><li><b>先听，再动手。</b>点击播放，或者按空格。选一张喜欢的星图作起点。</li><li><b>把音符种在轨道上。</b>点击空位添加，再点一次删除。拖到另一个位置改变时机，拖到另一圈改变音色。右击星星可升高音高。切到「调音」可选中星星改音高、轻重；Shift+点击可快速改变力度。也可以打开「织星台」，调节密度和旋律走向，试听草稿，喜欢后再种进本轨；关闭不改原星图。</li><li><b>让循环错开。</b>选中一条轨道，把一圈从 16 格改成 12 格。相同音符会在下一圈遇到不同的伙伴。</li><li><b>留下属于你的偶然。</b>给星图命名，收藏进自己的星图书架；也可以导出 WAV、MIDI 和保留全部设置的星图文件。</li></ol><div class="shortcut-row"><span><kbd>Space</kbd> 播放</span><span><kbd>Ctrl Z</kbd> 撤销</span><span><kbd>Ctrl Shift Z</kbd> 重做</span><span><kbd>1–5</kbd> 选轨</span><span><kbd>?</kbd> 玩法</span></div><p class="fine-print">完全离线 · 无账号 · 无上传 · 所有声音在本机合成<br>切到其他标签页会自动暂停。浏览器首次播放需要你点击一下。</p><button class="primary wide" data-close>知道了，去种星星</button></dialog>
   <dialog id="exportDialog"><button class="dialog-close" data-close aria-label="关闭导出">×</button><div class="eyebrow">TAKE A PIECE OF THE UNIVERSE</div><h2>把这次相遇带走。</h2><p class="dialog-intro">音乐从第一格开始导出；星图保留你现在的全部编排。</p><div class="export-options"><button id="wavBtn"><span class="export-icon">♫</span><span><strong>一段音乐</strong><small>WAV · 8 小节 + 混响尾音 · 44.1 kHz 立体声</small></span><b>↓</b></button><button id="midiBtn"><span class="export-icon">♮</span><span><strong>继续编曲</strong><small>MIDI · 五条独立音轨 · 含速度信息</small></span><b>↓</b></button><button id="jsonBtn"><span class="export-icon">✧</span><span><strong>保存这张星图</strong><small>STARGRAM v2 · 保留音符力度、独奏与分轨音量</small></span><b>↓</b></button></div><div class="import-row"><span>有一张以前保存的星图？</span><button id="importBtn" class="outline">导入星图 ↗</button><input type="file" id="importInput" accept=".json,application/json" hidden></div><p id="exportStatus" class="fine-print" aria-live="polite">文件由浏览器保存到下载位置。MIDI 音色由播放软件决定。</p></dialog>
   <script>
 /* Stargram — deterministic musical model. No DOM and no dependencies. */
@@ -880,6 +980,55 @@ body.immersive .scene-title-row h2 { font-size: 29px; max-width: 600px; }
   return { KEY, Store };
 });
 
+/* Stargram — a deterministic draft, independent of the live composition. */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory(require('./core'));
+  else root.OrbitLoom = factory(root.OrbitCore);
+})(typeof globalThis !== 'undefined' ? globalThis : this, function (C) {
+  'use strict';
+  const SHAPES = ['arc', 'rise', 'fall', 'wander'];
+  function weave(track, options = {}) {
+    const holder = C.preset(); holder.tracks[0] = track;
+    const original = C.validate(holder).tracks[0];
+    const { length = original.length, count = 5, shape = 'arc', register = 0, dynamics = true, seed = 0, offset = 0 } = options;
+    if (!C.LENGTHS.includes(length) || !Number.isInteger(count) || count < 1 || count > length ||
+      !SHAPES.includes(shape) || ![0, 5].includes(register) || typeof dynamics !== 'boolean' ||
+      !Number.isInteger(seed) || seed < 0 || seed > 0xffffffff || !Number.isInteger(offset) || offset < 0 || offset >= length) {
+      throw new Error('织星参数无效');
+    }
+    const random = C.rng(seed), start = Math.floor(random() * 5), arc = [0, 1, 2, 3, 4, 3, 2, 1];
+    const phase = Math.floor(random() * arc.length);
+    const notes = Array(length).fill(-1), accents = Array(length).fill(1);
+    let wandering = start;
+    for (let k = 0; k < count; k++) {
+      const step = Math.floor(k * length / count);
+      let pitch;
+      if (shape === 'rise') pitch = (start + k) % 5;
+      else if (shape === 'fall') pitch = C.mod(start - k, 5);
+      else if (shape === 'arc') pitch = arc[(phase + k) % arc.length];
+      else {
+        if (k) {
+          wandering += [-2, -1, 1, 2][Math.floor(random() * 4)];
+          if (wandering < 0) wandering = -wandering;
+          if (wandering > 4) wandering = 8 - wandering;
+        }
+        pitch = wandering;
+      }
+      notes[step] = pitch + register;
+      accents[step] = !dynamics ? 1 : k === 0 ? 1.35 : k === count - 1 ? .55 : k % 4 === 0 ? 1.35 : 1;
+    }
+    return { ...original, length, notes, accents, shift: C.mod(Math.floor(original.shift / original.length * length) + offset, length) };
+  }
+  function audition(state, index, draft) {
+    if (!Number.isInteger(index) || index < 0 || index > 4) throw new Error('织星轨道无效');
+    const snapshot = C.validate(state); snapshot.tracks[index] = C.clone(draft);
+    const result = C.validate(snapshot);
+    result.tracks.forEach((track, i) => { track.muted = i !== index; track.solo = false; });
+    return result;
+  }
+  return { SHAPES, weave, audition };
+});
+
 (function () {
   'use strict';
   const C = OrbitCore, $ = id => document.getElementById(id);
@@ -1131,6 +1280,142 @@ body.immersive .scene-title-row h2 { font-size: 29px; max-width: 600px; }
     catch (error) { $('shelfFeedback').textContent = error.message; }
   };
 
+  const loom = { original: null, base: null, draft: null, index: 2, shape: 'arc', seed: 0, offset: 0, token: 0, worker: false, pending: false, source: null, gain: null, nodes: new Set(), start: 0, message: '', readout: '' };
+  function renderLoomAudio() {
+    const playing = !!loom.source;
+    $('loomListen').textContent = loom.pending ? '■ 取消准备' : playing ? '■ 停止试听' : '▷ 试听这一圈';
+    $('loomListen').setAttribute('aria-pressed', String(playing || loom.pending));
+    const silent = !loom.base || loom.base.volume === 0 || loom.draft?.gain === 0;
+    $('loomListen').disabled = !playing && !loom.pending && (loom.worker || silent);
+    $('loomAudioStatus').textContent = loom.pending ? '正在准备这一圈的声音…' : playing ? `正在试听 · 只听${C.ROLES[loom.index].name}` : loom.message || (silent ? '当前音量为零，先回工作台调高音量再试听' : '只听这条轨道 · 沿用当前音量与回响');
+    if (!playing) $('loomPosition').textContent = '草稿还没有改变原星图';
+  }
+  function stopLoomAudition() {
+    loom.token++; loom.pending = false;
+    if (loom.source) {
+      const source = loom.source, now = engine.ctx.currentTime;
+      loom.gain.gain.setTargetAtTime(0, now, .006);
+      try { source.stop(now + .03); } catch {}
+      loom.source = null; loom.gain = null;
+    }
+    loom.readout = ''; renderLoomAudio();
+  }
+  function updateLoom() {
+    stopLoomAudition(); loom.message = '';
+    const length = Number($('loomLength').value);
+    $('loomCount').max = length;
+    const count = Math.min(length, Math.max(1, Number($('loomCount').value)));
+    $('loomCount').value = count; loom.offset %= length;
+    const options = { length, count, shape: loom.shape, register: Number($('loomRegister').value), dynamics: $('loomDynamics').checked, seed: loom.seed, offset: loom.offset };
+    loom.draft = OrbitLoom.weave(loom.original, options);
+    $('loomCountValue').textContent = `${count} 颗`;
+    $('loomDraftMeta').textContent = `${count} 颗星 / ${length} 格`;
+    $('loomTrackLabel').textContent = `0${loom.index + 1} / ${C.ROLES[loom.index].name}`;
+    document.querySelectorAll('[data-shape]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.shape === loom.shape)));
+    $('loomPhrase').replaceChildren();
+    for (let tick = 0; tick < length; tick++) {
+      const step = C.mod(tick - loom.draft.shift, length), pitch = loom.draft.notes[step];
+      if (pitch < 0) continue;
+      const note = document.createElement('span'); note.textContent = pitch + 1;
+      note.className = loom.draft.accents[step] > 1 ? 'strong' : loom.draft.accents[step] < 1 ? 'soft' : '';
+      note.title = `第 ${tick + 1} 格 · 第 ${pitch + 1} 音`;
+      $('loomPhrase').append(note);
+    }
+    renderLoomAudio(); drawLoom();
+  }
+  $('loomBtn').onclick = () => {
+    engine.pause(); engine.cutVoices(); engine.update(); queue = []; updatePlaybackUI();
+    stopLoomAudition(); loom.index = selected; loom.base = C.clone(state); loom.original = C.clone(state.tracks[selected]);
+    loom.shape = 'arc'; loom.seed = crypto.getRandomValues(new Uint32Array(1))[0]; loom.offset = 0;
+    $('loomLength').value = loom.original.length;
+    $('loomCount').max = loom.original.length;
+    $('loomCount').value = Math.max(1, loom.original.notes.filter(p => p >= 0).length);
+    const pitches = loom.original.notes.filter(p => p >= 0);
+    $('loomRegister').value = pitches.length && pitches.every(p => p >= 5) ? '5' : '0';
+    $('loomDynamics').checked = true;
+    updateLoom(); $('loomDialog').showModal(); drawLoom();
+  };
+  $('loomLength').onchange = updateLoom; $('loomCount').oninput = updateLoom;
+  $('loomRegister').onchange = updateLoom; $('loomDynamics').onchange = updateLoom;
+  document.querySelectorAll('[data-shape]').forEach(b => b.onclick = () => { loom.shape = b.dataset.shape; updateLoom(); });
+  $('loomAgain').onclick = () => { loom.seed = (loom.seed + 1) >>> 0; updateLoom(); };
+  $('loomRotate').onclick = () => { loom.offset = (loom.offset + 1) % loom.draft.length; updateLoom(); };
+  $('loomDialog').addEventListener('close', stopLoomAudition);
+  $('loomDialog').addEventListener('cancel', stopLoomAudition);
+  $('loomApply').onclick = () => {
+    const index = loom.index, draft = C.clone(loom.draft);
+    stopLoomAudition();
+    edit(() => { state.tracks[index] = draft; selected = index; focusNote = null; }, `${C.ROLES[index].name}里新织了 ${draft.notes.filter(p => p >= 0).length} 颗星 · 可以撤销`);
+    $('loomDialog').close();
+  };
+  $('loomListen').onclick = async () => {
+    if (loom.pending || loom.source) { stopLoomAudition(); return; }
+    if (loom.worker) return;
+    const token = ++loom.token, snapshot = OrbitLoom.audition(loom.base, loom.index, loom.draft), length = loom.draft.length;
+    loom.pending = true; loom.worker = true; loom.message = ''; renderLoomAudio();
+    const current = () => token === loom.token && $('loomDialog').open && !document.hidden;
+    try {
+      await engine.ready(); if (!current()) return;
+      const wav = await OrbitAudio.renderWav(snapshot, length); if (!current()) return;
+      const buffer = await engine.ctx.decodeAudioData(wav.bytes); if (!current()) return;
+      const source = engine.ctx.createBufferSource(), gain = engine.ctx.createGain();
+      source.buffer = buffer; source.connect(gain).connect(engine.ctx.destination);
+      const when = engine.ctx.currentTime + .035;
+      source.onended = () => {
+        source.disconnect(); gain.disconnect(); loom.nodes.delete(source);
+        if (loom.source === source) { loom.source = null; loom.gain = null; loom.readout = ''; renderLoomAudio(); }
+      };
+      loom.source = source; loom.gain = gain; loom.start = when + .04; loom.nodes.add(source);
+      loom.pending = false; source.start(when); renderLoomAudio();
+    } catch {
+      if (current()) { loom.pending = false; loom.message = '这次未能启动试听，请再试一次。'; }
+    } finally {
+      if (token === loom.token) loom.pending = false;
+      loom.worker = false; renderLoomAudio();
+    }
+  };
+  document.addEventListener('visibilitychange', () => { if (document.hidden) stopLoomAudition(); });
+  function drawLoom() {
+    if (!$('loomDialog').open || !loom.draft) return;
+    const target = $('loomCanvas'), c = target.getContext('2d'), t = loom.draft, x = 180, y = 177;
+    c.setTransform(2, 0, 0, 2, 0, 0); c.clearRect(0, 0, 360, 360);
+    const ink = ['#94643e', '#88702e', '#366e5c', '#4a7080', '#725c7d'][loom.index];
+    c.lineWidth = .6; c.strokeStyle = '#6f7e5b';
+    for (let i = 0; i < 5; i++) { c.globalAlpha = .19; c.beginPath(); c.arc(x, y, 68 + i * 11, 0, Math.PI * 2); c.stroke(); }
+    c.globalAlpha = .3; c.beginPath(); c.arc(x, y, 131, 0, Math.PI * 2); c.stroke();
+    for (let i = 0; i < t.length; i++) {
+      const a = i / t.length * Math.PI * 2 - Math.PI / 2;
+      c.globalAlpha = i % 2 ? .28 : .6; c.beginPath(); c.moveTo(x + Math.cos(a) * 135, y + Math.sin(a) * 135); c.lineTo(x + Math.cos(a) * 140, y + Math.sin(a) * 140); c.stroke();
+      c.font = '8px Consolas, monospace'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillStyle = '#506449';
+      c.globalAlpha = .7; c.fillText(String(i + 1).padStart(2, '0'), x + Math.cos(a) * 153, y + Math.sin(a) * 153);
+    }
+    const points = t.notes.map((pitch, step) => {
+      if (pitch < 0) return null;
+      const a = (step + t.shift) / t.length * Math.PI * 2 - Math.PI / 2, r = 68 + pitch % 5 * 11;
+      return { x: x + Math.cos(a) * r, y: y + Math.sin(a) * r, step, tick: C.mod(step + t.shift, t.length) };
+    }).filter(Boolean);
+    c.globalAlpha = .45; c.strokeStyle = ink; c.lineWidth = 1;
+    c.beginPath(); points.forEach((p, i) => i ? c.lineTo(p.x, p.y) : c.moveTo(p.x, p.y)); if (points.length > 1) c.closePath(); c.stroke();
+    const phase = loom.source ? Math.max(0, (engine.ctx.currentTime - loom.start) * loom.base.bpm / 30) : -1;
+    if (phase >= 0 && phase < t.length) {
+      const a = phase / t.length * Math.PI * 2 - Math.PI / 2;
+      c.globalAlpha = .5; c.strokeStyle = ink; c.lineWidth = .8; c.beginPath(); c.moveTo(x, y); c.lineTo(x + Math.cos(a) * 129, y + Math.sin(a) * 129); c.stroke();
+    }
+    points.forEach(p => {
+      const hit = phase >= p.tick && phase - p.tick < .65;
+      c.globalAlpha = t.accents[p.step] < 1 ? .6 : 1;
+      circle(c, p.x, p.y, hit ? 6 : 2.4 + t.accents[p.step] * 1.2, ink);
+      if (t.accents[p.step] > 1 || hit) { c.strokeStyle = ink; c.lineWidth = .7; c.beginPath(); c.arc(p.x, p.y, hit ? 11 : 7, 0, Math.PI * 2); c.stroke(); }
+    });
+    c.globalAlpha = 1; circle(c, x, y, 29, '#e0dec6');
+    c.fillStyle = ink; c.font = '30px "SimSun", serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(String(points.length).padStart(2, '0'), x, y - 3);
+    c.font = '7px Consolas, monospace'; c.fillStyle = '#6b795a'; c.fillText('S T A R S', x, y + 21);
+    if (loom.source) {
+      const label = phase < t.length ? `第 ${Math.min(t.length, Math.floor(phase) + 1)} / ${t.length} 格 · ${loom.base.bpm} BPM` : '这一圈已走完，余音正在散去';
+      if (label !== loom.readout) { loom.readout = label; $('loomPosition').textContent = label; }
+    }
+  }
+
   function geometry(w = width, h = height, forPoster = false) {
     const expanded = immersive && !forPoster;
     const max = Math.min(w * 0.435, h * (expanded ? 0.40 : 0.358));
@@ -1281,7 +1566,7 @@ body.immersive .scene-title-row h2 { font-size: 29px; max-width: 600px; }
       if (encounters >= 32) discover('listen');
     }
     for (const [k, v] of pulses) if (now - v > 1500) pulses.delete(k);
-    const phase = engine.phase(); scene(ctx, width, height, phase, now);
+    const phase = engine.phase(); scene(ctx, width, height, phase, now); drawLoom();
     const t = state.tracks[selected], step = C.mod(Math.floor(phase) - t.shift, t.length);
     if (step !== renderedStep) { renderedStep = step; document.querySelectorAll('.step').forEach(b => b.classList.toggle('current', engine.running && Number(b.dataset.step) === step)); }
     const beatText = engine.running ? `第 ${Math.floor(phase / 8) + 1} 小节 · ${Math.floor(phase / 2) % 4 + 1} / 4 拍` : phase > 0 ? '时间暂歇，星星还在这里' : '等待第一束光';
@@ -1324,7 +1609,7 @@ body.immersive .scene-title-row h2 { font-size: 29px; max-width: 600px; }
   };
   window.addEventListener('beforeunload', persist);
   // Read-only diagnostics for local regression checks; no bypass for UI operations.
-  window.Stargram = Object.freeze({ snapshot: () => C.clone(state), collection: () => C.clone(shelf.entries), status: () => ({ playing: engine.running, phase: engine.phase(), encounters, selected, editMode, focusedNote: focusNote ? { ...focusNote } : null, immersive, saved: !saveError, audioState: engine.ctx?.state || 'uninitialized', activeVoices: engine.voices.size }), exportWav: OrbitAudio.renderWav });
+  window.Stargram = Object.freeze({ snapshot: () => C.clone(state), collection: () => C.clone(shelf.entries), loom: () => $('loomDialog').open ? { index: loom.index, draft: C.clone(loom.draft), seed: loom.seed } : null, status: () => ({ playing: engine.running, phase: engine.phase(), encounters, selected, editMode, focusedNote: focusNote ? { ...focusNote } : null, immersive, saved: !saveError, audioState: engine.ctx?.state || 'uninitialized', activeVoices: engine.voices.size, loomOpen: $('loomDialog').open, loomPreparing: loom.pending, loomPlaying: !!loom.source, loomVoices: loom.nodes.size }), exportWav: OrbitAudio.renderWav });
   renderUI(); resize(); requestAnimationFrame(frame);
   if (saveError) { $('saveStatus').textContent = '未能恢复本地星图，请导出文件留存'; toast('本地存档不可用，已打开默认星图'); }
   else if (stored) $('saveStatus').textContent = '已恢复上次的星图';

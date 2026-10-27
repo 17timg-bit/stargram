@@ -1,0 +1,149 @@
+{
+  "date": "2026-10-27",
+  "version": "1.3.0",
+  "test_origin": "http://127.0.0.1:49857",
+  "scope": "local preview; not pushed or deployed",
+  "model_tests": {
+    "passed": 23,
+    "failed": 0
+  },
+  "browser_checks": [
+    "draft controls and closing the loom leave the live score unchanged",
+    "density clamps with a shorter orbit; applying changes only the selected track; one undo, redo and real reload retain the correct score",
+    "opening pauses the main score; the audition renders the exact draft with the shared WAV engine; stopping clears its source without editing the score",
+    "closing during preparation cannot start a late audition; an eight-step audition finishes and releases its node; Escape closes the loom",
+    "five viewport sizes keep the loom within the viewport with reachable controls, no horizontal overflow, Escape close, and reduced-motion styling",
+    "changing draft parameters during playback stops the old source without changing the live score",
+    "the nineteen-star loom sample imports, plays, exports WAV and MIDI, saves to the shelf and survives reload"
+  ],
+  "page_errors": [],
+  "audition_pcm_comparison": {
+    "bytesIdentical": false,
+    "maxPcmDifference": 1,
+    "rmsPcmDifference": 0.0030545685582786517,
+    "sameByteLength": true
+  },
+  "audition_render": {
+    "ticks": 12,
+    "seconds": 7.29092970521542,
+    "peak": 0.11346792429685593
+  },
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 900,
+      "dialog": {
+        "box": {
+          "bottom": 853.5104179382324,
+          "height": 807.03125,
+          "left": 295,
+          "right": 1145,
+          "top": 46.47916793823242,
+          "width": 850,
+          "x": 295,
+          "y": 46.47916793823242
+        },
+        "clientHeight": 806,
+        "clientWidth": 839,
+        "scrollHeight": 806,
+        "scrollWidth": 839
+      },
+      "applyReachable": true
+    },
+    {
+      "width": 1200,
+      "height": 800,
+      "dialog": {
+        "box": {
+          "bottom": 760,
+          "height": 720,
+          "left": 175,
+          "right": 1025,
+          "top": 40,
+          "width": 850,
+          "x": 175,
+          "y": 40
+        },
+        "clientHeight": 719,
+        "clientWidth": 839,
+        "scrollHeight": 806,
+        "scrollWidth": 839
+      },
+      "applyReachable": true
+    },
+    {
+      "width": 800,
+      "height": 900,
+      "dialog": {
+        "box": {
+          "bottom": 850.6458549499512,
+          "height": 801.2916870117188,
+          "left": 14,
+          "right": 786,
+          "top": 49.35416793823242,
+          "width": 772,
+          "x": 14,
+          "y": 49.35416793823242
+        },
+        "clientHeight": 800,
+        "clientWidth": 771,
+        "scrollHeight": 800,
+        "scrollWidth": 771
+      },
+      "applyReachable": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "dialog": {
+        "box": {
+          "bottom": 801.7916679382324,
+          "height": 759.59375,
+          "left": 14,
+          "right": 376,
+          "top": 42.19791793823242,
+          "width": 362,
+          "x": 14,
+          "y": 42.19791793823242
+        },
+        "clientHeight": 758,
+        "clientWidth": 351,
+        "scrollHeight": 1211,
+        "scrollWidth": 351
+      },
+      "applyReachable": true
+    },
+    {
+      "width": 320,
+      "height": 700,
+      "dialog": {
+        "box": {
+          "bottom": 665,
+          "height": 630,
+          "left": 14,
+          "right": 306,
+          "top": 35,
+          "width": 292,
+          "x": 14,
+          "y": 35
+        },
+        "clientHeight": 629,
+        "clientWidth": 281,
+        "scrollHeight": 1261,
+        "scrollWidth": 281
+      },
+      "applyReachable": true
+    }
+  ],
+  "sample_title": "花园之外，还有星星",
+  "screenshots": [
+    "织星台.png",
+    "工作台.png",
+    "窄屏织星台.png"
+  ],
+  "limitations": [
+    "Viewport simulation only, no physical mobile device.",
+    "Real background-tab test blocked by browser foreground policy; not claimed as verified.",
+    "Musical taste awaits user listening."
+  ]
+}

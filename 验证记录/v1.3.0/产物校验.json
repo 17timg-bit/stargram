@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-27",
+  "version": "1.3.0",
+  "sample": "花园之外，还有星星",
+  "map_version": 2,
+  "wav": {
+    "seconds": 25.018185941043082,
+    "sample_rate": 44100,
+    "channels": 2,
+    "bit_depth": 16,
+    "peak_dbfs": -9.126822340922484,
+    "rms_dbfs": -27.218192510737374,
+    "clipped_samples": 0
+  },
+  "midi": {
+    "tracks": 6,
+    "notes": 79,
+    "pitch_time_velocity_match": true
+  },
+  "application": {
+    "bytes": 129111,
+    "sha256": "b2f24ccb619ab517c5ae615c7dfcd8c5aef6baf9806e066ff8be290a26ff2916",
+    "offline_and_web_identical": true
+  },
+  "files": [
+    {
+      "name": "花园之外，还有星星.json",
+      "bytes": 2848,
+      "sha256": "fdb868abf764d83f3d5d4b20d27e3de10291e2dc4b938c248c5fc6896373ddb3"
+    },
+    {
+      "name": "花园之外，还有星星.mid",
+      "bytes": 962,
+      "sha256": "b16dd7782eadac544569567c7334fcb03e6f546e25cee96f66bf40966354387f"
+    },
+    {
+      "name": "花园之外，还有星星.wav",
+      "bytes": 4413252,
+      "sha256": "dd786cbd509c637eb408bae279089ddec79da66eb088532936bae4fa738c39f2"
+    }
+  ]
+}

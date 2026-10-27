@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-27",
+  "version": "1.1.0",
+  "map_version": 2,
+  "title": "薄荷色的回声",
+  "wav": {
+    "seconds": 25.018185941043082,
+    "sample_rate": 44100,
+    "bit_depth": 16,
+    "channels": 2,
+    "peak_dbfs": -8.230188997533938,
+    "rms_dbfs": -26.819582735984,
+    "clipped_samples": 0
+  },
+  "midi": {
+    "tracks": 6,
+    "notes": 70,
+    "pitch_time_velocity_match": true,
+    "maximum_velocity": 127
+  },
+  "application": {
+    "bytes": 129111,
+    "sha256": "b2f24ccb619ab517c5ae615c7dfcd8c5aef6baf9806e066ff8be290a26ff2916"
+  },
+  "files": [
+    {
+      "path": "示例作品\\v1.1.0\\玻璃海上的灯塔.json",
+      "bytes": 2999,
+      "sha256": "b441aa1a06014bac5a4007d3f9c191d9fbccfe24482d9812ea300eba5fd7208b"
+    },
+    {
+      "path": "示例作品\\v1.1.0\\薄荷色的回声.json",
+      "bytes": 2811,
+      "sha256": "16ea162cc7256f7e949d663c79c7472bf5f4c4e7c4a317c303965131e408ca42"
+    },
+    {
+      "path": "示例作品\\v1.1.0\\薄荷色的回声.mid",
+      "bytes": 868,
+      "sha256": "6e0ba463f1231637a05da841b2757a14ffc016d378c0ca0752da949f402032cb"
+    },
+    {
+      "path": "示例作品\\v1.1.0\\薄荷色的回声.wav",
+      "bytes": 4413252,
+      "sha256": "d84346189083dc761d2abcc7ea7d439fe255662742bbc46c5cc5845c34396884"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+globalThis.loomQA={checks:[],errors:[]};
+page.on('pageerror',e=>loomQA.errors.push(String(e)));
+await page.goto('http://127.0.0.1:49857/index.html',{waitUntil:'domcontentloaded'});
+await page.setViewportSize({width:1440,height:900});
+await expect(page.locator('.edition')).toContainText('v1.3');
+await page.getByRole('button',{name:/晨雾中的信号/}).click();
+await page.getByRole('button',{name:'✧ 织星台',exact:true}).click();
+await expect(page.getByRole('dialog',{name:'把一圈光，织成旋律。'})).toBeVisible();
+assert.equal(await page.evaluate(()=>Stargram.status().loomOpen),true);
+assert.equal(loomQA.errors.length,0);
+return {status:await page.evaluate(()=>Stargram.status()),observation:await tabbit.observe({frames:'none',maxChars:1500}),screenshot:await page.screenshot({fullPage:false})};
