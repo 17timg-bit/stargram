@@ -1,3 +1,4 @@
+await page.reload({waitUntil:'domcontentloaded'});
 await page.getByRole('button',{name:/我的星图书架/}).click();
 const shelfBox=await page.locator('#shelfDialog').boundingBox();assert.ok(shelfBox.width<=740);
 globalThis.shelfImage=await page.screenshot({fullPage:false});
@@ -14,6 +15,7 @@ for(const size of [{width:1440,height:900},{width:1100,height:768},{width:800,he
   const layout=await page.evaluate(()=>{const r=s=>document.querySelector(s).getBoundingClientRect().toJSON();return {width:innerWidth,height:innerHeight,scrollWidth:document.documentElement.scrollWidth,workspace:r('.workspace'),footer:r('.transport'),stage:r('.observatory'),inspector:r('.inspector')};});
   assert.ok(layout.scrollWidth<=layout.width);assert.ok(layout.workspace.bottom<=layout.footer.top+1);
   if(size.width<=650)assert.ok(layout.stage.bottom<=layout.inspector.top+1);
+  if(size.width<=650){const a=await page.locator('#randomBtn').boundingBox(),b=await page.locator('#shelfBtn').boundingBox();assert.ok(Math.abs(a.y-b.y)<1,'mobile action buttons must share one row');}
   layouts.push(layout);
 }
 globalThis.mobileImage=await page.screenshot({fullPage:true});

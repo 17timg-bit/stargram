@@ -1,0 +1,217 @@
+{
+  "checks": [
+    "tune mode changes an existing note without deleting it; accent changes persist",
+    "Shift-click cycles accent; undo and redo restore exact expression",
+    "accent brush applies to new stars; new edits discard the redo branch",
+    "track volume limits and multiple-solo routing are real model state",
+    "renaming and independent named snapshots work; duplicate saves do not consume space",
+    "collection removal can be undone; loading preserves expression; current work and shelf survive reload",
+    "immersive view expands the canvas and Escape returns to the workbench",
+    "live beat indicator follows the audio clock; pause clears all voices",
+    "strong notes render louder; solo and manual isolation differ by at most one PCM16 rounding unit; dense full-accent render has no clipping",
+    "expressive WAV, MIDI and v2 map exports requested from real UI",
+    "workbench layouts at 1440/1100/800/390 widths have no overflow or footer overlap; mobile collection fits viewport",
+    "workbench layouts at 1440/1100/800/390 widths have no overflow or footer overlap; mobile collection fits viewport"
+  ],
+  "errors": [],
+  "images": {
+    "immersive": {
+      "file": "沉浸视图.png",
+      "width": 1440,
+      "height": 900
+    },
+    "mobile": {
+      "file": "窄屏工作台.png",
+      "width": 375,
+      "height": 1380
+    },
+    "shelf": {
+      "file": "星图书架.png",
+      "width": 1440,
+      "height": 900
+    }
+  },
+  "layouts": [
+    {
+      "footer": {
+        "bottom": 900,
+        "height": 110,
+        "left": 34,
+        "right": 1406,
+        "top": 790,
+        "width": 1372,
+        "x": 34,
+        "y": 790
+      },
+      "height": 900,
+      "inspector": {
+        "bottom": 790,
+        "height": 700,
+        "left": 1152,
+        "right": 1406,
+        "top": 90,
+        "width": 254,
+        "x": 1152,
+        "y": 90
+      },
+      "scrollWidth": 1440,
+      "stage": {
+        "bottom": 790,
+        "height": 700,
+        "left": 269,
+        "right": 1152,
+        "top": 90,
+        "width": 883,
+        "x": 269,
+        "y": 90
+      },
+      "width": 1440,
+      "workspace": {
+        "bottom": 790,
+        "height": 700,
+        "left": 34,
+        "right": 1406,
+        "top": 90,
+        "width": 1372,
+        "x": 34,
+        "y": 90
+      }
+    },
+    {
+      "footer": {
+        "bottom": 790,
+        "height": 110,
+        "left": 22,
+        "right": 1062.666748046875,
+        "top": 680,
+        "width": 1040.666748046875,
+        "x": 22,
+        "y": 680
+      },
+      "height": 768,
+      "inspector": {
+        "bottom": 680,
+        "height": 590,
+        "left": 837.6666870117188,
+        "right": 1062.6666870117188,
+        "top": 90,
+        "width": 225,
+        "x": 837.6666870117188,
+        "y": 90
+      },
+      "scrollWidth": 1085,
+      "stage": {
+        "bottom": 680,
+        "height": 590,
+        "left": 217,
+        "right": 837.6666870117188,
+        "top": 90,
+        "width": 620.6666870117188,
+        "x": 217,
+        "y": 90
+      },
+      "width": 1100,
+      "workspace": {
+        "bottom": 680,
+        "height": 590,
+        "left": 22,
+        "right": 1062.666748046875,
+        "top": 90,
+        "width": 1040.666748046875,
+        "x": 22,
+        "y": 90
+      }
+    },
+    {
+      "footer": {
+        "bottom": 894.6666717529297,
+        "height": 144.6666717529297,
+        "left": 22,
+        "right": 778,
+        "top": 750,
+        "width": 756,
+        "x": 22,
+        "y": 750
+      },
+      "height": 900,
+      "inspector": {
+        "bottom": 750,
+        "height": 580,
+        "left": 543,
+        "right": 778,
+        "top": 170,
+        "width": 235,
+        "x": 543,
+        "y": 170
+      },
+      "scrollWidth": 800,
+      "stage": {
+        "bottom": 750,
+        "height": 580,
+        "left": 22,
+        "right": 543,
+        "top": 170,
+        "width": 521,
+        "x": 22,
+        "y": 170
+      },
+      "width": 800,
+      "workspace": {
+        "bottom": 750,
+        "height": 660,
+        "left": 22,
+        "right": 778,
+        "top": 90,
+        "width": 756,
+        "x": 22,
+        "y": 90
+      }
+    },
+    {
+      "footer": {
+        "bottom": 1379.8542175292969,
+        "height": 231.33334350585938,
+        "left": 16,
+        "right": 358.66668701171875,
+        "top": 1148.5208740234375,
+        "width": 342.66668701171875,
+        "x": 16,
+        "y": 1148.5208740234375
+      },
+      "height": 844,
+      "inspector": {
+        "bottom": 1148.5208740234375,
+        "height": 468.85418701171875,
+        "left": 16,
+        "right": 358.66668701171875,
+        "top": 679.6666870117188,
+        "width": 342.66668701171875,
+        "x": 16,
+        "y": 679.6666870117188
+      },
+      "scrollWidth": 375,
+      "stage": {
+        "bottom": 679.6666717529297,
+        "height": 480,
+        "left": 16,
+        "right": 358.66668701171875,
+        "top": 199.6666717529297,
+        "width": 342.66668701171875,
+        "x": 16,
+        "y": 199.6666717529297
+      },
+      "width": 390,
+      "workspace": {
+        "bottom": 1148.5208740234375,
+        "height": 1072.5208740234375,
+        "left": 16,
+        "right": 358.66668701171875,
+        "top": 76,
+        "width": 342.66668701171875,
+        "x": 16,
+        "y": 76
+      }
+    }
+  ],
+  "date": "2026-10-27"
+}

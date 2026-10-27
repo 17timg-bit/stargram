@@ -24,6 +24,21 @@
 @media(max-width:980px) and (min-width:651px){.workspace{grid-template-rows:80px minmax(0,580px)}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}.toast{transform:translateX(-50%)}}
 
+/* v1.1 — the private atlas */
+.library-actions{display:contents}
+input[type=text]{width:100%;border:1px solid #3a575d;border-radius:6px;background:#0e1c21;color:var(--text);padding:11px 12px;font:inherit;min-width:0}input[type=text]:focus{border-color:var(--mint)}
+.shelf-button{display:flex;gap:10px;align-items:center;width:100%;margin-top:10px;border-radius:6px;border:1px solid #496455;background:linear-gradient(110deg,#283a2c66,#1b2e2b22);padding:11px 12px;text-align:left;color:#c9d9c7}.shelf-button>span:first-child{font-size:22px;color:var(--gold)}.shelf-button>span:nth-child(2){font-size:11px}.shelf-button small{display:block;color:#859d8e;font-size:9px;margin-top:4px}.shelf-button>span:last-child{margin-left:auto;color:var(--gold)}.shelf-button:hover{background:#263a32}
+.scene-title-row{display:flex;gap:10px;align-items:center;max-width:100%}.scene-title-row h2{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;max-width:330px}.scene-title-row button{pointer-events:auto;color:#7b9996;padding:8px 4px 0;font-size:16px}.stage-actions{display:flex;gap:11px;align-items:center;pointer-events:auto;flex-shrink:0}.performance-line{position:absolute;left:28px;right:28px;top:100px;display:flex;align-items:center;justify-content:space-between;font:9px Consolas,"Microsoft YaHei",sans-serif;color:#718f91;letter-spacing:1px;pointer-events:none;z-index:1}.performance-line>span:last-child{color:#9bb6aa;font-size:9px}
+.edit-modes{display:flex;gap:3px;align-items:center;border:1px solid #2d454b;border-radius:5px;padding:3px;margin-top:10px}.edit-modes button{font-size:10px;color:#77979d;padding:5px 8px;flex:1;border-radius:3px;white-space:nowrap}.edit-modes .active{background:#2a4445;color:var(--mint)}.edit-modes #soloBtn{flex:0 0 auto;border-left:1px solid #3a5352;border-radius:0;padding-left:10px}.edit-modes #soloBtn.active{background:#56482c99;color:#edd298}
+.accent-control{display:flex;gap:6px;margin-top:9px}.accent-control button{flex:1;font-size:10px;border:1px solid #2e484e;border-radius:5px;padding:5px 3px;color:#77969d}.accent-control .active{border-color:#699990;color:var(--accent);background:#263e3c}.step.accent-soft{opacity:.62}.step.accent-strong{box-shadow:inset 0 -3px color-mix(in srgb,var(--accent) 50%,transparent)}.step.focused{outline:1px solid var(--gold);outline-offset:2px}.track-row.solo{border-color:#716448}.track-row.solo .track-name small{color:#c7b582}.orbit-editor input[type=range]{height:3px;margin-top:8px}.orbit-editor output{color:var(--accent);font:10px Consolas,monospace}
+#renameForm>.primary{margin-top:18px}.shelf-dialog{width:740px;padding:34px}.shelf-save{margin:22px 0 18px;padding:15px;border:1px solid #3b5657;border-radius:8px;background:#192e2e}.shelf-save .control-label{margin:0 0 9px;color:#bad0c5}.shelf-save>div{display:flex;gap:10px}.shelf-save .primary{white-space:nowrap;font-size:12px}.shelf-meta{display:flex;justify-content:space-between;color:#8fa99e;font-size:10px}.shelf-meta>span:last-child{color:#6d8c90;font-size:9px}.shelf-feedback{font-size:11px;color:#b5d9c5;line-height:1.8;margin:11px 0;min-height:20px}.shelf-undo{display:flex;justify-content:space-between;align-items:center;border:1px dashed #82724c;background:#63532e22;border-radius:5px;padding:9px 12px;color:var(--gold);font-size:11px;margin:10px 0 16px}.shelf-undo[hidden]{display:none}.shelf-undo button{font-size:11px;color:#e3ca95}.shelf-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.shelf-card{border:1px solid #334d51;border-radius:8px;overflow:hidden;background:#102126}.shelf-open{display:block;width:100%;text-align:left;padding:0 0 14px;overflow:hidden}.shelf-open:hover{background:#1b3033}.shelf-open canvas{display:block;width:100%;aspect-ratio:28/15;object-fit:cover;border-bottom:1px solid #2d4a50}.shelf-open strong{font-size:15px;letter-spacing:1px;font-weight:400;display:block;padding:14px 14px 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.shelf-open small{font-size:10px;color:#85a3a3;display:block;padding:8px 14px 0}.shelf-card-footer{display:flex;align-items:center;justify-content:space-between;font-size:9px;color:#6e8a8c;padding:0 14px 13px}.shelf-card-footer button{font-size:10px}.shelf-empty{grid-column:1/-1;text-align:center;padding:35px 10px 44px;border:1px dashed #365559;border-radius:8px;background:radial-gradient(ellipse,#23423744,transparent 70%)}.shelf-empty>span{font-size:45px;color:var(--gold);display:block;margin-bottom:16px}.shelf-empty strong{font-weight:400;font-size:16px;letter-spacing:2px;color:#ccddd3}.shelf-empty p{font-size:11px;line-height:1.8;color:#7f9d9f;margin-top:13px}
+body.immersive .library,body.immersive .inspector{display:none}body.immersive .masthead{height:62px}body.immersive .workspace{display:block;height:calc(100vh - 172px);min-height:500px;max-height:none}body.immersive .observatory{height:100%;min-height:0}body.immersive .performance-line{top:110px}body.immersive .stage-heading{left:42px;right:42px}body.immersive .stage-bottom{left:42px;right:42px}body.immersive .performance-line{left:42px;right:42px}
+@media(min-width:981px) and (max-height:1000px){.shelf-button{padding:8px 12px}.library .field-notes{padding-top:15px}.library .edition{margin-top:12px}.inspector-title{margin:8px 0}.inspector .track-select{padding:4px 9px}.inspector .tracks{gap:2px}.orbit-editor{margin-top:8px;padding-top:10px}.orbit-editor .control-label{margin:9px 0 7px}.orbit-editor .editor-tip{font-size:8px;line-height:1.6;margin-top:8px}.edit-modes{margin-top:8px}.edit-modes button{padding:4px 7px}.accent-control button{padding:4px 3px}}
+@media(max-width:1200px){.performance-line{left:20px;right:20px;font-size:8px}.stage-actions{gap:3px}.stage-actions .tiny{font-size:9px}.scene-title-row h2{max-width:240px}.scene-title-row{gap:4px}.stage-heading{gap:12px}.shelf-button{padding:9px}.shelf-button small{font-size:8px}}
+@media(max-width:980px) and (min-width:651px){.library{position:relative;padding-bottom:14px}.presets{width:calc(100% - 184px);height:52px}.random-button{right:0;top:14px;width:174px;height:31px;font-size:9px;padding:4px 8px}.random-button>span:first-child{font-size:12px}.shelf-button{position:absolute;right:0;top:49px;width:174px;height:26px;margin:0;font-size:9px;padding:3px 8px;border-style:dashed}.shelf-button>span:first-child{font-size:14px}.shelf-button>span:nth-child(2){font-size:9px}.shelf-button small{display:none}.scene-title-row h2{max-width:200px}.performance-line{top:90px}.inspector .track-select{padding:5px 8px}.inspector .tracks{gap:3px}}
+@media(max-width:650px){.library .random-button{display:inline-flex;vertical-align:middle;width:calc(51% - 4px);font-size:9px;margin-right:8px;height:38px}.shelf-button{display:inline-flex;vertical-align:middle;width:calc(49% - 4px);margin-top:10px;height:38px;padding:5px 8px;gap:6px}.shelf-button>span:nth-child(2){font-size:9px}.shelf-button small{font-size:7px;margin-top:2px}.shelf-button>span:first-child{font-size:15px}.scene-title-row h2{max-width:160px;font-size:14px}.scene-title-row button{font-size:12px}.stage-actions{flex-direction:column;gap:3px;align-items:flex-end}.stage-actions .tiny{padding:3px;font-size:8px}.live-label{font-size:8px;padding:4px 7px}.performance-line{top:91px;left:10px;right:10px;letter-spacing:0;font-size:8px}.performance-line>span:last-child{font-size:8px}.stage-bottom{font-size:8px;gap:4px}.stage-bottom .tiny{font-size:8px;padding:4px}.stage-bottom i{margin:0 3px}.stage-hint{letter-spacing:0}.inspector{grid-template-columns:minmax(0,1fr) minmax(0,1.18fr);gap:12px}.edit-modes button{font-size:9px;padding:4px 3px}.edit-modes #soloBtn{padding-left:5px}.accent-control{gap:3px}.accent-control button{font-size:9px;padding:5px 1px}.shelf-dialog{padding:28px 18px}.shelf-save{padding:12px}.shelf-save>div{flex-direction:column}.shelf-meta{gap:9px;line-height:1.6}.shelf-meta>span:last-child{text-align:right}.shelf-grid{gap:10px}.shelf-open strong{font-size:11px;letter-spacing:0;padding:10px 9px 0}.shelf-open small{font-size:8px;padding:6px 9px 0}.shelf-card-footer{padding:0 9px 10px;font-size:8px}.shelf-card-footer button{font-size:8px}.shelf-feedback{font-size:10px}body.immersive .workspace{height:calc(100svh - 150px);min-height:480px}body.immersive .stage-heading{left:10px;right:10px}body.immersive .stage-bottom,body.immersive .performance-line{left:10px;right:10px}body.immersive .performance-line{top:92px}}
+@media(max-width:650px){.library-actions{display:flex;gap:8px;margin-top:10px}.library-actions .random-button,.library-actions .shelf-button{flex:1;width:0;min-width:0;margin:0;height:40px;display:flex;position:static;font-size:8px;padding:5px 7px}.library-actions .random-button>span:first-child{font-size:13px}}
+
 </style>
 </head>
 <body>
@@ -43,7 +58,9 @@
         <button class="preset" data-preset="tide"><span class="preset-art tide">≋</span><span><strong>潮汐来信</strong><small>流动 / 交错 / 104 BPM</small></span><span class="preset-arrow">↗</span></button>
         <button class="preset" data-preset="glass"><span class="preset-art glass">◇</span><span><strong>夜航的玻璃船</strong><small>空灵 / 缓慢 / 72 BPM</small></span><span class="preset-arrow">↗</span></button>
       </div>
-      <button id="randomBtn" class="random-button"><span>✧</span> 偶遇一片新星空 <span>↻</span></button>
+      <div class="library-actions"><button id="randomBtn" class="random-button"><span>✧</span> 偶遇一片新星空 <span>↻</span></button>
+      <button id="shelfBtn" class="shelf-button"><span>▤</span><span>我的星图书架<small id="shelfCount">0 张本地收藏</small></span><span>↗</span></button>
+      </div>
       <div class="field-notes">
         <div class="section-label">你的观测手记 <span id="discoveryCount">0 / 3</span></div>
         <div class="discovery" data-discovery="plant"><span>01</span> 亲手点亮一颗星星 <b>○</b></div>
@@ -51,13 +68,14 @@
         <div class="discovery" data-discovery="listen"><span>03</span> 听见三十二次相遇 <b>○</b></div>
         <p id="discoveryMessage">不必懂乐理，只需要一点好奇心。</p>
       </div>
-      <div class="edition">A LITTLE INSTRUMENT FOR WANDERING MINDS<br><span>VOL. 001 — MADE OF LIGHT & SOUND</span></div>
+      <div class="edition">A LITTLE INSTRUMENT FOR WANDERING MINDS<br><span>VOL. 002 — THE PRIVATE ATLAS / v1.1</span></div>
     </aside>
     <section class="observatory" aria-label="互动星图">
-      <div class="stage-heading"><div><div class="eyebrow">NOW EXPLORING</div><h2 id="sceneTitle">晨雾中的信号</h2></div><span class="live-label" id="liveLabel">静候相遇</span></div>
+      <div class="stage-heading"><div><div class="eyebrow">NOW EXPLORING</div><div class="scene-title-row"><h2 id="sceneTitle">晨雾中的信号</h2><button id="renameBtn" aria-label="为星图命名" title="为星图命名">✎</button></div></div><div class="stage-actions"><span class="live-label" id="liveLabel">静候相遇</span><button id="immerseBtn" class="tiny" aria-pressed="false">⛶ 沉浸</button></div></div>
+      <div class="performance-line"><span id="beatReadout">等待第一束光</span><span id="noteReadout">五条轨道，自由相遇</span></div>
       <canvas id="universe" tabindex="0" aria-label="互动星图：点击轨道添加或删除音符，拖动星星移动；也可使用右侧音符编辑器。"></canvas>
       <div class="stage-hint" id="stageHint"><span>＋</span> 点击轨道种下星星 · 拖动星星改变节奏</div>
-      <div class="stage-bottom"><span><b id="noteCount">17</b> 颗星星 <i>·</i> <span id="cycleLabel">240 拍后重逢</span></span><div><button id="undoBtn" class="tiny" title="撤销 Ctrl+Z" disabled>↶ 撤销</button><button id="captureBtn" class="tiny" title="保存星图明信片">⤓ 拍张照</button></div></div>
+      <div class="stage-bottom"><span><b id="noteCount">17</b> 颗星星 <i>·</i> <span id="cycleLabel">240 拍后重逢</span></span><div><button id="undoBtn" class="tiny" title="撤销 Ctrl+Z" disabled>↶ 撤销</button><button id="redoBtn" class="tiny" title="重做 Ctrl+Shift+Z" disabled>↷ 重做</button><button id="captureBtn" class="tiny" title="保存星图明信片">⤓ 拍张照</button></div></div>
       <div class="canvas-tooltip" id="tooltip" hidden></div>
     </section>
     <aside class="inspector">
@@ -66,13 +84,16 @@
       <div id="tracks" class="tracks" aria-label="选择音轨"></div>
       <section class="orbit-editor" aria-label="选中轨道的设置">
         <div class="editor-heading"><span id="selectedName">浮光</span><span id="selectedVoice">PLUCK</span></div>
+        <div class="edit-modes" role="group" aria-label="星星编辑方式"><button data-mode="plant" class="active" aria-pressed="true">✧ 种星</button><button data-mode="tune" aria-pressed="false">♫ 调音</button><button id="soloBtn" aria-pressed="false" title="只听这条轨道">独奏</button></div>
         <label class="control-label" for="lengthSelect">一圈的长度 <span>每格为半拍</span></label>
         <div class="orbit-settings"><select id="lengthSelect" aria-label="轨道长度"><option value="8">8 格</option><option value="12">12 格</option><option value="16">16 格</option><option value="20">20 格</option><option value="24">24 格</option></select><button id="rotateBtn" class="outline" title="让这条轨道的所有音符晚一格响起">↻ 旋转一格</button></div>
         <div class="control-label"><span>星星排列</span><button id="clearBtn" class="text-button">清空本轨</button></div>
         <div id="steps" class="steps" aria-label="逐格音符编辑器"></div>
-        <label class="control-label" for="pitchSelect">新星的音高 <span id="pitchLabel">第 3 音</span></label>
+        <label class="control-label" for="pitchSelect"><span id="pitchContext">新星的音高</span><span id="pitchLabel">第 3 音</span></label>
         <select id="pitchSelect" aria-label="新音符音高"><option value="0">1 · 低处的光</option><option value="1">2 · 向上一步</option><option value="2" selected>3 · 透亮</option><option value="3">4 · 远一点</option><option value="4">5 · 天际线</option><option value="5">6 · 高八度</option><option value="6">7 · 微光</option><option value="7">8 · 星尘</option><option value="8">9 · 云端</option><option value="9">10 · 最远的星</option></select>
-        <p class="editor-tip">点格子开关音符；右击已有星星，让它升高一音。轨道旁的小圆点可静音。</p>
+        <div class="accent-control" role="group" aria-label="音符力度"><button data-accent="0.55" aria-pressed="false">◔ 轻</button><button data-accent="1" class="active" aria-pressed="true">◑ 中</button><button data-accent="1.35" aria-pressed="false">● 重</button></div>
+        <label class="control-label" for="trackGain">这条轨道的音量 <output id="trackGainValue">72%</output></label><input id="trackGain" type="range" min="0" max="100" value="72">
+        <p class="editor-tip" id="editTip">种星：点击开关音符。调音：选中星星后改音高、轻重。Shift+点击可切换力度。</p>
       </section>
       <div class="save-note"><span class="status-dot"></span><span id="saveStatus">星图会自动保存在此浏览器</span></div>
     </aside>
@@ -85,8 +106,10 @@
     <div class="volume-control"><label for="volume">音量 <output id="volumeValue">55%</output></label><input id="volume" type="range" min="0" max="100" value="55"></div>
   </footer>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <dialog id="helpDialog"><button class="dialog-close" data-close aria-label="关闭玩法">×</button><div class="eyebrow">A SMALL GUIDE TO YOUR UNIVERSE</div><h2>这片星空，由你来调音。</h2><p class="dialog-intro">每一圈都是一条旋律。彗星与星星相遇，声音就会发生。</p><ol class="guide"><li><b>先听，再动手。</b>点击播放，或者按空格。选一张喜欢的星图作起点。</li><li><b>把音符种在轨道上。</b>点击空位添加，再点一次删除。拖到另一个位置改变时机，拖到另一圈改变音色。右击星星可升高音高。</li><li><b>让循环错开。</b>选中一条轨道，把一圈从 16 格改成 12 格。相同音符会在下一圈遇到不同的伙伴。</li><li><b>留下属于你的偶然。</b>导出 WAV 带走 8 小节音乐；MIDI 可以继续编曲；星图文件保留全部设置。</li></ol><div class="shortcut-row"><span><kbd>Space</kbd> 播放</span><span><kbd>Ctrl Z</kbd> 撤销</span><span><kbd>1–5</kbd> 选轨</span><span><kbd>?</kbd> 玩法</span></div><p class="fine-print">完全离线 · 无账号 · 无上传 · 所有声音在本机合成<br>切到其他标签页会自动暂停。浏览器首次播放需要你点击一下。</p><button class="primary wide" data-close>知道了，去种星星</button></dialog>
-  <dialog id="exportDialog"><button class="dialog-close" data-close aria-label="关闭导出">×</button><div class="eyebrow">TAKE A PIECE OF THE UNIVERSE</div><h2>把这次相遇带走。</h2><p class="dialog-intro">音乐从第一格开始导出；星图保留你现在的全部编排。</p><div class="export-options"><button id="wavBtn"><span class="export-icon">♫</span><span><strong>一段音乐</strong><small>WAV · 8 小节 + 混响尾音 · 44.1 kHz 立体声</small></span><b>↓</b></button><button id="midiBtn"><span class="export-icon">♮</span><span><strong>继续编曲</strong><small>MIDI · 五条独立音轨 · 含速度信息</small></span><b>↓</b></button><button id="jsonBtn"><span class="export-icon">✧</span><span><strong>保存这张星图</strong><small>STARGRAM JSON · 可重新导入继续玩</small></span><b>↓</b></button></div><div class="import-row"><span>有一张以前保存的星图？</span><button id="importBtn" class="outline">导入星图 ↗</button><input type="file" id="importInput" accept=".json,application/json" hidden></div><p id="exportStatus" class="fine-print" aria-live="polite">文件由浏览器保存到下载位置。MIDI 音色由播放软件决定。</p></dialog>
+  <dialog id="renameDialog"><button class="dialog-close" data-close aria-label="关闭命名">×</button><div class="eyebrow">NAME THIS LITTLE UNIVERSE</div><h2>给这片星空一个名字。</h2><form id="renameForm"><label class="control-label" for="titleInput">星图名称 <span>最多 60 字</span></label><input id="titleInput" type="text" maxlength="60" required autocomplete="off"><button class="primary wide" type="submit">保存名字</button></form></dialog>
+  <dialog id="shelfDialog" class="shelf-dialog"><button class="dialog-close" data-close aria-label="关闭星图书架">×</button><div class="eyebrow">THE PRIVATE ATLAS / 24 LITTLE UNIVERSES</div><h2>把喜欢的偶然，收进书架。</h2><p class="dialog-intro">每一张都是独立快照。随时回来看，继续拨动它的星星。</p><form id="shelfForm" class="shelf-save"><label for="shelfTitle" class="control-label">这次相遇的名字</label><div><input id="shelfTitle" type="text" maxlength="60" required autocomplete="off"><button class="primary" type="submit">收藏当前星图</button></div></form><div class="shelf-meta"><span id="shelfSummary">0 / 24 张星图</span><span>仅保存在此浏览器 · 可另存 JSON</span></div><div id="shelfFeedback" class="shelf-feedback" role="status" aria-live="polite"></div><div id="shelfUndo" class="shelf-undo" hidden><span>一张星图已移出书架</span><button id="restoreShelfBtn" class="text-button">撤销移除</button></div><div id="shelfGrid" class="shelf-grid"></div></dialog>
+  <dialog id="helpDialog"><button class="dialog-close" data-close aria-label="关闭玩法">×</button><div class="eyebrow">A SMALL GUIDE TO YOUR UNIVERSE</div><h2>这片星空，由你来调音。</h2><p class="dialog-intro">每一圈都是一条旋律。彗星与星星相遇，声音就会发生。</p><ol class="guide"><li><b>先听，再动手。</b>点击播放，或者按空格。选一张喜欢的星图作起点。</li><li><b>把音符种在轨道上。</b>点击空位添加，再点一次删除。拖到另一个位置改变时机，拖到另一圈改变音色。右击星星可升高音高。切到「调音」可选中星星改音高、轻重；Shift+点击可快速改变力度。</li><li><b>让循环错开。</b>选中一条轨道，把一圈从 16 格改成 12 格。相同音符会在下一圈遇到不同的伙伴。</li><li><b>留下属于你的偶然。</b>给星图命名，收藏进自己的星图书架；也可以导出 WAV、MIDI 和保留全部设置的星图文件。</li></ol><div class="shortcut-row"><span><kbd>Space</kbd> 播放</span><span><kbd>Ctrl Z</kbd> 撤销</span><span><kbd>Ctrl Shift Z</kbd> 重做</span><span><kbd>1–5</kbd> 选轨</span><span><kbd>?</kbd> 玩法</span></div><p class="fine-print">完全离线 · 无账号 · 无上传 · 所有声音在本机合成<br>切到其他标签页会自动暂停。浏览器首次播放需要你点击一下。</p><button class="primary wide" data-close>知道了，去种星星</button></dialog>
+  <dialog id="exportDialog"><button class="dialog-close" data-close aria-label="关闭导出">×</button><div class="eyebrow">TAKE A PIECE OF THE UNIVERSE</div><h2>把这次相遇带走。</h2><p class="dialog-intro">音乐从第一格开始导出；星图保留你现在的全部编排。</p><div class="export-options"><button id="wavBtn"><span class="export-icon">♫</span><span><strong>一段音乐</strong><small>WAV · 8 小节 + 混响尾音 · 44.1 kHz 立体声</small></span><b>↓</b></button><button id="midiBtn"><span class="export-icon">♮</span><span><strong>继续编曲</strong><small>MIDI · 五条独立音轨 · 含速度信息</small></span><b>↓</b></button><button id="jsonBtn"><span class="export-icon">✧</span><span><strong>保存这张星图</strong><small>STARGRAM v2 · 保留音符力度、独奏与分轨音量</small></span><b>↓</b></button></div><div class="import-row"><span>有一张以前保存的星图？</span><button id="importBtn" class="outline">导入星图 ↗</button><input type="file" id="importInput" accept=".json,application/json" hidden></div><p id="exportStatus" class="fine-print" aria-live="polite">文件由浏览器保存到下载位置。MIDI 音色由播放软件决定。</p></dialog>
   <script>
 /* Stargram — deterministic musical model. No DOM and no dependencies. */
 (function (root, factory) {
@@ -96,6 +119,8 @@
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
   const LENGTHS = [8, 12, 16, 20, 24];
+  const ACCENTS = [0.55, 1, 1.35];
+  const COLLECTION_LIMIT = 24;
   const SCALES = {
     dawn: { label: '晨光 · 大调五声音阶', notes: [0, 2, 4, 7, 9], root: 48 },
     tide: { label: '浮潮 · 小调五声音阶', notes: [0, 3, 5, 7, 10], root: 45 },
@@ -117,7 +142,7 @@
   function makeTrack(length, pairs) {
     const notes = Array(length).fill(-1);
     pairs.forEach(([i, p]) => { notes[i] = p; });
-    return { length, notes, muted: false, gain: 0.72, shift: 0 };
+    return { length, notes, accents: Array(length).fill(1), muted: false, solo: false, gain: 0.72, shift: 0 };
   }
   function preset(id = 'dawn') {
     const states = {
@@ -134,21 +159,25 @@
         makeTrack(12, [[0, 0], [4, 3], [7, 4], [10, 1]]),
         makeTrack(16, [[3, 2], [9, 4], [14, 0]]), makeTrack(24, [[6, 0], [16, 4]]) ] }
     };
-    return { format: 'stargram', version: 1, volume: 0.55, ...clone(states[id] || states.dawn) };
+    return { format: 'stargram', version: 2, volume: 0.55, ...clone(states[id] || states.dawn) };
   }
   function validate(raw) {
-    const fail = () => { throw new Error('这不是有效的星轨文件（需要 Stargram v1 星图）。'); };
+    const fail = () => { throw new Error('这不是有效的星轨文件（支持 Stargram v1 / v2 星图）。'); };
     const number = (n, lo, hi) => typeof n === 'number' && Number.isFinite(n) && n >= lo && n <= hi;
-    if (!raw || raw.format !== 'stargram' || raw.version !== 1 || !Object.hasOwn(SCALES, raw.scale)) fail();
+    if (!raw || raw.format !== 'stargram' || ![1, 2].includes(raw.version) || !Object.hasOwn(SCALES, raw.scale)) fail();
     if (typeof raw.title !== 'string' || raw.title.length > 60 || !number(raw.bpm, 48, 160) || !Number.isInteger(raw.bpm) || !number(raw.space, 0, 1) || !number(raw.volume, 0, 1)) fail();
     if (!Array.isArray(raw.tracks) || raw.tracks.length !== 5) fail();
     const tracks = raw.tracks.map(t => {
       if (!t || !LENGTHS.includes(t.length) || !Array.isArray(t.notes) || t.notes.length !== t.length ||
         !t.notes.every(n => Number.isInteger(n) && n >= -1 && n <= 9) || typeof t.muted !== 'boolean' ||
         !number(t.gain, 0, 1) || !Number.isInteger(t.shift) || t.shift < 0 || t.shift >= t.length) fail();
-      return { length: t.length, notes: [...t.notes], muted: t.muted, gain: t.gain, shift: t.shift };
+      // v1.0 files remain valid: absent expressive fields retain their old sound.
+      if (raw.version === 2 && (t.solo === undefined || t.accents === undefined)) fail();
+      if (t.solo !== undefined && typeof t.solo !== 'boolean') fail();
+      if (t.accents !== undefined && (!Array.isArray(t.accents) || t.accents.length !== t.length || !t.accents.every(v => ACCENTS.includes(v)))) fail();
+      return { length: t.length, notes: [...t.notes], accents: t.accents ? [...t.accents] : Array(t.length).fill(1), muted: t.muted, solo: t.solo ?? false, gain: t.gain, shift: t.shift };
     });
-    return { format: 'stargram', version: 1, title: raw.title.trim() || '未命名星图', bpm: raw.bpm, scale: raw.scale, volume: raw.volume, space: raw.space, tracks };
+    return { format: 'stargram', version: 2, title: raw.title.trim() || '未命名星图', bpm: raw.bpm, scale: raw.scale, volume: raw.volume, space: raw.space, tracks };
   }
   function midiNote(state, track, pitch) {
     const scale = SCALES[state.scale];
@@ -157,14 +186,18 @@
   function eventsAt(state, tick) {
     return state.tracks.flatMap((t, i) => {
       const step = mod(tick - t.shift, t.length), pitch = t.notes[step];
-      return t.muted || t.gain === 0 || pitch < 0 ? [] : [{ track: i, step, pitch, midi: midiNote(state, i, pitch), gain: t.gain }];
+      return !audible(state, i) || pitch < 0 ? [] : [{ track: i, step, pitch, midi: midiNote(state, i, pitch), gain: t.gain * (t.accents?.[step] ?? 1) }];
     });
+  }
+  function audible(state, index) {
+    const t = state.tracks[index];
+    return !t.muted && t.gain > 0 && (!state.tracks.some(track => track.solo) || t.solo === true);
   }
   function resizeTrack(t, length) {
     if (!LENGTHS.includes(length)) throw new Error('Unsupported orbit length');
-    const notes = Array(length).fill(-1);
-    t.notes.forEach((p, i) => { if (p >= 0) notes[Math.floor(i / t.length * length)] = p; });
-    t.shift = Math.floor(t.shift / t.length * length); t.length = length; t.notes = notes;
+    const notes = Array(length).fill(-1), accents = Array(length).fill(1);
+    t.notes.forEach((p, i) => { if (p >= 0) { const at = Math.floor(i / t.length * length); notes[at] = p; accents[at] = t.accents?.[i] ?? 1; } });
+    t.shift = Math.floor(t.shift / t.length * length); t.length = length; t.notes = notes; t.accents = accents;
   }
   function generate(seed, base = preset()) {
     const random = rng(seed), s = clone(base);
@@ -172,17 +205,18 @@
     const motif = motifs[Math.floor(random() * motifs.length)];
     s.tracks.forEach((t, i) => {
       const count = [2, 4, 5, 3, 2][i];
-      t.notes.fill(-1); t.muted = false; t.shift = 0;
+      t.notes.fill(-1); t.accents = Array(t.length).fill(1); t.muted = false; t.solo = false; t.shift = 0;
       for (let k = 0; k < count; k++) {
         const pos = mod(Math.floor(k * t.length / count) + (i > 1 ? Math.floor(random() * 3) : 0), t.length);
         t.notes[pos] = i === 0 ? [0, 3][k % 2] : motif[(k + i) % motif.length];
+        t.accents[pos] = k === 0 ? 1.35 : k % 3 === 2 ? 0.55 : 1;
       }
     });
     s.title = '偶遇 · ' + (seed >>> 0).toString(36).toUpperCase().slice(-6);
     return s;
   }
   function gcd(a, b) { return b ? gcd(b, a % b) : a; }
-  function cycleTicks(state) { return state.tracks.filter(t => !t.muted).reduce((a, t) => a * t.length / gcd(a, t.length), 1); }
+  function cycleTicks(state) { return state.tracks.filter((t, i) => audible(state, i)).reduce((a, t) => a * t.length / gcd(a, t.length), 1); }
   function countNotes(state) { return state.tracks.reduce((n, t) => n + t.notes.filter(p => p >= 0).length, 0); }
   function vlq(value) {
     const bytes = [value & 127];
@@ -200,7 +234,7 @@
       const name = ascii(ROLES[track].english), ev = [];
       for (let tick = 0; tick < ticks; tick++) {
         eventsAt(state, tick).filter(e => e.track === track).forEach(e => {
-          const vel = Math.max(1, Math.round(e.gain * 95));
+          const vel = Math.min(127, Math.max(1, Math.round(e.gain * 95)));
           ev.push({ at: tick * 240, type: 1, bytes: [0x90 + track, e.midi, vel] });
           ev.push({ at: tick * 240 + (track === 0 ? 240 : 180), type: 0, bytes: [0x80 + track, e.midi, 0] });
         });
@@ -213,7 +247,17 @@
     });
     return new Uint8Array([...chunk('MThd', [0, 1, 0, 6, 1, 224]), ...tracks.flat()]);
   }
-  return { LENGTHS, SCALES, ROLES, clone, mod, rng, preset, validate, midiNote, eventsAt, resizeTrack, generate, cycleTicks, countNotes, midiBytes };
+  function validateCollection(raw) {
+    if (!Array.isArray(raw) || raw.length > COLLECTION_LIMIT) throw new Error('星图书架格式无效');
+    const ids = new Set();
+    return raw.map(entry => {
+      if (!entry || typeof entry.id !== 'string' || !/^[a-zA-Z0-9-]{1,64}$/.test(entry.id) || ids.has(entry.id) ||
+        !Number.isSafeInteger(entry.created) || entry.created < 0) throw new Error('星图书架格式无效');
+      ids.add(entry.id);
+      return { id: entry.id, created: entry.created, state: validate(entry.state) };
+    });
+  }
+  return { LENGTHS, ACCENTS, COLLECTION_LIMIT, SCALES, ROLES, clone, mod, rng, preset, validate, validateCollection, midiNote, audible, eventsAt, resizeTrack, generate, cycleTicks, countNotes, midiBytes };
 });
 
 /* Original procedural voices. Audio clock drives the sequencer. */
@@ -236,7 +280,8 @@
     master.gain.value = state.volume * 1.2;
     input.connect(dry).connect(compressor); input.connect(convolver).connect(wet).connect(compressor);
     compressor.connect(master).connect(ctx.destination);
-    return { input, master, wet };
+    const channels = state.tracks.map((track, i) => { const node = ctx.createGain(); node.gain.value = C.audible(state, i) ? track.gain : 0; node.connect(input); return node; });
+    return { input, master, wet, channels };
   }
   function voice(ctx, input, event, when, duration = 1, onFinished = () => {}) {
     const f = 440 * Math.pow(2, (event.midi - 69) / 12), type = C.ROLES[event.track].voice;
@@ -271,7 +316,10 @@
   }
   class Engine {
     constructor(getState, onTick) { this.getState = getState; this.onTick = onTick; this.running = false; this.tick = 0; this.lastPhase = 0; this.voices = new Set(); }
-    sound(event, when, duration = 1) { this.voices.add(voice(this.ctx, this.bus.input, event, when, duration, handle => this.voices.delete(handle))); }
+    sound(event, when, duration = 1) {
+      const gain = event.gain / (this.getState().tracks[event.track].gain || 1);
+      this.voices.add(voice(this.ctx, this.bus.channels[event.track], { ...event, gain }, when, duration, handle => this.voices.delete(handle)));
+    }
     cutVoices() { this.voices.forEach(handle => handle.stop()); }
     async ready() {
       if (!this.ctx) { this.ctx = new AudioContext(); this.bus = graph(this.ctx, this.getState()); }
@@ -305,14 +353,15 @@
       this.bus.master.gain.setTargetAtTime(0, this.ctx.currentTime, 0.025);
     }
     reset() { const playing = this.running; this.pause(); this.cutVoices(); this.tick = 0; this.lastPhase = 0; if (playing) return this.play(); }
-    update() {
+    update(audition = false) {
       if (!this.ctx) return;
       const s = this.getState();
-      this.bus.master.gain.setTargetAtTime(s.volume * 1.2, this.ctx.currentTime, 0.025);
+      this.bus.master.gain.setTargetAtTime(this.running || audition ? s.volume * 1.2 : 0, this.ctx.currentTime, 0.025);
       this.bus.wet.gain.setTargetAtTime(s.space * 0.65, this.ctx.currentTime, 0.06);
+      this.bus.channels.forEach((node, i) => node.gain.setTargetAtTime(C.audible(s, i) ? s.tracks[i].gain : 0, this.ctx.currentTime, 0.025));
     }
     async preview(event) {
-      await this.ready(); this.update(); this.sound(event, this.ctx.currentTime + 0.01, 0.65);
+      await this.ready(); this.update(true); this.sound(event, this.ctx.currentTime + 0.01, 0.65);
     }
   }
   function wavBytes(buffer) {
@@ -334,17 +383,67 @@
   async function renderWav(state, ticks = 64) {
     const snapshot = C.validate(state), step = 30 / snapshot.bpm, seconds = ticks * step + 3.2;
     const ctx = new OfflineAudioContext(2, Math.ceil(seconds * 44100), 44100), bus = graph(ctx, snapshot);
-    for (let tick = 0; tick < ticks; tick++) C.eventsAt(snapshot, tick).forEach(e => voice(ctx, bus.input, e, tick * step + 0.04));
+    for (let tick = 0; tick < ticks; tick++) C.eventsAt(snapshot, tick).forEach(e => voice(ctx, bus.channels[e.track], { ...e, gain: e.gain / (snapshot.tracks[e.track].gain || 1) }, tick * step + 0.04));
     return wavBytes(await ctx.startRendering());
   }
   window.OrbitAudio = { Engine, renderWav, wavBytes };
 })();
 
+/* Immutable local collections. Writes commit only after storage succeeds. */
+(function (root, factory) {
+  const api = factory(typeof module === 'object' && module.exports ? require('./core') : root.OrbitCore);
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  else root.OrbitShelf = api;
+})(typeof globalThis !== 'undefined' ? globalThis : this, function (C) {
+  'use strict';
+  const KEY = 'stargram.collection.v1';
+  class Store {
+    constructor(storage) {
+      this.storage = storage; this.entries = []; this.readError = false;
+      try { const raw = storage?.getItem(KEY); if (raw) this.entries = C.validateCollection(JSON.parse(raw)); }
+      catch { this.readError = true; }
+    }
+    commit(entries) {
+      if (this.readError) throw new Error('书架读取失败，原始收藏数据仍保留。请先把当前星图导出为 JSON。');
+      if (!this.storage) throw new Error('浏览器无法保存收藏，请导出星图 JSON 留存。');
+      const safe = C.validateCollection(entries);
+      try { this.storage.setItem(KEY, JSON.stringify(safe)); }
+      catch { throw new Error('收藏未写入，可能是浏览器存储空间已满。请导出星图 JSON。'); }
+      this.entries = safe;
+    }
+    save(state, title) {
+      const snapshot = C.validate({ ...state, title });
+      const existing = this.entries.find(entry => JSON.stringify(entry.state) === JSON.stringify(snapshot));
+      if (existing) return { entry: C.clone(existing), duplicate: true };
+      if (this.entries.length >= C.COLLECTION_LIMIT) throw new Error('书架已放满 24 张星图。先导出并移除一张，再收藏新作品。');
+      const id = `star-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 12)}`;
+      const entry = { id, created: Date.now(), state: snapshot };
+      this.commit([entry, ...this.entries]);
+      return { entry: C.clone(entry), duplicate: false };
+    }
+    load(id) { const entry = this.entries.find(item => item.id === id); if (!entry) throw new Error('这张星图已不在书架里'); return C.clone(entry.state); }
+    remove(id) {
+      const index = this.entries.findIndex(entry => entry.id === id); if (index < 0) return null;
+      const removed = { entry: C.clone(this.entries[index]), index };
+      this.commit(this.entries.filter(entry => entry.id !== id)); return removed;
+    }
+    restore(removed) {
+      if (!removed) return;
+      if (this.entries.length >= C.COLLECTION_LIMIT) throw new Error('书架已满，请先腾出一个位置再撤销移除。');
+      const entries = C.clone(this.entries); entries.splice(Math.min(removed.index, entries.length), 0, removed.entry); this.commit(entries);
+    }
+  }
+  return { KEY, Store };
+});
+
 (function () {
   'use strict';
   const C = OrbitCore, $ = id => document.getElementById(id);
   const STORAGE = 'stargram.universe.v1', DISCOVERIES = 'stargram.discoveries.v1';
-  let state = C.preset(), selected = 2, newPitch = 2, history = [], sliderBefore = null;
+  let state = C.preset(), selected = 2, newPitch = 2, newAccent = 1, history = [], future = [], sliderBefore = null;
+  let editMode = 'plant', focusNote = null, shelfRemoved = null, immersive = false;
+  let shelfStorage = null; try { shelfStorage = localStorage; } catch {}
+  const shelf = new OrbitShelf.Store(shelfStorage);
   let discoveries = { plant: false, orbit: false, listen: false }, encounters = 0, stored = false;
   let saveError = false;
   try {
@@ -355,7 +454,7 @@
   } catch { saveError = true; }
   const canvas = $('universe'), ctx = canvas.getContext('2d');
   let width = 1, height = 1, hover = null, drag = null, particles = [], pulses = new Map(), queue = [];
-  let toastTimer, renderedStep = -1, lastFrame = 0, reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let toastTimer, renderedStep = -1, lastFrame = 0, lastEncounterAt = -10000, reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const random = C.rng(20261026), stars = Array.from({ length: 125 }, () => ({ x: random(), y: random(), r: random() * 1.2 + 0.25, a: random() * 0.32 + 0.08, phase: random() * 6.28 }));
   const engine = new OrbitAudio.Engine(() => state, e => queue.push(e));
 
@@ -364,8 +463,8 @@
     try { localStorage.setItem(STORAGE, JSON.stringify(state)); localStorage.setItem(DISCOVERIES, JSON.stringify(discoveries)); $('saveStatus').textContent = '已自动保存 · 只留在此浏览器'; saveError = false; }
     catch { $('saveStatus').textContent = '自动保存不可用，请导出星图留存'; saveError = true; }
   }
-  function remember() { history.push(C.clone(state)); if (history.length > 60) history.shift(); }
-  function edit(fn, message) { remember(); fn(); persist(); renderUI(); if (message) toast(message); }
+  function remember() { history.push(C.clone(state)); if (history.length > 60) history.shift(); future = []; }
+  function edit(fn, message) { remember(); fn(); engine.update(); persist(); renderUI(); if (message) toast(message); }
   function discover(id) {
     if (discoveries[id]) return;
     discoveries[id] = true; persist(); renderDiscoveries();
@@ -381,8 +480,9 @@
     $('sceneTitle').textContent = state.title;
     $('noteCount').textContent = C.countNotes(state);
     const cycle = C.cycleTicks(state);
-    $('cycleLabel').textContent = state.tracks.every(t => t.muted) ? '所有轨道已静音' : `${cycle / 2} 拍后重逢`;
+    $('cycleLabel').textContent = !state.tracks.some((t, i) => C.audible(state, i)) ? '所有轨道已静音' : `${cycle / 2} 拍后重逢`;
     $('undoBtn').disabled = history.length === 0;
+    $('redoBtn').disabled = future.length === 0;
     $('tempo').value = state.bpm; $('tempoValue').innerHTML = `${state.bpm} <small>BPM</small>`;
     $('volume').value = Math.round(state.volume * 100); $('volumeValue').textContent = `${Math.round(state.volume * 100)}%`;
     $('space').value = Math.round(state.space * 100); $('spaceValue').textContent = `${Math.round(state.space * 100)}%`;
@@ -391,36 +491,57 @@
     $('tracks').replaceChildren();
     state.tracks.forEach((track, i) => {
       const role = C.ROLES[i], row = document.createElement('div');
-      row.className = 'track-row' + (selected === i ? ' selected' : '') + (track.muted ? ' muted' : ''); row.style.setProperty('--track', role.color);
+      row.className = 'track-row' + (selected === i ? ' selected' : '') + (!C.audible(state, i) ? ' muted' : '') + (track.solo ? ' solo' : ''); row.style.setProperty('--track', role.color);
       const btn = document.createElement('button'); btn.className = 'track-select'; btn.setAttribute('aria-pressed', String(selected === i)); btn.setAttribute('aria-label', `选择${role.name}轨道`);
-      btn.innerHTML = `<span class="track-circle"></span><span class="track-name">${role.name}<small>${role.english}</small></span><span class="track-length">${track.length}</span>`;
+      btn.innerHTML = `<span class="track-circle"></span><span class="track-name">${role.name}<small>${track.solo ? 'SOLO / ' : ''}${role.english}</small></span><span class="track-length">${track.length}</span>`;
       btn.onclick = () => selectTrack(i);
       const mute = document.createElement('button'); mute.className = 'mute-button'; mute.textContent = track.muted ? '○' : '●'; mute.setAttribute('aria-label', `${track.muted ? '取消静音' : '静音'}${role.name}`); mute.setAttribute('aria-pressed', String(track.muted)); mute.title = `${track.muted ? '取消静音' : '静音'}${role.name}`;
       mute.onclick = () => edit(() => { track.muted = !track.muted; }); row.append(btn, mute); $('tracks').append(row);
     });
     const role = C.ROLES[selected], track = state.tracks[selected];
+    if (focusNote && (focusNote.track !== selected || track.notes[focusNote.step] === undefined || track.notes[focusNote.step] < 0)) focusNote = null;
     document.documentElement.style.setProperty('--accent', role.color);
     $('selectedName').textContent = role.name; $('selectedVoice').textContent = role.voice.toUpperCase(); $('lengthSelect').value = track.length;
+    $('trackGain').value = Math.round(track.gain * 100); $('trackGainValue').textContent = `${Math.round(track.gain * 100)}%`;
+    $('soloBtn').classList.toggle('active', track.solo); $('soloBtn').setAttribute('aria-pressed', String(track.solo)); $('soloBtn').setAttribute('aria-label', `${track.solo ? '取消独奏' : '独奏'}${role.name}`);
+    $('pitchSelect').value = focusNote ? track.notes[focusNote.step] : newPitch;
+    $('pitchContext').textContent = focusNote ? `第 ${focusNote.step + 1} 格的音高` : '新星的音高';
+    $('pitchLabel').textContent = `第 ${Number($('pitchSelect').value) + 1} 音`;
+    document.querySelectorAll('[data-mode]').forEach(b => { const active = b.dataset.mode === editMode; b.classList.toggle('active', active); b.setAttribute('aria-pressed', String(active)); });
+    document.querySelectorAll('[data-accent]').forEach(b => { const active = Number(b.dataset.accent) === (focusNote ? track.accents[focusNote.step] : newAccent); b.classList.toggle('active', active); b.setAttribute('aria-pressed', String(active)); });
+    $('editTip').textContent = editMode === 'tune' ? (focusNote ? '正在调这颗星星。改音高、轻重会立即试听；点击另一颗继续。' : '点一颗已有星星，再用音高与轻重按钮调音。Shift+点击切换力度。') : '种星：点击开关音符。调音：选中后改音高、轻重。Shift+点击切换力度。';
     $('steps').replaceChildren();
     track.notes.forEach((pitch, step) => {
       const b = document.createElement('button'); b.className = 'step' + (pitch >= 0 ? ' on' : ''); b.textContent = pitch >= 0 ? pitch + 1 : '·';
+      if (pitch >= 0) b.classList.add(track.accents[step] > 1 ? 'accent-strong' : track.accents[step] < 1 ? 'accent-soft' : 'accent-mid');
+      if (focusNote?.step === step) b.classList.add('focused');
       b.setAttribute('aria-label', `第${step + 1}格，${pitch >= 0 ? '音高' + (pitch + 1) : '空白'}`); b.setAttribute('aria-pressed', String(pitch >= 0)); b.dataset.step = step;
-      b.onclick = () => toggleNote(selected, step);
+      b.onclick = e => actOnNote(selected, step, e.shiftKey);
       b.oncontextmenu = e => { e.preventDefault(); raiseNote(selected, step); };
       $('steps').append(b);
     });
+    $('shelfCount').textContent = `${shelf.entries.length} 张本地收藏`;
     renderedStep = -1; renderDiscoveries(); updatePlaybackUI();
   }
-  function selectTrack(i) { selected = i; renderUI(); }
+  function selectTrack(i) { selected = i; focusNote = null; renderUI(); }
   async function preview(track, step) {
-    const t = state.tracks[track]; if (t.notes[step] < 0 || t.muted) return;
-    try { await engine.preview({ track, step, pitch: t.notes[step], midi: C.midiNote(state, track, t.notes[step]), gain: t.gain }); pulse(track, step); }
+    const t = state.tracks[track]; if (t.notes[step] < 0 || !C.audible(state, track)) return;
+    try { await engine.preview({ track, step, pitch: t.notes[step], midi: C.midiNote(state, track, t.notes[step]), gain: t.gain * t.accents[step] }); pulse(track, step); }
     catch { toast('浏览器未能启动声音，请再点一次播放。'); }
   }
   function toggleNote(track, step) {
     const adding = state.tracks[track].notes[step] < 0;
-    edit(() => { state.tracks[track].notes[step] = adding ? newPitch : -1; selected = track; });
+    edit(() => { state.tracks[track].notes[step] = adding ? newPitch : -1; state.tracks[track].accents[step] = adding ? newAccent : 1; selected = track; focusNote = null; });
     if (adding) { discover('plant'); preview(track, step); }
+  }
+  function actOnNote(track, step, shiftKey = false) {
+    const t = state.tracks[track];
+    if (shiftKey && t.notes[step] >= 0) {
+      edit(() => { t.accents[step] = C.ACCENTS[(C.ACCENTS.indexOf(t.accents[step]) + 1) % C.ACCENTS.length]; selected = track; }); preview(track, step); return;
+    }
+    if (editMode === 'plant') return toggleNote(track, step);
+    if (t.notes[step] < 0) { toast('调音模式：先选一颗已有的星星'); return; }
+    selected = track; focusNote = { track, step }; renderUI(); preview(track, step);
   }
   function raiseNote(track, step) {
     if (state.tracks[track].notes[step] < 0) return;
@@ -441,22 +562,35 @@
   }
   $('playBtn').onclick = playPause;
   $('restartBtn').onclick = async () => { queue = []; particles = []; pulses.clear(); await engine.reset(); updatePlaybackUI(); toast('所有彗星回到起点'); };
-  $('undoBtn').onclick = () => { if (!history.length) return; state = history.pop(); engine.update(); persist(); renderUI(); toast('已撤销上一次修改'); };
-  document.querySelectorAll('[data-preset]').forEach(b => b.onclick = async () => { edit(() => { const volume = state.volume; state = C.preset(b.dataset.preset); state.volume = volume; }, '换了一片星空'); queue = []; await engine.reset(); engine.update(); });
-  $('randomBtn').onclick = () => { const seed = crypto.getRandomValues(new Uint32Array(1))[0]; edit(() => { state = C.generate(seed, state); }, '一次新的偶遇。喜欢就把它带走。'); };
-  $('lengthSelect').onchange = e => { edit(() => C.resizeTrack(state.tracks[selected], Number(e.target.value)), '周期改变了，留意下一次重逢'); discover('orbit'); };
+  $('undoBtn').onclick = () => { if (!history.length) return; future.push(C.clone(state)); state = history.pop(); focusNote = null; engine.update(); persist(); renderUI(); toast('已撤销上一次修改'); };
+  $('redoBtn').onclick = () => { if (!future.length) return; history.push(C.clone(state)); state = future.pop(); focusNote = null; engine.update(); persist(); renderUI(); toast('已重做这次修改'); };
+  document.querySelectorAll('[data-preset]').forEach(b => b.onclick = async () => { edit(() => { const volume = state.volume; state = C.preset(b.dataset.preset); state.volume = volume; focusNote = null; }, '换了一片星空'); queue = []; await engine.reset(); engine.update(); });
+  $('randomBtn').onclick = () => { const seed = crypto.getRandomValues(new Uint32Array(1))[0]; edit(() => { state = C.generate(seed, state); focusNote = null; }, '一次新的偶遇。喜欢就把它带走。'); };
+  $('lengthSelect').onchange = e => { edit(() => { C.resizeTrack(state.tracks[selected], Number(e.target.value)); focusNote = null; }, '周期改变了，留意下一次重逢'); discover('orbit'); };
   $('rotateBtn').onclick = () => edit(() => { const t = state.tracks[selected]; t.shift = (t.shift + 1) % t.length; }, '整条轨道晚一格相遇');
-  $('clearBtn').onclick = () => edit(() => state.tracks[selected].notes.fill(-1), '这条轨道空出来了 · 可以撤销');
-  $('pitchSelect').onchange = e => { newPitch = Number(e.target.value); $('pitchLabel').textContent = `第 ${newPitch + 1} 音`; };
+  $('clearBtn').onclick = () => edit(() => { state.tracks[selected].notes.fill(-1); state.tracks[selected].accents.fill(1); }, '这条轨道空出来了 · 可以撤销');
+  $('pitchSelect').onchange = e => {
+    const pitch = Number(e.target.value);
+    if (focusNote) { const { track, step } = focusNote; edit(() => { state.tracks[track].notes[step] = pitch; }); preview(track, step); }
+    else { newPitch = pitch; $('pitchLabel').textContent = `第 ${newPitch + 1} 音`; }
+  };
+  document.querySelectorAll('[data-mode]').forEach(b => b.onclick = () => { editMode = b.dataset.mode; focusNote = null; renderUI(); });
+  document.querySelectorAll('[data-accent]').forEach(b => b.onclick = () => {
+    const accent = Number(b.dataset.accent);
+    if (focusNote) { const { track, step } = focusNote; edit(() => { state.tracks[track].accents[step] = accent; }); preview(track, step); }
+    else { newAccent = accent; renderUI(); }
+  });
+  $('soloBtn').onclick = () => edit(() => { state.tracks[selected].solo = !state.tracks[selected].solo; });
   $('scaleSelect').onchange = e => edit(() => { state.scale = e.target.value; }, '同一片星星，另一种心情');
-  for (const [id, key, divisor] of [['tempo', 'bpm', 1], ['space', 'space', 100], ['volume', 'volume', 100]]) {
+  for (const [id, key, divisor] of [['tempo', 'bpm', 1], ['space', 'space', 100], ['volume', 'volume', 100], ['trackGain', 'gain', 100]]) {
     $(id).addEventListener('input', e => {
       if (!sliderBefore) sliderBefore = C.clone(state);
-      state[key] = Number(e.target.value) / divisor; engine.update();
+      const target = id === 'trackGain' ? state.tracks[selected] : state;
+      target[key] = Number(e.target.value) / divisor; engine.update();
       if (id === 'tempo') $('tempoValue').innerHTML = `${state.bpm} <small>BPM</small>`;
       else $(id + 'Value').textContent = `${e.target.value}%`;
     });
-    $(id).addEventListener('change', () => { if (sliderBefore) { history.push(sliderBefore); if (history.length > 60) history.shift(); sliderBefore = null; } persist(); $('undoBtn').disabled = history.length === 0; });
+    $(id).addEventListener('change', () => { if (sliderBefore) { history.push(sliderBefore); if (history.length > 60) history.shift(); future = []; sliderBefore = null; } persist(); renderUI(); });
   }
   $('helpBtn').onclick = () => $('helpDialog').showModal(); $('exportBtn').onclick = () => $('exportDialog').showModal();
   document.querySelectorAll('[data-close]').forEach(b => b.onclick = () => b.closest('dialog').close());
@@ -464,15 +598,98 @@
   document.addEventListener('keydown', e => {
     if (e.target.closest('input,select,textarea') || document.querySelector('dialog[open]')) return;
     if (e.code === 'Space' && !e.target.closest('button')) { e.preventDefault(); playPause(); }
-    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') { e.preventDefault(); $('undoBtn').click(); }
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') { e.preventDefault(); $(e.shiftKey ? 'redoBtn' : 'undoBtn').click(); }
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') { e.preventDefault(); $('redoBtn').click(); }
+    if (e.key === 'Escape' && immersive) setImmersive(false);
     if (/^[1-5]$/.test(e.key) && !e.ctrlKey && !e.metaKey) selectTrack(Number(e.key) - 1);
     if (e.key === '?') $('helpDialog').showModal();
   });
   document.addEventListener('visibilitychange', () => { if (document.hidden && engine.running) { engine.pause(); queue = []; updatePlaybackUI(); } });
 
+  function setImmersive(value) {
+    immersive = value; document.body.classList.toggle('immersive', value);
+    $('immerseBtn').textContent = value ? '⊡ 返回工作台' : '⛶ 沉浸'; $('immerseBtn').setAttribute('aria-pressed', String(value));
+    hover = null; $('tooltip').hidden = true;
+  }
+  $('immerseBtn').onclick = () => setImmersive(!immersive);
+  $('renameBtn').onclick = () => { $('titleInput').value = state.title; $('renameDialog').showModal(); $('titleInput').select(); };
+  $('renameForm').onsubmit = e => {
+    e.preventDefault(); const title = $('titleInput').value.trim();
+    if (!title) { $('titleInput').setCustomValidity('给星空写一个名字吧'); $('titleInput').reportValidity(); return; }
+    if (title !== state.title) edit(() => { state.title = title; });
+    $('renameDialog').close(); toast('这片星空有名字了');
+  };
+  $('titleInput').oninput = () => $('titleInput').setCustomValidity('');
+  function thumbnail(target, snapshot) {
+    target.width = 560; target.height = 300;
+    const c = target.getContext('2d'), x = 280, y = 150;
+    const gradient = c.createRadialGradient(x, y, 0, x, y, 260); gradient.addColorStop(0, '#244045'); gradient.addColorStop(1, '#0c1a20'); c.fillStyle = gradient; c.fillRect(0, 0, 560, 300);
+    snapshot.tracks.forEach((track, i) => {
+      const r = 34 + i * 24, color = C.ROLES[i].color;
+      c.globalAlpha = C.audible(snapshot, i) ? 1 : .25;
+      c.strokeStyle = '#3c6069'; c.lineWidth = 1; c.beginPath(); c.arc(x, y, r, 0, Math.PI * 2); c.stroke();
+      track.notes.forEach((pitch, step) => {
+        if (pitch < 0) return;
+        const a = (step + track.shift) / track.length * Math.PI * 2 - Math.PI / 2;
+        c.shadowColor = color; c.shadowBlur = 12; circle(c, x + Math.cos(a) * r, y + Math.sin(a) * r, 2.3 + track.accents[step] * 1.7, color); c.shadowBlur = 0;
+      });
+    });
+    c.globalAlpha = 1; circle(c, x, y, 3.5, '#e1bc89');
+  }
+  function renderShelf() {
+    $('shelfGrid').replaceChildren(); $('shelfCount').textContent = `${shelf.entries.length} 张本地收藏`;
+    $('shelfSummary').textContent = `${shelf.entries.length} / ${C.COLLECTION_LIMIT} 张星图`;
+    $('shelfUndo').hidden = !shelfRemoved;
+    if (!shelf.entries.length) {
+      const empty = document.createElement('div'); empty.className = 'shelf-empty';
+      empty.innerHTML = '<span>✧</span><strong>第一张星图，等你留下。</strong><p>点上方收藏，把这次相遇保存在自己的书架里。</p>';
+      $('shelfGrid').append(empty);
+    }
+    shelf.entries.forEach(entry => {
+      const card = document.createElement('article'); card.className = 'shelf-card';
+      const open = document.createElement('button'); open.className = 'shelf-open'; open.setAttribute('aria-label', `打开星图 ${entry.state.title}`);
+      const previewCanvas = document.createElement('canvas'); previewCanvas.setAttribute('aria-hidden', 'true'); thumbnail(previewCanvas, entry.state);
+      const title = document.createElement('strong'); title.textContent = entry.state.title;
+      const meta = document.createElement('small'); meta.textContent = `${C.countNotes(entry.state)} 颗星星 · ${entry.state.bpm} BPM · ${C.SCALES[entry.state.scale].label.split(' · ')[0]}`;
+      open.append(previewCanvas, title, meta);
+      open.onclick = async () => {
+        const snapshot = shelf.load(entry.id);
+        edit(() => { state = snapshot; focusNote = null; }); queue = []; pulses.clear(); await engine.reset(); engine.update(); updatePlaybackUI();
+        $('shelfDialog').close(); toast('回到「' + snapshot.title + '」');
+      };
+      const footer = document.createElement('div'); footer.className = 'shelf-card-footer';
+      const time = document.createElement('span'); time.textContent = new Date(entry.created).toLocaleDateString('zh-CN', { month: '2-digit', day: '2-digit' });
+      const remove = document.createElement('button'); remove.className = 'text-button'; remove.textContent = '移出书架'; remove.setAttribute('aria-label', `删除收藏 ${entry.state.title}`);
+      remove.onclick = () => {
+        try { shelfRemoved = shelf.remove(entry.id); renderShelf(); $('shelfFeedback').textContent = '已移出书架。当前正在编辑的星图不会改变。'; }
+        catch (error) { $('shelfFeedback').textContent = error.message; }
+      };
+      footer.append(time, remove); card.append(open, footer); $('shelfGrid').append(card);
+    });
+  }
+  $('shelfBtn').onclick = () => {
+    if (engine.running) { engine.pause(); queue = []; updatePlaybackUI(); }
+    $('shelfTitle').value = state.title; $('shelfFeedback').textContent = shelf.readError ? '书架读取失败，原始数据仍保留。请先把当前星图导出为 JSON。' : '';
+    renderShelf(); $('shelfDialog').showModal();
+  };
+  $('shelfForm').onsubmit = e => {
+    e.preventDefault(); const title = $('shelfTitle').value.trim();
+    if (!title) { $('shelfTitle').setCustomValidity('给星空写一个名字吧'); $('shelfTitle').reportValidity(); return; }
+    try {
+      const saved = shelf.save(state, title);
+      if (title !== state.title) edit(() => { state.title = title; });
+      renderShelf(); $('shelfFeedback').textContent = saved.duplicate ? '这张星图已经在书架里了，不会重复占位置。' : '已收藏「' + title + '」。继续探索，它会在这里等你。';
+    } catch (error) { $('shelfFeedback').textContent = error.message; }
+  };
+  $('shelfTitle').oninput = () => $('shelfTitle').setCustomValidity('');
+  $('restoreShelfBtn').onclick = () => {
+    try { shelf.restore(shelfRemoved); shelfRemoved = null; renderShelf(); $('shelfFeedback').textContent = '刚才移出的星图回来了。'; }
+    catch (error) { $('shelfFeedback').textContent = error.message; }
+  };
+
   function geometry(w = width, h = height) {
-    const max = Math.min(w * 0.435, h * 0.358);
-    return { cx: w / 2, cy: h * 0.53, radii: [0.28, 0.46, 0.64, 0.82, 1].map(v => v * max), max };
+    const max = Math.min(w * 0.435, h * (immersive ? 0.40 : 0.358));
+    return { cx: w / 2, cy: h * (immersive ? 0.52 : 0.53), radii: [0.28, 0.46, 0.64, 0.82, 1].map(v => v * max), max };
   }
   function location(track, step, g = geometry()) {
     const t = state.tracks[track], angle = (step + t.shift) / t.length * Math.PI * 2 - Math.PI / 2;
@@ -507,13 +724,17 @@
     if (!drag) return;
     const d = drag; drag = null; $('tooltip').hidden = true;
     if (canvas.hasPointerCapture(e.pointerId)) canvas.releasePointerCapture(e.pointerId);
-    if (!d.moved) toggleNote(d.track, d.step);
+    if (!d.moved) actOnNote(d.track, d.step, e.shiftKey);
     else if (d.pitch >= 0 && d.target && !(d.track === d.target.track && d.step === d.target.step)) {
       edit(() => {
         // Occupied destinations swap: dragging never silently destroys another star.
         const destination = state.tracks[d.target.track].notes[d.target.step];
+        const sourceAccent = state.tracks[d.track].accents[d.step], destinationAccent = state.tracks[d.target.track].accents[d.target.step];
         state.tracks[d.track].notes[d.step] = destination;
         state.tracks[d.target.track].notes[d.target.step] = d.pitch; selected = d.target.track;
+        state.tracks[d.track].accents[d.step] = destination >= 0 ? destinationAccent : 1;
+        state.tracks[d.target.track].accents[d.target.step] = sourceAccent;
+        focusNote = editMode === 'tune' ? { ...d.target } : null;
       }); preview(d.target.track, d.target.step);
     }
   });
@@ -522,7 +743,7 @@
   canvas.addEventListener('pointerleave', () => { hover = null; $('tooltip').hidden = true; });
   canvas.addEventListener('contextmenu', e => { e.preventDefault(); const p = pointerPosition(e), h = hit(p.x, p.y); if (h) raiseNote(h.track, h.step); });
   function pulse(track, step) {
-    const time = performance.now(); pulses.set(`${track}:${step}`, time);
+    const time = performance.now(); lastEncounterAt = time; pulses.set(`${track}:${step}`, time);
     if (!reducedMotion) { const p = location(track, step); for (let k = 0; k < 5; k++) particles.push({ x: p.x, y: p.y, vx: (random() - .5) * 24, vy: (random() - .5) * 24, born: time, color: C.ROLES[track].color }); }
   }
   function circle(c, x, y, radius, color) { c.beginPath(); c.arc(x, y, radius, 0, Math.PI * 2); c.fillStyle = color; c.fill(); }
@@ -530,6 +751,12 @@
     const g = geometry(w, h), scale = poster ? 1.8 : 1;
     c.clearRect(0, 0, w, h);
     const bg = c.createRadialGradient(g.cx, g.cy, 0, g.cx, g.cy, g.max * 1.65); bg.addColorStop(0, '#193338'); bg.addColorStop(.55, '#10262c'); bg.addColorStop(1, '#0c171b'); c.fillStyle = bg; c.fillRect(0, 0, w, h);
+    const colors = { dawn: ['#dfba88', '#89cfb6'], tide: ['#7cbcc9', '#7bc9b1'], glass: ['#b9a0d1', '#86b4d2'] }[state.scale];
+    colors.forEach((color, i) => {
+      const drift = reducedMotion ? 0 : Math.sin(now * .00008 + i * 2) * g.max * .07;
+      const x = g.cx + (i ? -.42 : .46) * g.max + drift, y = g.cy + (i ? .4 : -.35) * g.max;
+      const wash = c.createRadialGradient(x, y, 0, x, y, g.max * .95); wash.addColorStop(0, color + '10'); wash.addColorStop(1, color + '00'); c.fillStyle = wash; c.fillRect(0, 0, w, h);
+    });
     for (const star of stars) { c.globalAlpha = star.a * (reducedMotion ? 1 : .8 + Math.sin(now * .0005 + star.phase) * .2); circle(c, star.x * w, star.y * h, star.r * scale, '#b2d6d3'); } c.globalAlpha = 1;
     // Fine survey marks: an observatory, rather than a literal gravity simulation.
     c.strokeStyle = '#34525b'; c.lineWidth = .6 * scale;
@@ -539,33 +766,37 @@
     }
     c.globalAlpha = 1; c.setLineDash([2 * scale, 7 * scale]); c.strokeStyle = '#29474e'; c.beginPath(); c.moveTo(g.cx, g.cy - g.max - 30 * scale); c.lineTo(g.cx, g.cy + g.max + 20 * scale); c.moveTo(g.cx - g.max - 25 * scale, g.cy); c.lineTo(g.cx + g.max + 25 * scale, g.cy); c.stroke(); c.setLineDash([]);
     state.tracks.forEach((t, track) => {
-      const color = C.ROLES[track].color, r = g.radii[track];
-      c.globalAlpha = t.muted ? .18 : 1;
+      const color = C.ROLES[track].color, r = g.radii[track], audible = C.audible(state, track);
+      c.globalAlpha = audible ? 1 : .18;
       c.beginPath(); c.arc(g.cx, g.cy, r, 0, Math.PI * 2); c.strokeStyle = track === selected ? '#557c7e' : '#2b4b53'; c.lineWidth = (track === selected ? 1.15 : .75) * scale; c.stroke();
       const active = t.notes.map((p, i) => p >= 0 ? location(track, i, g) : null).filter(Boolean);
-      if (active.length > 1) { c.beginPath(); active.forEach((p, i) => i ? c.lineTo(p.x, p.y) : c.moveTo(p.x, p.y)); c.closePath(); c.strokeStyle = color; c.lineWidth = .6 * scale; c.globalAlpha = t.muted ? .025 : .09; c.stroke(); }
+      if (active.length > 1) { c.beginPath(); active.forEach((p, i) => i ? c.lineTo(p.x, p.y) : c.moveTo(p.x, p.y)); c.closePath(); c.strokeStyle = color; c.lineWidth = .6 * scale; c.globalAlpha = audible ? .12 : .025; c.stroke(); }
       t.notes.forEach((pitch, step) => {
         const p = location(track, step, g), hot = hover && hover.track === track && hover.step === step;
-        c.globalAlpha = t.muted ? .2 : 1;
+        const focused = focusNote?.track === track && focusNote.step === step;
+        c.globalAlpha = audible ? 1 : .2;
         if (pitch < 0) { circle(c, p.x, p.y, (hot ? 3.7 : 1.75) * scale, hot ? '#a9d6ca' : '#3e646c'); return; }
         const elapsed = now - (pulses.get(`${track}:${step}`) || -10000), glow = Math.max(0, 1 - elapsed / 1000);
-        const size = (3.4 + pitch * .18 + glow * 1.8 + (hot ? 1.2 : 0)) * scale;
+        const accent = t.accents[step], size = (2.5 + accent * 1.2 + pitch * .18 + glow * 1.8 + (hot ? 1.2 : 0)) * scale;
         c.shadowColor = color; c.shadowBlur = (glow * 21 + 9) * scale;
         circle(c, p.x, p.y, size, color); c.shadowBlur = 0;
         circle(c, p.x - .6 * scale, p.y - .6 * scale, size * .34, '#f8f7e9');
         if (glow > 0 && !reducedMotion) { c.globalAlpha = glow * .5; c.strokeStyle = color; c.lineWidth = .7 * scale; c.beginPath(); c.arc(p.x, p.y, (7 + (1 - glow) * 17) * scale, 0, Math.PI * 2); c.stroke(); }
-        if (hot) { c.globalAlpha = .8; c.strokeStyle = color; c.beginPath(); c.arc(p.x, p.y, size + 5 * scale, 0, Math.PI * 2); c.stroke(); }
+        if (accent > 1) { c.globalAlpha = audible ? .5 : .1; c.strokeStyle = color; c.lineWidth = .6 * scale; c.beginPath(); c.moveTo(p.x - size - 3 * scale, p.y); c.lineTo(p.x + size + 3 * scale, p.y); c.moveTo(p.x, p.y - size - 3 * scale); c.lineTo(p.x, p.y + size + 3 * scale); c.stroke(); }
+        if (hot || focused) { c.globalAlpha = .8; c.strokeStyle = color; c.lineWidth = scale; c.beginPath(); c.arc(p.x, p.y, size + (focused ? 8 : 5) * scale, 0, Math.PI * 2); c.stroke(); }
       });
-      c.globalAlpha = t.muted ? .16 : 1;
+      c.globalAlpha = audible ? 1 : .16;
       const a = C.mod(phase, t.length) / t.length * Math.PI * 2 - Math.PI / 2;
       if (!reducedMotion || poster) for (let k = 0; k < 24; k++) {
-        c.globalAlpha = (t.muted ? .04 : .48) * (1 - k / 24); c.strokeStyle = color; c.lineWidth = 1.5 * scale; c.beginPath(); c.arc(g.cx, g.cy, r, a - (k + 1) * .021, a - k * .021); c.stroke();
+        c.globalAlpha = (audible ? .48 : .04) * (1 - k / 24); c.strokeStyle = color; c.lineWidth = 1.5 * scale; c.beginPath(); c.arc(g.cx, g.cy, r, a - (k + 1) * .021, a - k * .021); c.stroke();
       }
-      c.globalAlpha = t.muted ? .2 : 1; c.shadowColor = color; c.shadowBlur = 14 * scale;
+      c.globalAlpha = audible ? 1 : .2; c.shadowColor = color; c.shadowBlur = 14 * scale;
       circle(c, g.cx + Math.cos(a) * r, g.cy + Math.sin(a) * r, 3 * scale, '#f3f3dd'); c.shadowBlur = 0;
       c.globalAlpha = 1;
     });
     const breathe = reducedMotion ? 0 : Math.sin(now * .001) * .08;
+    const heart = reducedMotion ? 0 : Math.max(0, 1 - (now - lastEncounterAt) / 650);
+    if (heart > 0) { c.globalAlpha = heart * .2; c.strokeStyle = '#e7c593'; c.lineWidth = scale; c.beginPath(); c.arc(g.cx, g.cy, (18 + (1 - heart) * 20) * scale, 0, Math.PI * 2); c.stroke(); c.globalAlpha = 1; }
     const halo = c.createRadialGradient(g.cx, g.cy, 0, g.cx, g.cy, g.radii[0] * .8); halo.addColorStop(0, '#d7ac6c30'); halo.addColorStop(1, '#d7ac6c00'); c.fillStyle = halo; c.beginPath(); c.arc(g.cx, g.cy, g.radii[0] * .8, 0, 6.284); c.fill();
     c.save(); c.translate(g.cx, g.cy); c.rotate(Math.PI / 4); c.strokeStyle = '#b8996d'; c.lineWidth = .8 * scale; c.globalAlpha = .7 + breathe; c.strokeRect(-8 * scale, -8 * scale, 16 * scale, 16 * scale); c.rotate(Math.PI / 4); c.strokeRect(-6 * scale, -6 * scale, 12 * scale, 12 * scale); c.restore(); circle(c, g.cx, g.cy, 2 * scale, '#e8c08d');
     if (!poster) {
@@ -585,12 +816,15 @@
     lastFrame = now;
     while (queue.length && engine.ctx && queue[0].when <= engine.ctx.currentTime) {
       const item = queue.shift(); item.events.forEach(e => pulse(e.track, e.step)); encounters += item.events.length;
+      if (item.events.length) $('noteReadout').textContent = [...new Set(item.events.map(e => C.ROLES[e.track].name))].join(' · ') + ' / 相遇';
       if (encounters >= 32) discover('listen');
     }
     for (const [k, v] of pulses) if (now - v > 1500) pulses.delete(k);
     const phase = engine.phase(); scene(ctx, width, height, phase, now);
     const t = state.tracks[selected], step = C.mod(Math.floor(phase) - t.shift, t.length);
     if (step !== renderedStep) { renderedStep = step; document.querySelectorAll('.step').forEach(b => b.classList.toggle('current', engine.running && Number(b.dataset.step) === step)); }
+    const beatText = engine.running ? `第 ${Math.floor(phase / 8) + 1} 小节 · ${Math.floor(phase / 2) % 4 + 1} / 4 拍` : phase > 0 ? '时间暂歇，星星还在这里' : '等待第一束光';
+    if ($('beatReadout').textContent !== beatText) $('beatReadout').textContent = beatText;
     if (!engine.running) document.querySelectorAll('.step.current').forEach(b => b.classList.remove('current'));
   }
   function resize() { const r = canvas.getBoundingClientRect(); width = r.width; height = r.height; const dpr = Math.min(devicePixelRatio || 1, 2); canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); particles = []; }
@@ -609,7 +843,7 @@
   $('midiBtn').onclick = () => { download(new Blob([C.midiBytes(state)], { type: 'audio/midi' }), filename('mid')); $('exportStatus').textContent = 'MIDI 已交给浏览器下载：8 小节、五条分轨和独立速度轨。'; };
   $('wavBtn').onclick = async () => {
     const snapshot = C.clone(state), name = filename('wav');
-    if (snapshot.volume === 0 || !snapshot.tracks.some(t => !t.muted && t.gain > 0 && t.notes.some(p => p >= 0))) { $('exportStatus').textContent = '这片宇宙现在没有声音。先打开音量，并点亮一条未静音的轨道。'; return; }
+    if (snapshot.volume === 0 || !snapshot.tracks.some((t, i) => C.audible(snapshot, i) && t.notes.some(p => p >= 0))) { $('exportStatus').textContent = '这片宇宙现在没有声音。先打开音量，并点亮一条可听见的轨道。'; return; }
     $('wavBtn').disabled = true; $('exportStatus').textContent = '正在本机合成音乐，稍等片刻……';
     try {
       const wav = await OrbitAudio.renderWav(snapshot); download(new Blob([wav.bytes], { type: 'audio/wav' }), name);
@@ -623,13 +857,13 @@
     try {
       if (file.size > 100000) throw new Error('星图文件过大，请选择本应用导出的 JSON。');
       const imported = C.validate(JSON.parse(await file.text()));
-      edit(() => { state = imported; }); queue = []; await engine.reset(); engine.update(); $('exportDialog').close(); toast('欢迎回到这片星空');
-    } catch { $('exportStatus').textContent = '导入失败：请选择有效的 Stargram v1 星图 JSON。当前星图未改变。'; }
+      edit(() => { state = imported; focusNote = null; }); queue = []; await engine.reset(); engine.update(); $('exportDialog').close(); toast('欢迎回到这片星空');
+    } catch { $('exportStatus').textContent = '导入失败：请选择有效的 Stargram v1 / v2 星图 JSON。当前星图未改变。'; }
     finally { e.target.value = ''; }
   };
   window.addEventListener('beforeunload', persist);
   // Read-only diagnostics for local regression checks; no bypass for UI operations.
-  window.Stargram = Object.freeze({ snapshot: () => C.clone(state), status: () => ({ playing: engine.running, phase: engine.phase(), encounters, selected, saved: !saveError, audioState: engine.ctx?.state || 'uninitialized', activeVoices: engine.voices.size }), exportWav: OrbitAudio.renderWav });
+  window.Stargram = Object.freeze({ snapshot: () => C.clone(state), collection: () => C.clone(shelf.entries), status: () => ({ playing: engine.running, phase: engine.phase(), encounters, selected, editMode, focusedNote: focusNote ? { ...focusNote } : null, immersive, saved: !saveError, audioState: engine.ctx?.state || 'uninitialized', activeVoices: engine.voices.size }), exportWav: OrbitAudio.renderWav });
   renderUI(); resize(); requestAnimationFrame(frame);
   if (saveError) { $('saveStatus').textContent = '未能恢复本地星图，请导出文件留存'; toast('本地存档不可用，已打开默认星图'); }
   else if (stored) $('saveStatus').textContent = '已恢复上次的星图';

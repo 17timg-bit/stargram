@@ -67,6 +67,8 @@
 
 `示例作品/音乐/` 内有三张初始星图的 WAV 和 MIDI，`示例作品/星图/` 内有可以重新导入的星图文件，`示例作品/明信片/` 内有应用实际导出的图片。
 
+`示例作品/v1.1.0/` 另外放了两张书架演示星图「薄荷色的回声」「玻璃海上的灯塔」，以及「薄荷色的回声」带轻重音的 WAV / MIDI。可从导出面板导入 JSON 试玩；导入不会自动占用书架，喜欢时再收藏。
+
 它们是这件乐器的演示片段，不是另行制作的完整乐曲。不同周期的完整共同循环可能长于 8 小节，因此导出的 WAV 不一定能无缝循环。
 
 ## 文件结构
@@ -96,6 +98,7 @@ node scripts/build.js
 node --test tests/core.test.js
 node --test tests/v1.1.test.js
 python scripts/verify_artifacts.py
+python scripts/verify_v11.py
 ```
 
 没有 npm 包、构建框架、CDN、字体下载和后台服务。详见 `docs/开发说明.md`。

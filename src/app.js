@@ -250,8 +250,8 @@
   };
 
   function geometry(w = width, h = height) {
-    const max = Math.min(w * 0.435, h * 0.358);
-    return { cx: w / 2, cy: h * 0.53, radii: [0.28, 0.46, 0.64, 0.82, 1].map(v => v * max), max };
+    const max = Math.min(w * 0.435, h * (immersive ? 0.40 : 0.358));
+    return { cx: w / 2, cy: h * (immersive ? 0.52 : 0.53), radii: [0.28, 0.46, 0.64, 0.82, 1].map(v => v * max), max };
   }
   function location(track, step, g = geometry()) {
     const t = state.tracks[track], angle = (step + t.shift) / t.length * Math.PI * 2 - Math.PI / 2;

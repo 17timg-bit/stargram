@@ -1,0 +1,39 @@
+{
+  "audio": {
+    "dense": {
+      "clipped": 0,
+      "peak": 0.8800048828125,
+      "renderPeak": 0.88,
+      "rms": 0.2632130281266575
+    },
+    "light": {
+      "clipped": 0,
+      "peak": 0.004425048828125,
+      "rms": 0.00043613932578279635
+    },
+    "rmsRatio": 2.2899629724149646,
+    "sampleRate": 44100,
+    "soloDifferentSamples": 1,
+    "soloEqualsManualMute": false,
+    "soloPcmDelta": 1,
+    "strong": {
+      "clipped": 0,
+      "peak": 0.010589599609375,
+      "rms": 0.000998742906856631
+    }
+  },
+  "checks": [
+    "tune mode changes an existing note without deleting it; accent changes persist",
+    "Shift-click cycles accent; undo and redo restore exact expression",
+    "accent brush applies to new stars; new edits discard the redo branch",
+    "track volume limits and multiple-solo routing are real model state",
+    "renaming and independent named snapshots work; duplicate saves do not consume space",
+    "collection removal can be undone; loading preserves expression; current work and shelf survive reload",
+    "immersive view expands the canvas and Escape returns to the workbench",
+    "live beat indicator follows the audio clock; pause clears all voices",
+    "strong notes render louder; solo and manual isolation differ by at most one PCM16 rounding unit; dense full-accent render has no clipping",
+    "expressive WAV, MIDI and v2 map exports requested from real UI"
+  ],
+  "errors": [],
+  "date": "2026-10-27"
+}

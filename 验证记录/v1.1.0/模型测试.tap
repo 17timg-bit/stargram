@@ -1,0 +1,112 @@
+TAP version 13
+# Subtest: all presets validate, are independent, and contain five audible roles
+ok 1 - all presets validate, are independent, and contain five audible roles
+  ---
+  duration_ms: 2.9756
+  type: 'test'
+  ...
+# Subtest: shift and loop positions agree, including wraparound
+ok 2 - shift and loop positions agree, including wraparound
+  ---
+  duration_ms: 1.2047
+  type: 'test'
+  ...
+# Subtest: pitch mapping respects scale and octave across all roles
+ok 3 - pitch mapping respects scale and octave across all roles
+  ---
+  duration_ms: 0.5334
+  type: 'test'
+  ...
+# Subtest: resizing preserves phase proportion and creates valid tracks
+ok 4 - resizing preserves phase proportion and creates valid tracks
+  ---
+  duration_ms: 0.6801
+  type: 'test'
+  ...
+# Subtest: seeded generator is reproducible and bounded for 1000 universes
+ok 5 - seeded generator is reproducible and bounded for 1000 universes
+  ---
+  duration_ms: 27.6566
+  type: 'test'
+  ...
+# Subtest: common cycle is a real least common multiple
+ok 6 - common cycle is a real least common multiple
+  ---
+  duration_ms: 0.2739
+  type: 'test'
+  ...
+# Subtest: import rejects corrupt, oversized and unexpected structures
+ok 7 - import rejects corrupt, oversized and unexpected structures
+  ---
+  duration_ms: 0.5778
+  type: 'test'
+  ...
+# Subtest: MIDI has valid independent tracks, real tempo and balanced note events
+ok 8 - MIDI has valid independent tracks, real tempo and balanced note events
+  ---
+  duration_ms: 4.0475
+  type: 'test'
+  ...
+# Subtest: single-file distribution has no network, imports or external assets
+ok 9 - single-file distribution has no network, imports or external assets
+  ---
+  duration_ms: 1.1615
+  type: 'test'
+  ...
+# Subtest: v1.0 maps migrate without changing notes, gain or event amplitudes
+ok 10 - v1.0 maps migrate without changing notes, gain or event amplitudes
+  ---
+  duration_ms: 8.1496
+  type: 'test'
+  ...
+# Subtest: solo intersects mute and zero gain; multiple solo tracks remain audible
+ok 11 - solo intersects mute and zero gain; multiple solo tracks remain audible
+  ---
+  duration_ms: 2.3196
+  type: 'test'
+  ...
+# Subtest: accents alter exact event amplitude; resizing carries accent with its star
+ok 12 - accents alter exact event amplitude; resizing carries accent with its star
+  ---
+  duration_ms: 0.6192
+  type: 'test'
+  ...
+# Subtest: MIDI preserves expressive velocity, clamps max gain and respects solo
+ok 13 - MIDI preserves expressive velocity, clamps max gain and respects solo
+  ---
+  duration_ms: 1.1763
+  type: 'test'
+  ...
+# Subtest: collections persist independent snapshots, suppress duplicates and survive reload
+ok 14 - collections persist independent snapshots, suppress duplicates and survive reload
+  ---
+  duration_ms: 0.8356
+  type: 'test'
+  ...
+# Subtest: removal and undo preserve full expressive snapshot and relative order
+ok 15 - removal and undo preserve full expressive snapshot and relative order
+  ---
+  duration_ms: 0.4864
+  type: 'test'
+  ...
+# Subtest: full shelf and failed writes never evict or mutate existing snapshots
+ok 16 - full shelf and failed writes never evict or mutate existing snapshots
+  ---
+  duration_ms: 6.3583
+  type: 'test'
+  ...
+# Subtest: corrupt shelf remains untouched; collection input is bounded and validated
+ok 17 - corrupt shelf remains untouched; collection input is bounded and validated
+  ---
+  duration_ms: 0.3591
+  type: 'test'
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 197.3111

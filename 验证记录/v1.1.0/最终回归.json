@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "real v1 file import upgrades safely; exported v2 expressive map round-trips; invalid import leaves current state intact",
+    "real canvas dragging swaps both pitch and accent across tracks; keyboard undo/redo restores complete state"
+  ],
+  "errors": [],
+  "screenshot": {
+    "file": "工作台.png",
+    "width": 1440,
+    "height": 900
+  },
+  "storageIsolation": "127.0.0.1:49741 origin; no file-origin writes",
+  "date": "2026-10-27"
+}
