@@ -1,0 +1,278 @@
+{
+  "date": "2026-10-28",
+  "version": "1.7.0",
+  "status": "local_only",
+  "origin": "http://127.0.0.1:49922",
+  "browser": "Tabbit / Chromium on Windows",
+  "model_tests": {
+    "passed": 37,
+    "failed": 0
+  },
+  "browser_check_groups": 9,
+  "checks": [
+    "opening copies the real score; pointer and keyboard editing, accents and draft history are isolated; reopening resumes the same handwritten draft",
+    "generator settings never replace handwriting before explicit generation; generated candidates and period edits are undoable",
+    "applying changes exactly one track, supports one global undo/redo and reload, and starts the next manuscript from the applied score",
+    "three light, dark and cool appearances across seven viewport sizes keep the 24-tick score inside its own scroll area and A/B, apply and edit controls reachable",
+    "390px viewport writes and accents the last column of a shifted 24-tick score, supports keyboard draft undo/redo, resumes it, applies and globally undoes it; zero gain and empty originals disable the correct audition buttons",
+    "A renders the exact original period, B the edited period; switching clears the old source and B matches an independent shared-engine render within two PCM16 units",
+    "natural completion releases nodes; editing or closing during held audio preparation cannot resurrect an old original or manuscript audition",
+    "a handwritten 12-tick phrase is applied through the UI, plays in the main engine, exports JSON/WAV/MIDI/PNG, survives reload and leaves the four other tracks and SG1 appearance protocol intact",
+    "saving the handwritten sample to the shelf and loading it after a different preset restores the song, clears stale manuscripts and preserves the appearance; generator expansion leaves the score unchanged"
+  ],
+  "page_errors": [],
+  "cleanup": {
+    "own_qa_tab_closed": true,
+    "browser_task_finished_normally": true,
+    "loopback_server_stopped": true,
+    "port_49922_has_no_listener": true
+  },
+  "layout_cases": [
+    {
+      "all_actions_reachable": true,
+      "grid_cells": 240,
+      "height": 1080,
+      "inner_scroll": false,
+      "no_page_or_dialog_overflow": true,
+      "preset": "paper",
+      "width": 1920
+    },
+    {
+      "all_actions_reachable": true,
+      "grid_cells": 240,
+      "height": 923,
+      "inner_scroll": false,
+      "no_page_or_dialog_overflow": true,
+      "preset": "paper",
+      "width": 1460
+    },
+    {
+      "all_actions_reachable": true,
+      "grid_cells": 240,
+      "height": 720,
+      "inner_scroll": false,
+      "no_page_or_dialog_overflow": true,
+      "preset": "paper",
+      "width": 1280
+    },
+    {
+      "all_actions_reachable": true,
+      "grid_cells": 240,
+      "height": 900,
+      "inner_scroll": true,
+      "no_page_or_dialog_overflow": true,
+      "preset": "paper",
+      "width": 1000
+    },
+    {
+      "all_actions_reachable": true,
+      "grid_cells": 240,
+      "height": 844,
+      "inner_scroll": true,
+      "no_page_or_dialog_overflow": true,
+      "preset": "paper",
+      "width": 700
+    },
+    {
+      "all_actions_reachable": true,
+      "grid_cells": 240,
+      "height": 844,
+      "inner_scroll": true,
+      "no_page_or_dialog_overflow": true,
+      "preset": "paper",
+      "width": 390
+    },
+    {
+      "all_actions_reachable": true,
+      "grid_cells": 240,
+      "height": 700,
+      "inner_scroll": true,
+      "no_page_or_dialog_overflow": true,
+      "preset": "paper",
+      "width": 320
+    },
+    {
+      "all_actions_reachable": true,
+      "grid_cells": 240,
+      "height": 1080,
+      "inner_scroll": false,
+      "no_page_or_dialog_overflow": true,
+      "preset": "nocturne",
+      "width": 1920
+    },
+    {
+      "all_actions_reachable": true,
+      "grid_cells": 240,
+      "height": 923,
+      "inner_scroll": false,
+      "no_page_or_dialog_overflow": true,
+      "preset": "nocturne",
+      "width": 1460
+    },
+    {
+      "all_actions_reachable": true,
+      "grid_cells": 240,
+      "height": 720,
+      "inner_scroll": false,
+      "no_page_or_dialog_overflow": true,
+      "preset": "nocturne",
+      "width": 1280
+    },
+    {
+      "all_actions_reachable": true,
+      "grid_cells": 240,
+      "height": 900,
+      "inner_scroll": true,
+      "no_page_or_dialog_overflow": true,
+      "preset": "nocturne",
+      "width": 1000
+    },
+    {
+      "all_actions_reachable": true,
+      "grid_cells": 240,
+      "height": 844,
+      "inner_scroll": true,
+      "no_page_or_dialog_overflow": true,
+      "preset": "nocturne",
+      "width": 700
+    },
+    {
+      "all_actions_reachable": true,
+      "grid_cells": 240,
+      "height": 844,
+      "inner_scroll": true,
+      "no_page_or_dialog_overflow": true,
+      "preset": "nocturne",
+      "width": 390
+    },
+    {
+      "all_actions_reachable": true,
+      "grid_cells": 240,
+      "height": 700,
+      "inner_scroll": true,
+      "no_page_or_dialog_overflow": true,
+      "preset": "nocturne",
+      "width": 320
+    },
+    {
+      "all_actions_reachable": true,
+      "grid_cells": 240,
+      "height": 1080,
+      "inner_scroll": false,
+      "no_page_or_dialog_overflow": true,
+      "preset": "mist",
+      "width": 1920
+    },
+    {
+      "all_actions_reachable": true,
+      "grid_cells": 240,
+      "height": 923,
+      "inner_scroll": false,
+      "no_page_or_dialog_overflow": true,
+      "preset": "mist",
+      "width": 1460
+    },
+    {
+      "all_actions_reachable": true,
+      "grid_cells": 240,
+      "height": 720,
+      "inner_scroll": false,
+      "no_page_or_dialog_overflow": true,
+      "preset": "mist",
+      "width": 1280
+    },
+    {
+      "all_actions_reachable": true,
+      "grid_cells": 240,
+      "height": 900,
+      "inner_scroll": true,
+      "no_page_or_dialog_overflow": true,
+      "preset": "mist",
+      "width": 1000
+    },
+    {
+      "all_actions_reachable": true,
+      "grid_cells": 240,
+      "height": 844,
+      "inner_scroll": true,
+      "no_page_or_dialog_overflow": true,
+      "preset": "mist",
+      "width": 700
+    },
+    {
+      "all_actions_reachable": true,
+      "grid_cells": 240,
+      "height": 844,
+      "inner_scroll": true,
+      "no_page_or_dialog_overflow": true,
+      "preset": "mist",
+      "width": 390
+    },
+    {
+      "all_actions_reachable": true,
+      "grid_cells": 240,
+      "height": 700,
+      "inner_scroll": true,
+      "no_page_or_dialog_overflow": true,
+      "preset": "mist",
+      "width": 320
+    }
+  ],
+  "audio_comparison": {
+    "maxPcmDifference": 1,
+    "rmsPcmDifference": 0.0013830504604419407,
+    "sameByteLength": true
+  },
+  "audition_periods": {
+    "original": 16,
+    "manuscript": 8
+  },
+  "actual_downloads": [
+    "json",
+    "wav",
+    "mid",
+    "png"
+  ],
+  "application": {
+    "bytes": 183871,
+    "sha256": "1bbe872763ad6cd01efcff4fc1d4af5d8996701c104dfc87680d43131d129d86",
+    "offline_and_web_identical": true
+  },
+  "screenshots": [
+    {
+      "file": "主界面.png",
+      "bytes": 1129943,
+      "sha256": "678da92dbde83f61dd5e8f5a4767f2838d15558ecc636c1b8aae0c85e98dbd56"
+    },
+    {
+      "file": "回声手稿.png",
+      "bytes": 157383,
+      "sha256": "5442caafca0b068aba300df274b9328fae021556c50c88f3b40cb5ecf14a19e6"
+    },
+    {
+      "file": "夜航手稿.png",
+      "bytes": 159637,
+      "sha256": "dda7181a0fa151b2f95b390c4ef1c682686221f138b8398fa3a9a511cadc2783"
+    },
+    {
+      "file": "手机手稿.png",
+      "bytes": 42612,
+      "sha256": "785e4968ba0d2345436bb72ddbca1b82f27a00c91e59395907d26bbae122ea64"
+    },
+    {
+      "file": "手稿编辑.png",
+      "bytes": 162497,
+      "sha256": "a7d450477c44aef03a7659f2a68e89ef942fcbaf1156c6d9ec1e9a48745570e0"
+    },
+    {
+      "file": "织一个新念头.png",
+      "bytes": 148198,
+      "sha256": "ea00f646c187aeb29fd1e73af166b31b1938cbe6ace4125fd3239b1f863379ab"
+    }
+  ],
+  "limits": [
+    "Viewport simulation is not physical phone testing.",
+    "Full screen-reader testing and real background-tab cancellation were not repeated this release.",
+    "Technical verification does not establish musical or visual preference."
+  ]
+}

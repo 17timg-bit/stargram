@@ -1,0 +1,18 @@
+assert.equal(new URL(page.url()).origin,'http://127.0.0.1:49922');
+globalThis.manuscriptQA=globalThis.manuscriptQA||{checks:[],errors:[]};page.on('pageerror',e=>manuscriptQA.errors.push(String(e)));
+await page.reload({waitUntil:'domcontentloaded'});await page.setViewportSize({width:1460,height:923});await page.locator('[data-preset="dawn"]').click();
+await page.locator('#themeBtn').click();if(!await page.locator('.recipe-starts').evaluate(e=>e.open))await page.locator('.recipe-starts summary').click();await page.locator('[data-recipe="rosette"]').click();await page.keyboard.press('Escape');
+const song=await page.evaluate(()=>Stargram.snapshot());await page.locator('#loomBtn').click();await page.locator('#loomLength').selectOption('12');await page.locator('#manuscriptClear').click();
+for(const [tick,pitch] of [[0,2],[2,4],[3,7],[5,4],[7,3],[8,1],[10,0]])await page.locator(`#manuscriptGrid [data-tick="${tick}"][data-pitch="${pitch}"]`).click();
+await page.locator('[data-manuscript-accent="0.55"]').click();await page.locator('#manuscriptGrid [data-tick="0"][data-pitch="2"]').focus();await page.locator('[data-manuscript-accent="1.35"]').click();await page.locator('#loomRotate').click();
+const draft=await page.evaluate(()=>Stargram.loom().draft);expect(await page.evaluate(()=>Stargram.snapshot())).toEqual(song);
+await page.locator('#loomDialog').evaluate(e=>e.scrollTo(0,0));const manuscript=await page.screenshot({fullPage:false});
+await page.locator('#loomApply').click();await page.locator('#renameBtn').click();await page.locator('#titleInput').fill('回声手稿_本地样片');await page.getByRole('button',{name:'保存名字',exact:true}).click();
+const sample=await page.evaluate(()=>Stargram.snapshot());expect(sample.tracks[2]).toEqual(draft);for(const i of [0,1,3,4])expect(sample.tracks[i]).toEqual(song.tracks[i]);
+await page.locator('#playBtn').click();await page.waitForFunction(()=>Stargram.status().playing&&Stargram.status().activeVoices>0,null,{timeout:10000});await page.locator('#playBtn').click();assert.equal(await page.evaluate(()=>Stargram.status().playing),false);
+await page.locator('#themeBtn').click();await page.locator('.recipe-import summary').click();await page.locator('#recipeInput').fill('SG1-4423');await page.getByRole('button',{name:'读入',exact:true}).click();assert.equal(await page.evaluate(()=>Stargram.status().recipeCode),'SG1-4423');await page.keyboard.press('Escape');expect(await page.evaluate(()=>Stargram.snapshot())).toEqual(sample);
+await page.locator('#exportBtn').click();await page.locator('#jsonBtn').click();await page.locator('#midiBtn').click();await page.locator('#wavBtn').click();await expect(page.locator('#exportStatus')).toContainText('WAV 已交给浏览器下载',{timeout:30000});await page.locator('#posterExportBtn').click();await expect(page.locator('#exportStatus')).toContainText('明信片已交给浏览器下载',{timeout:30000});await page.getByRole('button',{name:'关闭导出',exact:true}).click();
+await page.reload({waitUntil:'domcontentloaded'});expect(await page.evaluate(()=>Stargram.snapshot())).toEqual(sample);assert.equal(await page.evaluate(()=>Stargram.status().recipeCode),'SG1-4423');
+await page.locator('#loomBtn').click();expect(await page.evaluate(()=>Stargram.loom().draft)).toEqual(sample.tracks[2]);assert.equal(await page.evaluate(()=>Stargram.loom().resumed),false);await page.keyboard.press('Escape');
+manuscriptQA.checks.push('a handwritten 12-tick phrase is applied through the UI, plays in the main engine, exports JSON/WAV/MIDI/PNG, survives reload and leaves the four other tracks and SG1 appearance protocol intact');
+assert.equal(manuscriptQA.errors.length,0);return {checks:manuscriptQA.checks,errors:manuscriptQA.errors,sample,recipe:'SG1-4423',manuscript};

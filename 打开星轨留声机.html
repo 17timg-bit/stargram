@@ -417,6 +417,62 @@ dialog h2 { font:400 32px/1.5 var(--serif); margin:18px 0 12px; letter-spacing:1
 .loom-footer p { font-size:10px; color:var(--muted); line-height:1.9; }
 .loom-footer .primary { font-size:12px; padding:14px 22px; white-space:nowrap; }
 .loom-footer .primary span { margin-left:20px; }
+.loom-dialog { width:1180px; max-height:92svh; padding:30px; }
+.loom-layout { grid-template-columns:minmax(220px,.7fr) minmax(0,1.65fr); gap:24px; }
+.loom-paper { position:sticky; top:0; }
+.loom-workspace { min-width:0; }
+.manuscript-sheet { min-width:0; border:1px solid var(--border); background:var(--card); padding:16px; }
+.manuscript-heading { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+.manuscript-heading .eyebrow { font-size:7px; letter-spacing:1px; }
+.manuscript-heading h3 { margin:7px 0 0; font:400 21px var(--serif); }
+#manuscriptBadge { flex-shrink:0; font-size:9px; padding:6px 8px; color:var(--orange); background:var(--accent-wash); border:1px solid var(--line); }
+.manuscript-toolbar { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:16px 0 11px; font-size:10px; }
+.manuscript-toolbar select { padding:6px 8px; font-size:11px; }
+#manuscriptDiff { margin-left:auto; color:var(--muted); font-size:9px; }
+.score-scroll { width:100%; overflow:auto; border:1px solid var(--border); scrollbar-width:thin; scrollbar-color:var(--border) var(--wash); }
+.manuscript-grid { width:max(100%,calc(var(--ticks) * 26px + 32px)); }
+.score-row { display:grid; grid-template-columns:32px repeat(var(--ticks),minmax(0,1fr)); }
+.score-row>span { display:flex; align-items:center; justify-content:center; height:23px; font:8px var(--mono); color:var(--muted); border-bottom:1px solid var(--line); }
+.score-row>span:first-child { position:sticky; left:0; z-index:2; background:var(--card); border-right:1px solid var(--border); }
+.score-ruler>span { background:var(--wash); }
+.score-row.octave-break { border-bottom:1px solid var(--border); }
+.score-cell { position:relative; height:23px; padding:0; border-right:1px solid var(--line); border-bottom:1px solid var(--line); background:transparent; }
+.score-cell.beat-start { border-left:1px solid var(--border); }
+.score-cell::before,.score-cell::after { content:""; display:none; position:absolute; border-radius:50%; left:50%; top:50%; transform:translate(-50%,-50%); }
+.score-cell.original-note::after { display:block; width:11px; height:11px; border:1px solid var(--muted); opacity:.6; }
+.score-cell.written { background:var(--selected); }
+.score-cell.written::before { display:block; width:7px; height:7px; background:var(--button); }
+.score-cell.strong::before { width:11px; height:11px; }
+.score-cell.soft::before { opacity:.55; width:5px; height:5px; }
+.score-cell.sounding { box-shadow:inset 0 0 0 1px var(--orange); background:var(--accent-wash); }
+.score-cell:hover { background:var(--accent-selected); }
+.score-cell:focus-visible { outline:2px solid var(--orange); outline-offset:-2px; z-index:1; }
+.score-hint { color:var(--muted); font-size:9px; line-height:1.8; margin-top:9px; }
+.manuscript-expression { display:flex; align-items:center; flex-wrap:wrap; gap:8px; justify-content:space-between; margin-top:12px; color:var(--muted); font-size:10px; }
+.manuscript-expression>div { display:flex; gap:4px; }
+.manuscript-expression button { padding:6px 10px; border:1px solid var(--line); font-size:10px; }
+.manuscript-expression [aria-pressed=true] { color:var(--button-ink); background:var(--button); }
+.manuscript-tools { display:flex; flex-wrap:wrap; gap:5px 14px; padding-top:11px; margin-top:11px; border-top:1px solid var(--line); }
+.manuscript-tools button { font-size:10px; color:var(--muted); padding:5px 0; }
+.manuscript-tools button:hover { color:var(--orange); }
+.loom-generator { border:1px solid var(--line); margin-top:14px; background:var(--wash); padding:13px 15px; }
+.loom-generator summary { cursor:pointer; font:18px var(--serif); }
+.loom-generator summary small { display:inline-block; font:9px var(--sans); margin-left:12px; color:var(--muted); }
+.loom-generator .loom-controls { display:grid; grid-template-columns:1fr 1fr; gap:12px 22px; padding-top:18px; }
+.loom-generator .loom-controls>.loom-section,.loom-generator .loom-controls>.loom-hint,.loom-generator .loom-controls>.control-label,.loom-generator .loom-controls>input,.loom-generator .loom-controls>.loom-shapes,.loom-generator .loom-controls>select,.loom-generator .loom-controls>.loom-dynamics,.loom-generator .loom-controls>.primary { grid-column:1/-1; }
+.loom-generator .loom-section { margin:4px 0 0; }
+.loom-generator .control-label { margin:0; }
+.loom-generator .loom-hint { margin:0; }
+.loom-generator .loom-dynamics { margin:3px 0; }
+.loom-listen-pair { display:flex; gap:8px; flex-shrink:0; }
+.loom-paper .loom-audition { display:block; margin:13px 0 10px; padding:10px; }
+.loom-paper .loom-audition .outline { flex:1; min-width:0; font-size:11px; padding:9px 4px; }
+.loom-paper .loom-audition>div:last-child { margin-top:9px; }
+.loom-paper #loomAudioStatus { font-size:10px; }
+.loom-paper #loomPosition { font-size:8px; }
+.loom-audition .outline[aria-pressed=true] { color:var(--button-ink); background:var(--button); }
+.loom-footer { position:sticky; bottom:-30px; z-index:4; padding:13px 0 0; border-top:1px solid var(--line); background:var(--paper); }
+.loom-footer p { max-width:560px; }
 body.immersive .studio-intro,body.immersive .library,body.immersive .inspector,body.immersive .stage-voices { display:none; }
 body.immersive .workspace { display:block; }
 body.immersive .observatory { height:calc(100svh - 210px); min-height:520px; margin-top:20px; border:0; }
@@ -484,6 +540,29 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
   .toast { bottom:165px; }
 }
 @media (max-width:700px) {
+  .loom-dialog { padding:25px 17px; }
+  .loom-dialog h2 { font-size:27px; }
+  .loom-dialog .loom-layout { grid-template-columns:1fr; gap:18px; }
+  .loom-workspace { order:1; }
+  .loom-paper { order:0; position:static; }
+  .loom-paper #loomCanvas { display:none; }
+  .loom-paper-caption>span:first-child { display:none; }
+  .loom-paper .loom-phrase { margin-top:8px; padding-top:8px; }
+  .manuscript-sheet { padding:12px; }
+  .manuscript-heading h3 { font-size:18px; }
+  .manuscript-heading .eyebrow { font-size:6px; letter-spacing:.5px; }
+  #manuscriptBadge { font-size:8px; padding:5px; }
+  #manuscriptDiff { margin-left:0; width:100%; font-size:9px; }
+  .manuscript-expression { gap:10px; }
+  .manuscript-tools { gap:6px 12px; }
+  .loom-generator summary { font-size:18px; }
+  .loom-generator summary small { display:block; margin:7px 0 0; line-height:1.6; }
+  .loom-listen-pair { width:100%; }
+  .loom-listen-pair>button { flex:1; }
+  .loom-dialog .loom-audition { flex-wrap:wrap; }
+  .loom-dialog .loom-audition .outline { min-width:0; padding:10px 7px; }
+  .loom-dialog .loom-footer { bottom:-25px; }
+  .loom-dialog .loom-footer .primary { font-size:11px; padding:13px 7px; }
   .darkroom { padding:24px 17px; }
   .darkroom-title h2 { font-size:25px; line-height:1.5; }
   .darkroom-title>span { display:none; }
@@ -655,7 +734,7 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
   </header>
   <section class="studio-intro" aria-label="星际唱片室">
     <div><div class="eyebrow">SOUNDS OF A SMALL UNIVERSE</div><h1>让偶然，<span>成为旋律。</span><i aria-hidden="true">✳</i></h1></div>
-    <div class="studio-note"><p>把一颗星放上轨道。<br>下一次相遇，就有了声音。</p><div class="edition">VOL. 007 / COSMIC DARKROOM <b>v1.6</b></div></div>
+    <div class="studio-note"><p>把一颗星放上轨道。<br>下一次相遇，就有了声音。</p><div class="edition">VOL. 008 / ECHO MANUSCRIPT <b>v1.7</b></div></div>
   </section>
   <main class="workspace">
     <section class="observatory" aria-label="互动星图">
@@ -672,7 +751,7 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
       <div class="eyebrow">02 / TRACK STUDIO</div>
       <div class="inspector-title"><h2>为这一轨，慢慢调音。</h2><span>EDIT</span></div>
       <section class="orbit-editor" aria-label="选中轨道的设置">
-        <div class="editor-heading"><span id="selectedName">浮光</span><span id="selectedVoice" class="editor-voice">PLUCK</span><button id="loomBtn" class="loom-launch" title="生成一份新的候选旋律">✧ 织星台</button></div>
+        <div class="editor-heading"><span id="selectedName">浮光</span><span id="selectedVoice" class="editor-voice">PLUCK</span><button id="loomBtn" class="loom-launch" title="从当前轨道起笔，写一份旋律手稿">✧ 织星台</button></div>
         <div class="edit-modes" role="group" aria-label="星星编辑方式"><button data-mode="plant" class="active" aria-pressed="true">✧ 种星</button><button data-mode="tune" aria-pressed="false">♫ 调音</button><button id="soloBtn" aria-pressed="false" title="只听这条轨道">独奏</button></div>
         <label class="control-label" for="lengthSelect">一圈的长度 <span>每格为半拍</span></label>
         <div class="orbit-settings"><select id="lengthSelect" aria-label="轨道长度"><option value="8">8 格</option><option value="12">12 格</option><option value="16">16 格</option><option value="20">20 格</option><option value="24">24 格</option></select><button id="rotateBtn" class="outline" title="让这条轨道的所有音符晚一格响起">↻ 旋转一格</button></div>
@@ -722,21 +801,31 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
   </dialog>
   <dialog id="loomDialog" class="loom-dialog" aria-labelledby="loomTitle">
     <button class="dialog-close" data-close aria-label="关闭织星台">×</button>
-    <div class="eyebrow">MELODY STUDY / 一份新的候选</div>
-    <h2 id="loomTitle">把一圈光，织成旋律。</h2>
-    <p class="dialog-intro">先听一个小小的念头。喜欢，再把它种进你的宇宙。</p><p class="loom-notice">每次打开会生成一份新候选；应用前，原轨道保持原样。</p>
+    <div class="eyebrow">ECHO MANUSCRIPT / 回声手稿</div>
+    <h2 id="loomTitle">从这一圈，写向下一圈。</h2>
+    <p class="dialog-intro">原轨留在这里，手稿可以慢慢改。听过，再决定留下哪一圈。</p><p class="loom-notice" id="manuscriptNotice">已抄下当前轨道。原轨还没有改变。</p>
     <div class="loom-layout">
       <section class="loom-paper" aria-label="旋律草稿">
-        <div class="loom-paper-header"><span id="loomTrackLabel">03 / 浮光</span><span>ORBIT STUDY</span></div>
+        <div class="loom-paper-header"><span id="loomTrackLabel">03 / 浮光</span><span id="loomViewLabel">手稿预览</span></div>
+        <div class="loom-audition"><div class="loom-listen-pair"><button id="loomOriginalListen" class="outline">A · 听原轨</button><button id="loomListen" class="outline">B · 听手稿</button></div><div><span id="loomAudioStatus" role="status" aria-live="polite">只听这条轨道 · 沿用当前音量与回响</span><small id="loomPosition">草稿还没有改变原星图</small></div></div>
         <canvas id="loomCanvas" width="720" height="720" aria-label="织星草稿预览，内圈音低，外圈音高"></canvas>
         <div class="loom-paper-caption"><span>内圈音低，外圈音高</span><span id="loomDraftMeta">5 颗星 / 16 格</span></div>
         <div id="loomPhrase" class="loom-phrase" aria-label="草稿的音符序列"></div>
       </section>
-      <div class="loom-controls">
+      <div class="loom-workspace">
+        <section class="manuscript-sheet" aria-label="编辑旋律手稿">
+          <div class="manuscript-heading"><div><span class="eyebrow">THE SCORE PAPER / 可编辑星谱</span><h3>在星谱纸上，写一点变化。</h3></div><span id="manuscriptBadge">原轨副本</span></div>
+          <div class="manuscript-toolbar"><label for="loomLength">手稿一圈</label><select id="loomLength" aria-label="手稿周期"><option value="8">8 格</option><option value="12">12 格</option><option value="16">16 格</option><option value="20">20 格</option><option value="24">24 格</option></select><span id="manuscriptDiff"></span></div>
+          <div class="score-scroll" tabindex="-1"><div id="manuscriptGrid" class="manuscript-grid" role="grid" aria-label="手稿星谱，左右是时间，上下是音高" aria-rowcount="11"></div></div>
+          <p id="manuscriptGhostHint" class="score-hint"></p>
+          <div class="manuscript-expression"><span id="manuscriptSelection">第 1 格</span><div role="group" aria-label="手稿音符力度"><button data-manuscript-accent="0.55">◔ 轻</button><button data-manuscript-accent="1">◑ 中</button><button data-manuscript-accent="1.35">● 重</button></div></div>
+          <div class="manuscript-tools"><button id="manuscriptUndo" disabled>↶ 撤回</button><button id="manuscriptRedo" disabled>↷ 重做</button><button id="loomRotate">↗ 错开一格</button><button id="manuscriptReset">抄回原轨</button><button id="manuscriptClear">留一张空白</button></div>
+        </section>
+        <details id="loomGenerator" class="loom-generator"><summary>✧ 织一个新念头 <small>在当前手稿上试一份新候选</small></summary><div class="loom-controls">
         <div class="loom-section"><span>01</span><strong>留多少次相遇</strong></div>
-        <div class="loom-rhythm-row"><label for="loomLength">一圈长度</label><select id="loomLength"><option value="8">8 格</option><option value="12">12 格</option><option value="16">16 格</option><option value="20">20 格</option><option value="24">24 格</option></select></div>
+
         <label class="control-label" for="loomCount">星星数量 <output id="loomCountValue">5 颗</output></label><input id="loomCount" type="range" min="1" max="16" value="5">
-        <p class="loom-hint">星星均匀散开，留白也成为节奏。</p>
+        <p class="loom-hint">以下选项在点「织出候选」后生效。</p>
         <div class="loom-section"><span>02</span><strong>让旋律往哪里走</strong></div>
         <div class="loom-shapes" role="group" aria-label="旋律走向">
           <button data-shape="arc" aria-pressed="true"><svg viewBox="0 0 60 26" aria-hidden="true"><path d="m4 21 13-10 13-7 13 7 13 10"/></svg>回旋</button>
@@ -745,16 +834,16 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
           <button data-shape="wander" aria-pressed="false"><svg viewBox="0 0 60 26" aria-hidden="true"><path d="m4 16 13-11 13 16 13-12 13 5"/></svg>漫游</button>
         </div>
         <label class="control-label" for="loomRegister">音区</label><select id="loomRegister"><option value="0">低处的星光 · 第 1–5 音</option><option value="5">高一层的星光 · 第 6–10 音</option></select>
-        <label class="loom-dynamics"><input id="loomDynamics" type="checkbox" checked><span>让轻重音自然呼吸<small>第一颗更亮，最后一颗轻轻落下</small></span></label>
-        <div class="loom-variants"><button id="loomAgain" class="text-button">↻ 再织一次</button><button id="loomRotate" class="text-button">↗ 错开一格</button></div>
+        <label class="loom-dynamics"><input id="loomDynamics" type="checkbox" checked><span>让新候选轻重呼吸<small>第一颗更亮，最后一颗轻轻落下</small></span></label>
+        <button id="loomAgain" class="primary wide">✧ 织出候选</button>
+        </div></details>
       </div>
     </div>
-    <div class="loom-audition"><button id="loomListen" class="outline">▷ 试听这一圈</button><div><span id="loomAudioStatus" role="status" aria-live="polite">只听这条轨道 · 沿用当前音量与回响</span><small id="loomPosition">草稿还没有改变原星图</small></div></div>
-    <div class="loom-footer"><p>只替换当前轨道的旋律与周期。<br>种进星图后，也可以撤销。</p><button id="loomApply" class="primary">种进这条轨道 <span>↗</span></button></div>
+    <div class="loom-footer"><p>关闭后可在本次页面继续手稿；刷新或换星图会结束暂存。<br>种回这条轨道后才保存到作品，仍可一次撤销。</p><button id="loomApply" class="primary">把手稿种回这条轨道 <span>↗</span></button></div>
   </dialog>
   <dialog id="renameDialog"><button class="dialog-close" data-close aria-label="关闭命名">×</button><div class="eyebrow">NAME THIS LITTLE UNIVERSE</div><h2>给这片星空一个名字。</h2><form id="renameForm"><label class="control-label" for="titleInput">星图名称 <span>最多 60 字</span></label><input id="titleInput" type="text" maxlength="60" required autocomplete="off"><button class="primary wide" type="submit">保存名字</button></form></dialog>
   <dialog id="shelfDialog" class="shelf-dialog"><button class="dialog-close" data-close aria-label="关闭星图书架">×</button><div class="eyebrow">YOUR PRIVATE PRESSING / 24 RECORDS</div><h2>把喜欢的偶然，收进书架。</h2><p class="dialog-intro">每一张都是独立快照。随时回来看，继续拨动它的星星。</p><form id="shelfForm" class="shelf-save"><label for="shelfTitle" class="control-label">这次相遇的名字</label><div><input id="shelfTitle" type="text" maxlength="60" required autocomplete="off"><button class="primary" type="submit">收藏当前星图</button></div></form><div class="shelf-meta"><span id="shelfSummary">0 / 24 张星图</span><span>仅保存在此浏览器 · 可另存 JSON</span></div><div id="shelfFeedback" class="shelf-feedback" role="status" aria-live="polite"></div><div id="shelfUndo" class="shelf-undo" hidden><span>一张星图已移出书架</span><button id="restoreShelfBtn" class="text-button">撤销移除</button></div><div id="shelfGrid" class="shelf-grid"></div></dialog>
-  <dialog id="helpDialog"><button class="dialog-close" data-close aria-label="关闭玩法">×</button><div class="eyebrow">A SMALL GUIDE TO YOUR UNIVERSE</div><h2>这片星空，由你来调音。</h2><p class="dialog-intro">每一圈都是一条旋律。彗星与星星相遇，声音就会发生。</p><ol class="guide"><li><b>先听，再动手。</b>点击播放，或者按空格。选一张喜欢的星图作起点。</li><li><b>把音符种在轨道上。</b>点击空位添加，再点一次删除。拖到另一个位置改变时机，拖到另一圈改变音色。右击星星可升高音高。切到「调音」可选中星星改音高、轻重；Shift+点击可快速改变力度。也可以打开「织星台」，调节密度和旋律走向，试听草稿，喜欢后再种进本轨；关闭不改原星图。</li><li><b>让循环错开。</b>选中一条轨道，把一圈从 16 格改成 12 格。相同音符会在下一圈遇到不同的伙伴。</li><li><b>留下属于你的偶然。</b>给星图命名，收藏进自己的星图书架；也可以导出 WAV、MIDI 和保留全部设置的星图文件。</li></ol><div class="shortcut-row"><span><kbd>Space</kbd> 播放</span><span><kbd>Ctrl Z</kbd> 撤销</span><span><kbd>Ctrl Shift Z</kbd> 重做</span><span><kbd>1–5</kbd> 选轨</span><span><kbd>?</kbd> 玩法</span></div><p class="fine-print">完全离线 · 无账号 · 无上传 · 所有声音在本机合成<br>切到其他标签页会自动暂停。浏览器首次播放需要你点击一下。</p><button class="primary wide" data-close>知道了，去种星星</button></dialog>
+  <dialog id="helpDialog"><button class="dialog-close" data-close aria-label="关闭玩法">×</button><div class="eyebrow">A SMALL GUIDE TO YOUR UNIVERSE</div><h2>这片星空，由你来调音。</h2><p class="dialog-intro">每一圈都是一条旋律。彗星与星星相遇，声音就会发生。</p><ol class="guide"><li><b>先听，再动手。</b>点击播放，或者按空格。选一张喜欢的星图作起点。</li><li><b>把音符种在轨道上。</b>点击空位添加，再点一次删除。拖到另一个位置改变时机，拖到另一圈改变音色。右击星星可升高音高。切到「调音」可选中星星改音高、轻重；Shift+点击可快速改变力度。也可以打开「织星台」，从当前轨道抄下一张星谱纸，点格子改音高与轻重，用 A/B 分别听原轨与手稿。想找新旋律时，展开「织一个新念头」，再按「织出候选」；喜欢后种回本轨。关窗可在本次页面接着写，刷新会结束手稿暂存。</li><li><b>让循环错开。</b>选中一条轨道，把一圈从 16 格改成 12 格。相同音符会在下一圈遇到不同的伙伴。</li><li><b>留下属于你的偶然。</b>给星图命名，收藏进自己的星图书架；也可以导出 WAV、MIDI 和保留全部设置的星图文件。</li></ol><div class="shortcut-row"><span><kbd>Space</kbd> 播放</span><span><kbd>Ctrl Z</kbd> 撤销</span><span><kbd>Ctrl Shift Z</kbd> 重做</span><span><kbd>1–5</kbd> 选轨</span><span><kbd>?</kbd> 玩法</span></div><p class="fine-print">完全离线 · 无账号 · 无上传 · 所有声音在本机合成<br>切到其他标签页会自动暂停。浏览器首次播放需要你点击一下。</p><button class="primary wide" data-close>知道了，去种星星</button></dialog>
   <dialog id="exportDialog"><button class="dialog-close" data-close aria-label="关闭导出">×</button><div class="eyebrow">THE TAKEAWAY COUNTER / 留下这一刻</div><h2>把这次相遇带走。</h2><p class="dialog-intro">音乐从第一格开始导出；星图保留你现在的全部编排。</p><div class="export-options"><button id="wavBtn"><span class="export-icon">WAV</span><span><strong>一段音乐</strong><small>WAV · 8 小节 + 混响尾音 · 44.1 kHz 立体声</small></span><b>↓</b></button><button id="midiBtn"><span class="export-icon">MIDI</span><span><strong>继续编曲</strong><small>MIDI · 五条独立音轨 · 含速度信息</small></span><b>↓</b></button><button id="jsonBtn"><span class="export-icon">MAP</span><span><strong>保存这张星图</strong><small>STARGRAM v2 · 保留音符力度、独奏与分轨音量</small></span><b>↓</b></button><button id="posterExportBtn"><span class="export-icon">PNG</span><span><strong>一张封面</strong><small>明信片 · 1600 × 1200 · 当前星图</small></span><b>↓</b></button></div><div class="import-row"><span>有一张以前保存的星图？</span><button id="importBtn" class="outline">导入星图 ↗</button><input type="file" id="importInput" accept=".json,application/json" hidden></div><p id="exportStatus" class="fine-print" aria-live="polite">文件由浏览器保存到下载位置。MIDI 音色由播放软件决定。</p></dialog>
   <script>
 /* Stargram — deterministic musical model. No DOM and no dependencies. */
@@ -1131,6 +1220,105 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
   return { SHAPES, weave, audition };
 });
 
+/* An editable copy of one track, with its own history and page-local drafts. */
+(function(root,factory){
+  const api=typeof module==='object'&&module.exports?factory(require('./core'),require('./loom')):factory(root.OrbitCore,root.OrbitLoom);
+  if(typeof module==='object'&&module.exports)module.exports=api;else root.OrbitManuscript=api;
+})(globalThis,function(C,L){
+  'use strict';
+  function track(raw){const s=C.preset();s.tracks[0]=C.clone(raw);return C.validate(s).tracks[0];}
+  function at(t,tick){if(!Number.isInteger(tick)||tick<0||tick>=t.length)throw new Error('Invalid manuscript tick');return C.mod(tick-t.shift,t.length);}
+  function heard(t,tick){const i=at(t,tick);return {pitch:t.notes[i],accent:t.accents[i]};}
+  class Manuscript {
+    #original;#draft;#past=[];#future=[];
+    constructor(raw){this.#original=track(raw);this.#draft=C.clone(this.#original);}
+    get original(){return C.clone(this.#original);}
+    snapshot(){return C.clone(this.#draft);}
+    get canUndo(){return this.#past.length>0;}
+    get canRedo(){return this.#future.length>0;}
+    replace(raw){
+      const next=track(raw);for(const k of ['gain','muted','solo'])next[k]=this.#original[k];
+      if(JSON.stringify(next)===JSON.stringify(this.#draft))return false;
+      this.#past.push(this.#draft);if(this.#past.length>60)this.#past.shift();this.#future=[];this.#draft=next;return true;
+    }
+    write(tick,pitch,accent=1){
+      if(!Number.isInteger(pitch)||pitch<0||pitch>9||!C.ACCENTS.includes(accent))throw new Error('Invalid manuscript note');
+      const t=this.snapshot(),i=at(t,tick),previous=t.notes[i];
+      t.notes[i]=previous===pitch?-1:pitch;t.accents[i]=t.notes[i]<0?1:previous>=0?t.accents[i]:accent;return this.replace(t);
+    }
+    accent(tick,value){if(!C.ACCENTS.includes(value))throw new Error('Invalid manuscript accent');const t=this.snapshot(),i=at(t,tick);if(t.notes[i]<0)return false;t.accents[i]=value;return this.replace(t);}
+    resize(length){const t=this.snapshot();C.resizeTrack(t,length);return this.replace(t);}
+    rotate(){const t=this.snapshot();t.shift=(t.shift+1)%t.length;return this.replace(t);}
+    clear(){const t=this.snapshot();t.notes.fill(-1);t.accents.fill(1);return this.replace(t);}
+    reset(){return this.replace(this.#original);}
+    generate(options){return this.replace(L.weave(this.#original,{...options,length:this.#draft.length}));}
+    undo(){if(!this.canUndo)return false;this.#future.push(this.#draft);this.#draft=this.#past.pop();return true;}
+    redo(){if(!this.canRedo)return false;this.#past.push(this.#draft);this.#draft=this.#future.pop();return true;}
+    summary(){
+      const a=this.#original,b=this.#draft,periodChanged=a.length!==b.length;
+      let changedTicks=null;if(!periodChanged){changedTicks=0;for(let tick=0;tick<b.length;tick++){const x=heard(a,tick),y=heard(b,tick);if(x.pitch!==y.pitch||(x.pitch>=0&&x.accent!==y.accent))changedTicks++;}}
+      return {changed:JSON.stringify(a)!==JSON.stringify(b),originalCount:a.notes.filter(p=>p>=0).length,draftCount:b.notes.filter(p=>p>=0).length,changedTicks,periodChanged};
+    }
+  }
+  class DraftCache {
+    #entries=new Map();
+    get size(){return this.#entries.size;}
+    open(index,raw){
+      if(!Number.isInteger(index)||index<0||index>4)throw new Error('Invalid manuscript role');
+      const t=track(raw),key=index+'|'+JSON.stringify(t);let doc=this.#entries.get(key),resumed=!!doc;
+      if(doc)this.#entries.delete(key);else doc=new Manuscript(t);
+      this.#entries.set(key,doc);while(this.#entries.size>12)this.#entries.delete(this.#entries.keys().next().value);
+      return {doc,resumed};
+    }
+    forget(index){for(const key of this.#entries.keys())if(key.startsWith(index+'|'))this.#entries.delete(key);}
+    reset(){this.#entries.clear();}
+  }
+  return {Manuscript,DraftCache,heard};
+});
+
+/* A single-note-per-tick score, displayed in heard order rather than array order. */
+(function(root){
+  'use strict';
+  function create({getOriginal,getDraft,onWrite,onAccent,onUndo,onRedo,onReset,onClear,onRotate}){
+    const $=id=>document.getElementById(id),grid=$('manuscriptGrid'),M=OrbitManuscript;
+    let selected=0,newAccent=1,focusedPitch=2,lastStep=-1;
+    function focus(tick,pitch){const b=grid.querySelector(`[data-tick="${tick}"][data-pitch="${pitch}"]`);if(b){grid.querySelectorAll('[tabindex="0"]').forEach(n=>n.tabIndex=-1);b.tabIndex=0;b.focus();b.scrollIntoView({block:'nearest',inline:'nearest'});}}
+    function updateSelection(){
+      const draft=getDraft(),note=M.heard(draft,selected);
+      $('manuscriptSelection').textContent=note.pitch<0?`第 ${selected+1} 格 · 留白`:`第 ${selected+1} 格 · 第 ${note.pitch+1} 音`;
+      for(const b of document.querySelectorAll('[data-manuscript-accent]'))b.setAttribute('aria-pressed',String(Number(b.dataset.manuscriptAccent)===(note.pitch>=0?note.accent:newAccent)));
+    }
+    function render(){
+      const t=getDraft(),original=getOriginal();selected=Math.min(selected,t.length-1);lastStep=-1;
+      grid.style.setProperty('--ticks',t.length);grid.setAttribute('aria-colcount',String(t.length+1));grid.replaceChildren();
+      const ruler=document.createElement('div');ruler.className='score-row score-ruler';ruler.setAttribute('role','row');
+      for(let tick=-1;tick<t.length;tick++){const label=document.createElement('span');label.setAttribute('role','columnheader');label.textContent=tick<0?'音 / 格':String(tick+1).padStart(2,'0');ruler.append(label);}grid.append(ruler);
+      for(let pitch=9;pitch>=0;pitch--){
+        const row=document.createElement('div');row.className='score-row'+(pitch===5?' octave-break':'');row.setAttribute('role','row');
+        const label=document.createElement('span');label.className='score-pitch';label.setAttribute('role','rowheader');label.textContent=String(pitch+1).padStart(2,'0');row.append(label);
+        for(let tick=0;tick<t.length;tick++){
+          const note=M.heard(t,tick),ghost=original.length===t.length&&M.heard(original,tick).pitch===pitch;
+          const b=document.createElement('button');b.type='button';b.setAttribute('role','gridcell');b.dataset.tick=tick;b.dataset.pitch=pitch;b.tabIndex=tick===selected&&pitch===focusedPitch?0:-1;
+          b.className='score-cell'+(tick%4===0?' beat-start':'')+(ghost?' original-note':'')+(note.pitch===pitch?' written':'')+(note.pitch===pitch&&note.accent>1?' strong':note.pitch===pitch&&note.accent<1?' soft':'');
+          b.setAttribute('aria-selected',String(note.pitch===pitch));b.setAttribute('aria-label',`第${tick+1}格，第${pitch+1}音，${note.pitch===pitch?'已有星星':ghost?'原轨位置':'空位'}`);
+          b.onclick=()=>{selected=tick;focusedPitch=pitch;onWrite(tick,pitch,newAccent);focus(tick,pitch);};
+          b.onfocus=()=>{selected=tick;focusedPitch=pitch;updateSelection();};
+          b.onkeydown=e=>{let x=tick,y=pitch;if(e.key==='ArrowRight')x=Math.min(t.length-1,x+1);else if(e.key==='ArrowLeft')x=Math.max(0,x-1);else if(e.key==='ArrowUp')y=Math.min(9,y+1);else if(e.key==='ArrowDown')y=Math.max(0,y-1);else if(e.key==='Home')x=0;else if(e.key==='End')x=t.length-1;else return;e.preventDefault();focus(x,y);};
+          row.append(b);
+        }
+        grid.append(row);
+      }
+      $('manuscriptGhostHint').textContent=original.length===t.length?'空心标记是原轨；实心星星是手稿。每格保留一个音。':'手稿周期已改变；可以分别试听原轨与手稿。';updateSelection();
+    }
+    document.querySelectorAll('[data-manuscript-accent]').forEach(b=>b.onclick=()=>{newAccent=Number(b.dataset.manuscriptAccent);onAccent(selected,newAccent);updateSelection();});
+    for(const [id,fn] of [['manuscriptUndo',onUndo],['manuscriptRedo',onRedo],['manuscriptReset',onReset],['manuscriptClear',onClear],['loomRotate',onRotate]])$(id).onclick=fn;
+    grid.onkeydown=e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();e.stopPropagation();(e.shiftKey?onRedo:onUndo)();focus(selected,focusedPitch);}};
+    function playhead(tick){if(tick===lastStep)return;lastStep=tick;grid.querySelectorAll('[data-tick]').forEach(b=>b.classList.toggle('sounding',Number(b.dataset.tick)===tick));}
+    return {render,playhead};
+  }
+  root.OrbitScorePaper=Object.freeze({create});
+})(globalThis);
+
 /* Deterministic astronomical motifs, drawn once into cached textures. */
 (function(root){
   'use strict';
@@ -1368,8 +1556,8 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
   $('restartBtn').onclick = async () => { queue = []; particles = []; pulses.clear(); await engine.reset(); updatePlaybackUI(); toast('所有彗星回到起点'); };
   $('undoBtn').onclick = () => { if (!history.length) return; future.push(C.clone(state)); state = history.pop(); focusNote = null; engine.update(); persist(); renderUI(); toast('已撤销上一次修改'); };
   $('redoBtn').onclick = () => { if (!future.length) return; history.push(C.clone(state)); state = future.pop(); focusNote = null; engine.update(); persist(); renderUI(); toast('已重做这次修改'); };
-  document.querySelectorAll('[data-preset]').forEach(b => b.onclick = async () => { edit(() => { const volume = state.volume; state = C.preset(b.dataset.preset); state.volume = volume; focusNote = null; }, '换了一片星空'); queue = []; await engine.reset(); engine.update(); });
-  $('randomBtn').onclick = () => { const seed = crypto.getRandomValues(new Uint32Array(1))[0]; edit(() => { state = C.generate(seed, state); focusNote = null; }, '一次新的偶遇。喜欢就把它带走。'); };
+  document.querySelectorAll('[data-preset]').forEach(b => b.onclick = async () => { manuscriptCache.reset(); edit(() => { const volume = state.volume; state = C.preset(b.dataset.preset); state.volume = volume; focusNote = null; }, '换了一片星空'); queue = []; await engine.reset(); engine.update(); });
+  $('randomBtn').onclick = () => { manuscriptCache.reset(); const seed = crypto.getRandomValues(new Uint32Array(1))[0]; edit(() => { state = C.generate(seed, state); focusNote = null; }, '一次新的偶遇。喜欢就把它带走。'); };
   $('lengthSelect').onchange = e => { edit(() => { C.resizeTrack(state.tracks[selected], Number(e.target.value)); focusNote = null; }, '周期改变了，留意下一次重逢'); discover('orbit'); };
   $('rotateBtn').onclick = () => edit(() => { const t = state.tracks[selected]; t.shift = (t.shift + 1) % t.length; }, '整条轨道晚一格相遇');
   $('clearBtn').onclick = () => edit(() => { state.tracks[selected].notes.fill(-1); state.tracks[selected].accents.fill(1); }, '这条轨道空出来了 · 可以撤销');
@@ -1461,7 +1649,7 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
       const meta = document.createElement('small'); meta.textContent = `${C.countNotes(entry.state)} 颗星星 · ${entry.state.bpm} BPM · ${C.SCALES[entry.state.scale].label.split(' · ')[0]}`;
       open.append(previewCanvas, title, meta);
       open.onclick = async () => {
-        const snapshot = shelf.load(entry.id);
+        const snapshot = shelf.load(entry.id); manuscriptCache.reset();
         edit(() => { state = snapshot; focusNote = null; }); queue = []; pulses.clear(); await engine.reset(); engine.update(); updatePlaybackUI();
         $('shelfDialog').close(); toast('回到「' + snapshot.title + '」');
       };
@@ -1495,104 +1683,106 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
     catch (error) { $('shelfFeedback').textContent = error.message; }
   };
 
-  const loom = { original: null, base: null, draft: null, index: 2, shape: 'arc', seed: 0, offset: 0, token: 0, worker: false, pending: false, source: null, gain: null, nodes: new Set(), start: 0, message: '', readout: '' };
+  const manuscriptCache = new OrbitManuscript.DraftCache();
+  const loom = { original:null, base:null, draft:null, doc:null, index:2, shape:'arc', seed:0, token:0, worker:false, pending:false, source:null, gain:null, nodes:new Set(), start:0, message:'', readout:'', target:'draft', mode:'copy', resumed:false };
+  const scorePaper = OrbitScorePaper.create({
+    getOriginal:()=>loom.original,getDraft:()=>loom.draft,
+    onWrite:(tick,pitch,accent)=>changeManuscript(()=>loom.doc.write(tick,pitch,accent)),
+    onAccent:(tick,value)=>changeManuscript(()=>loom.doc.accent(tick,value)),
+    onUndo:()=>changeManuscript(()=>loom.doc.undo()),onRedo:()=>changeManuscript(()=>loom.doc.redo()),
+    onReset:()=>changeManuscript(()=>loom.doc.reset()),onClear:()=>changeManuscript(()=>loom.doc.clear()),
+    onRotate:()=>changeManuscript(()=>loom.doc.rotate())
+  });
   function renderLoomAudio() {
-    const playing = !!loom.source;
-    $('loomListen').textContent = loom.pending ? '■ 取消准备' : playing ? '■ 停止试听' : '▷ 试听这一圈';
-    $('loomListen').setAttribute('aria-pressed', String(playing || loom.pending));
-    const silent = !loom.base || loom.base.volume === 0 || loom.draft?.gain === 0;
-    $('loomListen').disabled = !playing && !loom.pending && (loom.worker || silent);
-    $('loomAudioStatus').textContent = loom.pending ? '正在准备这一圈的声音…' : playing ? `正在试听 · 只听${C.ROLES[loom.index].name}` : loom.message || (silent ? '当前音量为零，先回工作台调高音量再试听' : '只听这条轨道 · 沿用当前音量与回响');
-    if (!playing) $('loomPosition').textContent = '草稿还没有改变原星图';
+    const active=!!loom.source||loom.pending;
+    for(const [kind,id,label] of [['original','loomOriginalListen','A · 听原轨'],['draft','loomListen','B · 听手稿']]){
+      const owns=active&&loom.target===kind,t=kind==='original'?loom.original:loom.draft;
+      $(id).textContent=owns?(loom.pending?'■ 取消准备':'■ 停止'+(kind==='original'?'原轨':'手稿')):label;
+      $(id).setAttribute('aria-pressed',String(owns));
+      $(id).disabled=!owns&&(loom.worker||!t||loom.base?.volume===0||t.gain===0||!t.notes.some(p=>p>=0));
+    }
+    $('loomViewLabel').textContent=loom.source&&loom.target==='original'?'原轨试听':'手稿预览';
+    const viewed=loom.source&&loom.target==='original'?loom.original:loom.draft;
+    if(viewed){
+      $('loomDraftMeta').textContent=`${viewed.notes.filter(p=>p>=0).length} 颗星 / ${viewed.length} 格`;
+      $('loomCanvas').setAttribute('aria-label',(loom.source&&loom.target==='original'?'原轨':'手稿')+'预览，内圈音低，外圈音高');
+      $('loomPhrase').replaceChildren();
+      for(let tick=0;tick<viewed.length;tick++){
+        const note=OrbitManuscript.heard(viewed,tick);if(note.pitch<0)continue;
+        const span=document.createElement('span');span.textContent=note.pitch+1;span.className=note.accent>1?'strong':note.accent<1?'soft':'';span.title=`第 ${tick+1} 格 · 第 ${note.pitch+1} 音`;$('loomPhrase').append(span);
+      }
+    }
+    $('loomAudioStatus').textContent=loom.pending?'正在准备'+(loom.target==='original'?'原轨':'手稿')+'…':loom.source?'正在试听 · '+(loom.target==='original'?'A 原轨':'B 手稿')+' · '+C.ROLES[loom.index].name:loom.worker?'上一段正在收尾，请稍等…':loom.message||(loom.base?.volume===0||loom.draft?.gain===0?'当前音量为零，先回工作台调高音量':'A 听原轨，B 听手稿；都沿用当前音色、音量与回响。');
+    if(!loom.source){$('loomPosition').textContent='应用前，原星图保持原样';scorePaper.playhead(-1);}
   }
   function stopLoomAudition() {
-    loom.token++; loom.pending = false;
-    if (loom.source) {
-      const source = loom.source, now = engine.ctx.currentTime;
-      loom.gain.gain.setTargetAtTime(0, now, .006);
-      try { source.stop(now + .03); } catch {}
-      loom.source = null; loom.gain = null;
-    }
-    loom.readout = ''; renderLoomAudio();
+    loom.token++;loom.pending=false;
+    if(loom.source){const source=loom.source,now=engine.ctx.currentTime;loom.gain.gain.setTargetAtTime(0,now,.006);try{source.stop(now+.03);}catch{}loom.source=null;loom.gain=null;}
+    loom.readout='';renderLoomAudio();
   }
-  function updateLoom() {
-    stopLoomAudition(); loom.message = '';
-    const length = Number($('loomLength').value);
-    $('loomCount').max = length;
-    const count = Math.min(length, Math.max(1, Number($('loomCount').value)));
-    $('loomCount').value = count; loom.offset %= length;
-    const options = { length, count, shape: loom.shape, register: Number($('loomRegister').value), dynamics: $('loomDynamics').checked, seed: loom.seed, offset: loom.offset };
-    loom.draft = OrbitLoom.weave(loom.original, options);
-    $('loomCountValue').textContent = `${count} 颗`;
-    $('loomDraftMeta').textContent = `${count} 颗星 / ${length} 格`;
-    $('loomTrackLabel').textContent = `0${loom.index + 1} / ${C.ROLES[loom.index].name}`;
-    document.querySelectorAll('[data-shape]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.shape === loom.shape)));
-    $('loomPhrase').replaceChildren();
-    for (let tick = 0; tick < length; tick++) {
-      const step = C.mod(tick - loom.draft.shift, length), pitch = loom.draft.notes[step];
-      if (pitch < 0) continue;
-      const note = document.createElement('span'); note.textContent = pitch + 1;
-      note.className = loom.draft.accents[step] > 1 ? 'strong' : loom.draft.accents[step] < 1 ? 'soft' : '';
-      note.title = `第 ${tick + 1} 格 · 第 ${pitch + 1} 音`;
-      $('loomPhrase').append(note);
-    }
-    renderLoomAudio(); drawLoom();
+  function generatorControls() {
+    const length=loom.draft.length;$('loomCount').max=length;$('loomCount').value=Math.min(length,Math.max(1,Number($('loomCount').value)));
+    $('loomCountValue').textContent=$('loomCount').value+' 颗';
+    document.querySelectorAll('[data-shape]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.shape===loom.shape)));
   }
-  $('loomBtn').onclick = () => {
-    engine.pause(); engine.cutVoices(); engine.update(); queue = []; updatePlaybackUI();
-    stopLoomAudition(); loom.index = selected; loom.base = C.clone(state); loom.original = C.clone(state.tracks[selected]);
-    loom.shape = 'arc'; loom.seed = crypto.getRandomValues(new Uint32Array(1))[0]; loom.offset = 0;
-    $('loomLength').value = loom.original.length;
-    $('loomCount').max = loom.original.length;
-    $('loomCount').value = Math.max(1, loom.original.notes.filter(p => p >= 0).length);
-    const pitches = loom.original.notes.filter(p => p >= 0);
-    $('loomRegister').value = pitches.length && pitches.every(p => p >= 5) ? '5' : '0';
-    $('loomDynamics').checked = true;
-    updateLoom(); $('loomDialog').showModal(); drawLoom();
+  function refreshManuscript() {
+    loom.draft=loom.doc.snapshot();const info=loom.doc.summary();
+    $('loomLength').value=loom.draft.length;generatorControls();
+    $('loomTrackLabel').textContent=`0${loom.index+1} / ${C.ROLES[loom.index].name}`;
+    $('manuscriptBadge').textContent=!info.changed?'原轨副本':loom.mode==='generated'?'新织候选':loom.mode==='resumed'?'接回手稿':'手写手稿';
+    $('manuscriptDiff').textContent=`原轨 ${info.originalCount} → 手稿 ${info.draftCount} 颗 · `+(info.periodChanged?`周期 ${loom.original.length} → ${loom.draft.length} 格`:`${info.changedTicks} 格变化`);
+    $('manuscriptUndo').disabled=!loom.doc.canUndo;$('manuscriptRedo').disabled=!loom.doc.canRedo;$('loomApply').disabled=!info.changed;
+    scorePaper.render();renderLoomAudio();drawLoom();
+  }
+  function changeManuscript(action,mode='written') {
+    stopLoomAudition();loom.message='';action();loom.mode=mode;refreshManuscript();
+  }
+  $('loomBtn').onclick=()=>{
+    engine.pause();engine.cutVoices();engine.update();queue=[];updatePlaybackUI();stopLoomAudition();
+    loom.index=selected;loom.base=C.clone(state);const entry=manuscriptCache.open(selected,state.tracks[selected]);
+    loom.doc=entry.doc;loom.original=loom.doc.original;loom.resumed=entry.resumed;loom.mode=entry.resumed?'resumed':'copy';loom.target='draft';
+    loom.shape='arc';loom.seed=crypto.getRandomValues(new Uint32Array(1))[0];loom.draft=loom.doc.snapshot();
+    $('loomCount').value=Math.max(1,loom.draft.notes.filter(p=>p>=0).length);const pitches=loom.draft.notes.filter(p=>p>=0);
+    $('loomRegister').value=pitches.length&&pitches.every(p=>p>=5)?'5':'0';$('loomDynamics').checked=true;$('loomGenerator').open=false;
+    $('manuscriptNotice').textContent=entry.resumed?'已接回这条轨道在本次页面里的手稿。应用前，原轨不变。':'已抄下当前「'+C.ROLES[selected].name+'」轨道。点星谱纸写一点变化，或展开下方织一个新念头。';
+    refreshManuscript();$('loomDialog').showModal();drawLoom();
   };
-  $('loomLength').onchange = updateLoom; $('loomCount').oninput = updateLoom;
-  $('loomRegister').onchange = updateLoom; $('loomDynamics').onchange = updateLoom;
-  document.querySelectorAll('[data-shape]').forEach(b => b.onclick = () => { loom.shape = b.dataset.shape; updateLoom(); });
-  $('loomAgain').onclick = () => { loom.seed = (loom.seed + 1) >>> 0; updateLoom(); };
-  $('loomRotate').onclick = () => { loom.offset = (loom.offset + 1) % loom.draft.length; updateLoom(); };
-  $('loomDialog').addEventListener('close', stopLoomAudition);
-  $('loomDialog').addEventListener('cancel', stopLoomAudition);
-  $('loomApply').onclick = () => {
-    const index = loom.index, draft = C.clone(loom.draft);
-    stopLoomAudition();
-    edit(() => { state.tracks[index] = draft; selected = index; focusNote = null; }, `${C.ROLES[index].name}里新织了 ${draft.notes.filter(p => p >= 0).length} 颗星 · 可以撤销`);
-    $('loomDialog').close();
+  $('loomLength').onchange=()=>changeManuscript(()=>loom.doc.resize(Number($('loomLength').value)));
+  for(const [id,event] of [['loomCount','input'],['loomRegister','change'],['loomDynamics','change']])$(id).addEventListener(event,()=>{stopLoomAudition();generatorControls();});
+  document.querySelectorAll('[data-shape]').forEach(b=>b.onclick=()=>{stopLoomAudition();loom.shape=b.dataset.shape;generatorControls();});
+  $('loomAgain').onclick=()=>changeManuscript(()=>{
+    loom.seed=(loom.seed+1)>>>0;const t=loom.doc.snapshot();
+    loom.doc.generate({count:Number($('loomCount').value),shape:loom.shape,register:Number($('loomRegister').value),dynamics:$('loomDynamics').checked,seed:loom.seed,offset:C.mod(t.shift-Math.floor(loom.original.shift/loom.original.length*t.length),t.length)});
+  },'generated');
+  $('loomDialog').addEventListener('close',stopLoomAudition);$('loomDialog').addEventListener('cancel',stopLoomAudition);
+  $('loomApply').onclick=()=>{
+    if(!loom.doc.summary().changed)return;const index=loom.index,draft=loom.doc.snapshot();stopLoomAudition();manuscriptCache.forget(index);
+    edit(()=>{state.tracks[index]=draft;selected=index;focusNote=null;},'已把'+C.ROLES[index].name+'的手稿种回星图 · 可以撤销');$('loomDialog').close();
   };
-  $('loomListen').onclick = async () => {
-    if (loom.pending || loom.source) { stopLoomAudition(); return; }
-    if (loom.worker) return;
-    const token = ++loom.token, snapshot = OrbitLoom.audition(loom.base, loom.index, loom.draft), length = loom.draft.length;
-    loom.pending = true; loom.worker = true; loom.message = ''; renderLoomAudio();
-    const current = () => token === loom.token && $('loomDialog').open && !document.hidden;
-    try {
-      await engine.ready(); if (!current()) return;
-      const wav = await OrbitAudio.renderWav(snapshot, length); if (!current()) return;
-      const buffer = await engine.ctx.decodeAudioData(wav.bytes); if (!current()) return;
-      const source = engine.ctx.createBufferSource(), gain = engine.ctx.createGain();
-      source.buffer = buffer; source.connect(gain).connect(engine.ctx.destination);
-      const when = engine.ctx.currentTime + .035;
-      source.onended = () => {
-        source.disconnect(); gain.disconnect(); loom.nodes.delete(source);
-        if (loom.source === source) { loom.source = null; loom.gain = null; loom.readout = ''; renderLoomAudio(); }
-      };
-      loom.source = source; loom.gain = gain; loom.start = when + .04; loom.nodes.add(source);
-      loom.pending = false; source.start(when); renderLoomAudio();
-    } catch {
-      if (current()) { loom.pending = false; loom.message = '这次未能启动试听，请再试一次。'; }
-    } finally {
-      if (token === loom.token) loom.pending = false;
-      loom.worker = false; renderLoomAudio();
-    }
-  };
+  async function auditionManuscript(kind) {
+    if((loom.pending||loom.source)&&loom.target===kind){stopLoomAudition();return;}
+    if(loom.worker)return;stopLoomAudition();loom.target=kind;
+    const t=kind==='original'?loom.original:loom.draft;
+    if(!t.notes.some(p=>p>=0)||loom.base.volume===0||t.gain===0)return;
+    const token=++loom.token,snapshot=OrbitLoom.audition(loom.base,loom.index,t),length=t.length;
+    loom.pending=true;loom.worker=true;loom.message='';renderLoomAudio();
+    const current=()=>token===loom.token&&$('loomDialog').open&&!document.hidden;
+    try{
+      await engine.ready();if(!current())return;
+      const wav=await OrbitAudio.renderWav(snapshot,length);if(!current())return;
+      const buffer=await engine.ctx.decodeAudioData(wav.bytes);if(!current())return;
+      const source=engine.ctx.createBufferSource(),gain=engine.ctx.createGain();source.buffer=buffer;source.connect(gain).connect(engine.ctx.destination);
+      const when=engine.ctx.currentTime+.035;
+      source.onended=()=>{source.disconnect();gain.disconnect();loom.nodes.delete(source);if(loom.source===source){loom.source=null;loom.gain=null;loom.readout='';renderLoomAudio();}};
+      loom.source=source;loom.gain=gain;loom.start=when+.04;loom.nodes.add(source);loom.pending=false;source.start(when);renderLoomAudio();
+    }catch{if(current()){loom.pending=false;loom.message='这次未能启动试听，请再试一次。';}}
+    finally{if(token===loom.token)loom.pending=false;loom.worker=false;renderLoomAudio();}
+  }
+  $('loomListen').onclick=()=>auditionManuscript('draft');$('loomOriginalListen').onclick=()=>auditionManuscript('original');
   document.addEventListener('visibilitychange', () => { if (document.hidden) stopLoomAudition(); });
   function drawLoom() {
     if (!$('loomDialog').open || !loom.draft) return;
-    const target = $('loomCanvas'), c = target.getContext('2d'), t = loom.draft, x = 180, y = 177;
+    const target = $('loomCanvas'), c = target.getContext('2d'), t = loom.source && loom.target === 'original' ? loom.original : loom.draft, x = 180, y = 177;
     c.setTransform(2, 0, 0, 2, 0, 0); c.clearRect(0, 0, 360, 360);
     const ink = !A.catalogs.sky[appearance.sky].light ? C.ROLES[loom.index].color : ['#94643e', '#88702e', '#366e5c', '#4a7080', '#725c7d'][loom.index];
     c.lineWidth = .6; c.strokeStyle = skin['loom-ink'];
@@ -1625,6 +1815,7 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
     c.globalAlpha = 1; circle(c, x, y, 29, skin['loom-paper']);
     c.fillStyle = ink; c.font = '30px "SimSun", serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(String(points.length).padStart(2, '0'), x, y - 3);
     c.font = '7px Consolas, monospace'; c.fillStyle = skin['loom-ink']; c.fillText('S T A R S', x, y + 21);
+    scorePaper.playhead(loom.source && loom.target === 'draft' && phase < t.length ? Math.floor(phase) : -1);
     if (loom.source) {
       const label = phase < t.length ? `第 ${Math.min(t.length, Math.floor(phase) + 1)} / ${t.length} 格 · ${loom.base.bpm} BPM` : '这一圈已走完，余音正在散去';
       if (label !== loom.readout) { loom.readout = label; $('loomPosition').textContent = label; }
@@ -1893,14 +2084,14 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
     const file = e.target.files[0]; if (!file) return;
     try {
       if (file.size > 100000) throw new Error('星图文件过大，请选择本应用导出的 JSON。');
-      const imported = C.validate(JSON.parse(await file.text()));
+      const imported = C.validate(JSON.parse(await file.text())); manuscriptCache.reset();
       edit(() => { state = imported; focusNote = null; }); queue = []; await engine.reset(); engine.update(); $('exportDialog').close(); toast('欢迎回到这片星空');
     } catch { $('exportStatus').textContent = '导入失败：请选择有效的 Stargram v1 / v2 星图 JSON。当前星图未改变。'; }
     finally { e.target.value = ''; }
   };
   window.addEventListener('beforeunload', persist);
   // Read-only diagnostics for local regression checks; no bypass for UI operations.
-  window.Stargram = Object.freeze({ snapshot: () => C.clone(state), collection: () => C.clone(shelf.entries), loom: () => $('loomDialog').open ? { index: loom.index, draft: C.clone(loom.draft), seed: loom.seed } : null, status: () => ({ playing: engine.running, theme, appearance:A.validate(appearance), recipeCode:A.code(appearance), tonearm: armProgress, reducedMotion, geometry: geometry(), phase: engine.phase(), encounters, selected, editMode, focusedNote: focusNote ? { ...focusNote } : null, immersive, saved: !saveError, audioState: engine.ctx?.state || 'uninitialized', activeVoices: engine.voices.size, loomOpen: $('loomDialog').open, loomPreparing: loom.pending, loomPlaying: !!loom.source, loomVoices: loom.nodes.size }), exportWav: OrbitAudio.renderWav });
+  window.Stargram = Object.freeze({ snapshot: () => C.clone(state), collection: () => C.clone(shelf.entries), loom: () => $('loomDialog').open ? { index: loom.index, original:C.clone(loom.original), draft:C.clone(loom.draft), summary:loom.doc.summary(), resumed:loom.resumed, audition:loom.target, seed:loom.seed } : null, status: () => ({ playing: engine.running, theme, appearance:A.validate(appearance), recipeCode:A.code(appearance), tonearm: armProgress, reducedMotion, geometry: geometry(), phase: engine.phase(), encounters, selected, editMode, focusedNote: focusNote ? { ...focusNote } : null, immersive, saved: !saveError, audioState: engine.ctx?.state || 'uninitialized', activeVoices: engine.voices.size, loomOpen: $('loomDialog').open, loomPreparing: loom.pending, loomPlaying: !!loom.source, loomVoices: loom.nodes.size }), exportWav: OrbitAudio.renderWav });
   setAppearance(appearance, false);
   darkroom = AstroDarkroom.create({get:()=>appearance,apply:setAppearance,draw:target=>{const c=target.getContext('2d');c.setTransform(.5,0,0,.5,0,0);scene(c,1600,1200,engine.phase(),performance.now(),true);}});
   renderUI(); resize(); requestAnimationFrame(frame);

@@ -1,0 +1,31 @@
+assert.equal(new URL(page.url()).origin,'http://127.0.0.1:49922');
+globalThis.manuscriptQA=globalThis.manuscriptQA||{checks:[],errors:[]};page.on('pageerror',e=>manuscriptQA.errors.push(String(e)));
+await page.reload({waitUntil:'domcontentloaded'});await page.setViewportSize({width:1460,height:923});await page.locator('[data-preset="dawn"]').click();await page.locator('#loomBtn').click();
+const original=await page.evaluate(()=>Stargram.loom().original),song=await page.evaluate(()=>Stargram.snapshot());
+await page.locator('#manuscriptClear').click();assert.equal(await page.locator('#loomListen').isDisabled(),true);assert.equal(await page.locator('#loomOriginalListen').isEnabled(),true);
+await page.locator('#loomLength').selectOption('8');
+for(const [tick,pitch] of [[0,2],[2,7],[5,4]])await page.locator(`#manuscriptGrid [data-tick="${tick}"][data-pitch="${pitch}"]`).click();
+const draft=await page.evaluate(()=>Stargram.loom().draft);
+await page.evaluate(()=>{window.manuscriptCaptures=[];OrbitAudio.renderWav=async(state,ticks)=>{const wav=await Stargram.exportWav(state,ticks);window.manuscriptAudioBytes=wav.bytes.slice(0);manuscriptCaptures.push({state:OrbitCore.clone(state),ticks,seconds:wav.seconds,peak:wav.peak});return wav;};});
+await page.locator('#loomOriginalListen').click();await page.waitForFunction(()=>Stargram.status().loomPlaying,null,{timeout:30000});
+assert.equal(await page.evaluate(()=>Stargram.loom().audition),'original');await expect(page.locator('#loomViewLabel')).toHaveText('原轨试听');
+const a=await page.evaluate(()=>manuscriptCaptures[0]);assert.equal(a.ticks,original.length);expect(a.state.tracks[2].notes).toEqual(original.notes);
+await expect(page.locator('#loomDraftMeta')).toHaveText(`${original.notes.filter(p=>p>=0).length} 颗星 / ${original.length} 格`);assert.equal(await page.locator('#loomPhrase span').count(),original.notes.filter(p=>p>=0).length);
+await page.locator('#loomListen').click();await page.waitForFunction(()=>Stargram.status().loomPlaying&&Stargram.loom().audition==='draft'&&Stargram.status().loomVoices===1,null,{timeout:30000});
+const b=await page.evaluate(()=>manuscriptCaptures[1]);assert.equal(b.ticks,8);expect(b.state.tracks[2].notes).toEqual(draft.notes);
+await expect(page.locator('#loomDraftMeta')).toHaveText('3 颗星 / 8 格');assert.equal(await page.locator('#loomPhrase span').count(),3);
+for(const state of [a.state,b.state])for(let i=0;i<5;i++){assert.equal(state.tracks[i].muted,i!==2);assert.equal(state.tracks[i].solo,false);}
+const comparison=await page.evaluate(async()=>{const actual=new DataView(manuscriptAudioBytes),capture=manuscriptCaptures[1],reference=await Stargram.exportWav(capture.state,capture.ticks),other=new DataView(reference.bytes);let max=0,sum=0;for(let n=44;n<actual.byteLength;n+=2){const d=Math.abs(actual.getInt16(n,true)-other.getInt16(n,true));max=Math.max(max,d);sum+=d*d;}return {sameByteLength:actual.byteLength===other.byteLength,maxPcmDifference:max,rmsPcmDifference:Math.sqrt(sum/((actual.byteLength-44)/2))};});
+assert.equal(comparison.sameByteLength,true);assert.ok(comparison.maxPcmDifference<=2);assert.ok(a.peak>0&&b.peak>0);
+await page.waitForFunction(()=>!Stargram.status().loomPlaying&&Stargram.status().loomVoices===0,null,{timeout:15000});expect(await page.evaluate(()=>Stargram.snapshot())).toEqual(song);
+manuscriptQA.checks.push('A renders the exact original period, B the edited period; switching clears the old source and B matches an independent shared-engine render within two PCM16 units');
+// Hold a completed render until an actual edit has cancelled its request.
+await page.evaluate(()=>{window.manuscriptHeld=false;window.manuscriptReleased=false;OrbitAudio.renderWav=async(...args)=>{const result=await Stargram.exportWav(...args);manuscriptHeld=true;await new Promise(resolve=>window.releaseManuscriptRender=resolve);manuscriptReleased=true;return result;};});
+await page.locator('#loomListen').click();await page.waitForFunction(()=>manuscriptHeld,null,{timeout:30000});
+await page.locator('#manuscriptGrid [data-tick="1"][data-pitch="6"]').click();assert.equal(await page.evaluate(()=>Stargram.status().loomPreparing),false);
+await page.evaluate(()=>releaseManuscriptRender());await page.waitForFunction(()=>manuscriptReleased&&!Stargram.status().loomPlaying&&Stargram.status().loomVoices===0);await expect(page.locator('#loomListen')).toBeEnabled();
+await page.evaluate(()=>{manuscriptHeld=false;manuscriptReleased=false;});await page.locator('#loomOriginalListen').click();await page.waitForFunction(()=>manuscriptHeld,null,{timeout:30000});
+await page.getByRole('button',{name:'关闭织星台',exact:true}).click();await page.evaluate(()=>releaseManuscriptRender());await page.waitForFunction(()=>manuscriptReleased&&!Stargram.status().loomPlaying&&Stargram.status().loomVoices===0);
+await page.evaluate(()=>OrbitAudio.renderWav=Stargram.exportWav);expect(await page.evaluate(()=>Stargram.snapshot())).toEqual(song);
+manuscriptQA.checks.push('natural completion releases nodes; editing or closing during held audio preparation cannot resurrect an old original or manuscript audition');
+assert.equal(manuscriptQA.errors.length,0);return {checks:manuscriptQA.checks,errors:manuscriptQA.errors,a,b,comparison};
