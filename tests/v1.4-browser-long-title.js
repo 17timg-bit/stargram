@@ -1,0 +1,13 @@
+assert.equal(new URL(page.url()).origin,'http://127.0.0.1:49919');
+await page.reload({waitUntil:'domcontentloaded'});
+await page.setViewportSize({width:1440,height:960});await page.evaluate(()=>scrollTo(0,0));
+const title=('V14-给宇宙的一封信，让每一颗星都留在这张唱片上，陪伴下一次抬头聆听的人。').repeat(2).slice(0,60);
+await page.getByRole('button',{name:'为星图命名',exact:true}).click();
+await page.locator('#titleInput').fill(title);await page.getByRole('button',{name:'保存名字',exact:true}).click();
+assert.equal(await page.evaluate(()=>Stargram.snapshot().title.length),60);
+await page.getByRole('button',{name:/带走这片星空/}).click();await page.locator('#posterExportBtn').click();
+await expect(page.locator('#exportStatus')).toContainText('明信片已交给浏览器下载',{timeout:30000});
+await page.getByRole('button',{name:'关闭导出',exact:true}).click();
+await page.getByRole('button',{name:'为星图命名',exact:true}).click();await page.locator('#titleInput').fill('星际唱片室_v1.4');
+await page.getByRole('button',{name:'保存名字',exact:true}).click();
+return {title,characters:title.length,filename:'Stargram_'+title.slice(0,40)+'.png'};

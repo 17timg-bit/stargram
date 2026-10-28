@@ -39,6 +39,7 @@
     if (count === 3) $('discoveryMessage').textContent = '宇宙没有标准答案。现在，让它自由生长。';
   }
   function renderUI() {
+    document.body.dataset.scale = state.scale;
     $('sceneTitle').textContent = state.title;
     $('noteCount').textContent = C.countNotes(state);
     const cycle = C.cycleTicks(state);
@@ -71,7 +72,7 @@
     $('pitchLabel').textContent = `第 ${Number($('pitchSelect').value) + 1} 音`;
     document.querySelectorAll('[data-mode]').forEach(b => { const active = b.dataset.mode === editMode; b.classList.toggle('active', active); b.setAttribute('aria-pressed', String(active)); });
     document.querySelectorAll('[data-accent]').forEach(b => { const active = Number(b.dataset.accent) === (focusNote ? track.accents[focusNote.step] : newAccent); b.classList.toggle('active', active); b.setAttribute('aria-pressed', String(active)); });
-    $('editTip').textContent = editMode === 'tune' ? (focusNote ? '正在调这颗星星。改音高、轻重会立即试听；点击另一颗继续。' : '点一颗已有星星，再用音高与轻重按钮调音。Shift+点击切换力度。') : '种星：点击开关音符。调音：选中后改音高、轻重。Shift+点击切换力度。';
+    $('editTip').textContent = editMode === 'tune' ? (focusNote ? '选好星星后，调整它的音高与轻重。' : '调音：先选一颗已有的星星。') : '种星：点空位添加，再点删除。';
     $('steps').replaceChildren();
     track.notes.forEach((pitch, step) => {
       const b = document.createElement('button'); b.className = 'step' + (pitch >= 0 ? ' on' : ''); b.textContent = pitch >= 0 ? pitch + 1 : '·';
@@ -111,7 +112,8 @@
     toast(`${C.ROLES[track].name} · 第 ${state.tracks[track].notes[step] + 1} 音`);
   }
   function updatePlaybackUI() {
-    $('playIcon').textContent = engine.running ? 'Ⅱ' : '▶'; $('playText').textContent = engine.running ? '正在听见星星' : '让宇宙开始转动';
+    $('playIcon').textContent = engine.running ? 'Ⅱ' : '▶'; $('playText').textContent = engine.running ? '这张星图正在演奏' : '放下唱针，听见星空';
+    document.body.classList.toggle('is-playing', engine.running);
     $('playBtn').setAttribute('aria-label', engine.running ? '暂停演奏' : '开始演奏'); $('liveLabel').textContent = engine.running ? '● 演奏中' : '静候相遇'; $('liveLabel').classList.toggle('playing', engine.running);
   }
   let starting = false;
@@ -185,7 +187,10 @@
   function thumbnail(target, snapshot) {
     target.width = 560; target.height = 300;
     const c = target.getContext('2d'), x = 280, y = 150;
-    const gradient = c.createRadialGradient(x, y, 0, x, y, 260); gradient.addColorStop(0, '#244045'); gradient.addColorStop(1, '#0c1a20'); c.fillStyle = gradient; c.fillRect(0, 0, 560, 300);
+    c.fillStyle = { dawn: '#ddaa80', tide: '#bdd2c8', glass: '#c9bfd1' }[snapshot.scale]; c.fillRect(0, 0, 560, 300);
+    c.shadowColor = '#213c3644'; c.shadowBlur = 15; c.shadowOffsetY = 6; circle(c, x, y, 143, '#153d33'); c.shadowBlur = 0; c.shadowOffsetY = 0;
+    c.strokeStyle = '#688366'; c.lineWidth = .5;
+    for (let r = 26; r < 140; r += 2.5) { c.globalAlpha = .15; c.beginPath(); c.arc(x, y, r, 0, Math.PI * 2); c.stroke(); }
     snapshot.tracks.forEach((track, i) => {
       const r = 34 + i * 24, color = C.ROLES[i].color;
       c.globalAlpha = C.audible(snapshot, i) ? 1 : .25;
@@ -196,7 +201,7 @@
         c.shadowColor = color; c.shadowBlur = 12; circle(c, x + Math.cos(a) * r, y + Math.sin(a) * r, 2.3 + track.accents[step] * 1.7, color); c.shadowBlur = 0;
       });
     });
-    c.globalAlpha = 1; circle(c, x, y, 3.5, '#e1bc89');
+    c.globalAlpha = 1; circle(c, x, y, 19, '#e4d7af'); circle(c, x, y, 3, '#274b3b');
   }
   function renderShelf() {
     $('shelfGrid').replaceChildren(); $('shelfCount').textContent = `${shelf.entries.length} 张本地收藏`;
@@ -387,8 +392,10 @@
 
   function geometry(w = width, h = height, forPoster = false) {
     const expanded = immersive && !forPoster;
-    const max = Math.min(w * 0.435, h * (expanded ? 0.40 : 0.358));
-    return { cx: w / 2, cy: h * (expanded ? 0.52 : 0.53), radii: [0.28, 0.46, 0.64, 0.82, 1].map(v => v * max), max };
+    const compact = !forPoster && !expanded && matchMedia('(max-width:700px)').matches;
+    const max = Math.min(w * (compact ? .40 : .435), h * (forPoster ? .32 : compact ? .30 : expanded ? .40 : .358));
+    const cx = forPoster || expanded || compact ? w / 2 : w * (w < 740 ? .62 : .59);
+    return { cx, cy: h * (compact ? .42 : forPoster || expanded ? .52 : .53), radii: [0.28, 0.46, 0.64, 0.82, 1].map(v => v * max), max };
   }
   function location(track, step, g = geometry()) {
     const t = state.tracks[track], angle = (step + t.shift) / t.length * Math.PI * 2 - Math.PI / 2;
@@ -449,14 +456,21 @@
   function scene(c, w, h, phase, now, poster = false) {
     const g = geometry(w, h, poster), scale = poster ? 1.8 : 1;
     c.clearRect(0, 0, w, h);
-    const bg = c.createRadialGradient(g.cx, g.cy, 0, g.cx, g.cy, g.max * 1.8); bg.addColorStop(0, '#1a3837'); bg.addColorStop(.48, '#102d30'); bg.addColorStop(1, '#0a1d21'); c.fillStyle = bg; c.fillRect(0, 0, w, h);
+    c.fillStyle = '#f2efe6'; c.fillRect(0, 0, w, h);
+    const platter = g.max + Math.min(32 * scale, g.max * .18);
+    c.shadowColor = '#203e3438'; c.shadowBlur = 18 * scale; c.shadowOffsetY = 9 * scale;
+    circle(c, g.cx, g.cy, platter, '#15392f'); c.shadowBlur = 0; c.shadowOffsetY = 0;
+    c.save(); c.beginPath(); c.arc(g.cx, g.cy, platter, 0, Math.PI * 2); c.clip();
+    const bg = c.createRadialGradient(g.cx - g.max * .35, g.cy - g.max * .4, 0, g.cx, g.cy, platter); bg.addColorStop(0, '#305b48'); bg.addColorStop(.5, '#173f34'); bg.addColorStop(1, '#0b2d27'); c.fillStyle = bg; c.fillRect(0, 0, w, h);
+    c.strokeStyle = '#a8b18a'; c.lineWidth = .45 * scale;
+    for (let k = 0; k < 85; k++) { c.globalAlpha = k % 4 ? .045 : .10; c.beginPath(); c.arc(g.cx, g.cy, platter * (.15 + k / 85 * .84), 0, Math.PI * 2); c.stroke(); } c.globalAlpha = 1;
     const colors = { dawn: ['#dfba88', '#89cfb6'], tide: ['#7cbcc9', '#7bc9b1'], glass: ['#b9a0d1', '#86b4d2'] }[state.scale];
     colors.forEach((color, i) => {
       const drift = reducedMotion ? 0 : Math.sin(now * .00008 + i * 2) * g.max * .07;
       const x = g.cx + (i ? -.42 : .46) * g.max + drift, y = g.cy + (i ? .4 : -.35) * g.max;
       const wash = c.createRadialGradient(x, y, 0, x, y, g.max * .95); wash.addColorStop(0, color + '10'); wash.addColorStop(1, color + '00'); c.fillStyle = wash; c.fillRect(0, 0, w, h);
     });
-    stars.forEach((star, i) => { c.globalAlpha = star.a * (reducedMotion ? 1 : .8 + Math.sin(now * .0005 + star.phase) * .2); circle(c, star.x * w, star.y * h, star.r * scale, i % 9 ? '#b2cdbc' : '#dfc68e'); }); c.globalAlpha = 1;
+    stars.forEach((star, i) => { const a = star.x * Math.PI * 2, r = Math.sqrt(star.y) * (platter - 4 * scale); c.globalAlpha = star.a * .8 * (reducedMotion ? 1 : .8 + Math.sin(now * .0005 + star.phase) * .2); circle(c, g.cx + Math.cos(a) * r, g.cy + Math.sin(a) * r, star.r * scale * .8, i % 9 ? '#b2cdbc' : '#dfc68e'); }); c.globalAlpha = 1;
     // Fine brass arcs make the moving score feel like an engraved instrument.
     c.lineWidth = .65 * scale;
     for (const [start, end] of [[-.95, -.38], [.1, .48], [.75, 1.3]]) {
@@ -503,26 +517,41 @@
       circle(c, g.cx + Math.cos(a) * r, g.cy + Math.sin(a) * r, 3 * scale, '#f3f3dd'); c.shadowBlur = 0;
       c.globalAlpha = 1;
     });
-    const breathe = reducedMotion ? 0 : Math.sin(now * .001) * .08;
-    const heart = reducedMotion ? 0 : Math.max(0, 1 - (now - lastEncounterAt) / 650);
-    if (heart > 0) { c.globalAlpha = heart * .2; c.strokeStyle = '#e7c593'; c.lineWidth = scale; c.beginPath(); c.arc(g.cx, g.cy, (18 + (1 - heart) * 20) * scale, 0, Math.PI * 2); c.stroke(); c.globalAlpha = 1; }
-    const halo = c.createRadialGradient(g.cx, g.cy, 0, g.cx, g.cy, g.radii[0] * .9); halo.addColorStop(0, '#dbbc7e36'); halo.addColorStop(1, '#d7ac6c00'); c.fillStyle = halo; c.beginPath(); c.arc(g.cx, g.cy, g.radii[0] * .9, 0, 6.284); c.fill();
-    c.strokeStyle = '#d3ba81'; c.lineWidth = .6 * scale; c.globalAlpha = .5;
-    for (const radius of [18, 22]) { c.beginPath(); c.arc(g.cx, g.cy, radius * scale, 0, Math.PI * 2); c.stroke(); }
-    c.globalAlpha = .7;
-    for (let k = 0; k < 8; k++) { const a = k / 8 * Math.PI * 2; c.beginPath(); c.moveTo(g.cx + Math.cos(a) * 23 * scale, g.cy + Math.sin(a) * 23 * scale); c.lineTo(g.cx + Math.cos(a) * 26 * scale, g.cy + Math.sin(a) * 26 * scale); c.stroke(); }
-    c.globalAlpha = 1;
-    c.save(); c.translate(g.cx, g.cy); c.rotate(Math.PI / 4); c.strokeStyle = '#b8996d'; c.lineWidth = .8 * scale; c.globalAlpha = .7 + breathe; c.strokeRect(-8 * scale, -8 * scale, 16 * scale, 16 * scale); c.rotate(Math.PI / 4); c.strokeRect(-6 * scale, -6 * scale, 12 * scale, 12 * scale); c.restore(); circle(c, g.cx, g.cy, 2 * scale, '#e8c08d');
+    const label = g.radii[0] * .67;
+    circle(c, g.cx, g.cy, label, '#d9d8b3'); c.strokeStyle = '#9ca679'; c.lineWidth = .8 * scale; c.beginPath(); c.arc(g.cx, g.cy, label - 4 * scale, 0, Math.PI * 2); c.stroke();
+    c.save(); c.translate(g.cx, g.cy); c.rotate(poster || reducedMotion ? 0 : phase * .055);
+    c.fillStyle = '#315341'; c.font = `${Math.max(4.8, label * .16)}px Consolas, monospace`; c.textAlign = 'center'; c.textBaseline = 'middle';
+    const brand = 'S T A R G R A M';
+    [...brand].forEach((letter, i) => { c.save(); c.rotate(-1.15 + i / (brand.length - 1) * 2.3); c.fillText(letter, 0, -label * .72); c.restore(); });
+    c.strokeStyle = '#b56e47'; c.lineWidth = 1 * scale;
+    for (let k = 0; k < 8; k++) { const a = k / 8 * Math.PI * 2; c.beginPath(); c.moveTo(Math.cos(a) * label * .23, Math.sin(a) * label * .23); c.lineTo(Math.cos(a) * label * .48, Math.sin(a) * label * .48); c.stroke(); }
+    c.fillStyle = '#315341'; c.font = `${Math.max(4, label * .13)}px Consolas, monospace`; c.fillText('SIDE A', 0, label * .65); c.restore(); circle(c, g.cx, g.cy, 2.4 * scale, '#214b3a');
     if (!poster) {
       particles = particles.filter(p => now - p.born < 1400).slice(-150);
       particles.forEach(p => { const age = (now - p.born) / 1000; c.globalAlpha = Math.max(0, 1 - age / 1.4) * .65; circle(c, p.x + p.vx * age, p.y + p.vy * age, 1.2, p.color); }); c.globalAlpha = 1;
       if (drag && drag.moved && drag.pitch >= 0) { const p = drag.target ? location(drag.target.track, drag.target.step, g) : drag; c.globalAlpha = .8; circle(c, p.x, p.y, 7, C.ROLES[drag.target?.track ?? drag.track].color); c.globalAlpha = 1; }
+      c.restore();
+      // The tonearm rests outside the editable musical rings.
+      if (w > 800 && !immersive) {
+        const ax = g.cx + platter * .96, ay = g.cy - platter * .84, bx = g.cx + g.max * 1.03, by = g.cy + g.max * .52;
+        c.lineCap = 'round'; c.strokeStyle = '#203f3540'; c.lineWidth = 8; c.beginPath(); c.moveTo(ax + 3, ay + 5); c.lineTo(ax + 3, by - 43); c.lineTo(bx + 3, by + 5); c.stroke();
+        c.strokeStyle = '#b4b7a1'; c.lineWidth = 7; c.beginPath(); c.moveTo(ax, ay); c.lineTo(ax, by - 48); c.lineTo(bx, by); c.stroke();
+        c.strokeStyle = '#f7f1de'; c.lineWidth = 2; c.stroke(); circle(c, ax, ay, 12, '#b6bda1'); circle(c, ax, ay, 4, '#365342');
+        c.save(); c.translate(bx, by); c.rotate(.35); c.fillStyle = '#264b3a'; c.fillRect(-7, -6, 14, 23); c.fillStyle = '#bc764d'; c.fillRect(-7, 11, 14, 6); c.restore(); c.lineCap = 'butt';
+      }
     } else {
-      c.strokeStyle = '#a4b08255'; c.lineWidth = 1; c.strokeRect(32, 32, w - 64, h - 64);
-      c.textAlign = 'center'; c.fillStyle = '#b6bc97'; c.font = '15px Consolas, monospace'; c.fillText('S T A R G R A M   /   A N   O R B I T A L   P O S T C A R D', w / 2, 75);
-      c.fillStyle = '#e8e1c8'; c.font = '42px "SimSun", serif'; c.fillText(state.title, w / 2, 138);
-      c.fillStyle = '#92b7b0'; c.font = '18px "Microsoft YaHei", sans-serif'; c.fillText(`${C.countNotes(state)} 颗星星  ·  ${state.bpm} BPM  ·  ${C.SCALES[state.scale].label}`, w / 2, h - 90);
-      c.fillStyle = '#64878a'; c.font = '14px "Microsoft YaHei", sans-serif'; c.fillText('星轨留声机  /  每一次相遇，都是一首新的歌。', w / 2, h - 50);
+      c.restore(); c.strokeStyle = '#46624455'; c.lineWidth = 1; c.strokeRect(32, 32, w - 64, h - 64);
+      c.textAlign = 'center'; c.fillStyle = '#a76542'; c.font = '15px Consolas, monospace'; c.fillText('S T A R G R A M   /   O R B I T A L   R E C O R D S', w / 2, 75);
+      c.fillStyle = '#254838'; c.font = '42px "SimSun", serif';
+      const titleLines = []; let titleLine = '';
+      for (const letter of state.title) {
+        if (titleLine && c.measureText(titleLine + letter).width > w - 220) { titleLines.push(titleLine); titleLine = letter; }
+        else titleLine += letter;
+      }
+      titleLines.push(titleLine);
+      titleLines.forEach((line, i) => c.fillText(line, w / 2, titleLines.length === 1 ? 138 : 118 + i * 46, w - 180));
+      c.fillStyle = '#486745'; c.font = '18px "Microsoft YaHei", sans-serif'; c.fillText(`${C.countNotes(state)} 颗星星  ·  ${state.bpm} BPM  ·  ${C.SCALES[state.scale].label}`, w / 2, h - 90);
+      c.fillStyle = '#7b8868'; c.font = '14px "Microsoft YaHei", sans-serif'; c.fillText('星轨留声机  /  让偶然，成为旋律。', w / 2, h - 50);
     }
   }
   function frame(now) {
@@ -549,11 +578,13 @@
   function download(blob, name) {
     const url = URL.createObjectURL(blob), a = document.createElement('a'); a.href = url; a.download = name; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 60000);
   }
-  $('captureBtn').onclick = () => {
+  function capturePostcard() {
     const postcard = document.createElement('canvas'); postcard.width = 1600; postcard.height = 1200;
     scene(postcard.getContext('2d'), 1600, 1200, engine.phase(), performance.now(), true);
-    postcard.toBlob(blob => { if (blob) { download(blob, filename('png')); toast('已把星空拍成一张明信片'); } else toast('明信片生成失败，请重试'); }, 'image/png');
-  };
+    postcard.toBlob(blob => { if (blob) { download(blob, filename('png')); toast('已把星空拍成一张明信片'); if ($('exportDialog').open) $('exportStatus').textContent = '明信片已交给浏览器下载 · 1600 × 1200 PNG。'; } else toast('明信片生成失败，请重试'); }, 'image/png');
+  }
+  $('captureBtn').onclick = capturePostcard;
+  $('posterExportBtn').onclick = () => { $('exportStatus').textContent = '正在为这张星图制作封面…'; capturePostcard(); };
   $('jsonBtn').onclick = () => { download(new Blob([JSON.stringify(C.validate(state), null, 2)], { type: 'application/json' }), filename('json')); $('exportStatus').textContent = '星图已交给浏览器下载，可用“导入星图”恢复全部设置。'; };
   $('midiBtn').onclick = () => { download(new Blob([C.midiBytes(state)], { type: 'audio/midi' }), filename('mid')); $('exportStatus').textContent = 'MIDI 已交给浏览器下载：8 小节、五条分轨和独立速度轨。'; };
   $('wavBtn').onclick = async () => {

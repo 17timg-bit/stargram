@@ -1,0 +1,610 @@
+{
+  "date": "2026-10-28",
+  "version": "1.4.0",
+  "scope": "local preview; not pushed or deployed",
+  "test_origin": "http://127.0.0.1:49919",
+  "model_tests": {
+    "passed": 23,
+    "failed": 0
+  },
+  "browser_checks": [
+    "real pointer coordinates still edit the correct musical step on the offset vinyl",
+    "track legend, tuning, strong accents, solo and independent mute remain usable",
+    "the persistent transport plays, reports the audio clock and clears voices; immersion and Escape restore the studio",
+    "the new paper loom labels its candidate, auditions independently, applies one track and supports atomic undo",
+    "nine viewport sizes have no horizontal overflow; the fixed deck retains every control and stage actions stay reachable",
+    "the redesigned record shelf saves independent snapshots, loads the chosen record and restores it after reload",
+    "shelf, guide, four-format takeaway and loom surfaces work; the phone shelf fits and reduced motion removes cover movement",
+    "a real phone-size pointer click still lands on the intended musical step after centering the mobile record",
+    "save feedback stays in view; both the new PNG tile and immersive capture issue real postcard downloads"
+  ],
+  "page_errors": [],
+  "viewports": [
+    {
+      "width": 1920,
+      "height": 1080,
+      "layout": {
+        "capture": {
+          "bottom": 923.625,
+          "height": 26,
+          "left": 1296.9271240234375,
+          "right": 1346.3333740234375,
+          "top": 897.625,
+          "width": 49.40625,
+          "x": 1296.9271240234375,
+          "y": 897.625
+        },
+        "clientWidth": 1905,
+        "dock": {
+          "bottom": 1064,
+          "height": 96,
+          "left": 227.33334350585938,
+          "right": 1677.3333435058594,
+          "top": 968,
+          "width": 1450,
+          "x": 227.33334350585938,
+          "y": 968
+        },
+        "hero": {
+          "bottom": 200.2916717529297,
+          "height": 76.79167175292969,
+          "left": 192.33334350585938,
+          "right": 841.4167175292969,
+          "top": 123.5,
+          "width": 649.0833740234375,
+          "x": 192.33334350585938,
+          "y": 123.5
+        },
+        "legend": {
+          "bottom": 707.4791870117188,
+          "height": 340.5208435058594,
+          "left": 212.33334350585938,
+          "right": 365.3333435058594,
+          "top": 366.9583435058594,
+          "width": 153,
+          "x": 212.33334350585938,
+          "y": 366.9583435058594
+        },
+        "scrollWidth": 1905,
+        "stage": {
+          "bottom": 941.2916717529297,
+          "height": 720,
+          "left": 192.33334350585938,
+          "right": 1366.3333435058594,
+          "top": 221.2916717529297,
+          "width": 1174,
+          "x": 192.33334350585938,
+          "y": 221.2916717529297
+        }
+      },
+      "stage_actions_reachable": true
+    },
+    {
+      "width": 1440,
+      "height": 960,
+      "layout": {
+        "capture": {
+          "bottom": 806.1875,
+          "height": 26,
+          "left": 969.2604370117188,
+          "right": 1018.6666870117188,
+          "top": 780.1875,
+          "width": 49.40625,
+          "x": 969.2604370117188,
+          "y": 780.1875
+        },
+        "clientWidth": 1425,
+        "dock": {
+          "bottom": 944,
+          "height": 96,
+          "left": 24,
+          "right": 1400.666748046875,
+          "top": 848,
+          "width": 1376.666748046875,
+          "x": 24,
+          "y": 848
+        },
+        "hero": {
+          "bottom": 194.8541717529297,
+          "height": 71.35417175292969,
+          "left": 40,
+          "right": 644.4583740234375,
+          "top": 123.5,
+          "width": 604.4583740234375,
+          "x": 40,
+          "y": 123.5
+        },
+        "legend": {
+          "bottom": 702.0416870117188,
+          "height": 340.5208435058594,
+          "left": 60,
+          "right": 213,
+          "top": 361.5208435058594,
+          "width": 153,
+          "x": 60,
+          "y": 361.5208435058594
+        },
+        "scrollWidth": 1425,
+        "stage": {
+          "bottom": 823.8541717529297,
+          "height": 608,
+          "left": 40,
+          "right": 1038.6666870117188,
+          "top": 215.8541717529297,
+          "width": 998.6666870117188,
+          "x": 40,
+          "y": 215.8541717529297
+        }
+      },
+      "stage_actions_reachable": true
+    },
+    {
+      "width": 1440,
+      "height": 823,
+      "layout": {
+        "capture": {
+          "bottom": 690.8333740234375,
+          "height": 26,
+          "left": 969.2604370117188,
+          "right": 1018.6666870117188,
+          "top": 664.8333740234375,
+          "width": 49.40625,
+          "x": 969.2604370117188,
+          "y": 664.8333740234375
+        },
+        "clientWidth": 1425,
+        "dock": {
+          "bottom": 807.3333740234375,
+          "height": 96,
+          "left": 24,
+          "right": 1400.666748046875,
+          "top": 711.3333740234375,
+          "width": 1376.666748046875,
+          "x": 24,
+          "y": 711.3333740234375
+        },
+        "hero": {
+          "bottom": 178.16666793823242,
+          "height": 61.66666793823242,
+          "left": 40,
+          "right": 518.0833435058594,
+          "top": 116.5,
+          "width": 478.0833435058594,
+          "x": 40,
+          "y": 116.5
+        },
+        "legend": {
+          "bottom": 681.3541870117188,
+          "height": 340.5208435058594,
+          "left": 60,
+          "right": 213,
+          "top": 340.8333435058594,
+          "width": 153,
+          "x": 60,
+          "y": 340.8333435058594
+        },
+        "scrollWidth": 1425,
+        "stage": {
+          "bottom": 708.5000457763672,
+          "height": 513.3333740234375,
+          "left": 40,
+          "right": 1038.6666870117188,
+          "top": 195.1666717529297,
+          "width": 998.6666870117188,
+          "x": 40,
+          "y": 195.1666717529297
+        }
+      },
+      "stage_actions_reachable": true
+    },
+    {
+      "width": 1200,
+      "height": 800,
+      "layout": {
+        "capture": {
+          "bottom": 661.5,
+          "height": 26,
+          "left": 770.2604370117188,
+          "right": 819.6666870117188,
+          "top": 635.5,
+          "width": 49.40625,
+          "x": 770.2604370117188,
+          "y": 635.5
+        },
+        "clientWidth": 1185,
+        "dock": {
+          "bottom": 784,
+          "height": 96,
+          "left": 24,
+          "right": 1160.666748046875,
+          "top": 688,
+          "width": 1136.666748046875,
+          "x": 24,
+          "y": 688
+        },
+        "hero": {
+          "bottom": 172.16666793823242,
+          "height": 55.66666793823242,
+          "left": 25,
+          "right": 483.09375,
+          "top": 116.5,
+          "width": 458.09375,
+          "x": 25,
+          "y": 116.5
+        },
+        "legend": {
+          "bottom": 662.0208435058594,
+          "height": 327.1875,
+          "left": 37,
+          "right": 172,
+          "top": 334.8333435058594,
+          "width": 135,
+          "x": 37,
+          "y": 334.8333435058594
+        },
+        "scrollWidth": 1185,
+        "stage": {
+          "bottom": 679.1666717529297,
+          "height": 490,
+          "left": 25,
+          "right": 839.6666870117188,
+          "top": 189.1666717529297,
+          "width": 814.6666870117188,
+          "x": 25,
+          "y": 189.1666717529297
+        }
+      },
+      "stage_actions_reachable": true
+    },
+    {
+      "width": 1000,
+      "height": 900,
+      "layout": {
+        "capture": {
+          "bottom": 798.4271240234375,
+          "height": 26,
+          "left": 890.2604370117188,
+          "right": 939.6666870117188,
+          "top": 772.4271240234375,
+          "width": 49.40625,
+          "x": 890.2604370117188,
+          "y": 772.4271240234375
+        },
+        "clientWidth": 985,
+        "dock": {
+          "bottom": 884.0000305175781,
+          "height": 139.33334350585938,
+          "left": 24,
+          "right": 960.6666870117188,
+          "top": 744.6666870117188,
+          "width": 936.6666870117188,
+          "x": 24,
+          "y": 744.6666870117188
+        },
+        "hero": {
+          "bottom": 175.09375,
+          "height": 51.59375,
+          "left": 25,
+          "right": 457.54168701171875,
+          "top": 123.5,
+          "width": 432.54168701171875,
+          "x": 25,
+          "y": 123.5
+        },
+        "legend": {
+          "bottom": 668.9479370117188,
+          "height": 327.1875,
+          "left": 37,
+          "right": 172,
+          "top": 341.76043701171875,
+          "width": 135,
+          "x": 37,
+          "y": 341.76043701171875
+        },
+        "scrollWidth": 985,
+        "stage": {
+          "bottom": 816.09375,
+          "height": 620,
+          "left": 25,
+          "right": 959.6666870117188,
+          "top": 196.09375,
+          "width": 934.6666870117188,
+          "x": 25,
+          "y": 196.09375
+        }
+      },
+      "stage_actions_reachable": true
+    },
+    {
+      "width": 800,
+      "height": 900,
+      "layout": {
+        "capture": {
+          "bottom": 798.4271240234375,
+          "height": 26,
+          "left": 690.2604370117188,
+          "right": 739.6666870117188,
+          "top": 772.4271240234375,
+          "width": 49.40625,
+          "x": 690.2604370117188,
+          "y": 772.4271240234375
+        },
+        "clientWidth": 785,
+        "dock": {
+          "bottom": 884.0000305175781,
+          "height": 139.33334350585938,
+          "left": 24,
+          "right": 760.6666870117188,
+          "top": 744.6666870117188,
+          "width": 736.6666870117188,
+          "x": 24,
+          "y": 744.6666870117188
+        },
+        "hero": {
+          "bottom": 175.09375,
+          "height": 51.59375,
+          "left": 25,
+          "right": 457.54168701171875,
+          "top": 123.5,
+          "width": 432.54168701171875,
+          "x": 25,
+          "y": 123.5
+        },
+        "legend": {
+          "bottom": 668.9479370117188,
+          "height": 327.1875,
+          "left": 37,
+          "right": 172,
+          "top": 341.76043701171875,
+          "width": 135,
+          "x": 37,
+          "y": 341.76043701171875
+        },
+        "scrollWidth": 785,
+        "stage": {
+          "bottom": 816.09375,
+          "height": 620,
+          "left": 25,
+          "right": 759.6666870117188,
+          "top": 196.09375,
+          "width": 734.6666870117188,
+          "x": 25,
+          "y": 196.09375
+        }
+      },
+      "stage_actions_reachable": true
+    },
+    {
+      "width": 700,
+      "height": 844,
+      "layout": {
+        "capture": {
+          "bottom": 709.4270839691162,
+          "height": 19.33333396911621,
+          "left": 622.46875,
+          "right": 660.6666679382324,
+          "top": 690.09375,
+          "width": 38.19791793823242,
+          "x": 622.46875,
+          "y": 690.09375
+        },
+        "clientWidth": 685,
+        "dock": {
+          "bottom": 834.0000305175781,
+          "height": 162.33334350585938,
+          "left": 12,
+          "right": 672.6666870117188,
+          "top": 671.6666870117188,
+          "width": 660.6666870117188,
+          "x": 12,
+          "y": 671.6666870117188
+        },
+        "hero": {
+          "bottom": 163.09375,
+          "height": 51.59375,
+          "left": 16,
+          "right": 432.2083435058594,
+          "top": 111.5,
+          "width": 416.2083435058594,
+          "x": 16,
+          "y": 111.5
+        },
+        "legend": {
+          "bottom": 696.4271240234375,
+          "height": 91,
+          "left": 24,
+          "right": 660.6666870117188,
+          "top": 605.4271240234375,
+          "width": 636.6666870117188,
+          "x": 24,
+          "y": 605.4271240234375
+        },
+        "scrollWidth": 685,
+        "stage": {
+          "bottom": 745.09375,
+          "height": 560,
+          "left": 16,
+          "right": 668.6666870117188,
+          "top": 185.09375,
+          "width": 652.6666870117188,
+          "x": 16,
+          "y": 185.09375
+        }
+      },
+      "stage_actions_reachable": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "layout": {
+        "capture": {
+          "bottom": 693.5729579925537,
+          "height": 19.33333396911621,
+          "left": 312.46875,
+          "right": 350.6666679382324,
+          "top": 674.2396240234375,
+          "width": 38.19791793823242,
+          "x": 312.46875,
+          "y": 674.2396240234375
+        },
+        "clientWidth": 375,
+        "dock": {
+          "bottom": 834.0000305175781,
+          "height": 162.33334350585938,
+          "left": 12,
+          "right": 362.66668701171875,
+          "top": 671.6666870117188,
+          "width": 350.66668701171875,
+          "x": 12,
+          "y": 671.6666870117188
+        },
+        "hero": {
+          "bottom": 147.23958587646484,
+          "height": 35.739585876464844,
+          "left": 16,
+          "right": 297.2083435058594,
+          "top": 111.5,
+          "width": 281.2083435058594,
+          "x": 16,
+          "y": 111.5
+        },
+        "legend": {
+          "bottom": 680.5729370117188,
+          "height": 91,
+          "left": 24,
+          "right": 350.66668701171875,
+          "top": 589.5729370117188,
+          "width": 326.66668701171875,
+          "x": 24,
+          "y": 589.5729370117188
+        },
+        "scrollWidth": 375,
+        "stage": {
+          "bottom": 729.2395935058594,
+          "height": 560,
+          "left": 16,
+          "right": 358.66668701171875,
+          "top": 169.23959350585938,
+          "width": 342.66668701171875,
+          "x": 16,
+          "y": 169.23959350585938
+        }
+      },
+      "stage_actions_reachable": true
+    },
+    {
+      "width": 320,
+      "height": 700,
+      "layout": {
+        "capture": {
+          "bottom": 689.7604579925537,
+          "height": 19.33333396911621,
+          "left": 246.46875,
+          "right": 284.6666679382324,
+          "top": 670.4271240234375,
+          "width": 38.19791793823242,
+          "x": 246.46875,
+          "y": 670.4271240234375
+        },
+        "clientWidth": 305,
+        "dock": {
+          "bottom": 690.0000305175781,
+          "height": 162.33334350585938,
+          "left": 12,
+          "right": 292.66668701171875,
+          "top": 527.6666870117188,
+          "width": 280.66668701171875,
+          "x": 12,
+          "y": 527.6666870117188
+        },
+        "hero": {
+          "bottom": 143.4270839691162,
+          "height": 31.92708396911621,
+          "left": 12,
+          "right": 268.65625,
+          "top": 111.5,
+          "width": 256.65625,
+          "x": 12,
+          "y": 111.5
+        },
+        "legend": {
+          "bottom": 676.7604370117188,
+          "height": 91,
+          "left": 20,
+          "right": 284.66668701171875,
+          "top": 585.7604370117188,
+          "width": 264.66668701171875,
+          "x": 20,
+          "y": 585.7604370117188
+        },
+        "scrollWidth": 305,
+        "stage": {
+          "bottom": 725.4270935058594,
+          "height": 560,
+          "left": 12,
+          "right": 292.66668701171875,
+          "top": 165.42709350585938,
+          "width": 280.66668701171875,
+          "x": 12,
+          "y": 165.42709350585938
+        }
+      },
+      "stage_actions_reachable": true
+    }
+  ],
+  "save_indicator": {
+    "rect": {
+      "bottom": 823.1875419616699,
+      "height": 34.66666793823242,
+      "left": 1067.3333740234375,
+      "right": 1384.0000610351562,
+      "top": 788.5208740234375,
+      "width": 316.66668701171875,
+      "x": 1067.3333740234375,
+      "y": 788.5208740234375
+    },
+    "visible": true
+  },
+  "postcard": {
+    "width": 1600,
+    "height": 1200,
+    "bytes": 1348375,
+    "png_chunk_crc_valid": true,
+    "normal_and_immersive_bytes_identical": true,
+    "sha256": "9318af87ca21f971969c6b912b4c4ea9c287408ddb1fe029b73c9daf2ed59a2f"
+  },
+  "application": {
+    "bytes": 128489,
+    "sha256": "aa11dae8e4db48eb0ea801324a0500d62fec7848e3c081b6666a9401d62e78ac",
+    "offline_and_web_identical": true
+  },
+  "long_title_postcard": {
+    "title_characters": 60,
+    "width": 1600,
+    "height": 1200,
+    "two_lines_visually_verified": true,
+    "bytes": 1396383,
+    "sha256": "76031a301be1071ad746d1682262603177b9d4c61a8af85bac51246c241a0a2f"
+  },
+  "screenshots": [
+    "唱片室.png",
+    "唱片箱.png",
+    "沉浸唱片.png",
+    "唱片书架.png",
+    "导出柜台.png",
+    "织星台.png",
+    "手机布局.png",
+    "明信片.png",
+    "长标题封面.png"
+  ],
+  "limitations": [
+    "Phone sizes simulated in a desktop browser; no physical mobile test.",
+    "User aesthetic approval remains open.",
+    "Audio model and stored composition formats unchanged."
+  ],
+  "cleanup": {
+    "test_tab_closed": true,
+    "tabbit_finished_without_forced_cleanup": true,
+    "local_server_stopped": true
+  }
+}

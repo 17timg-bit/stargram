@@ -3,54 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#091719">
+  <meta name="theme-color" content="#f2efe6">
   <meta name="description" content="点亮星星，让轨道替你作曲。一台可以离线使用的星空音乐玩具。">
   <title>星轨留声机 · STARGRAM</title>
   <!-- STYLE -->
 </head>
 <body>
   <header class="masthead">
-    <a class="brand" href="#" aria-label="星轨留声机首页"><svg viewBox="0 0 40 40" aria-hidden="true"><ellipse cx="20" cy="20" rx="17" ry="8" transform="rotate(-35 20 20)"/><ellipse cx="20" cy="20" rx="17" ry="8" transform="rotate(35 20 20)"/><circle cx="20" cy="20" r="3"/><circle cx="32" cy="10" r="2"/></svg><span>星轨留声机<small>STARGRAM / AN ORBITAL MUSIC TOY</small></span></a>
-    <div class="header-note"><span class="status-dot"></span> 一小片宇宙，一首偶然的歌</div>
+    <a class="brand" href="#" aria-label="星轨留声机首页"><svg viewBox="0 0 40 40" aria-hidden="true"><ellipse cx="20" cy="20" rx="17" ry="8" transform="rotate(-35 20 20)"/><ellipse cx="20" cy="20" rx="17" ry="8" transform="rotate(35 20 20)"/><circle cx="20" cy="20" r="3"/></svg><span>星轨留声机<small>STARGRAM · ORBITAL RECORDS</small></span></a>
+    <div class="header-note">独立宇宙音乐厂牌 <span>EST. 2026</span></div>
     <nav class="header-actions" aria-label="作品操作"><button id="helpBtn" class="quiet">玩法 <kbd>?</kbd></button><button id="exportBtn" class="outline">带走这片星空 <span>↗</span></button></nav>
   </header>
+  <section class="studio-intro" aria-label="星际唱片室">
+    <div><div class="eyebrow">SOUNDS OF A SMALL UNIVERSE</div><h1>让偶然，<span>成为旋律。</span><i aria-hidden="true">✳</i></h1></div>
+    <div class="studio-note"><p>把一颗星放上轨道。<br>下一次相遇，就有了声音。</p><div class="edition">VOL. 005 / THE ORBITAL PRESS <b>v1.4</b></div></div>
+  </section>
   <main class="workspace">
-    <aside class="library">
-      <div class="eyebrow">01 / OBSERVATORY</div>
-      <h1>让星星<br>替你作曲<span class="gold">。</span></h1>
-      <p class="intro">在轨道上留下光点，<br>等一颗彗星与它相遇。</p>
-      <div class="section-label">从一张星图开始 <span>03</span></div>
-      <div class="presets" aria-label="预设星图">
-        <button class="preset active" data-preset="dawn"><span class="preset-art dawn" aria-hidden="true"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="11"/><circle cx="22" cy="22" r="5"/><path d="M22 4v5m0 26v5M4 22h5m26 0h5M9 9l4 4m18 18 4 4M9 35l4-4m18-18 4-4"/><path d="M7 29h30M11 33h22" opacity=".5"/></svg></span><span><strong>晨雾中的信号</strong><small>温暖 / 明亮 / 88 BPM</small></span><span class="preset-arrow">↗</span></button>
-        <button class="preset" data-preset="tide"><span class="preset-art tide" aria-hidden="true"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="16" opacity=".6"/><path d="M6 20c6-10 13-10 19 0s11 8 15 1M5 25c6-10 13-10 19 0s11 8 15 1M8 30c5-8 12-8 18 0s9 6 12 0"/><circle cx="26" cy="11" r="2"/></svg></span><span><strong>潮汐来信</strong><small>流动 / 交错 / 104 BPM</small></span><span class="preset-arrow">↗</span></button>
-        <button class="preset" data-preset="glass"><span class="preset-art glass" aria-hidden="true"><svg viewBox="0 0 44 44"><path d="m22 5 14 17-14 17L8 22Z"/><path d="m22 5 5 17-5 17-5-17Zm-14 17h28M14 13h16M14 31h16" opacity=".7"/><circle cx="35" cy="7" r="1.3"/><path d="M8 36h5m-2.5-2.5v5"/></svg></span><span><strong>夜航的玻璃船</strong><small>空灵 / 缓慢 / 72 BPM</small></span><span class="preset-arrow">↗</span></button>
-      </div>
-      <div class="library-actions"><button id="randomBtn" class="random-button"><span>✧</span> 偶遇一片新星空 <span>↻</span></button>
-      <button id="shelfBtn" class="shelf-button"><span>▤</span><span>我的星图书架<small id="shelfCount">0 张本地收藏</small></span><span>↗</span></button>
-      </div>
-      <div class="field-notes">
-        <div class="section-label">你的观测手记 <span id="discoveryCount">0 / 3</span></div>
-        <div class="discovery" data-discovery="plant"><span>01</span> 亲手点亮一颗星星 <b>○</b></div>
-        <div class="discovery" data-discovery="orbit"><span>02</span> 改变一次轨道周期 <b>○</b></div>
-        <div class="discovery" data-discovery="listen"><span>03</span> 听见三十二次相遇 <b>○</b></div>
-        <p id="discoveryMessage">不必懂乐理，只需要一点好奇心。</p>
-      </div>
-      <div class="edition">A LITTLE INSTRUMENT FOR WANDERING MINDS<br><span>VOL. 004 — THE CONSTELLATION LOOM / v1.3</span></div>
-    </aside>
     <section class="observatory" aria-label="互动星图">
-      <div class="stage-heading"><div><div class="eyebrow">NOW EXPLORING</div><div class="scene-title-row"><h2 id="sceneTitle">晨雾中的信号</h2><button id="renameBtn" aria-label="为星图命名" title="为星图命名">✎</button></div></div><div class="stage-actions"><span class="live-label" id="liveLabel">静候相遇</span><button id="immerseBtn" class="tiny" aria-pressed="false">⛶ 沉浸</button></div></div>
+      <div class="stage-heading"><div><div class="eyebrow">SIDE A / 当前星图</div><div class="scene-title-row"><h2 id="sceneTitle">晨雾中的信号</h2><button id="renameBtn" aria-label="为星图命名" title="为星图命名">✎</button></div></div><div class="stage-actions"><span class="live-label" id="liveLabel">静候相遇</span><button id="immerseBtn" class="tiny" aria-pressed="false">⛶ 沉浸</button></div></div>
       <div class="performance-line"><span id="beatReadout">等待第一束光</span><span id="noteReadout">五条轨道，自由相遇</span></div>
+      <aside class="stage-voices" aria-label="五条声部"><div class="eyebrow">THE FIVE VOICES</div><div id="tracks" class="tracks" aria-label="选择音轨"></div><p>1–5 选轨<br>点击圆点静音</p></aside>
+      <span class="record-stamp" aria-hidden="true">ORIGINAL<br>ORBITAL<br>RECORDING<span>✳</span></span>
       <canvas id="universe" tabindex="0" aria-label="互动星图：点击轨道添加或删除音符，拖动星星移动；也可使用右侧音符编辑器。"></canvas>
       <div class="stage-hint" id="stageHint"><span>＋</span> 点击轨道种下星星 · 拖动星星改变节奏</div>
       <div class="stage-bottom"><span><b id="noteCount">17</b> 颗星星 <i>·</i> <span id="cycleLabel">240 拍后重逢</span></span><div><button id="undoBtn" class="tiny" title="撤销 Ctrl+Z" disabled>↶ 撤销</button><button id="redoBtn" class="tiny" title="重做 Ctrl+Shift+Z" disabled>↷ 重做</button><button id="captureBtn" class="tiny" title="保存星图明信片">⤓ 拍张照</button></div></div>
       <div class="canvas-tooltip" id="tooltip" hidden></div>
     </section>
     <aside class="inspector">
-      <div class="eyebrow">02 / THE INSTRUMENT</div>
-      <div class="inspector-title"><h2>五条轨道，五种声音</h2><span>选择一条轨道</span></div>
-      <div id="tracks" class="tracks" aria-label="选择音轨"></div>
+      <div class="inspector-body">
+      <div class="eyebrow">02 / TRACK STUDIO</div>
+      <div class="inspector-title"><h2>为这一轨，慢慢调音。</h2><span>EDIT</span></div>
       <section class="orbit-editor" aria-label="选中轨道的设置">
-        <div class="editor-heading"><span id="selectedName">浮光</span><span id="selectedVoice" class="editor-voice">PLUCK</span><button id="loomBtn" class="loom-launch" title="为当前轨道织一段新旋律">✧ 织星台</button></div>
+        <div class="editor-heading"><span id="selectedName">浮光</span><span id="selectedVoice" class="editor-voice">PLUCK</span><button id="loomBtn" class="loom-launch" title="生成一份新的候选旋律">✧ 织星台</button></div>
         <div class="edit-modes" role="group" aria-label="星星编辑方式"><button data-mode="plant" class="active" aria-pressed="true">✧ 种星</button><button data-mode="tune" aria-pressed="false">♫ 调音</button><button id="soloBtn" aria-pressed="false" title="只听这条轨道">独奏</button></div>
         <label class="control-label" for="lengthSelect">一圈的长度 <span>每格为半拍</span></label>
         <div class="orbit-settings"><select id="lengthSelect" aria-label="轨道长度"><option value="8">8 格</option><option value="12">12 格</option><option value="16">16 格</option><option value="20">20 格</option><option value="24">24 格</option></select><button id="rotateBtn" class="outline" title="让这条轨道的所有音符晚一格响起">↻ 旋转一格</button></div>
@@ -60,24 +44,35 @@
         <select id="pitchSelect" aria-label="新音符音高"><option value="0">1 · 低处的光</option><option value="1">2 · 向上一步</option><option value="2" selected>3 · 透亮</option><option value="3">4 · 远一点</option><option value="4">5 · 天际线</option><option value="5">6 · 高八度</option><option value="6">7 · 微光</option><option value="7">8 · 星尘</option><option value="8">9 · 云端</option><option value="9">10 · 最远的星</option></select>
         <div class="accent-control" role="group" aria-label="音符力度"><button data-accent="0.55" aria-pressed="false">◔ 轻</button><button data-accent="1" class="active" aria-pressed="true">◑ 中</button><button data-accent="1.35" aria-pressed="false">● 重</button></div>
         <label class="control-label" for="trackGain">这条轨道的音量 <output id="trackGainValue">72%</output></label><input id="trackGain" type="range" min="0" max="100" value="72">
-        <p class="editor-tip" id="editTip">种星：点击开关音符。调音：选中星星后改音高、轻重。Shift+点击可切换力度。</p>
+        <p class="editor-tip" id="editTip">种星：点空位添加，再点删除。</p>
       </section>
+      </div>
       <div class="save-note"><span class="status-dot"></span><span id="saveStatus">星图会自动保存在此浏览器</span></div>
+    </aside>
+    <aside class="library">
+      <div class="library-heading"><div class="eyebrow">THE LISTENING CRATE / 03 RECORDS</div><h2>换一张，<br>换种心情。</h2><p>三张唱片，三个出发点。</p></div>
+      <div class="presets" aria-label="预设星图">
+        <button class="preset active" data-preset="dawn"><span class="preset-art dawn" aria-hidden="true"><svg viewBox="0 0 100 100"><path fill="#d9895f" d="M0 0h100v100H0z"/><circle cx="50" cy="43" r="26" fill="#f4d29a"/><path d="M0 65h100v35H0z" fill="#234b3d"/><path d="M0 72h100M0 79h100M0 86h100M0 93h100" stroke="#efcb8b" stroke-width="1"/><path d="M50 10v7m-32 9 6 4m58-4-6 4" stroke="#f4d29a"/></svg><em>A / 01</em></span><span><small>WARM & BRIGHT · 88 BPM</small><strong>晨雾中的信号</strong><span class="preset-caption">给今天一个明亮的开场</span></span><span class="preset-arrow">↗</span></button>
+        <button class="preset" data-preset="tide"><span class="preset-art tide" aria-hidden="true"><svg viewBox="0 0 100 100"><path fill="#b8d2cb" d="M0 0h100v100H0z"/><circle cx="70" cy="26" r="15" fill="#f1e7cb"/><path d="M-10 62Q18 16 46 62T102 62v44H-10" fill="#2e6b67"/><path d="M-10 75Q18 29 46 75T102 75" fill="none" stroke="#81aaa2" stroke-width="2"/><path d="M-10 88Q18 42 46 88T102 88" fill="none" stroke="#c9dbbd" stroke-width="1"/></svg><em>B / 02</em></span><span><small>FLOWING & ALIVE · 104 BPM</small><strong>潮汐来信</strong><span class="preset-caption">让不同的循环相互追逐</span></span><span class="preset-arrow">↗</span></button>
+        <button class="preset" data-preset="glass"><span class="preset-art glass" aria-hidden="true"><svg viewBox="0 0 100 100"><path fill="#c8c0d0" d="M0 0h100v100H0z"/><path d="m50 12 34 40-34 38-34-38Z" fill="#74657e"/><path d="m50 12 12 40-12 38-12-38Z" fill="#e8dfcd"/><path d="M16 52h68M33 32h34M33 72h34" stroke="#e8dfcd" fill="none" stroke-width="1"/><circle cx="82" cy="17" r="3" fill="#f1e7cb"/></svg><em>C / 03</em></span><span><small>AIRY & SLOW · 72 BPM</small><strong>夜航的玻璃船</strong><span class="preset-caption">留一段轻轻悬浮的余音</span></span><span class="preset-arrow">↗</span></button>
+      </div>
+      <div class="library-actions"><button id="randomBtn" class="random-button"><span>✳</span> 偶遇一片新星空 <span>↗</span></button><button id="shelfBtn" class="shelf-button"><span>▤</span><span>我的星图书架<small id="shelfCount">0 张本地收藏</small></span><span>↗</span></button></div>
+      <details class="field-notes"><summary>观测手记 <span id="discoveryCount">0 / 3</span><i>＋</i></summary><div class="discoveries"><div class="discovery" data-discovery="plant"><span>01</span> 亲手点亮一颗星星 <b>○</b></div><div class="discovery" data-discovery="orbit"><span>02</span> 改变一次轨道周期 <b>○</b></div><div class="discovery" data-discovery="listen"><span>03</span> 听见三十二次相遇 <b>○</b></div></div><p id="discoveryMessage">不必懂乐理，只需要一点好奇心。</p></details>
     </aside>
   </main>
   <footer class="transport">
-    <div class="playback"><button id="playBtn" class="play-button" aria-label="开始演奏"><span id="playIcon">▶</span></button><div class="play-copy"><strong id="playText">让宇宙开始转动</strong><small><kbd>Space</kbd> 播放 / 暂停</small></div><button id="restartBtn" class="restart" aria-label="从头演奏" title="从头演奏">↺</button></div>
+    <div class="playback"><button id="playBtn" class="play-button" aria-label="开始演奏"><span id="playIcon">▶</span></button><div class="play-copy"><strong id="playText">放下唱针，听见星空</strong><small><kbd>Space</kbd> 播放 / 暂停</small></div><button id="restartBtn" class="restart" aria-label="从头演奏" title="从头演奏">↺</button></div>
     <div class="tempo-control"><label for="tempo">时间流速 <output id="tempoValue">88 <small>BPM</small></output></label><input id="tempo" type="range" min="48" max="160" value="88"></div>
-    <div class="scale-control"><label for="scaleSelect">星空的色彩</label><select id="scaleSelect"><option value="dawn">晨光 · 大调五声</option><option value="tide">浮潮 · 小调五声</option><option value="glass">琉璃 · 悬浮音阶</option></select></div>
+    <div class="scale-control"><label for="scaleSelect">星空色彩</label><select id="scaleSelect"><option value="dawn">晨光 · 大调五声</option><option value="tide">浮潮 · 小调五声</option><option value="glass">琉璃 · 悬浮音阶</option></select></div>
     <div class="space-control"><label for="space">回响 <output id="spaceValue">48%</output></label><input id="space" type="range" min="0" max="100" value="48"></div>
     <div class="volume-control"><label for="volume">音量 <output id="volumeValue">55%</output></label><input id="volume" type="range" min="0" max="100" value="55"></div>
   </footer>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <dialog id="loomDialog" class="loom-dialog" aria-labelledby="loomTitle">
     <button class="dialog-close" data-close aria-label="关闭织星台">×</button>
-    <div class="eyebrow">THE CONSTELLATION LOOM / A STUDY IN LIGHT</div>
+    <div class="eyebrow">MELODY STUDY / 一份新的候选</div>
     <h2 id="loomTitle">把一圈光，织成旋律。</h2>
-    <p class="dialog-intro">先听一个小小的念头。喜欢，再把它种进你的宇宙。</p>
+    <p class="dialog-intro">先听一个小小的念头。喜欢，再把它种进你的宇宙。</p><p class="loom-notice">每次打开会生成一份新候选；应用前，原轨道保持原样。</p>
     <div class="loom-layout">
       <section class="loom-paper" aria-label="旋律草稿">
         <div class="loom-paper-header"><span id="loomTrackLabel">03 / 浮光</span><span>ORBIT STUDY</span></div>
@@ -106,9 +101,9 @@
     <div class="loom-footer"><p>只替换当前轨道的旋律与周期。<br>种进星图后，也可以撤销。</p><button id="loomApply" class="primary">种进这条轨道 <span>↗</span></button></div>
   </dialog>
   <dialog id="renameDialog"><button class="dialog-close" data-close aria-label="关闭命名">×</button><div class="eyebrow">NAME THIS LITTLE UNIVERSE</div><h2>给这片星空一个名字。</h2><form id="renameForm"><label class="control-label" for="titleInput">星图名称 <span>最多 60 字</span></label><input id="titleInput" type="text" maxlength="60" required autocomplete="off"><button class="primary wide" type="submit">保存名字</button></form></dialog>
-  <dialog id="shelfDialog" class="shelf-dialog"><button class="dialog-close" data-close aria-label="关闭星图书架">×</button><div class="eyebrow">THE PRIVATE ATLAS / 24 LITTLE UNIVERSES</div><h2>把喜欢的偶然，收进书架。</h2><p class="dialog-intro">每一张都是独立快照。随时回来看，继续拨动它的星星。</p><form id="shelfForm" class="shelf-save"><label for="shelfTitle" class="control-label">这次相遇的名字</label><div><input id="shelfTitle" type="text" maxlength="60" required autocomplete="off"><button class="primary" type="submit">收藏当前星图</button></div></form><div class="shelf-meta"><span id="shelfSummary">0 / 24 张星图</span><span>仅保存在此浏览器 · 可另存 JSON</span></div><div id="shelfFeedback" class="shelf-feedback" role="status" aria-live="polite"></div><div id="shelfUndo" class="shelf-undo" hidden><span>一张星图已移出书架</span><button id="restoreShelfBtn" class="text-button">撤销移除</button></div><div id="shelfGrid" class="shelf-grid"></div></dialog>
+  <dialog id="shelfDialog" class="shelf-dialog"><button class="dialog-close" data-close aria-label="关闭星图书架">×</button><div class="eyebrow">YOUR PRIVATE PRESSING / 24 RECORDS</div><h2>把喜欢的偶然，收进书架。</h2><p class="dialog-intro">每一张都是独立快照。随时回来看，继续拨动它的星星。</p><form id="shelfForm" class="shelf-save"><label for="shelfTitle" class="control-label">这次相遇的名字</label><div><input id="shelfTitle" type="text" maxlength="60" required autocomplete="off"><button class="primary" type="submit">收藏当前星图</button></div></form><div class="shelf-meta"><span id="shelfSummary">0 / 24 张星图</span><span>仅保存在此浏览器 · 可另存 JSON</span></div><div id="shelfFeedback" class="shelf-feedback" role="status" aria-live="polite"></div><div id="shelfUndo" class="shelf-undo" hidden><span>一张星图已移出书架</span><button id="restoreShelfBtn" class="text-button">撤销移除</button></div><div id="shelfGrid" class="shelf-grid"></div></dialog>
   <dialog id="helpDialog"><button class="dialog-close" data-close aria-label="关闭玩法">×</button><div class="eyebrow">A SMALL GUIDE TO YOUR UNIVERSE</div><h2>这片星空，由你来调音。</h2><p class="dialog-intro">每一圈都是一条旋律。彗星与星星相遇，声音就会发生。</p><ol class="guide"><li><b>先听，再动手。</b>点击播放，或者按空格。选一张喜欢的星图作起点。</li><li><b>把音符种在轨道上。</b>点击空位添加，再点一次删除。拖到另一个位置改变时机，拖到另一圈改变音色。右击星星可升高音高。切到「调音」可选中星星改音高、轻重；Shift+点击可快速改变力度。也可以打开「织星台」，调节密度和旋律走向，试听草稿，喜欢后再种进本轨；关闭不改原星图。</li><li><b>让循环错开。</b>选中一条轨道，把一圈从 16 格改成 12 格。相同音符会在下一圈遇到不同的伙伴。</li><li><b>留下属于你的偶然。</b>给星图命名，收藏进自己的星图书架；也可以导出 WAV、MIDI 和保留全部设置的星图文件。</li></ol><div class="shortcut-row"><span><kbd>Space</kbd> 播放</span><span><kbd>Ctrl Z</kbd> 撤销</span><span><kbd>Ctrl Shift Z</kbd> 重做</span><span><kbd>1–5</kbd> 选轨</span><span><kbd>?</kbd> 玩法</span></div><p class="fine-print">完全离线 · 无账号 · 无上传 · 所有声音在本机合成<br>切到其他标签页会自动暂停。浏览器首次播放需要你点击一下。</p><button class="primary wide" data-close>知道了，去种星星</button></dialog>
-  <dialog id="exportDialog"><button class="dialog-close" data-close aria-label="关闭导出">×</button><div class="eyebrow">TAKE A PIECE OF THE UNIVERSE</div><h2>把这次相遇带走。</h2><p class="dialog-intro">音乐从第一格开始导出；星图保留你现在的全部编排。</p><div class="export-options"><button id="wavBtn"><span class="export-icon">♫</span><span><strong>一段音乐</strong><small>WAV · 8 小节 + 混响尾音 · 44.1 kHz 立体声</small></span><b>↓</b></button><button id="midiBtn"><span class="export-icon">♮</span><span><strong>继续编曲</strong><small>MIDI · 五条独立音轨 · 含速度信息</small></span><b>↓</b></button><button id="jsonBtn"><span class="export-icon">✧</span><span><strong>保存这张星图</strong><small>STARGRAM v2 · 保留音符力度、独奏与分轨音量</small></span><b>↓</b></button></div><div class="import-row"><span>有一张以前保存的星图？</span><button id="importBtn" class="outline">导入星图 ↗</button><input type="file" id="importInput" accept=".json,application/json" hidden></div><p id="exportStatus" class="fine-print" aria-live="polite">文件由浏览器保存到下载位置。MIDI 音色由播放软件决定。</p></dialog>
+  <dialog id="exportDialog"><button class="dialog-close" data-close aria-label="关闭导出">×</button><div class="eyebrow">THE TAKEAWAY COUNTER / 留下这一刻</div><h2>把这次相遇带走。</h2><p class="dialog-intro">音乐从第一格开始导出；星图保留你现在的全部编排。</p><div class="export-options"><button id="wavBtn"><span class="export-icon">WAV</span><span><strong>一段音乐</strong><small>WAV · 8 小节 + 混响尾音 · 44.1 kHz 立体声</small></span><b>↓</b></button><button id="midiBtn"><span class="export-icon">MIDI</span><span><strong>继续编曲</strong><small>MIDI · 五条独立音轨 · 含速度信息</small></span><b>↓</b></button><button id="jsonBtn"><span class="export-icon">MAP</span><span><strong>保存这张星图</strong><small>STARGRAM v2 · 保留音符力度、独奏与分轨音量</small></span><b>↓</b></button><button id="posterExportBtn"><span class="export-icon">PNG</span><span><strong>一张封面</strong><small>明信片 · 1600 × 1200 · 当前星图</small></span><b>↓</b></button></div><div class="import-row"><span>有一张以前保存的星图？</span><button id="importBtn" class="outline">导入星图 ↗</button><input type="file" id="importInput" accept=".json,application/json" hidden></div><p id="exportStatus" class="fine-print" aria-live="polite">文件由浏览器保存到下载位置。MIDI 音色由播放软件决定。</p></dialog>
   <!-- SCRIPTS -->
 </body>
 </html>
