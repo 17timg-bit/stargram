@@ -15,8 +15,30 @@
     for (const k of Object.keys(discoveries)) discoveries[k] = d[k] === true;
   } catch { saveError = true; }
   const canvas = $('universe'), ctx = canvas.getContext('2d');
-  let width = 1, height = 1, hover = null, drag = null, particles = [], pulses = new Map(), queue = [];
-  let toastTimer, renderedStep = -1, lastFrame = 0, lastEncounterAt = -10000, reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let width = 1, height = 1, stageBounds = { footer:1, voices:1 }, hover = null, drag = null, particles = [], pulses = new Map(), queue = [];
+  const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+  let toastTimer, renderedStep = -1, lastFrame = 0, lastEncounterAt = -10000, reducedMotion = motionPreference.matches;
+  motionPreference.addEventListener('change', e => { reducedMotion = e.matches; });
+  const themeNames = { paper: '纸间晴昼', nocturne: '鎏金夜航', mist: '雾蓝回声' };
+  let theme = Object.hasOwn(themeNames, document.documentElement.dataset.theme) ? document.documentElement.dataset.theme : 'paper';
+  let skin = {}, armProgress = 0;
+  function refreshSkin() {
+    const style = getComputedStyle(document.documentElement);
+    for (const token of ['paper', 'ink', 'muted', 'orange', 'line', 'gold', 'loom-paper', 'loom-ink', 'record-edge', 'record-light', 'record-mid', 'record-dark', 'record-groove', 'record-label', 'record-label-line', 'record-label-ink', 'arm-metal', 'arm-light', 'arm-head', 'arm-tip']) skin[token] = style.getPropertyValue('--' + token).trim();
+    document.querySelector('meta[name="theme-color"]').content = skin.paper;
+  }
+  function setTheme(value, save = true) {
+    if (!Object.hasOwn(themeNames, value)) return;
+    theme = value; document.documentElement.dataset.theme = value; refreshSkin();
+    $('themeName').textContent = themeNames[value];
+    $('themeBtn').setAttribute('aria-label', `切换外观，当前${themeNames[value]}`);
+    document.querySelectorAll('[data-theme-choice]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.themeChoice === value)));
+    if (save) {
+      try { localStorage.setItem('stargram.appearance.v1', value); $('themeStatus').textContent = `已选「${themeNames[value]}」· 外观已记住，乐曲保持原样。`; }
+      catch { $('themeStatus').textContent = `已选「${themeNames[value]}」· 外观已生效，此浏览器暂时无法记住选择。`; }
+      renderShelf();
+    }
+  }
   const random = C.rng(20261026), stars = Array.from({ length: 125 }, () => ({ x: random(), y: random(), r: random() * 1.2 + 0.25, a: random() * 0.32 + 0.08, phase: random() * 6.28 }));
   const engine = new OrbitAudio.Engine(() => state, e => queue.push(e));
 
@@ -157,6 +179,8 @@
     $(id).addEventListener('change', () => { if (sliderBefore) { history.push(sliderBefore); if (history.length > 60) history.shift(); future = []; sliderBefore = null; } persist(); renderUI(); });
   }
   $('helpBtn').onclick = () => $('helpDialog').showModal(); $('exportBtn').onclick = () => $('exportDialog').showModal();
+  $('themeBtn').onclick = () => $('themeDialog').showModal();
+  document.querySelectorAll('[data-theme-choice]').forEach(b => b.onclick = () => setTheme(b.dataset.themeChoice));
   document.querySelectorAll('[data-close]').forEach(b => b.onclick = () => b.closest('dialog').close());
   document.querySelectorAll('dialog').forEach(d => d.addEventListener('click', e => { const r = d.getBoundingClientRect(); if (e.target === d && (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)) d.close(); }));
   document.addEventListener('keydown', e => {
@@ -188,8 +212,8 @@
     target.width = 560; target.height = 300;
     const c = target.getContext('2d'), x = 280, y = 150;
     c.fillStyle = { dawn: '#ddaa80', tide: '#bdd2c8', glass: '#c9bfd1' }[snapshot.scale]; c.fillRect(0, 0, 560, 300);
-    c.shadowColor = '#213c3644'; c.shadowBlur = 15; c.shadowOffsetY = 6; circle(c, x, y, 143, '#153d33'); c.shadowBlur = 0; c.shadowOffsetY = 0;
-    c.strokeStyle = '#688366'; c.lineWidth = .5;
+    c.shadowColor = '#213c3644'; c.shadowBlur = 15; c.shadowOffsetY = 6; circle(c, x, y, 143, skin['record-edge']); c.shadowBlur = 0; c.shadowOffsetY = 0;
+    c.strokeStyle = skin['record-groove']; c.lineWidth = .5;
     for (let r = 26; r < 140; r += 2.5) { c.globalAlpha = .15; c.beginPath(); c.arc(x, y, r, 0, Math.PI * 2); c.stroke(); }
     snapshot.tracks.forEach((track, i) => {
       const r = 34 + i * 24, color = C.ROLES[i].color;
@@ -201,7 +225,7 @@
         c.shadowColor = color; c.shadowBlur = 12; circle(c, x + Math.cos(a) * r, y + Math.sin(a) * r, 2.3 + track.accents[step] * 1.7, color); c.shadowBlur = 0;
       });
     });
-    c.globalAlpha = 1; circle(c, x, y, 19, '#e4d7af'); circle(c, x, y, 3, '#274b3b');
+    c.globalAlpha = 1; circle(c, x, y, 19, skin['record-label']); circle(c, x, y, 3, skin['record-label-ink']);
   }
   function renderShelf() {
     $('shelfGrid').replaceChildren(); $('shelfCount').textContent = `${shelf.entries.length} 张本地收藏`;
@@ -353,14 +377,14 @@
     if (!$('loomDialog').open || !loom.draft) return;
     const target = $('loomCanvas'), c = target.getContext('2d'), t = loom.draft, x = 180, y = 177;
     c.setTransform(2, 0, 0, 2, 0, 0); c.clearRect(0, 0, 360, 360);
-    const ink = ['#94643e', '#88702e', '#366e5c', '#4a7080', '#725c7d'][loom.index];
-    c.lineWidth = .6; c.strokeStyle = '#6f7e5b';
+    const ink = theme === 'nocturne' ? C.ROLES[loom.index].color : ['#94643e', '#88702e', '#366e5c', '#4a7080', '#725c7d'][loom.index];
+    c.lineWidth = .6; c.strokeStyle = skin['loom-ink'];
     for (let i = 0; i < 5; i++) { c.globalAlpha = .19; c.beginPath(); c.arc(x, y, 68 + i * 11, 0, Math.PI * 2); c.stroke(); }
     c.globalAlpha = .3; c.beginPath(); c.arc(x, y, 131, 0, Math.PI * 2); c.stroke();
     for (let i = 0; i < t.length; i++) {
       const a = i / t.length * Math.PI * 2 - Math.PI / 2;
       c.globalAlpha = i % 2 ? .28 : .6; c.beginPath(); c.moveTo(x + Math.cos(a) * 135, y + Math.sin(a) * 135); c.lineTo(x + Math.cos(a) * 140, y + Math.sin(a) * 140); c.stroke();
-      c.font = '8px Consolas, monospace'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillStyle = '#506449';
+      c.font = '8px Consolas, monospace'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillStyle = skin['loom-ink'];
       c.globalAlpha = .7; c.fillText(String(i + 1).padStart(2, '0'), x + Math.cos(a) * 153, y + Math.sin(a) * 153);
     }
     const points = t.notes.map((pitch, step) => {
@@ -381,9 +405,9 @@
       circle(c, p.x, p.y, hit ? 6 : 2.4 + t.accents[p.step] * 1.2, ink);
       if (t.accents[p.step] > 1 || hit) { c.strokeStyle = ink; c.lineWidth = .7; c.beginPath(); c.arc(p.x, p.y, hit ? 11 : 7, 0, Math.PI * 2); c.stroke(); }
     });
-    c.globalAlpha = 1; circle(c, x, y, 29, '#e0dec6');
+    c.globalAlpha = 1; circle(c, x, y, 29, skin['loom-paper']);
     c.fillStyle = ink; c.font = '30px "SimSun", serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(String(points.length).padStart(2, '0'), x, y - 3);
-    c.font = '7px Consolas, monospace'; c.fillStyle = '#6b795a'; c.fillText('S T A R S', x, y + 21);
+    c.font = '7px Consolas, monospace'; c.fillStyle = skin['loom-ink']; c.fillText('S T A R S', x, y + 21);
     if (loom.source) {
       const label = phase < t.length ? `第 ${Math.min(t.length, Math.floor(phase) + 1)} / ${t.length} 格 · ${loom.base.bpm} BPM` : '这一圈已走完，余音正在散去';
       if (label !== loom.readout) { loom.readout = label; $('loomPosition').textContent = label; }
@@ -391,11 +415,16 @@
   }
 
   function geometry(w = width, h = height, forPoster = false) {
-    const expanded = immersive && !forPoster;
-    const compact = !forPoster && !expanded && matchMedia('(max-width:700px)').matches;
-    const max = Math.min(w * (compact ? .40 : .435), h * (forPoster ? .32 : compact ? .30 : expanded ? .40 : .358));
-    const cx = forPoster || expanded || compact ? w / 2 : w * (w < 740 ? .62 : .59);
-    return { cx, cy: h * (compact ? .42 : forPoster || expanded ? .52 : .53), radii: [0.28, 0.46, 0.64, 0.82, 1].map(v => v * max), max };
+    if (forPoster) { const max = Math.min(w * .435, h * .32); return { cx:w / 2, cy:h * .52, radii:[.28,.46,.64,.82,1].map(v => v * max), max }; }
+    const compact = !immersive && matchMedia('(max-width:700px)').matches;
+    if (!compact && !immersive) {
+      const max = Math.min(w * .435, h * (w < 740 ? .32 : .358));
+      return { cx:w * (w < 740 ? .62 : .59), cy:h * .52, radii:[.28,.46,.64,.82,1].map(v => v * max), max };
+    }
+    const bottom = (compact ? stageBounds.voices : stageBounds.footer) - 10;
+    const top = compact || immersive ? 102 : 55;
+    const max = Math.max(20, Math.min(w * (compact ? .40 : .435), (bottom - top) * .41));
+    return { cx:immersive || compact ? w / 2 : w * (w < 740 ? .62 : .59), cy:(top + bottom) / 2, radii:[.28,.46,.64,.82,1].map(v => v * max), max };
   }
   function location(track, step, g = geometry()) {
     const t = state.tracks[track], angle = (step + t.shift) / t.length * Math.PI * 2 - Math.PI / 2;
@@ -453,16 +482,37 @@
     if (!reducedMotion) { const p = location(track, step); for (let k = 0; k < 5; k++) particles.push({ x: p.x, y: p.y, vx: (random() - .5) * 24, vy: (random() - .5) * 24, born: time, color: C.ROLES[track].color }); }
   }
   function circle(c, x, y, radius, color) { c.beginPath(); c.arc(x, y, radius, 0, Math.PI * 2); c.fillStyle = color; c.fill(); }
+  function drawTonearm(c, g, platter, w) {
+    const x = Math.min(w - 25, g.cx + platter + 19), y = g.cy - platter * .80, length = platter * 1.40;
+    const parked = -.055, angle = parked + armProgress * .43;
+    // A stationary cradle makes the lifted, parked position readable even when paused.
+    const restX = x - Math.sin(parked) * length - Math.cos(parked) * length * .085;
+    const restY = y + Math.cos(parked) * length - Math.sin(parked) * length * .085;
+    c.save(); c.translate(restX, restY); c.rotate(parked);
+    c.fillStyle = skin['arm-head']; c.fillRect(-12, -8, 24, 29);
+    c.strokeStyle = skin['arm-metal']; c.lineWidth = 1; c.strokeRect(-9, -5, 18, 23); c.restore();
+    c.save(); c.translate(x, y); c.rotate(angle);
+    c.shadowColor = '#00000035'; c.shadowBlur = 5 + (1 - armProgress) * 5; c.shadowOffsetX = 3; c.shadowOffsetY = 4;
+    c.lineJoin = 'round'; c.lineCap = 'round'; c.strokeStyle = skin['arm-metal']; c.lineWidth = 7;
+    c.beginPath(); c.moveTo(0, -18); c.lineTo(0, length * .79); c.lineTo(-length * .085, length); c.stroke();
+    c.shadowBlur = 0; c.shadowOffsetX = 0; c.shadowOffsetY = 0; c.strokeStyle = skin['arm-light']; c.lineWidth = 1.5; c.stroke();
+    c.fillStyle = skin['arm-head']; c.fillRect(-7, -30, 14, 20);
+    c.translate(-length * .085, length); c.fillRect(-8, -7, 16, 24);
+    c.fillStyle = skin['arm-tip']; c.fillRect(-8, 11, 16, 6);
+    c.strokeStyle = skin['arm-light']; c.lineWidth = 1; c.beginPath(); c.moveTo(0, 17); c.lineTo(0, 21 - armProgress * 3); c.stroke(); c.restore();
+    circle(c, x, y, 12, skin['arm-metal']); circle(c, x, y, 5, skin['arm-head']); circle(c, x, y, 1.5, skin['arm-light']);
+    c.fillStyle = skin.muted; c.font = '7px Consolas, monospace'; c.textAlign = 'center'; c.fillText(engine.running ? 'PLAY' : 'REST', x, y - 42);
+  }
   function scene(c, w, h, phase, now, poster = false) {
     const g = geometry(w, h, poster), scale = poster ? 1.8 : 1;
     c.clearRect(0, 0, w, h);
-    c.fillStyle = '#f2efe6'; c.fillRect(0, 0, w, h);
+    c.fillStyle = skin.paper; c.fillRect(0, 0, w, h);
     const platter = g.max + Math.min(32 * scale, g.max * .18);
     c.shadowColor = '#203e3438'; c.shadowBlur = 18 * scale; c.shadowOffsetY = 9 * scale;
-    circle(c, g.cx, g.cy, platter, '#15392f'); c.shadowBlur = 0; c.shadowOffsetY = 0;
+    circle(c, g.cx, g.cy, platter, skin['record-edge']); c.shadowBlur = 0; c.shadowOffsetY = 0;
     c.save(); c.beginPath(); c.arc(g.cx, g.cy, platter, 0, Math.PI * 2); c.clip();
-    const bg = c.createRadialGradient(g.cx - g.max * .35, g.cy - g.max * .4, 0, g.cx, g.cy, platter); bg.addColorStop(0, '#305b48'); bg.addColorStop(.5, '#173f34'); bg.addColorStop(1, '#0b2d27'); c.fillStyle = bg; c.fillRect(0, 0, w, h);
-    c.strokeStyle = '#a8b18a'; c.lineWidth = .45 * scale;
+    const bg = c.createRadialGradient(g.cx - g.max * .35, g.cy - g.max * .4, 0, g.cx, g.cy, platter); bg.addColorStop(0, skin['record-light']); bg.addColorStop(.5, skin['record-mid']); bg.addColorStop(1, skin['record-dark']); c.fillStyle = bg; c.fillRect(0, 0, w, h);
+    c.strokeStyle = skin['record-groove']; c.lineWidth = .45 * scale;
     for (let k = 0; k < 85; k++) { c.globalAlpha = k % 4 ? .045 : .10; c.beginPath(); c.arc(g.cx, g.cy, platter * (.15 + k / 85 * .84), 0, Math.PI * 2); c.stroke(); } c.globalAlpha = 1;
     const colors = { dawn: ['#dfba88', '#89cfb6'], tide: ['#7cbcc9', '#7bc9b1'], glass: ['#b9a0d1', '#86b4d2'] }[state.scale];
     colors.forEach((color, i) => {
@@ -518,31 +568,24 @@
       c.globalAlpha = 1;
     });
     const label = g.radii[0] * .67;
-    circle(c, g.cx, g.cy, label, '#d9d8b3'); c.strokeStyle = '#9ca679'; c.lineWidth = .8 * scale; c.beginPath(); c.arc(g.cx, g.cy, label - 4 * scale, 0, Math.PI * 2); c.stroke();
+    circle(c, g.cx, g.cy, label, skin['record-label']); c.strokeStyle = skin['record-label-line']; c.lineWidth = .8 * scale; c.beginPath(); c.arc(g.cx, g.cy, Math.max(.5, label - 4 * scale), 0, Math.PI * 2); c.stroke();
     c.save(); c.translate(g.cx, g.cy); c.rotate(poster || reducedMotion ? 0 : phase * .055);
-    c.fillStyle = '#315341'; c.font = `${Math.max(4.8, label * .16)}px Consolas, monospace`; c.textAlign = 'center'; c.textBaseline = 'middle';
+    c.fillStyle = skin['record-label-ink']; c.font = `${Math.max(4.8, label * .16)}px Consolas, monospace`; c.textAlign = 'center'; c.textBaseline = 'middle';
     const brand = 'S T A R G R A M';
     [...brand].forEach((letter, i) => { c.save(); c.rotate(-1.15 + i / (brand.length - 1) * 2.3); c.fillText(letter, 0, -label * .72); c.restore(); });
-    c.strokeStyle = '#b56e47'; c.lineWidth = 1 * scale;
+    c.strokeStyle = skin['arm-tip']; c.lineWidth = 1 * scale;
     for (let k = 0; k < 8; k++) { const a = k / 8 * Math.PI * 2; c.beginPath(); c.moveTo(Math.cos(a) * label * .23, Math.sin(a) * label * .23); c.lineTo(Math.cos(a) * label * .48, Math.sin(a) * label * .48); c.stroke(); }
-    c.fillStyle = '#315341'; c.font = `${Math.max(4, label * .13)}px Consolas, monospace`; c.fillText('SIDE A', 0, label * .65); c.restore(); circle(c, g.cx, g.cy, 2.4 * scale, '#214b3a');
+    c.fillStyle = skin['record-label-ink']; c.font = `${Math.max(4, label * .13)}px Consolas, monospace`; c.fillText('SIDE A', 0, label * .65); c.restore(); circle(c, g.cx, g.cy, 2.4 * scale, skin['record-label-ink']);
     if (!poster) {
       particles = particles.filter(p => now - p.born < 1400).slice(-150);
       particles.forEach(p => { const age = (now - p.born) / 1000; c.globalAlpha = Math.max(0, 1 - age / 1.4) * .65; circle(c, p.x + p.vx * age, p.y + p.vy * age, 1.2, p.color); }); c.globalAlpha = 1;
       if (drag && drag.moved && drag.pitch >= 0) { const p = drag.target ? location(drag.target.track, drag.target.step, g) : drag; c.globalAlpha = .8; circle(c, p.x, p.y, 7, C.ROLES[drag.target?.track ?? drag.track].color); c.globalAlpha = 1; }
       c.restore();
-      // The tonearm rests outside the editable musical rings.
-      if (w > 800 && !immersive) {
-        const ax = g.cx + platter * .96, ay = g.cy - platter * .84, bx = g.cx + g.max * 1.03, by = g.cy + g.max * .52;
-        c.lineCap = 'round'; c.strokeStyle = '#203f3540'; c.lineWidth = 8; c.beginPath(); c.moveTo(ax + 3, ay + 5); c.lineTo(ax + 3, by - 43); c.lineTo(bx + 3, by + 5); c.stroke();
-        c.strokeStyle = '#b4b7a1'; c.lineWidth = 7; c.beginPath(); c.moveTo(ax, ay); c.lineTo(ax, by - 48); c.lineTo(bx, by); c.stroke();
-        c.strokeStyle = '#f7f1de'; c.lineWidth = 2; c.stroke(); circle(c, ax, ay, 12, '#b6bda1'); circle(c, ax, ay, 4, '#365342');
-        c.save(); c.translate(bx, by); c.rotate(.35); c.fillStyle = '#264b3a'; c.fillRect(-7, -6, 14, 23); c.fillStyle = '#bc764d'; c.fillRect(-7, 11, 14, 6); c.restore(); c.lineCap = 'butt';
-      }
+      if (w >= 570 && !immersive) drawTonearm(c, g, platter, w);
     } else {
-      c.restore(); c.strokeStyle = '#46624455'; c.lineWidth = 1; c.strokeRect(32, 32, w - 64, h - 64);
-      c.textAlign = 'center'; c.fillStyle = '#a76542'; c.font = '15px Consolas, monospace'; c.fillText('S T A R G R A M   /   O R B I T A L   R E C O R D S', w / 2, 75);
-      c.fillStyle = '#254838'; c.font = '42px "SimSun", serif';
+      c.restore(); c.strokeStyle = skin.line; c.lineWidth = 1; c.strokeRect(32, 32, w - 64, h - 64);
+      c.textAlign = 'center'; c.fillStyle = skin.orange; c.font = '15px Consolas, monospace'; c.fillText('S T A R G R A M   /   O R B I T A L   R E C O R D S', w / 2, 75);
+      c.fillStyle = skin.ink; c.font = '42px "SimSun", serif';
       const titleLines = []; let titleLine = '';
       for (const letter of state.title) {
         if (titleLine && c.measureText(titleLine + letter).width > w - 220) { titleLines.push(titleLine); titleLine = letter; }
@@ -550,14 +593,17 @@
       }
       titleLines.push(titleLine);
       titleLines.forEach((line, i) => c.fillText(line, w / 2, titleLines.length === 1 ? 138 : 118 + i * 46, w - 180));
-      c.fillStyle = '#486745'; c.font = '18px "Microsoft YaHei", sans-serif'; c.fillText(`${C.countNotes(state)} 颗星星  ·  ${state.bpm} BPM  ·  ${C.SCALES[state.scale].label}`, w / 2, h - 90);
-      c.fillStyle = '#7b8868'; c.font = '14px "Microsoft YaHei", sans-serif'; c.fillText('星轨留声机  /  让偶然，成为旋律。', w / 2, h - 50);
+      c.fillStyle = skin.muted; c.font = '18px "Microsoft YaHei", sans-serif'; c.fillText(`${C.countNotes(state)} 颗星星  ·  ${state.bpm} BPM  ·  ${C.SCALES[state.scale].label}`, w / 2, h - 90);
+      c.fillStyle = skin.muted; c.font = '14px "Microsoft YaHei", sans-serif'; c.fillText('星轨留声机  /  让偶然，成为旋律。', w / 2, h - 50);
     }
   }
   function frame(now) {
     requestAnimationFrame(frame);
     if (document.hidden || now - lastFrame < (reducedMotion ? 100 : 16)) return;
-    lastFrame = now;
+    const elapsed = Math.min(100, now - lastFrame); lastFrame = now;
+    const target = engine.running ? 1 : 0;
+    armProgress = reducedMotion ? target : target + (armProgress - target) * Math.exp(-elapsed / 165);
+    if (Math.abs(armProgress - target) < .001) armProgress = target;
     while (queue.length && engine.ctx && queue[0].when <= engine.ctx.currentTime) {
       const item = queue.shift(); item.events.forEach(e => pulse(e.track, e.step)); encounters += item.events.length;
       if (item.events.length) $('noteReadout').textContent = [...new Set(item.events.map(e => C.ROLES[e.track].name))].join(' · ') + ' / 相遇';
@@ -571,8 +617,9 @@
     if ($('beatReadout').textContent !== beatText) $('beatReadout').textContent = beatText;
     if (!engine.running) document.querySelectorAll('.step.current').forEach(b => b.classList.remove('current'));
   }
-  function resize() { const r = canvas.getBoundingClientRect(); width = r.width; height = r.height; const dpr = Math.min(devicePixelRatio || 1, 2); canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); particles = []; }
-  new ResizeObserver(resize).observe(canvas);
+  function resize() { const r = canvas.getBoundingClientRect(); width = r.width; height = r.height; stageBounds = { footer:document.querySelector('.stage-footer').offsetTop, voices:document.querySelector('.stage-voices').offsetTop }; const dpr = Math.min(devicePixelRatio || 1, 2); canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); particles = []; }
+  const layoutObserver = new ResizeObserver(resize);
+  for (const item of [canvas, document.querySelector('.stage-footer'), document.querySelector('.stage-voices')]) layoutObserver.observe(item);
 
   function filename(ext) { return 'Stargram_' + state.title.replace(/[<>:"/\\|?*\x00-\x1f]/g, '_').slice(0, 40) + '.' + ext; }
   function download(blob, name) {
@@ -609,8 +656,8 @@
   };
   window.addEventListener('beforeunload', persist);
   // Read-only diagnostics for local regression checks; no bypass for UI operations.
-  window.Stargram = Object.freeze({ snapshot: () => C.clone(state), collection: () => C.clone(shelf.entries), loom: () => $('loomDialog').open ? { index: loom.index, draft: C.clone(loom.draft), seed: loom.seed } : null, status: () => ({ playing: engine.running, phase: engine.phase(), encounters, selected, editMode, focusedNote: focusNote ? { ...focusNote } : null, immersive, saved: !saveError, audioState: engine.ctx?.state || 'uninitialized', activeVoices: engine.voices.size, loomOpen: $('loomDialog').open, loomPreparing: loom.pending, loomPlaying: !!loom.source, loomVoices: loom.nodes.size }), exportWav: OrbitAudio.renderWav });
-  renderUI(); resize(); requestAnimationFrame(frame);
+  window.Stargram = Object.freeze({ snapshot: () => C.clone(state), collection: () => C.clone(shelf.entries), loom: () => $('loomDialog').open ? { index: loom.index, draft: C.clone(loom.draft), seed: loom.seed } : null, status: () => ({ playing: engine.running, theme, tonearm: armProgress, reducedMotion, geometry: geometry(), phase: engine.phase(), encounters, selected, editMode, focusedNote: focusNote ? { ...focusNote } : null, immersive, saved: !saveError, audioState: engine.ctx?.state || 'uninitialized', activeVoices: engine.voices.size, loomOpen: $('loomDialog').open, loomPreparing: loom.pending, loomPlaying: !!loom.source, loomVoices: loom.nodes.size }), exportWav: OrbitAudio.renderWav });
+  setTheme(theme, false); renderUI(); resize(); requestAnimationFrame(frame);
   if (saveError) { $('saveStatus').textContent = '未能恢复本地星图，请导出文件留存'; toast('本地存档不可用，已打开默认星图'); }
   else if (stored) $('saveStatus').textContent = '已恢复上次的星图';
 })();

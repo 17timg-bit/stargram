@@ -6,27 +6,27 @@
   <meta name="theme-color" content="#f2efe6">
   <meta name="description" content="点亮星星，让轨道替你作曲。一台可以离线使用的星空音乐玩具。">
   <title>星轨留声机 · STARGRAM</title>
+  <script>try { const t = localStorage.getItem('stargram.appearance.v1'); if (['paper', 'nocturne', 'mist'].includes(t)) document.documentElement.dataset.theme = t; } catch {}</script>
   <!-- STYLE -->
 </head>
 <body>
   <header class="masthead">
     <a class="brand" href="#" aria-label="星轨留声机首页"><svg viewBox="0 0 40 40" aria-hidden="true"><ellipse cx="20" cy="20" rx="17" ry="8" transform="rotate(-35 20 20)"/><ellipse cx="20" cy="20" rx="17" ry="8" transform="rotate(35 20 20)"/><circle cx="20" cy="20" r="3"/></svg><span>星轨留声机<small>STARGRAM · ORBITAL RECORDS</small></span></a>
     <div class="header-note">独立宇宙音乐厂牌 <span>EST. 2026</span></div>
-    <nav class="header-actions" aria-label="作品操作"><button id="helpBtn" class="quiet">玩法 <kbd>?</kbd></button><button id="exportBtn" class="outline">带走这片星空 <span>↗</span></button></nav>
+    <nav class="header-actions" aria-label="作品操作"><button id="themeBtn" class="theme-launch" aria-haspopup="dialog"><i aria-hidden="true"></i><span id="themeName">纸间晴昼</span><span class="theme-launch-label">换装</span></button><button id="helpBtn" class="quiet">玩法 <kbd>?</kbd></button><button id="exportBtn" class="outline">带走这片星空 <span>↗</span></button></nav>
   </header>
   <section class="studio-intro" aria-label="星际唱片室">
     <div><div class="eyebrow">SOUNDS OF A SMALL UNIVERSE</div><h1>让偶然，<span>成为旋律。</span><i aria-hidden="true">✳</i></h1></div>
-    <div class="studio-note"><p>把一颗星放上轨道。<br>下一次相遇，就有了声音。</p><div class="edition">VOL. 005 / THE ORBITAL PRESS <b>v1.4</b></div></div>
+    <div class="studio-note"><p>把一颗星放上轨道。<br>下一次相遇，就有了声音。</p><div class="edition">VOL. 006 / LIGHT & SHADOW <b>v1.5</b></div></div>
   </section>
   <main class="workspace">
     <section class="observatory" aria-label="互动星图">
       <div class="stage-heading"><div><div class="eyebrow">SIDE A / 当前星图</div><div class="scene-title-row"><h2 id="sceneTitle">晨雾中的信号</h2><button id="renameBtn" aria-label="为星图命名" title="为星图命名">✎</button></div></div><div class="stage-actions"><span class="live-label" id="liveLabel">静候相遇</span><button id="immerseBtn" class="tiny" aria-pressed="false">⛶ 沉浸</button></div></div>
       <div class="performance-line"><span id="beatReadout">等待第一束光</span><span id="noteReadout">五条轨道，自由相遇</span></div>
-      <aside class="stage-voices" aria-label="五条声部"><div class="eyebrow">THE FIVE VOICES</div><div id="tracks" class="tracks" aria-label="选择音轨"></div><p>1–5 选轨<br>点击圆点静音</p></aside>
+      <aside class="stage-voices" aria-label="五条声部"><div class="eyebrow">THE FIVE VOICES</div><div id="tracks" class="tracks" aria-label="选择音轨"></div></aside>
       <span class="record-stamp" aria-hidden="true">ORIGINAL<br>ORBITAL<br>RECORDING<span>✳</span></span>
       <canvas id="universe" tabindex="0" aria-label="互动星图：点击轨道添加或删除音符，拖动星星移动；也可使用右侧音符编辑器。"></canvas>
-      <div class="stage-hint" id="stageHint"><span>＋</span> 点击轨道种下星星 · 拖动星星改变节奏</div>
-      <div class="stage-bottom"><span><b id="noteCount">17</b> 颗星星 <i>·</i> <span id="cycleLabel">240 拍后重逢</span></span><div><button id="undoBtn" class="tiny" title="撤销 Ctrl+Z" disabled>↶ 撤销</button><button id="redoBtn" class="tiny" title="重做 Ctrl+Shift+Z" disabled>↷ 重做</button><button id="captureBtn" class="tiny" title="保存星图明信片">⤓ 拍张照</button></div></div>
+      <div class="stage-footer"><div class="stage-instructions"><div class="stage-hint" id="stageHint"><span>＋</span> 点击轨道种下星星 · 拖动星星改变节奏</div><p class="stage-shortcuts">1–5 选轨 · 点击圆点静音</p></div><div class="stage-bottom"><span><b id="noteCount">17</b> 颗星星 <i>·</i> <span id="cycleLabel">240 拍后重逢</span></span><div class="stage-history"><button id="undoBtn" class="tiny" title="撤销 Ctrl+Z" disabled>↶ 撤销</button><button id="redoBtn" class="tiny" title="重做 Ctrl+Shift+Z" disabled>↷ 重做</button><button id="captureBtn" class="tiny" title="保存星图明信片">⤓ 拍张照</button></div></div></div>
       <div class="canvas-tooltip" id="tooltip" hidden></div>
     </section>
     <aside class="inspector">
@@ -63,11 +63,16 @@
   <footer class="transport">
     <div class="playback"><button id="playBtn" class="play-button" aria-label="开始演奏"><span id="playIcon">▶</span></button><div class="play-copy"><strong id="playText">放下唱针，听见星空</strong><small><kbd>Space</kbd> 播放 / 暂停</small></div><button id="restartBtn" class="restart" aria-label="从头演奏" title="从头演奏">↺</button></div>
     <div class="tempo-control"><label for="tempo">时间流速 <output id="tempoValue">88 <small>BPM</small></output></label><input id="tempo" type="range" min="48" max="160" value="88"></div>
-    <div class="scale-control"><label for="scaleSelect">星空色彩</label><select id="scaleSelect"><option value="dawn">晨光 · 大调五声</option><option value="tide">浮潮 · 小调五声</option><option value="glass">琉璃 · 悬浮音阶</option></select></div>
+    <div class="scale-control"><label for="scaleSelect">星图调性</label><select id="scaleSelect"><option value="dawn">晨光 · 大调五声</option><option value="tide">浮潮 · 小调五声</option><option value="glass">琉璃 · 悬浮音阶</option></select></div>
     <div class="space-control"><label for="space">回响 <output id="spaceValue">48%</output></label><input id="space" type="range" min="0" max="100" value="48"></div>
     <div class="volume-control"><label for="volume">音量 <output id="volumeValue">55%</output></label><input id="volume" type="range" min="0" max="100" value="55"></div>
   </footer>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <dialog id="themeDialog" class="theme-dialog" aria-labelledby="themeTitle"><button class="dialog-close" data-close aria-label="关闭外观选择">×</button><div class="eyebrow">LIGHT & SHADOW / 给声音换一束光</div><h2 id="themeTitle">此刻，你想在哪里听？</h2><p class="dialog-intro">三间唱片室，同一片星空。选一束光，留给现在的心情。</p><div class="theme-options" role="group" aria-label="界面主题">
+    <button class="theme-option" data-theme-choice="paper" aria-pressed="true"><span class="theme-preview" data-theme-preview="paper" aria-hidden="true"><span class="theme-preview-label">01 / DAYLIGHT</span><i class="mini-record"></i><span class="theme-swatches"><i></i><i></i><i></i></span></span><span class="theme-option-title"><strong>纸间晴昼</strong><i>✓</i></span><small>暖白纸页、森林绿胶片<br>像午后推开一家独立唱片店。</small></button>
+    <button class="theme-option" data-theme-choice="nocturne" aria-pressed="false"><span class="theme-preview" data-theme-preview="nocturne" aria-hidden="true"><span class="theme-preview-label">02 / NOCTURNE</span><i class="mini-record"></i><span class="theme-swatches"><i></i><i></i><i></i></span></span><span class="theme-option-title"><strong>鎏金夜航</strong><i>✓</i></span><small>深夜墨色、黄铜与琥珀<br>把星光留在一盏温柔的灯下。</small></button>
+    <button class="theme-option" data-theme-choice="mist" aria-pressed="false"><span class="theme-preview" data-theme-preview="mist" aria-hidden="true"><span class="theme-preview-label">03 / BLUE HOUR</span><i class="mini-record"></i><span class="theme-swatches"><i></i><i></i><i></i></span></span><span class="theme-option-title"><strong>雾蓝回声</strong><i>✓</i></span><small>冷雾蓝、银色与一点朱红<br>让旋律漂浮在天亮之前。</small></button>
+  </div><p class="theme-status" id="themeStatus" role="status" aria-live="polite">外观会在此浏览器记住；切换不改变乐曲。</p><button class="primary wide" data-close>就留在这束光里</button></dialog>
   <dialog id="loomDialog" class="loom-dialog" aria-labelledby="loomTitle">
     <button class="dialog-close" data-close aria-label="关闭织星台">×</button>
     <div class="eyebrow">MELODY STUDY / 一份新的候选</div>
