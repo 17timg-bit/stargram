@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-28",
+  "version": "1.7.0",
+  "repository": "https://github.com/17timg-bit/stargram",
+  "url": "https://17timg-bit.github.io/stargram/",
+  "branch": "main",
+  "release_commit": "06785822c04d48cb31cbe4e83b86679c617d71c6",
+  "tag": "v1.7.0",
+  "tag_commit": "b28c5738b208acbc5165a48a5441959ede75ba85",
+  "pages": {
+    "source": {
+      "branch": "main",
+      "path": "/"
+    },
+    "status": "built",
+    "https_enforced": true,
+    "build_commit": "06785822c04d48cb31cbe4e83b86679c617d71c6"
+  },
+  "http": {
+    "url": "https://17timg-bit.github.io/stargram/",
+    "http_status": 200,
+    "bytes": 183871,
+    "sha256": "1bbe872763ad6cd01efcff4fc1d4af5d8996701c104dfc87680d43131d129d86",
+    "matches_local": true
+  },
+  "model_tests": {
+    "passed": 37,
+    "failed": 0
+  },
+  "public_browser_checks": [
+    "anonymous HTTPS page opens the published v1.7 application",
+    "public playback starts Web Audio, lowers the tonearm and clears voices on pause",
+    "public manuscript starts from the real track, preserves handwriting while generator options change, and resumes it without changing the song",
+    "public A/B auditions switch between original and draft and stop all audition sources",
+    "public manuscript applies to one track with global undo and redo",
+    "public manuscript composition, shelf and four-layer appearance survive a real reload",
+    "public 390px manuscript edits the final tick of a 24-step draft without dialog overflow or accidental application",
+    "the original five application storage keys are unchanged and QA data stays absent after beforeunload and reload"
+  ],
+  "page_errors": [],
+  "storage": {
+    "originalUnchanged": true,
+    "persistentKeysRemaining": 0,
+    "sessionKeysRemaining": 0,
+    "testKeysRemoved": 4
+  },
+  "limits": [
+    "Phone viewport simulation is not physical device testing.",
+    "Technical checks do not establish musical or visual preference."
+  ]
+}
