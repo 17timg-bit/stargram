@@ -1,0 +1,33 @@
+{
+  "url": "https://17timg-bit.github.io/stargram/",
+  "version": "1.6.0",
+  "checks": [
+    "anonymous public HTTPS page opens v1.6",
+    "public darkroom composes all four layers and remembers the exact recipe through reload without changing music",
+    "public playback starts Web Audio, moves the tonearm and clears voices on pause",
+    "public loom auditions independently and applies one undoable candidate",
+    "public shelf and appearance survive a real page reload",
+    "public phone-size darkroom remains usable and the resized stage stays painted",
+    "original five application storage keys are unchanged and dedicated QA keys stay absent after beforeunload"
+  ],
+  "errors": [],
+  "storage": {
+    "originalUnchanged": true,
+    "persistentKeysRemaining": 0,
+    "sessionKeysRemaining": 0,
+    "testKeysRemoved": 4
+  },
+  "pages": {
+    "status": "built",
+    "commit": "eff5f221b398439c4ca90f329ca4875f7071f2bd",
+    "source": {
+      "branch": "main",
+      "path": "/"
+    },
+    "https_enforced": true
+  },
+  "model_tests": {
+    "passed": 29,
+    "failed": 0
+  }
+}
