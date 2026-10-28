@@ -19,25 +19,27 @@
   const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
   let toastTimer, renderedStep = -1, lastFrame = 0, lastEncounterAt = -10000, reducedMotion = motionPreference.matches;
   motionPreference.addEventListener('change', e => { reducedMotion = e.matches; });
-  const themeNames = { paper: '纸间晴昼', nocturne: '鎏金夜航', mist: '雾蓝回声' };
-  let theme = Object.hasOwn(themeNames, document.documentElement.dataset.theme) ? document.documentElement.dataset.theme : 'paper';
-  let skin = {}, armProgress = 0;
-  function refreshSkin() {
-    const style = getComputedStyle(document.documentElement);
-    for (const token of ['paper', 'ink', 'muted', 'orange', 'line', 'gold', 'loom-paper', 'loom-ink', 'record-edge', 'record-light', 'record-mid', 'record-dark', 'record-groove', 'record-label', 'record-label-line', 'record-label-ink', 'arm-metal', 'arm-light', 'arm-head', 'arm-tip']) skin[token] = style.getPropertyValue('--' + token).trim();
+  const A = AstroAppearance;
+  let appearance = A.read(shelfStorage).value, theme = 'paper';
+  let skin = {}, armProgress = 0, darkroom = null, cachedSky = '';
+  const skyTexture = document.createElement('canvas'); skyTexture.width = 1200; skyTexture.height = 900;
+  function setAppearance(raw, save = true) {
+    appearance = A.validate(raw); skin = A.applyTo(document.documentElement, appearance);
+    theme = Object.keys(A.presets).find(id => A.code(A.preset(id)) === A.code(appearance)) || 'custom';
+    $('themeName').textContent = theme === 'custom' ? A.catalogs.sky[appearance.sky].name : A.presets[theme].name;
+    $('themeBtn').setAttribute('aria-label', `打开宇宙暗房，当前${$('themeName').textContent}`);
     document.querySelector('meta[name="theme-color"]').content = skin.paper;
-  }
-  function setTheme(value, save = true) {
-    if (!Object.hasOwn(themeNames, value)) return;
-    theme = value; document.documentElement.dataset.theme = value; refreshSkin();
-    $('themeName').textContent = themeNames[value];
-    $('themeBtn').setAttribute('aria-label', `切换外观，当前${themeNames[value]}`);
-    document.querySelectorAll('[data-theme-choice]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.themeChoice === value)));
-    if (save) {
-      try { localStorage.setItem('stargram.appearance.v1', value); $('themeStatus').textContent = `已选「${themeNames[value]}」· 外观已记住，乐曲保持原样。`; }
-      catch { $('themeStatus').textContent = `已选「${themeNames[value]}」· 外观已生效，此浏览器暂时无法记住选择。`; }
-      renderShelf();
+    if (cachedSky !== appearance.sky) {
+      AstroPaint.paint(skyTexture.getContext('2d'), 1200, 900, appearance);
+      document.documentElement.style.setProperty('--sky-art', `url("${skyTexture.toDataURL('image/png')}")`);
+      cachedSky = appearance.sky;
     }
+    if (save) {
+      $('themeStatus').textContent = A.save(shelfStorage, appearance) ? '这份观测配方已记住。乐曲保持原样。' : '这束光已生效；此浏览器暂时无法记住，请复制配方编号留存。';
+      renderShelf();
+      resize();
+    }
+    darkroom?.refresh();
   }
   const random = C.rng(20261026), stars = Array.from({ length: 125 }, () => ({ x: random(), y: random(), r: random() * 1.2 + 0.25, a: random() * 0.32 + 0.08, phase: random() * 6.28 }));
   const engine = new OrbitAudio.Engine(() => state, e => queue.push(e));
@@ -179,8 +181,7 @@
     $(id).addEventListener('change', () => { if (sliderBefore) { history.push(sliderBefore); if (history.length > 60) history.shift(); future = []; sliderBefore = null; } persist(); renderUI(); });
   }
   $('helpBtn').onclick = () => $('helpDialog').showModal(); $('exportBtn').onclick = () => $('exportDialog').showModal();
-  $('themeBtn').onclick = () => $('themeDialog').showModal();
-  document.querySelectorAll('[data-theme-choice]').forEach(b => b.onclick = () => setTheme(b.dataset.themeChoice));
+  $('themeBtn').onclick = () => darkroom.open();
   document.querySelectorAll('[data-close]').forEach(b => b.onclick = () => b.closest('dialog').close());
   document.querySelectorAll('dialog').forEach(d => d.addEventListener('click', e => { const r = d.getBoundingClientRect(); if (e.target === d && (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)) d.close(); }));
   document.addEventListener('keydown', e => {
@@ -214,7 +215,7 @@
     c.fillStyle = { dawn: '#ddaa80', tide: '#bdd2c8', glass: '#c9bfd1' }[snapshot.scale]; c.fillRect(0, 0, 560, 300);
     c.shadowColor = '#213c3644'; c.shadowBlur = 15; c.shadowOffsetY = 6; circle(c, x, y, 143, skin['record-edge']); c.shadowBlur = 0; c.shadowOffsetY = 0;
     c.strokeStyle = skin['record-groove']; c.lineWidth = .5;
-    for (let r = 26; r < 140; r += 2.5) { c.globalAlpha = .15; c.beginPath(); c.arc(x, y, r, 0, Math.PI * 2); c.stroke(); }
+    drawDiscSurface(c, x, y, 143);
     snapshot.tracks.forEach((track, i) => {
       const r = 34 + i * 24, color = C.ROLES[i].color;
       c.globalAlpha = C.audible(snapshot, i) ? 1 : .25;
@@ -377,7 +378,7 @@
     if (!$('loomDialog').open || !loom.draft) return;
     const target = $('loomCanvas'), c = target.getContext('2d'), t = loom.draft, x = 180, y = 177;
     c.setTransform(2, 0, 0, 2, 0, 0); c.clearRect(0, 0, 360, 360);
-    const ink = theme === 'nocturne' ? C.ROLES[loom.index].color : ['#94643e', '#88702e', '#366e5c', '#4a7080', '#725c7d'][loom.index];
+    const ink = !A.catalogs.sky[appearance.sky].light ? C.ROLES[loom.index].color : ['#94643e', '#88702e', '#366e5c', '#4a7080', '#725c7d'][loom.index];
     c.lineWidth = .6; c.strokeStyle = skin['loom-ink'];
     for (let i = 0; i < 5; i++) { c.globalAlpha = .19; c.beginPath(); c.arc(x, y, 68 + i * 11, 0, Math.PI * 2); c.stroke(); }
     c.globalAlpha = .3; c.beginPath(); c.arc(x, y, 131, 0, Math.PI * 2); c.stroke();
@@ -482,6 +483,23 @@
     if (!reducedMotion) { const p = location(track, step); for (let k = 0; k < 5; k++) particles.push({ x: p.x, y: p.y, vx: (random() - .5) * 24, vy: (random() - .5) * 24, born: time, color: C.ROLES[track].color }); }
   }
   function circle(c, x, y, radius, color) { c.beginPath(); c.arc(x, y, radius, 0, Math.PI * 2); c.fillStyle = color; c.fill(); }
+  function drawDiscSurface(c,x,y,r,scale=1) {
+    c.save(); c.strokeStyle=skin['record-groove']; c.fillStyle=skin['record-groove']; c.lineWidth=.55*scale;
+    if(appearance.disc==='rings') {
+      for(let k=0;k<85;k++){c.globalAlpha=k%4?.045:.12;c.beginPath();c.arc(x,y,r*(.15+k/85*.84),0,Math.PI*2);c.stroke();}
+    } else if(appearance.disc==='atlas') {
+      c.globalAlpha=.20;
+      for(let k=1;k<=8;k++){c.beginPath();c.arc(x,y,r*k/9,0,Math.PI*2);c.stroke();}
+      for(let k=0;k<24;k++){const a=k/24*Math.PI*2;c.globalAlpha=k%3?.08:.22;c.beginPath();c.moveTo(x+Math.cos(a)*r*.16,y+Math.sin(a)*r*.16);c.lineTo(x+Math.cos(a)*r*.95,y+Math.sin(a)*r*.95);c.stroke();}
+      c.globalAlpha=.5;c.font=`${7*scale}px Consolas, monospace`;c.textAlign='center';c.textBaseline='middle';['N','E','S','W'].forEach((t,k)=>{const a=k/4*Math.PI*2-Math.PI/2;c.fillText(t,x+Math.cos(a)*r*.92,y+Math.sin(a)*r*.92);});
+    } else if(appearance.disc==='diffraction') {
+      for(let k=0;k<8;k++){c.globalAlpha=k%2?.10:.27;const a=k/8*Math.PI*2;c.beginPath();c.moveTo(x+Math.cos(a)*r*.12,y+Math.sin(a)*r*.12);c.lineTo(x+Math.cos(a)*r*.98,y+Math.sin(a)*r*.98);c.stroke();}
+      for(const [u,v] of [[-.52,-.42],[.43,.37],[-.36,.60]]){c.globalAlpha=.36;const sx=x+u*r,sy=y+v*r;for(let k=0;k<4;k++){const a=k/4*Math.PI*2;c.beginPath();c.moveTo(sx,sy);c.lineTo(sx+Math.cos(a)*r*.075,sy+Math.sin(a)*r*.075);c.stroke();}}
+    } else {
+      const rand=C.rng(7309);for(let k=0;k<36;k++){const a=rand()*Math.PI*2,d=Math.sqrt(rand())*r*.92,rad=r*(.015+rand()*.085);c.globalAlpha=.06;c.beginPath();c.arc(x+Math.cos(a)*d,y+Math.sin(a)*d,rad,0,Math.PI*2);c.fill();c.globalAlpha=.23;c.beginPath();c.arc(x+Math.cos(a)*d,y+Math.sin(a)*d,rad,.1,Math.PI*1.2);c.stroke();}
+    }
+    c.restore();
+  }
   function drawTonearm(c, g, platter, w) {
     const x = Math.min(w - 25, g.cx + platter + 19), y = g.cy - platter * .80, length = platter * 1.40;
     const parked = -.055, angle = parked + armProgress * .43;
@@ -506,14 +524,15 @@
   function scene(c, w, h, phase, now, poster = false) {
     const g = geometry(w, h, poster), scale = poster ? 1.8 : 1;
     c.clearRect(0, 0, w, h);
-    c.fillStyle = skin.paper; c.fillRect(0, 0, w, h);
+    c.fillStyle = skin.paper; c.fillRect(0, 0, w, h); c.drawImage(skyTexture, 0, 0, w, h);
     const platter = g.max + Math.min(32 * scale, g.max * .18);
     c.shadowColor = '#203e3438'; c.shadowBlur = 18 * scale; c.shadowOffsetY = 9 * scale;
     circle(c, g.cx, g.cy, platter, skin['record-edge']); c.shadowBlur = 0; c.shadowOffsetY = 0;
     c.save(); c.beginPath(); c.arc(g.cx, g.cy, platter, 0, Math.PI * 2); c.clip();
     const bg = c.createRadialGradient(g.cx - g.max * .35, g.cy - g.max * .4, 0, g.cx, g.cy, platter); bg.addColorStop(0, skin['record-light']); bg.addColorStop(.5, skin['record-mid']); bg.addColorStop(1, skin['record-dark']); c.fillStyle = bg; c.fillRect(0, 0, w, h);
     c.strokeStyle = skin['record-groove']; c.lineWidth = .45 * scale;
-    for (let k = 0; k < 85; k++) { c.globalAlpha = k % 4 ? .045 : .10; c.beginPath(); c.arc(g.cx, g.cy, platter * (.15 + k / 85 * .84), 0, Math.PI * 2); c.stroke(); } c.globalAlpha = 1;
+    if (!A.catalogs.sky[appearance.sky].light) { c.save(); c.globalAlpha = .5; c.globalCompositeOperation = 'screen'; c.drawImage(skyTexture, g.cx - platter, g.cy - platter, platter * 2, platter * 2); c.restore(); }
+    drawDiscSurface(c, g.cx, g.cy, platter, scale);
     const colors = { dawn: ['#dfba88', '#89cfb6'], tide: ['#7cbcc9', '#7bc9b1'], glass: ['#b9a0d1', '#86b4d2'] }[state.scale];
     colors.forEach((color, i) => {
       const drift = reducedMotion ? 0 : Math.sin(now * .00008 + i * 2) * g.max * .07;
@@ -585,7 +604,7 @@
     } else {
       c.restore(); c.strokeStyle = skin.line; c.lineWidth = 1; c.strokeRect(32, 32, w - 64, h - 64);
       c.textAlign = 'center'; c.fillStyle = skin.orange; c.font = '15px Consolas, monospace'; c.fillText('S T A R G R A M   /   O R B I T A L   R E C O R D S', w / 2, 75);
-      c.fillStyle = skin.ink; c.font = '42px "SimSun", serif';
+      c.fillStyle = skin.ink; c.font = `42px ${skin.serif}`;
       const titleLines = []; let titleLine = '';
       for (const letter of state.title) {
         if (titleLine && c.measureText(titleLine + letter).width > w - 220) { titleLines.push(titleLine); titleLine = letter; }
@@ -594,7 +613,7 @@
       titleLines.push(titleLine);
       titleLines.forEach((line, i) => c.fillText(line, w / 2, titleLines.length === 1 ? 138 : 118 + i * 46, w - 180));
       c.fillStyle = skin.muted; c.font = '18px "Microsoft YaHei", sans-serif'; c.fillText(`${C.countNotes(state)} 颗星星  ·  ${state.bpm} BPM  ·  ${C.SCALES[state.scale].label}`, w / 2, h - 90);
-      c.fillStyle = skin.muted; c.font = '14px "Microsoft YaHei", sans-serif'; c.fillText('星轨留声机  /  让偶然，成为旋律。', w / 2, h - 50);
+      c.fillStyle = skin.muted; c.font = '14px "Microsoft YaHei", sans-serif'; c.fillText('星轨留声机  /  让偶然，成为旋律。  /  ' + A.code(appearance), w / 2, h - 50);
     }
   }
   function frame(now) {
@@ -610,14 +629,23 @@
       if (encounters >= 32) discover('listen');
     }
     for (const [k, v] of pulses) if (now - v > 1500) pulses.delete(k);
-    const phase = engine.phase(); scene(ctx, width, height, phase, now); drawLoom();
+    const phase = engine.phase(); scene(ctx, width, height, phase, now); drawLoom(); darkroom?.tick(now, engine.running);
     const t = state.tracks[selected], step = C.mod(Math.floor(phase) - t.shift, t.length);
     if (step !== renderedStep) { renderedStep = step; document.querySelectorAll('.step').forEach(b => b.classList.toggle('current', engine.running && Number(b.dataset.step) === step)); }
     const beatText = engine.running ? `第 ${Math.floor(phase / 8) + 1} 小节 · ${Math.floor(phase / 2) % 4 + 1} / 4 拍` : phase > 0 ? '时间暂歇，星星还在这里' : '等待第一束光';
     if ($('beatReadout').textContent !== beatText) $('beatReadout').textContent = beatText;
     if (!engine.running) document.querySelectorAll('.step.current').forEach(b => b.classList.remove('current'));
   }
-  function resize() { const r = canvas.getBoundingClientRect(); width = r.width; height = r.height; stageBounds = { footer:document.querySelector('.stage-footer').offsetTop, voices:document.querySelector('.stage-voices').offsetTop }; const dpr = Math.min(devicePixelRatio || 1, 2); canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); particles = []; }
+  function resize() {
+    const r=canvas.getBoundingClientRect();width=r.width;height=r.height;
+    stageBounds={footer:document.querySelector('.stage-footer').offsetTop,voices:document.querySelector('.stage-voices').offsetTop};
+    const dpr=Math.min(devicePixelRatio||1,2),w=Math.round(width*dpr),h=Math.round(height*dpr);
+    if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;particles=[];}
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    // Dialog scrollbars and type changes can resize the canvas between frames.
+    // Repaint in the observer callback so a cleared bitmap never reaches the screen.
+    if(skin.paper&&width>0&&height>0)scene(ctx,width,height,engine.phase(),performance.now());
+  }
   const layoutObserver = new ResizeObserver(resize);
   for (const item of [canvas, document.querySelector('.stage-footer'), document.querySelector('.stage-voices')]) layoutObserver.observe(item);
 
@@ -656,8 +684,10 @@
   };
   window.addEventListener('beforeunload', persist);
   // Read-only diagnostics for local regression checks; no bypass for UI operations.
-  window.Stargram = Object.freeze({ snapshot: () => C.clone(state), collection: () => C.clone(shelf.entries), loom: () => $('loomDialog').open ? { index: loom.index, draft: C.clone(loom.draft), seed: loom.seed } : null, status: () => ({ playing: engine.running, theme, tonearm: armProgress, reducedMotion, geometry: geometry(), phase: engine.phase(), encounters, selected, editMode, focusedNote: focusNote ? { ...focusNote } : null, immersive, saved: !saveError, audioState: engine.ctx?.state || 'uninitialized', activeVoices: engine.voices.size, loomOpen: $('loomDialog').open, loomPreparing: loom.pending, loomPlaying: !!loom.source, loomVoices: loom.nodes.size }), exportWav: OrbitAudio.renderWav });
-  setTheme(theme, false); renderUI(); resize(); requestAnimationFrame(frame);
+  window.Stargram = Object.freeze({ snapshot: () => C.clone(state), collection: () => C.clone(shelf.entries), loom: () => $('loomDialog').open ? { index: loom.index, draft: C.clone(loom.draft), seed: loom.seed } : null, status: () => ({ playing: engine.running, theme, appearance:A.validate(appearance), recipeCode:A.code(appearance), tonearm: armProgress, reducedMotion, geometry: geometry(), phase: engine.phase(), encounters, selected, editMode, focusedNote: focusNote ? { ...focusNote } : null, immersive, saved: !saveError, audioState: engine.ctx?.state || 'uninitialized', activeVoices: engine.voices.size, loomOpen: $('loomDialog').open, loomPreparing: loom.pending, loomPlaying: !!loom.source, loomVoices: loom.nodes.size }), exportWav: OrbitAudio.renderWav });
+  setAppearance(appearance, false);
+  darkroom = AstroDarkroom.create({get:()=>appearance,apply:setAppearance,draw:target=>{const c=target.getContext('2d');c.setTransform(.5,0,0,.5,0,0);scene(c,1600,1200,engine.phase(),performance.now(),true);}});
+  renderUI(); resize(); requestAnimationFrame(frame);
   if (saveError) { $('saveStatus').textContent = '未能恢复本地星图，请导出文件留存'; toast('本地存档不可用，已打开默认星图'); }
   else if (stored) $('saveStatus').textContent = '已恢复上次的星图';
 })();

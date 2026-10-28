@@ -6,17 +6,91 @@
   <meta name="theme-color" content="#f2efe6">
   <meta name="description" content="点亮星星，让轨道替你作曲。一台可以离线使用的星空音乐玩具。">
   <title>星轨留声机 · STARGRAM</title>
-  <script>try { const t = localStorage.getItem('stargram.appearance.v1'); if (['paper', 'nocturne', 'mist'].includes(t)) document.documentElement.dataset.theme = t; } catch {}</script>
+  <script>
+/* Composable, offline art direction. No musical state or DOM is read here. */
+(function (root) {
+  'use strict';
+  const skies = {
+    zodiac:{name:'黄道晨光',tag:'ZODIACAL LIGHT',hint:'尘埃把日光散成一道温暖的斜束。',base:'#f2efe6',ink:'#263b38',colors:['#d7a75f','#d9b98a'],light:true},
+    moon:{name:'月海银尘',tag:'LUNAR MARIA',hint:'银灰底片上，留下环形山与月海的印记。',base:'#e9eaf0',ink:'#303b50',colors:['#8d9bb1','#b5bbcb'],light:true},
+    deep:{name:'银河远岸',tag:'DEEP FIELD',hint:'墨蓝深处，一条星尘带缓慢展开。',base:'#111a29',ink:'#e2e7ef',colors:['#526aa4','#b0959b'],light:false},
+    rosette:{name:'玫瑰星云',tag:'ROSETTE / NGC 2237',hint:'环状云气、暗尘与一抹洋红的余光。',base:'#211724',ink:'#f1e2ed',colors:['#bd4b79','#795896'],light:false},
+    pleiades:{name:'昴宿蓝雾',tag:'PLEIADES / M45',hint:'亮星照过尘埃，蓝色云丝在星间散开。',base:'#131e30',ink:'#dfebf7',colors:['#4f8cca','#7c7ab2'],light:false},
+    aurora:{name:'极光帷幕',tag:'AURORAL CURTAINS',hint:'青绿与紫色的光带，像被风提起的帷幕。',base:'#102323',ink:'#e0eee7',colors:['#49b49a','#9270b6'],light:false}
+  };
+  const spectra = {
+    hydrogen:{name:'氢红',tag:'Hα',hue:'#df7397',dark:'#8e3457',light:'#edb0c4'},
+    oxygen:{name:'氧青',tag:'[O III]',hue:'#6ecab6',dark:'#286b60',light:'#b8dec9'},
+    sodium:{name:'钠金',tag:'Na',hue:'#dfba70',dark:'#7c6132',light:'#e7d09b'},
+    ice:{name:'星蓝',tag:'REFLECTION',hue:'#88b9e1',dark:'#365c83',light:'#c0d9ea'},
+    copper:{name:'日珥橘',tag:'SOLAR',hue:'#e6a06d',dark:'#884e33',light:'#edd0aa'}
+  };
+  const discs = {
+    rings:{name:'土星环纹',tag:'RINGS',hint:'密集同心唱纹，像一圈圈被刻下的时间。'},
+    atlas:{name:'航海星图',tag:'ATLAS',hint:'经纬、方位与刻度，让唱片成为一件测绘仪器。'},
+    diffraction:{name:'衍射星芒',tag:'DIFFRACTION',hint:'四向光芒与细十字，取意于星野影像中的亮星。'},
+    craters:{name:'月面拓印',tag:'CRATERS',hint:'浅浅的坑缘与弧面，在胶片上留下银版的触感。'}
+  };
+  const types = {
+    book:{name:'星图书页',tag:'SERIF',hint:'宋体题签，像一本安静的天文图册。',font:'"Iowan Old Style","Palatino Linotype","STSong","SimSun",serif'},
+    signal:{name:'空间站讯号',tag:'SANS',hint:'清楚、直接的无衬线，留一点太空舱的秩序。',font:'"Segoe UI","Microsoft YaHei UI","Microsoft YaHei",sans-serif'},
+    field:{name:'观测手记',tag:'FIELD NOTES',hint:'楷体笔意，像观测本上亲手写下的名字。',font:'"KaiTi","STKaiti","FangSong",serif'}
+  };
+  const presets = {
+    rosette:{name:'玫瑰里的航线',sky:'rosette',spectrum:'hydrogen',disc:'atlas',type:'book'},
+    sisters:{name:'七姐妹来信',sky:'pleiades',spectrum:'ice',disc:'diffraction',type:'field'},
+    polar:{name:'极地电台',sky:'aurora',spectrum:'oxygen',disc:'rings',type:'signal'},
+    paper:{name:'纸间晴昼',sky:'zodiac',spectrum:'oxygen',disc:'rings',type:'book'},
+    nocturne:{name:'鎏金夜航',sky:'deep',spectrum:'sodium',disc:'rings',type:'book'},
+    mist:{name:'雾蓝回声',sky:'moon',spectrum:'ice',disc:'craters',type:'book'}
+  };
+  // Insertion order is the SG1 wire format. Never reorder existing catalog IDs.
+  const catalogs = {sky:skies,spectrum:spectra,disc:discs,type:types};
+  const KEY='stargram.appearance.v2', LEGACY='stargram.appearance.v1';
+  const own=(o,k)=>Object.hasOwn(o,k);
+  function validate(raw) {
+    if (!raw || typeof raw!=='object' || Array.isArray(raw) || raw.version!==1) throw new Error('Invalid appearance');
+    const result={version:1};
+    for(const [key,choices] of Object.entries(catalogs)) {if(!own(raw,key)||!own(choices,raw[key]))throw new Error('Invalid '+key);result[key]=raw[key];}
+    return result;
+  }
+  function preset(id='paper') {if(!own(presets,id))throw new Error('Unknown appearance');return validate({version:1,...presets[id]});}
+  function read(storage) {
+    try {
+      const value=storage?.getItem(KEY);
+      if(value!==null&&value!==undefined) {if(value.length>512)throw new Error('Oversized appearance');return {value:validate(JSON.parse(value)),source:'current'};}
+      const old=storage?.getItem(LEGACY);if(['paper','nocturne','mist'].includes(old))return {value:preset(old),source:'legacy'};
+      return {value:preset(),source:'default'};
+    } catch {return {value:preset(),source:'unavailable'};}
+  }
+  function save(storage,raw) {const value=validate(raw);try{if(!storage)return false;storage.setItem(KEY,JSON.stringify(value));return true;}catch{return false;}}
+  function code(raw) {const value=validate(raw);return 'SG1-'+Object.entries(catalogs).map(([k,c])=>Object.keys(c).indexOf(value[k])+1).join('');}
+  function decode(text) {if(typeof text!=='string'||!/^SG1-[1-6][1-5][1-4][1-3]$/.test(text.trim()))throw new Error('Invalid recipe code');const n=text.trim().slice(4);return validate({version:1,...Object.fromEntries(Object.entries(catalogs).map(([k,c],i)=>[k,Object.keys(c)[Number(n[i])-1]]))});}
+  function mix(a,b,t) {const rgb=h=>h.slice(1).match(/../g).map(x=>parseInt(x,16));return '#'+rgb(a).map((x,i)=>Math.round(x+(rgb(b)[i]-x)*t).toString(16).padStart(2,'0')).join('');}
+  function luminance(hex) {const c=hex.slice(1).match(/../g).map(x=>parseInt(x,16)/255).map(x=>x<=.04045?x/12.92:((x+.055)/1.055)**2.4);return c[0]*.2126+c[1]*.7152+c[2]*.0722;}
+  function contrast(a,b) {const x=luminance(a),y=luminance(b);return (Math.max(x,y)+.05)/(Math.min(x,y)+.05);}
+  function readable(color,back,target=4.8) {const ink=contrast('#10171d',back)>contrast('#f7f5ee',back)?'#10171d':'#f7f5ee';for(let i=0;i<=20;i++){const c=mix(color,ink,i/20);if(contrast(c,back)>=target)return c;}return ink;}
+  function compose(raw) {
+    const r=validate(raw),s=skies[r.sky],p=spectra[r.spectrum],b=s.base,i=s.ink,a=readable(p.hue,b),button=a;
+    const on=contrast('#10171d',button)>contrast('#fffaf2',button)?'#10171d':'#fffaf2';
+    return {paper:b,card:mix(b,i,.035),ink:i,muted:readable(mix(b,i,.66),b,5.4),line:i+'35',border:i+'70',mint:p.light,gold:p.hue,orange:a,accent:p.hue,field:mix(b,i,.025),wash:mix(b,i,.075),selected:mix(b,p.hue,.16),button,'button-ink':on,'button-hover':mix(button,on,.1),'accent-wash':mix(b,p.hue,.10),'accent-selected':mix(b,p.hue,.20),slider:mix(b,i,.28),deck:mix(b,i,.025)+'f7',shadow:s.light?'#15233929':'#00000055',backdrop:mix(b,'#000000',.45)+'d0','loom-paper':mix(b,p.hue,.10),'loom-ink':i,'record-edge':mix(p.dark,'#07151b',.65),'record-light':mix(p.dark,p.hue,.15),'record-mid':mix(p.dark,'#07151b',.40),'record-dark':mix(p.dark,'#07151b',.76),'record-groove':p.light,'record-label':p.light,'record-label-line':p.dark,'record-label-ink':readable(p.dark,p.light),'arm-metal':mix(p.light,'#86909c',.45),'arm-light':'#f7f1de','arm-head':mix(p.dark,'#07151b',.4),'arm-tip':p.hue,serif:types[r.type].font};
+  }
+  function applyTo(element,raw) {const r=validate(raw),tokens=compose(r);for(const [key,value] of Object.entries(tokens))element.style.setProperty('--'+key,value);for(const key of Object.keys(catalogs))element.dataset[key]=r[key];element.style.colorScheme=skies[r.sky].light?'light':'dark';return tokens;}
+  function freeze(value) {Object.values(value).forEach(v=>{if(v&&typeof v==='object')freeze(v);});return Object.freeze(value);}
+  const api=freeze({KEY,LEGACY,catalogs,presets,validate,preset,read,save,code,decode,compose,applyTo,mix,contrast});
+  if(typeof module==='object'&&module.exports)module.exports=api;else root.AstroAppearance=api;
+})(typeof globalThis!=='undefined'?globalThis:this);
+
+</script>
+  <script>try { AstroAppearance.applyTo(document.documentElement, AstroAppearance.read(localStorage).value); } catch { AstroAppearance.applyTo(document.documentElement, AstroAppearance.preset()); }</script>
   <style>
-/* Stargram 1.5 — three rooms of light, with one shared score. */
+/* Stargram 1.6 — a composable cosmic darkroom. */
 :root { --serif:"Iowan Old Style","Palatino Linotype","STSong","SimSun",serif; --sans:"Segoe UI","Microsoft YaHei UI","Microsoft YaHei",sans-serif; --mono:"Cascadia Mono","Consolas",monospace; font-family:var(--sans); font-synthesis:none; }
-:root,[data-theme-preview="paper"] { color-scheme:light; --paper:#f2efe6; --card:#faf8f1; --ink:#203f35; --muted:#5f705f; --line:#263f3530; --border:#76816b70; --mint:#c4d9ba; --gold:#b29a67; --orange:#bc5535; --accent:#8ed8c0; --field:#fffdf6; --wash:#e9ecdf; --selected:#dce5d2; --button:#274b3b; --button-ink:#f6f2df; --button-hover:#41654a; --accent-wash:#f4e5d6; --accent-selected:#e5d6af; --slider:#bbc5b1; --deck:#fbf9f0f5; --shadow:#203f3524; --backdrop:#142e29b5; --loom-paper:#e1dfc5; --loom-ink:#34543f; --record-edge:#15392f; --record-light:#305b48; --record-mid:#173f34; --record-dark:#0b2d27; --record-groove:#a8b18a; --record-label:#d9d8b3; --record-label-line:#9ca679; --record-label-ink:#315341; --arm-metal:#b4b7a1; --arm-light:#f7f1de; --arm-head:#264b3a; --arm-tip:#bc764d; }
-:root[data-theme="nocturne"],[data-theme-preview="nocturne"] { color-scheme:dark; --paper:#121c1b; --card:#192625; --ink:#e5d9b7; --muted:#b1aa91; --line:#b7a77e32; --border:#b3a07770; --mint:#8dbea5; --gold:#c8ae70; --orange:#e2aa67; --accent:#a4d4b7; --field:#1e2e2b; --wash:#253630; --selected:#314739; --button:#c8b277; --button-ink:#18231f; --button-hover:#e0c68b; --accent-wash:#3a3226; --accent-selected:#4b432c; --slider:#596348; --deck:#1c2a25f5; --shadow:#00000055; --backdrop:#030a09cc; --loom-paper:#26342b; --loom-ink:#d3c899; --record-edge:#0a1715; --record-light:#3d4936; --record-mid:#25382b; --record-dark:#091a16; --record-groove:#a99860; --record-label:#c8af6b; --record-label-line:#887644; --record-label-ink:#3b3320; --arm-metal:#a9a17f; --arm-light:#e4dab6; --arm-head:#393c2b; --arm-tip:#c68d4e; }
-:root[data-theme="mist"],[data-theme-preview="mist"] { color-scheme:light; --paper:#e8eff3; --card:#f4f8fb; --ink:#253f53; --muted:#586f80; --line:#29475b30; --border:#6b879c70; --mint:#c1dbe2; --gold:#879da7; --orange:#b75645; --accent:#8ec8dd; --field:#f7fbfc; --wash:#d9e5ec; --selected:#cadde6; --button:#314f65; --button-ink:#eff6f8; --button-hover:#466e84; --accent-wash:#f0e1dc; --accent-selected:#d7e2e6; --slider:#b3c6d0; --deck:#f2f7faf5; --shadow:#294c6924; --backdrop:#172f47b5; --loom-paper:#d5e3e9; --loom-ink:#304e66; --record-edge:#173545; --record-light:#3e6472; --record-mid:#24485a; --record-dark:#0d273b; --record-groove:#9dbcc4; --record-label:#c4dce2; --record-label-line:#839eae; --record-label-ink:#29495c; --arm-metal:#9baab5; --arm-light:#edf4f6; --arm-head:#314f60; --arm-tip:#bf6e51; }
+:root { color-scheme:light; --paper:#f2efe6; --card:#faf8f1; --ink:#203f35; --muted:#5f705f; --line:#263f3530; --border:#76816b70; --mint:#c4d9ba; --gold:#b29a67; --orange:#bc5535; --accent:#8ed8c0; --field:#fffdf6; --wash:#e9ecdf; --selected:#dce5d2; --button:#274b3b; --button-ink:#f6f2df; --button-hover:#41654a; --accent-wash:#f4e5d6; --accent-selected:#e5d6af; --slider:#bbc5b1; --deck:#fbf9f0f5; --shadow:#203f3524; --backdrop:#142e29b5; --loom-paper:#e1dfc5; --loom-ink:#34543f; --record-edge:#15392f; --record-light:#305b48; --record-mid:#173f34; --record-dark:#0b2d27; --record-groove:#a8b18a; --record-label:#d9d8b3; --record-label-line:#9ca679; --record-label-ink:#315341; --arm-metal:#b4b7a1; --arm-light:#f7f1de; --arm-head:#264b3a; --arm-tip:#bc764d; }
 * { box-sizing:border-box; }
-html { scroll-padding-bottom:130px; background:var(--paper); }
+html { scroll-padding-bottom:130px; background-color:var(--paper); background-image:var(--sky-art,none); background-size:cover; background-attachment:fixed; }
 html:has(dialog[open]) { overflow:hidden; }
-body { margin:0 auto; padding:0 40px 150px; max-width:1600px; color:var(--ink); background:var(--paper); font-size:13px; }
+body { margin:0 auto; padding:0 40px 150px; max-width:1600px; color:var(--ink); background:transparent; font-size:13px; }
 body::before { content:""; position:fixed; inset:0; z-index:50; opacity:.025; pointer-events:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath filter='url(%23n)' opacity='.6' d='M0 0h160v160H0z'/%3E%3C/svg%3E"); }
 button,input,select { font:inherit; }
 button { color:inherit; border:0; background:none; cursor:pointer; }
@@ -216,26 +290,66 @@ dialog h2 { font:400 32px/1.5 var(--serif); margin:18px 0 12px; letter-spacing:1
 .shortcut-row { display:flex; gap:12px; flex-wrap:wrap; font-size:10px; }
 .shortcut-row kbd { margin-right:5px; }
 .fine-print { color:var(--muted); font-size:10px; line-height:1.9; margin:22px 0; }
-.theme-dialog { width:900px; }
-.theme-options { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; margin-top:26px; }
-.theme-option { display:block; min-width:0; text-align:left; padding:0 0 15px; border:1px solid var(--line); background:var(--card); }
-.theme-option:hover { border-color:var(--orange); transform:translateY(-3px); }
-.theme-option[aria-pressed=true] { border-color:var(--orange); box-shadow:0 0 0 1px var(--orange); }
-.theme-preview { display:block; position:relative; height:192px; overflow:hidden; background:var(--paper); color:var(--ink); border-bottom:1px solid var(--line); }
-.theme-preview-label { position:absolute; left:14px; top:13px; font:8px var(--mono); letter-spacing:1px; }
-.mini-record { position:absolute; width:132px; height:132px; border-radius:50%; left:50%; top:36px; transform:translateX(-50%); background:repeating-radial-gradient(circle,transparent 0 3px,#c5c6a013 3px 4px),radial-gradient(circle at 35% 25%,var(--record-light),var(--record-dark)); box-shadow:7px 10px 18px var(--shadow); }
-.mini-record::before { content:"✳"; position:absolute; left:42px; top:42px; width:48px; height:48px; display:grid; place-items:center; font:26px var(--serif); border-radius:50%; background:var(--record-label); color:var(--record-label-ink); box-shadow:inset 0 0 0 5px var(--record-label),inset 0 0 0 6px var(--record-label-line); }
-.theme-swatches { position:absolute; bottom:12px; left:14px; display:flex; gap:4px; }
-.theme-swatches>i { width:8px; height:8px; border-radius:50%; background:var(--ink); }
-.theme-swatches>i:nth-child(2) { background:var(--orange); }
-.theme-swatches>i:nth-child(3) { background:var(--record-label); }
-.theme-option-title { display:flex; justify-content:space-between; align-items:center; gap:8px; padding:17px 15px 8px; }
-.theme-option-title strong { font:400 21px var(--serif); }
-.theme-option-title>i { font-style:normal; color:var(--orange); visibility:hidden; }
-.theme-option[aria-pressed=true] .theme-option-title>i { visibility:visible; }
-.theme-option>small { display:block; padding:0 15px; font-size:10px; line-height:1.9; color:var(--muted); }
-.theme-status { color:var(--muted); font-size:11px; line-height:1.8; margin:22px 0; }
 #exportDialog { width:750px; }
+.darkroom { width:1080px; padding:30px; max-height:92svh; }
+.darkroom-title { display:flex; align-items:center; justify-content:space-between; gap:20px; }
+.darkroom-title h2 { margin:13px 0 7px; font-size:32px; }
+.darkroom-title>span { font:8px/1.8 var(--mono); color:var(--muted); text-align:right; white-space:nowrap; padding-right:20px; }
+.darkroom-title b { font:23px var(--serif); color:var(--orange); }
+.darkroom-layout { display:grid; grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr); gap:30px; margin-top:22px; }
+.darkroom-preview { min-width:0; position:sticky; top:0; align-self:start; padding:14px; border:1px solid var(--border); background:var(--card); box-shadow:5px 5px var(--shadow); }
+.darkroom-view { position:relative; border:1px solid var(--line); overflow:hidden; }
+#darkroomCanvas { display:block; width:100%; aspect-ratio:4/3; }
+.preview-corner { position:absolute; z-index:1; left:9px; top:7px; font:6px var(--mono); letter-spacing:1px; color:var(--muted); pointer-events:none; }
+.recipe-type-sample { font:23px/1.6 var(--serif); margin:16px 2px 5px; }
+.darkroom-caption { color:var(--muted); font-size:10px; line-height:1.8; min-height:18px; }
+.recipe-number { display:flex; align-items:center; gap:10px; margin-top:17px; padding-top:12px; border-top:1px solid var(--line); }
+.recipe-number>label { font-size:10px; color:var(--muted); white-space:nowrap; }
+#recipeCode { width:100px; min-width:0; padding:5px 3px; border:0; color:var(--ink); background:transparent; font:12px var(--mono); }
+.recipe-number>button { margin-left:auto; white-space:nowrap; font-size:10px; }
+.darkroom-tools { display:flex; flex-wrap:wrap; gap:7px 14px; margin:14px 0 2px; }
+.darkroom-tools button { font-size:10px; padding:7px 0; color:var(--muted); }
+.darkroom-tools button:last-child { margin-left:auto; color:var(--orange); }
+.darkroom-tools button:hover { color:var(--orange); }
+.darkroom-footnote { color:var(--muted); font-size:8px; line-height:1.8; margin-top:7px; }
+.darkroom-controls { min-width:0; }
+.appearance-tabs { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); border-bottom:1px solid var(--border); gap:3px; }
+.appearance-tabs button { padding:11px 1px; font-size:12px; white-space:nowrap; border-bottom:2px solid transparent; color:var(--muted); }
+.appearance-tabs small { font:8px var(--mono); margin-left:4px; }
+.appearance-tabs [aria-selected=true] { color:var(--ink); border-bottom-color:var(--orange); }
+.appearance-description { min-height:77px; padding:14px 0 12px; }
+.appearance-description strong { font:400 18px var(--serif); }
+.appearance-description p { font-size:10px; color:var(--muted); line-height:1.8; margin-top:5px; }
+.recipe-options { display:grid; grid-template-columns:1fr 1fr; gap:11px; }
+.recipe-options[hidden] { display:none; }
+.recipe-option { min-width:0; display:block; position:relative; text-align:left; padding:0 0 10px; border:1px solid var(--line); background:var(--card); overflow:hidden; }
+.recipe-option:hover { border-color:var(--orange); }
+.recipe-option[aria-pressed=true] { border-color:var(--orange); box-shadow:inset 0 0 0 1px var(--orange); }
+.recipe-art { display:flex; align-items:center; justify-content:center; height:66px; background:var(--wash); color:var(--ink); border-bottom:1px solid var(--line); font:38px var(--serif); overflow:hidden; }
+.recipe-art canvas { width:100%; height:100%; object-fit:cover; }
+.recipe-option strong { display:block; font-size:12px; font-weight:400; margin:9px 11px 4px; }
+.recipe-option small { display:block; font:7px var(--mono); color:var(--muted); margin:0 11px; letter-spacing:.5px; }
+.recipe-option>i { display:none; position:absolute; right:10px; bottom:13px; font:12px var(--sans); color:var(--orange); }
+.recipe-option[aria-pressed=true]>i { display:block; }
+[class*="spectrum-"].recipe-art { background:linear-gradient(125deg,var(--sample),var(--sample-light)); color:#14252c; font:14px var(--mono); text-shadow:0 1px #ffffff50; }
+.disc-rings { background:repeating-radial-gradient(circle,var(--wash) 0 5px,var(--line) 5px 6px); }
+.disc-atlas { background:linear-gradient(90deg,transparent 49.7%,var(--line) 50%,transparent 50.3%),linear-gradient(transparent 49.7%,var(--line) 50%,transparent 50.3%),var(--wash); }
+.disc-diffraction { font-size:64px; }
+.disc-craters { background:radial-gradient(circle at 20% 10%,var(--line) 0 12%,transparent 12.5%),radial-gradient(circle at 72% 80%,var(--line) 0 20%,transparent 20.5%),var(--wash); }
+.recipe-starts,.recipe-import { margin-top:16px; border-top:1px solid var(--line); padding-top:12px; }
+.recipe-starts summary,.recipe-import summary { cursor:pointer; font-size:11px; color:var(--muted); line-height:1.8; }
+.recipe-starts summary>span { float:right; font:9px var(--mono); }
+.recipe-presets { display:flex; flex-wrap:wrap; gap:7px; padding-top:12px; }
+.recipe-presets button { font-size:10px; border:1px solid var(--line); padding:8px 10px; background:var(--card); }
+.recipe-presets [aria-pressed=true] { border-color:var(--orange); color:var(--orange); }
+.recipe-import form { margin-top:12px; }
+.recipe-import label { display:block; font-size:10px; color:var(--muted); margin-bottom:7px; }
+.recipe-import form>div { display:flex; gap:9px; }
+.recipe-import input { font:12px var(--mono); }
+.recipe-import button { flex-shrink:0; }
+.darkroom-footer { position:sticky; bottom:-30px; display:flex; align-items:center; justify-content:space-between; gap:16px; margin:22px -1px -1px; padding:15px 0 0; background:var(--paper); border-top:1px solid var(--line); }
+.darkroom-footer p { color:var(--muted); font-size:10px; line-height:1.8; }
+.darkroom-footer button { white-space:nowrap; font-size:12px; flex-shrink:0; }
 .export-options { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:25px; }
 .export-options>button { position:relative; text-align:left; border:1px solid var(--border); padding:22px 17px; min-width:0; background:var(--card); }
 .export-options>button:hover { background:var(--selected); border-color:var(--ink); transform:translateY(-3px); }
@@ -370,6 +484,21 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
   .toast { bottom:165px; }
 }
 @media (max-width:700px) {
+  .darkroom { padding:24px 17px; }
+  .darkroom-title h2 { font-size:25px; line-height:1.5; }
+  .darkroom-title>span { display:none; }
+  .darkroom-layout { grid-template-columns:1fr; gap:24px; }
+  .darkroom-preview { position:static; padding:12px; }
+  .darkroom-preview .recipe-type-sample { font-size:23px; }
+  .darkroom-layout #darkroomCanvas { max-height:240px; object-fit:contain; }
+  .darkroom .dialog-intro { font-size:11px; }
+  .appearance-tabs button { font-size:11px; }
+  .appearance-tabs small { display:none; }
+  .recipe-art { height:66px; }
+  .recipe-option strong { font-size:12px; }
+  .darkroom-footer { bottom:-24px; flex-direction:column; align-items:stretch; gap:9px; padding:12px 0 1px; }
+  .darkroom-footer button { width:100%; padding:12px 7px; }
+  .darkroom-footer p { font-size:9px; }
   html { scroll-padding-bottom:180px; }
   body { padding:0 16px 195px; }
   .masthead { min-height:88px; height:auto; padding:13px 0 10px; gap:13px; flex-wrap:wrap; }
@@ -459,17 +588,6 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
   .toast { bottom:190px; font-size:11px; padding:12px 16px; }
   dialog { padding:28px 20px; max-width:calc(100vw - 24px); }
   dialog h2 { font-size:25px; letter-spacing:0; }
-  .theme-options { grid-template-columns:1fr; gap:12px; }
-  .theme-option { display:grid; grid-template-columns:110px minmax(0,1fr); grid-template-rows:auto 1fr; padding:0; }
-  .theme-preview { grid-column:1; grid-row:1/3; height:133px; border-bottom:0; border-right:1px solid var(--line); }
-  .theme-preview-label { font-size:6px; left:8px; top:10px; letter-spacing:.2px; }
-  .mini-record { width:86px; height:86px; top:29px; }
-  .mini-record::before { left:27px; top:27px; width:32px; height:32px; font-size:19px; box-shadow:inset 0 0 0 3px var(--record-label),inset 0 0 0 4px var(--record-label-line); }
-  .theme-swatches { bottom:7px; left:8px; }
-  .theme-swatches>i { width:6px; height:6px; }
-  .theme-option-title { padding:18px 12px 8px; }
-  .theme-option-title strong { font-size:19px; }
-  .theme-option>small { font-size:9px; padding:0 12px 14px; }
   dialog>.eyebrow { font-size:7px; letter-spacing:.8px; max-width:90%; }
   .shelf-save { padding:12px; }
   .shelf-save>div { flex-direction:column; }
@@ -533,11 +651,11 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
   <header class="masthead">
     <a class="brand" href="#" aria-label="星轨留声机首页"><svg viewBox="0 0 40 40" aria-hidden="true"><ellipse cx="20" cy="20" rx="17" ry="8" transform="rotate(-35 20 20)"/><ellipse cx="20" cy="20" rx="17" ry="8" transform="rotate(35 20 20)"/><circle cx="20" cy="20" r="3"/></svg><span>星轨留声机<small>STARGRAM · ORBITAL RECORDS</small></span></a>
     <div class="header-note">独立宇宙音乐厂牌 <span>EST. 2026</span></div>
-    <nav class="header-actions" aria-label="作品操作"><button id="themeBtn" class="theme-launch" aria-haspopup="dialog"><i aria-hidden="true"></i><span id="themeName">纸间晴昼</span><span class="theme-launch-label">换装</span></button><button id="helpBtn" class="quiet">玩法 <kbd>?</kbd></button><button id="exportBtn" class="outline">带走这片星空 <span>↗</span></button></nav>
+    <nav class="header-actions" aria-label="作品操作"><button id="themeBtn" class="theme-launch" aria-haspopup="dialog"><i aria-hidden="true"></i><span id="themeName">纸间晴昼</span><span class="theme-launch-label">宇宙暗房</span></button><button id="helpBtn" class="quiet">玩法 <kbd>?</kbd></button><button id="exportBtn" class="outline">带走这片星空 <span>↗</span></button></nav>
   </header>
   <section class="studio-intro" aria-label="星际唱片室">
     <div><div class="eyebrow">SOUNDS OF A SMALL UNIVERSE</div><h1>让偶然，<span>成为旋律。</span><i aria-hidden="true">✳</i></h1></div>
-    <div class="studio-note"><p>把一颗星放上轨道。<br>下一次相遇，就有了声音。</p><div class="edition">VOL. 006 / LIGHT & SHADOW <b>v1.5</b></div></div>
+    <div class="studio-note"><p>把一颗星放上轨道。<br>下一次相遇，就有了声音。</p><div class="edition">VOL. 007 / COSMIC DARKROOM <b>v1.6</b></div></div>
   </section>
   <main class="workspace">
     <section class="observatory" aria-label="互动星图">
@@ -588,11 +706,20 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
     <div class="volume-control"><label for="volume">音量 <output id="volumeValue">55%</output></label><input id="volume" type="range" min="0" max="100" value="55"></div>
   </footer>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <dialog id="themeDialog" class="theme-dialog" aria-labelledby="themeTitle"><button class="dialog-close" data-close aria-label="关闭外观选择">×</button><div class="eyebrow">LIGHT & SHADOW / 给声音换一束光</div><h2 id="themeTitle">此刻，你想在哪里听？</h2><p class="dialog-intro">三间唱片室，同一片星空。选一束光，留给现在的心情。</p><div class="theme-options" role="group" aria-label="界面主题">
-    <button class="theme-option" data-theme-choice="paper" aria-pressed="true"><span class="theme-preview" data-theme-preview="paper" aria-hidden="true"><span class="theme-preview-label">01 / DAYLIGHT</span><i class="mini-record"></i><span class="theme-swatches"><i></i><i></i><i></i></span></span><span class="theme-option-title"><strong>纸间晴昼</strong><i>✓</i></span><small>暖白纸页、森林绿胶片<br>像午后推开一家独立唱片店。</small></button>
-    <button class="theme-option" data-theme-choice="nocturne" aria-pressed="false"><span class="theme-preview" data-theme-preview="nocturne" aria-hidden="true"><span class="theme-preview-label">02 / NOCTURNE</span><i class="mini-record"></i><span class="theme-swatches"><i></i><i></i><i></i></span></span><span class="theme-option-title"><strong>鎏金夜航</strong><i>✓</i></span><small>深夜墨色、黄铜与琥珀<br>把星光留在一盏温柔的灯下。</small></button>
-    <button class="theme-option" data-theme-choice="mist" aria-pressed="false"><span class="theme-preview" data-theme-preview="mist" aria-hidden="true"><span class="theme-preview-label">03 / BLUE HOUR</span><i class="mini-record"></i><span class="theme-swatches"><i></i><i></i><i></i></span></span><span class="theme-option-title"><strong>雾蓝回声</strong><i>✓</i></span><small>冷雾蓝、银色与一点朱红<br>让旋律漂浮在天亮之前。</small></button>
-  </div><p class="theme-status" id="themeStatus" role="status" aria-live="polite">外观会在此浏览器记住；切换不改变乐曲。</p><button class="primary wide" data-close>就留在这束光里</button></dialog>
+  <dialog id="themeDialog" class="theme-dialog darkroom" aria-labelledby="themeTitle">
+    <button class="dialog-close" data-close aria-label="关闭宇宙暗房">×</button>
+    <div class="eyebrow">THE COSMIC DARKROOM / 宇宙暗房</div><div class="darkroom-title"><h2 id="themeTitle">把宇宙，调成你的颜色。</h2><span>06 × 05 × 04 × 03<br><b>360</b> 种相遇</span></div>
+    <p class="dialog-intro">选一张天幕，滤一束光，再为它刻上纹样和字迹。</p>
+    <div class="darkroom-layout">
+      <section class="darkroom-preview" aria-label="实时观测样片"><div class="darkroom-view"><span class="preview-corner">LIVE PRINT / 当前星图</span><canvas id="darkroomCanvas" width="800" height="600" aria-label="当前外观的星图实时预览"></canvas></div><p id="recipeTypeSample" class="recipe-type-sample">让偶然，成为旋律。</p><p id="darkroomCaption" class="darkroom-caption"></p><div class="recipe-number"><label for="recipeCode">观测配方</label><input id="recipeCode" readonly aria-label="当前观测配方编号"><button id="recipeCopy" class="text-button">复制编号 ↗</button></div><div class="darkroom-tools"><button id="appearanceUndo" disabled>↶ 退一步</button><button id="appearanceRestore">回到进来时</button><button id="appearanceShuffle">✳ 偶遇一束光</button></div><p class="darkroom-footnote">色彩与形态取意于天文影像，经过艺术演绎。</p></section>
+      <section class="darkroom-controls" aria-label="组合你的外观"><div class="appearance-tabs" role="tablist" aria-label="外观层次"><button id="tab-sky" data-appearance-tab="sky" role="tab" aria-controls="appearance-sky" aria-selected="true">01 天幕 <small>6</small></button><button id="tab-spectrum" data-appearance-tab="spectrum" role="tab" aria-controls="appearance-spectrum" aria-selected="false" tabindex="-1">02 光谱 <small>5</small></button><button id="tab-disc" data-appearance-tab="disc" role="tab" aria-controls="appearance-disc" aria-selected="false" tabindex="-1">03 星盘 <small>4</small></button><button id="tab-type" data-appearance-tab="type" role="tab" aria-controls="appearance-type" aria-selected="false" tabindex="-1">04 字样 <small>3</small></button></div>
+        <div class="appearance-description"><strong id="partName"></strong><p id="partDescription"></p></div>
+        <div id="appearance-sky" class="recipe-options sky-options" role="tabpanel" aria-labelledby="tab-sky"></div><div id="appearance-spectrum" class="recipe-options" role="tabpanel" aria-labelledby="tab-spectrum" hidden></div><div id="appearance-disc" class="recipe-options" role="tabpanel" aria-labelledby="tab-disc" hidden></div><div id="appearance-type" class="recipe-options" role="tabpanel" aria-labelledby="tab-type" hidden></div>
+        <details class="recipe-starts"><summary>从一份观测配方开始 <span>6</span></summary><div id="recipePresets" class="recipe-presets"></div></details>
+        <details class="recipe-import"><summary>收到一束光？读入配方 ↗</summary><form id="recipeImportForm"><label for="recipeInput">粘贴朋友的配方编号</label><div><input id="recipeInput" type="text" maxlength="24" placeholder="SG1-4131" autocomplete="off" spellcheck="false"><button class="outline" type="submit">读入</button></div></form></details>
+      </section>
+    </div><div class="darkroom-footer"><p id="themeStatus" role="status" aria-live="polite"></p><button class="primary" data-close>把这束光留在星图里 ↗</button></div>
+  </dialog>
   <dialog id="loomDialog" class="loom-dialog" aria-labelledby="loomTitle">
     <button class="dialog-close" data-close aria-label="关闭织星台">×</button>
     <div class="eyebrow">MELODY STUDY / 一份新的候选</div>
@@ -1004,6 +1131,89 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
   return { SHAPES, weave, audition };
 });
 
+/* Deterministic astronomical motifs, drawn once into cached textures. */
+(function(root){
+  'use strict';
+  function paint(c,w,h,raw,strength=1){
+    const A=AstroAppearance,r=A.validate(raw),s=A.catalogs.sky[r.sky];
+    let seed=7391;const rand=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
+    c.save();c.fillStyle=s.base;c.fillRect(0,0,w,h);
+    function glow(x,y,size,color,alpha){c.save();c.globalAlpha=alpha*strength;const g=c.createRadialGradient(x,y,0,x,y,size);g.addColorStop(0,color);g.addColorStop(1,color+'00');c.fillStyle=g;c.fillRect(x-size,y-size,size*2,size*2);c.restore();}
+    const unit=Math.min(w,h);
+    if(r.sky==='rosette'){
+      for(let n=0;n<60;n++){const a=n/60*Math.PI*2,ring=unit*(.23+rand()*.10);glow(w*.68+Math.cos(a)*ring,h*.42+Math.sin(a)*ring*.8,unit*(.08+rand()*.1),s.colors[n%2],.12);}
+      for(let n=0;n<13;n++){const a=rand()*6.28;glow(w*.68+Math.cos(a)*unit*.22,h*.42+Math.sin(a)*unit*.17,unit*.08,s.base,.65);}
+    }else if(r.sky==='pleiades'){
+      const group=[[.50,.22],[.58,.38],[.72,.30],[.79,.48],[.63,.56],[.45,.50],[.83,.25]];
+      group.forEach(([x,y],i)=>{glow(w*x,h*y,unit*.22,s.colors[i%2],.25);glow(w*x,h*y,unit*.045,'#b8dcff',.6);c.save();c.strokeStyle='#b8dcff';c.globalAlpha=.36*strength;c.lineWidth=.7;c.beginPath();c.moveTo(w*x-12,h*y);c.lineTo(w*x+12,h*y);c.moveTo(w*x,h*y-12);c.lineTo(w*x,h*y+12);c.stroke();c.restore();});
+      c.save();c.strokeStyle=s.colors[0];c.lineWidth=unit*.014;c.globalAlpha=.08*strength;for(let n=0;n<25;n++){const y=h*(.15+n*.025);c.beginPath();c.moveTo(w*.38,y);c.bezierCurveTo(w*.55,y+h*.20,w*.70,y-h*.16,w*.9,y+h*.1);c.stroke();}c.restore();
+    }else if(r.sky==='aurora'){
+      c.save();for(let n=0;n<55;n++){const x=w*(.22+n*.014),y=h*(.25+Math.sin(n*.11)*.13);const g=c.createLinearGradient(0,y,0,h*.86);g.addColorStop(0,s.colors[1]+'00');g.addColorStop(.35,s.colors[0]);g.addColorStop(1,s.colors[0]+'00');c.strokeStyle=g;c.globalAlpha=.13*strength;c.lineWidth=w*.025;c.beginPath();c.moveTo(x,y);c.bezierCurveTo(x-w*.10,h*.50,x+w*.08,h*.60,x-w*.10,h*.9);c.stroke();}c.restore();
+    }else if(r.sky==='moon'){
+      glow(w*.72,h*.38,unit*.40,'#a4a9ba',.24);
+      c.save();for(let n=0;n<68;n++){const x=w*(.42+rand()*.6),y=h*rand(),rad=unit*(.006+rand()*.06);c.globalAlpha=(.025+rand()*.04)*strength;c.fillStyle=s.colors[n%2];c.strokeStyle=s.ink;c.lineWidth=Math.max(.6,rad*.06);c.beginPath();c.arc(x,y,rad,0,6.284);c.fill();c.stroke();}c.restore();
+    }else if(r.sky==='zodiac'){
+      c.save();c.translate(w*.72,h*.65);c.rotate(-.65);const g=c.createLinearGradient(-w*.45,0,w*.45,0);g.addColorStop(0,s.colors[0]+'00');g.addColorStop(.5,s.colors[0]);g.addColorStop(1,s.colors[0]+'00');c.globalAlpha=.2*strength;c.fillStyle=g;c.fillRect(-w*.7,-h*.08,w*1.4,h*.16);c.restore();glow(w*.76,h*.73,unit*.55,s.colors[1],.12);
+    }else{
+      for(let n=0;n<38;n++){const x=w*(.18+n*.019),y=h*(.90-n*.016)+Math.sin(n)*h*.05;glow(x,y,unit*(.07+rand()*.09),s.colors[n%2],.075);}
+    }
+    if(!s.light){c.save();for(let n=0;n<210;n++){c.globalAlpha=(.10+rand()*.35)*strength;c.fillStyle=n%13?'#d8dfeb':s.colors[0];c.beginPath();c.arc(rand()*w,rand()*h,.35+rand()*.8,0,6.284);c.fill();}c.restore();}
+    // A quiet left margin keeps small editing text readable on every sky.
+    const veil=c.createLinearGradient(0,0,w*.56,0);veil.addColorStop(0,s.base+'e6');veil.addColorStop(1,s.base+'00');c.fillStyle=veil;c.fillRect(0,0,w,h);c.restore();
+  }
+  root.AstroPaint=Object.freeze({paint});
+})(globalThis);
+
+(function(root){
+  'use strict';
+  function create({get,apply,draw}){
+    const A=AstroAppearance,$=id=>document.getElementById(id),dialog=$('themeDialog');
+    let group='sky',history=[],opening=A.validate(get()),dirty=true,lastDraw=0;
+    const labels={sky:'天幕',spectrum:'光谱',disc:'星盘',type:'字样'};
+    function choose(value){history.push(A.validate(get()));if(history.length>30)history.shift();apply(value);}
+    function status(text){$('themeStatus').textContent=text;}
+    for(const [key,catalog] of Object.entries(A.catalogs)){
+      const pane=$('appearance-'+key);
+      for(const [id,item] of Object.entries(catalog)){
+        const button=document.createElement('button');button.type='button';button.className='recipe-option';button.dataset.part=key;button.dataset.choice=id;button.setAttribute('aria-pressed','false');
+        const art=document.createElement('span');art.className='recipe-art '+key+'-'+id;art.setAttribute('aria-hidden','true');
+        if(key==='sky'){const canvas=document.createElement('canvas');canvas.width=240;canvas.height=120;AstroPaint.paint(canvas.getContext('2d'),240,120,{...get(),sky:id});art.append(canvas);}
+        else if(key==='spectrum'){art.style.setProperty('--sample',item.hue);art.style.setProperty('--sample-light',item.light);art.textContent=item.tag;}
+        else if(key==='disc')art.innerHTML={rings:'◎',atlas:'⊕',diffraction:'✧',craters:'◌'}[id];
+        else {art.style.fontFamily=item.font;art.textContent='星河';}
+        const title=document.createElement('strong');title.textContent=item.name;const tag=document.createElement('small');tag.textContent=item.tag;const check=document.createElement('i');check.textContent='✓';check.setAttribute('aria-hidden','true');
+        button.append(art,title,tag,check);button.onclick=()=>choose({...get(),[key]:id});pane.append(button);
+      }
+    }
+    for(const [id,item] of Object.entries(A.presets)){
+      const b=document.createElement('button');b.type='button';b.dataset.recipe=id;b.textContent=item.name;b.onclick=()=>choose(A.preset(id));$('recipePresets').append(b);
+    }
+    function setGroup(key){group=key;for(const b of document.querySelectorAll('[data-appearance-tab]')){const active=b.dataset.appearanceTab===key;b.setAttribute('aria-selected',String(active));b.tabIndex=active?0:-1;}for(const key of Object.keys(A.catalogs))$('appearance-'+key).hidden=key!==group;refresh();}
+    const tabs=[...document.querySelectorAll('[data-appearance-tab]')];
+    tabs.forEach((b,index)=>{b.onclick=()=>setGroup(b.dataset.appearanceTab);b.onkeydown=e=>{let next;if(e.key==='ArrowRight')next=(index+1)%tabs.length;if(e.key==='ArrowLeft')next=(index+tabs.length-1)%tabs.length;if(e.key==='Home')next=0;if(e.key==='End')next=tabs.length-1;if(next!==undefined){e.preventDefault();setGroup(tabs[next].dataset.appearanceTab);tabs[next].focus();}};});
+    $('appearanceUndo').onclick=()=>{if(history.length)apply(history.pop());};
+    $('appearanceRestore').onclick=()=>choose(opening);
+    $('appearanceShuffle').onclick=()=>{const before=get(),value={version:1};for(const [key,c] of Object.entries(A.catalogs)){const keys=Object.keys(c);value[key]=keys[Math.floor(Math.random()*keys.length)];}if(A.code(value)===A.code(before)){const keys=Object.keys(A.catalogs.sky);value.sky=keys[(keys.indexOf(value.sky)+1)%keys.length];}choose(value);};
+    $('recipeCopy').onclick=async()=>{const code=A.code(get());try{await navigator.clipboard.writeText(code);status('配方编号已复制。把它交给朋友，就能调出同一束光。');}catch{$('recipeCode').focus();$('recipeCode').select();status('配方已选中，按 Ctrl+C 或长按复制即可。');}};
+    $('recipeImportForm').onsubmit=e=>{e.preventDefault();try{const value=A.decode($('recipeInput').value);choose(value);$('recipeInput').value='';status('已读入这份观测配方。乐曲保持原样。');}catch{status('这个编号还认不出来，请使用 SG1- 开头的完整配方编号。');}};
+    function refresh(){
+      const value=get();dirty=true;
+      for(const b of document.querySelectorAll('[data-part]'))b.setAttribute('aria-pressed',String(value[b.dataset.part]===b.dataset.choice));
+      for(const b of document.querySelectorAll('[data-recipe]'))b.setAttribute('aria-pressed',String(A.code(A.preset(b.dataset.recipe))===A.code(value)));
+      $('recipeCode').value=A.code(value);$('appearanceUndo').disabled=!history.length;
+      $('darkroomCaption').textContent=Object.entries(A.catalogs).map(([k,c])=>c[value[k]].name).join(' / ');
+      const choice=A.catalogs[group][value[group]];$('partDescription').textContent=choice.hint||('用'+choice.name+'为星图留下一束光。');
+      $('partName').textContent=labels[group]+' / '+choice.name;
+      $('recipeTypeSample').textContent='让偶然，成为旋律。';
+      if(dialog.open){draw($('darkroomCanvas'));dirty=false;lastDraw=performance.now();}
+    }
+    function open(){opening=A.validate(get());history=[];status('随意组合，每一步都可以退回。外观单独记住，不改变乐曲。');dialog.showModal();refresh();}
+    function tick(now,playing){if(dialog.open&&(dirty||(playing&&now-lastDraw>120))){draw($('darkroomCanvas'));dirty=false;lastDraw=now;}}
+    setGroup('sky');return {open,refresh,tick};
+  }
+  root.AstroDarkroom=Object.freeze({create});
+})(globalThis);
+
 (function () {
   'use strict';
   const C = OrbitCore, $ = id => document.getElementById(id);
@@ -1025,25 +1235,27 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
   const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
   let toastTimer, renderedStep = -1, lastFrame = 0, lastEncounterAt = -10000, reducedMotion = motionPreference.matches;
   motionPreference.addEventListener('change', e => { reducedMotion = e.matches; });
-  const themeNames = { paper: '纸间晴昼', nocturne: '鎏金夜航', mist: '雾蓝回声' };
-  let theme = Object.hasOwn(themeNames, document.documentElement.dataset.theme) ? document.documentElement.dataset.theme : 'paper';
-  let skin = {}, armProgress = 0;
-  function refreshSkin() {
-    const style = getComputedStyle(document.documentElement);
-    for (const token of ['paper', 'ink', 'muted', 'orange', 'line', 'gold', 'loom-paper', 'loom-ink', 'record-edge', 'record-light', 'record-mid', 'record-dark', 'record-groove', 'record-label', 'record-label-line', 'record-label-ink', 'arm-metal', 'arm-light', 'arm-head', 'arm-tip']) skin[token] = style.getPropertyValue('--' + token).trim();
+  const A = AstroAppearance;
+  let appearance = A.read(shelfStorage).value, theme = 'paper';
+  let skin = {}, armProgress = 0, darkroom = null, cachedSky = '';
+  const skyTexture = document.createElement('canvas'); skyTexture.width = 1200; skyTexture.height = 900;
+  function setAppearance(raw, save = true) {
+    appearance = A.validate(raw); skin = A.applyTo(document.documentElement, appearance);
+    theme = Object.keys(A.presets).find(id => A.code(A.preset(id)) === A.code(appearance)) || 'custom';
+    $('themeName').textContent = theme === 'custom' ? A.catalogs.sky[appearance.sky].name : A.presets[theme].name;
+    $('themeBtn').setAttribute('aria-label', `打开宇宙暗房，当前${$('themeName').textContent}`);
     document.querySelector('meta[name="theme-color"]').content = skin.paper;
-  }
-  function setTheme(value, save = true) {
-    if (!Object.hasOwn(themeNames, value)) return;
-    theme = value; document.documentElement.dataset.theme = value; refreshSkin();
-    $('themeName').textContent = themeNames[value];
-    $('themeBtn').setAttribute('aria-label', `切换外观，当前${themeNames[value]}`);
-    document.querySelectorAll('[data-theme-choice]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.themeChoice === value)));
-    if (save) {
-      try { localStorage.setItem('stargram.appearance.v1', value); $('themeStatus').textContent = `已选「${themeNames[value]}」· 外观已记住，乐曲保持原样。`; }
-      catch { $('themeStatus').textContent = `已选「${themeNames[value]}」· 外观已生效，此浏览器暂时无法记住选择。`; }
-      renderShelf();
+    if (cachedSky !== appearance.sky) {
+      AstroPaint.paint(skyTexture.getContext('2d'), 1200, 900, appearance);
+      document.documentElement.style.setProperty('--sky-art', `url("${skyTexture.toDataURL('image/png')}")`);
+      cachedSky = appearance.sky;
     }
+    if (save) {
+      $('themeStatus').textContent = A.save(shelfStorage, appearance) ? '这份观测配方已记住。乐曲保持原样。' : '这束光已生效；此浏览器暂时无法记住，请复制配方编号留存。';
+      renderShelf();
+      resize();
+    }
+    darkroom?.refresh();
   }
   const random = C.rng(20261026), stars = Array.from({ length: 125 }, () => ({ x: random(), y: random(), r: random() * 1.2 + 0.25, a: random() * 0.32 + 0.08, phase: random() * 6.28 }));
   const engine = new OrbitAudio.Engine(() => state, e => queue.push(e));
@@ -1185,8 +1397,7 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
     $(id).addEventListener('change', () => { if (sliderBefore) { history.push(sliderBefore); if (history.length > 60) history.shift(); future = []; sliderBefore = null; } persist(); renderUI(); });
   }
   $('helpBtn').onclick = () => $('helpDialog').showModal(); $('exportBtn').onclick = () => $('exportDialog').showModal();
-  $('themeBtn').onclick = () => $('themeDialog').showModal();
-  document.querySelectorAll('[data-theme-choice]').forEach(b => b.onclick = () => setTheme(b.dataset.themeChoice));
+  $('themeBtn').onclick = () => darkroom.open();
   document.querySelectorAll('[data-close]').forEach(b => b.onclick = () => b.closest('dialog').close());
   document.querySelectorAll('dialog').forEach(d => d.addEventListener('click', e => { const r = d.getBoundingClientRect(); if (e.target === d && (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)) d.close(); }));
   document.addEventListener('keydown', e => {
@@ -1220,7 +1431,7 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
     c.fillStyle = { dawn: '#ddaa80', tide: '#bdd2c8', glass: '#c9bfd1' }[snapshot.scale]; c.fillRect(0, 0, 560, 300);
     c.shadowColor = '#213c3644'; c.shadowBlur = 15; c.shadowOffsetY = 6; circle(c, x, y, 143, skin['record-edge']); c.shadowBlur = 0; c.shadowOffsetY = 0;
     c.strokeStyle = skin['record-groove']; c.lineWidth = .5;
-    for (let r = 26; r < 140; r += 2.5) { c.globalAlpha = .15; c.beginPath(); c.arc(x, y, r, 0, Math.PI * 2); c.stroke(); }
+    drawDiscSurface(c, x, y, 143);
     snapshot.tracks.forEach((track, i) => {
       const r = 34 + i * 24, color = C.ROLES[i].color;
       c.globalAlpha = C.audible(snapshot, i) ? 1 : .25;
@@ -1383,7 +1594,7 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
     if (!$('loomDialog').open || !loom.draft) return;
     const target = $('loomCanvas'), c = target.getContext('2d'), t = loom.draft, x = 180, y = 177;
     c.setTransform(2, 0, 0, 2, 0, 0); c.clearRect(0, 0, 360, 360);
-    const ink = theme === 'nocturne' ? C.ROLES[loom.index].color : ['#94643e', '#88702e', '#366e5c', '#4a7080', '#725c7d'][loom.index];
+    const ink = !A.catalogs.sky[appearance.sky].light ? C.ROLES[loom.index].color : ['#94643e', '#88702e', '#366e5c', '#4a7080', '#725c7d'][loom.index];
     c.lineWidth = .6; c.strokeStyle = skin['loom-ink'];
     for (let i = 0; i < 5; i++) { c.globalAlpha = .19; c.beginPath(); c.arc(x, y, 68 + i * 11, 0, Math.PI * 2); c.stroke(); }
     c.globalAlpha = .3; c.beginPath(); c.arc(x, y, 131, 0, Math.PI * 2); c.stroke();
@@ -1488,6 +1699,23 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
     if (!reducedMotion) { const p = location(track, step); for (let k = 0; k < 5; k++) particles.push({ x: p.x, y: p.y, vx: (random() - .5) * 24, vy: (random() - .5) * 24, born: time, color: C.ROLES[track].color }); }
   }
   function circle(c, x, y, radius, color) { c.beginPath(); c.arc(x, y, radius, 0, Math.PI * 2); c.fillStyle = color; c.fill(); }
+  function drawDiscSurface(c,x,y,r,scale=1) {
+    c.save(); c.strokeStyle=skin['record-groove']; c.fillStyle=skin['record-groove']; c.lineWidth=.55*scale;
+    if(appearance.disc==='rings') {
+      for(let k=0;k<85;k++){c.globalAlpha=k%4?.045:.12;c.beginPath();c.arc(x,y,r*(.15+k/85*.84),0,Math.PI*2);c.stroke();}
+    } else if(appearance.disc==='atlas') {
+      c.globalAlpha=.20;
+      for(let k=1;k<=8;k++){c.beginPath();c.arc(x,y,r*k/9,0,Math.PI*2);c.stroke();}
+      for(let k=0;k<24;k++){const a=k/24*Math.PI*2;c.globalAlpha=k%3?.08:.22;c.beginPath();c.moveTo(x+Math.cos(a)*r*.16,y+Math.sin(a)*r*.16);c.lineTo(x+Math.cos(a)*r*.95,y+Math.sin(a)*r*.95);c.stroke();}
+      c.globalAlpha=.5;c.font=`${7*scale}px Consolas, monospace`;c.textAlign='center';c.textBaseline='middle';['N','E','S','W'].forEach((t,k)=>{const a=k/4*Math.PI*2-Math.PI/2;c.fillText(t,x+Math.cos(a)*r*.92,y+Math.sin(a)*r*.92);});
+    } else if(appearance.disc==='diffraction') {
+      for(let k=0;k<8;k++){c.globalAlpha=k%2?.10:.27;const a=k/8*Math.PI*2;c.beginPath();c.moveTo(x+Math.cos(a)*r*.12,y+Math.sin(a)*r*.12);c.lineTo(x+Math.cos(a)*r*.98,y+Math.sin(a)*r*.98);c.stroke();}
+      for(const [u,v] of [[-.52,-.42],[.43,.37],[-.36,.60]]){c.globalAlpha=.36;const sx=x+u*r,sy=y+v*r;for(let k=0;k<4;k++){const a=k/4*Math.PI*2;c.beginPath();c.moveTo(sx,sy);c.lineTo(sx+Math.cos(a)*r*.075,sy+Math.sin(a)*r*.075);c.stroke();}}
+    } else {
+      const rand=C.rng(7309);for(let k=0;k<36;k++){const a=rand()*Math.PI*2,d=Math.sqrt(rand())*r*.92,rad=r*(.015+rand()*.085);c.globalAlpha=.06;c.beginPath();c.arc(x+Math.cos(a)*d,y+Math.sin(a)*d,rad,0,Math.PI*2);c.fill();c.globalAlpha=.23;c.beginPath();c.arc(x+Math.cos(a)*d,y+Math.sin(a)*d,rad,.1,Math.PI*1.2);c.stroke();}
+    }
+    c.restore();
+  }
   function drawTonearm(c, g, platter, w) {
     const x = Math.min(w - 25, g.cx + platter + 19), y = g.cy - platter * .80, length = platter * 1.40;
     const parked = -.055, angle = parked + armProgress * .43;
@@ -1512,14 +1740,15 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
   function scene(c, w, h, phase, now, poster = false) {
     const g = geometry(w, h, poster), scale = poster ? 1.8 : 1;
     c.clearRect(0, 0, w, h);
-    c.fillStyle = skin.paper; c.fillRect(0, 0, w, h);
+    c.fillStyle = skin.paper; c.fillRect(0, 0, w, h); c.drawImage(skyTexture, 0, 0, w, h);
     const platter = g.max + Math.min(32 * scale, g.max * .18);
     c.shadowColor = '#203e3438'; c.shadowBlur = 18 * scale; c.shadowOffsetY = 9 * scale;
     circle(c, g.cx, g.cy, platter, skin['record-edge']); c.shadowBlur = 0; c.shadowOffsetY = 0;
     c.save(); c.beginPath(); c.arc(g.cx, g.cy, platter, 0, Math.PI * 2); c.clip();
     const bg = c.createRadialGradient(g.cx - g.max * .35, g.cy - g.max * .4, 0, g.cx, g.cy, platter); bg.addColorStop(0, skin['record-light']); bg.addColorStop(.5, skin['record-mid']); bg.addColorStop(1, skin['record-dark']); c.fillStyle = bg; c.fillRect(0, 0, w, h);
     c.strokeStyle = skin['record-groove']; c.lineWidth = .45 * scale;
-    for (let k = 0; k < 85; k++) { c.globalAlpha = k % 4 ? .045 : .10; c.beginPath(); c.arc(g.cx, g.cy, platter * (.15 + k / 85 * .84), 0, Math.PI * 2); c.stroke(); } c.globalAlpha = 1;
+    if (!A.catalogs.sky[appearance.sky].light) { c.save(); c.globalAlpha = .5; c.globalCompositeOperation = 'screen'; c.drawImage(skyTexture, g.cx - platter, g.cy - platter, platter * 2, platter * 2); c.restore(); }
+    drawDiscSurface(c, g.cx, g.cy, platter, scale);
     const colors = { dawn: ['#dfba88', '#89cfb6'], tide: ['#7cbcc9', '#7bc9b1'], glass: ['#b9a0d1', '#86b4d2'] }[state.scale];
     colors.forEach((color, i) => {
       const drift = reducedMotion ? 0 : Math.sin(now * .00008 + i * 2) * g.max * .07;
@@ -1591,7 +1820,7 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
     } else {
       c.restore(); c.strokeStyle = skin.line; c.lineWidth = 1; c.strokeRect(32, 32, w - 64, h - 64);
       c.textAlign = 'center'; c.fillStyle = skin.orange; c.font = '15px Consolas, monospace'; c.fillText('S T A R G R A M   /   O R B I T A L   R E C O R D S', w / 2, 75);
-      c.fillStyle = skin.ink; c.font = '42px "SimSun", serif';
+      c.fillStyle = skin.ink; c.font = `42px ${skin.serif}`;
       const titleLines = []; let titleLine = '';
       for (const letter of state.title) {
         if (titleLine && c.measureText(titleLine + letter).width > w - 220) { titleLines.push(titleLine); titleLine = letter; }
@@ -1600,7 +1829,7 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
       titleLines.push(titleLine);
       titleLines.forEach((line, i) => c.fillText(line, w / 2, titleLines.length === 1 ? 138 : 118 + i * 46, w - 180));
       c.fillStyle = skin.muted; c.font = '18px "Microsoft YaHei", sans-serif'; c.fillText(`${C.countNotes(state)} 颗星星  ·  ${state.bpm} BPM  ·  ${C.SCALES[state.scale].label}`, w / 2, h - 90);
-      c.fillStyle = skin.muted; c.font = '14px "Microsoft YaHei", sans-serif'; c.fillText('星轨留声机  /  让偶然，成为旋律。', w / 2, h - 50);
+      c.fillStyle = skin.muted; c.font = '14px "Microsoft YaHei", sans-serif'; c.fillText('星轨留声机  /  让偶然，成为旋律。  /  ' + A.code(appearance), w / 2, h - 50);
     }
   }
   function frame(now) {
@@ -1616,14 +1845,23 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
       if (encounters >= 32) discover('listen');
     }
     for (const [k, v] of pulses) if (now - v > 1500) pulses.delete(k);
-    const phase = engine.phase(); scene(ctx, width, height, phase, now); drawLoom();
+    const phase = engine.phase(); scene(ctx, width, height, phase, now); drawLoom(); darkroom?.tick(now, engine.running);
     const t = state.tracks[selected], step = C.mod(Math.floor(phase) - t.shift, t.length);
     if (step !== renderedStep) { renderedStep = step; document.querySelectorAll('.step').forEach(b => b.classList.toggle('current', engine.running && Number(b.dataset.step) === step)); }
     const beatText = engine.running ? `第 ${Math.floor(phase / 8) + 1} 小节 · ${Math.floor(phase / 2) % 4 + 1} / 4 拍` : phase > 0 ? '时间暂歇，星星还在这里' : '等待第一束光';
     if ($('beatReadout').textContent !== beatText) $('beatReadout').textContent = beatText;
     if (!engine.running) document.querySelectorAll('.step.current').forEach(b => b.classList.remove('current'));
   }
-  function resize() { const r = canvas.getBoundingClientRect(); width = r.width; height = r.height; stageBounds = { footer:document.querySelector('.stage-footer').offsetTop, voices:document.querySelector('.stage-voices').offsetTop }; const dpr = Math.min(devicePixelRatio || 1, 2); canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); particles = []; }
+  function resize() {
+    const r=canvas.getBoundingClientRect();width=r.width;height=r.height;
+    stageBounds={footer:document.querySelector('.stage-footer').offsetTop,voices:document.querySelector('.stage-voices').offsetTop};
+    const dpr=Math.min(devicePixelRatio||1,2),w=Math.round(width*dpr),h=Math.round(height*dpr);
+    if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;particles=[];}
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    // Dialog scrollbars and type changes can resize the canvas between frames.
+    // Repaint in the observer callback so a cleared bitmap never reaches the screen.
+    if(skin.paper&&width>0&&height>0)scene(ctx,width,height,engine.phase(),performance.now());
+  }
   const layoutObserver = new ResizeObserver(resize);
   for (const item of [canvas, document.querySelector('.stage-footer'), document.querySelector('.stage-voices')]) layoutObserver.observe(item);
 
@@ -1662,8 +1900,10 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
   };
   window.addEventListener('beforeunload', persist);
   // Read-only diagnostics for local regression checks; no bypass for UI operations.
-  window.Stargram = Object.freeze({ snapshot: () => C.clone(state), collection: () => C.clone(shelf.entries), loom: () => $('loomDialog').open ? { index: loom.index, draft: C.clone(loom.draft), seed: loom.seed } : null, status: () => ({ playing: engine.running, theme, tonearm: armProgress, reducedMotion, geometry: geometry(), phase: engine.phase(), encounters, selected, editMode, focusedNote: focusNote ? { ...focusNote } : null, immersive, saved: !saveError, audioState: engine.ctx?.state || 'uninitialized', activeVoices: engine.voices.size, loomOpen: $('loomDialog').open, loomPreparing: loom.pending, loomPlaying: !!loom.source, loomVoices: loom.nodes.size }), exportWav: OrbitAudio.renderWav });
-  setTheme(theme, false); renderUI(); resize(); requestAnimationFrame(frame);
+  window.Stargram = Object.freeze({ snapshot: () => C.clone(state), collection: () => C.clone(shelf.entries), loom: () => $('loomDialog').open ? { index: loom.index, draft: C.clone(loom.draft), seed: loom.seed } : null, status: () => ({ playing: engine.running, theme, appearance:A.validate(appearance), recipeCode:A.code(appearance), tonearm: armProgress, reducedMotion, geometry: geometry(), phase: engine.phase(), encounters, selected, editMode, focusedNote: focusNote ? { ...focusNote } : null, immersive, saved: !saveError, audioState: engine.ctx?.state || 'uninitialized', activeVoices: engine.voices.size, loomOpen: $('loomDialog').open, loomPreparing: loom.pending, loomPlaying: !!loom.source, loomVoices: loom.nodes.size }), exportWav: OrbitAudio.renderWav });
+  setAppearance(appearance, false);
+  darkroom = AstroDarkroom.create({get:()=>appearance,apply:setAppearance,draw:target=>{const c=target.getContext('2d');c.setTransform(.5,0,0,.5,0,0);scene(c,1600,1200,engine.phase(),performance.now(),true);}});
+  renderUI(); resize(); requestAnimationFrame(frame);
   if (saveError) { $('saveStatus').textContent = '未能恢复本地星图，请导出文件留存'; toast('本地存档不可用，已打开默认星图'); }
   else if (stored) $('saveStatus').textContent = '已恢复上次的星图';
 })();
