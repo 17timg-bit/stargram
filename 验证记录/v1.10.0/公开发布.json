@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-29",
+  "version": "1.10.0",
+  "repository": "https://github.com/17timg-bit/stargram",
+  "url": "https://17timg-bit.github.io/stargram/",
+  "release_commit": "578466deba9df40b7ffb97d89615ce659679c3de",
+  "functional_tag": { "name": "v1.10.0", "commit": "9f014f241635ee9acc3be9d9b88cb7edbca4473f" },
+  "pages": { "status": "built", "https_enforced": true, "source": { "branch": "main", "path": "/" }, "commit": "578466deba9df40b7ffb97d89615ce659679c3de" },
+  "anonymous_http": { "status": 200, "bytes": 218412, "sha256": "b719f997a5949d01d2cd2b8dc8436c67f7169d480c9a946c945f0a7e89e2062c", "matches_local": true },
+  "prepublish_checks": { "model_tests_passed": 59, "actual_sample_json_wav_midi_png_recheck": true },
+  "production_browser": {
+    "status": "not_run",
+    "reason": "Tabbit在创建初始测试页时返回Target.createTarget无法分派；页面未建立，测试程序未进入页面操作。",
+    "recovery": { "active_request": null, "queued_requests": 0, "owned_pages": 0, "finish_confirmed": true, "forced_cleanup": false },
+    "public_storage_mutations_tested": false
+  },
+  "verification_scope": "已确认Pages目标提交、HTTPS、匿名HTTP与本地成品字节一致。本轮未将公开浏览器交互记为通过；功能交互依据为同一成品此前在独立loopback源的验收，详见本地验收报告和最终回归。"
+}
