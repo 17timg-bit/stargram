@@ -1,0 +1,128 @@
+[
+  {
+    "recipe": "paper",
+    "width": 1920,
+    "height": 1080,
+    "fits": true
+  },
+  {
+    "recipe": "paper",
+    "width": 1460,
+    "height": 923,
+    "fits": true
+  },
+  {
+    "recipe": "paper",
+    "width": 1280,
+    "height": 720,
+    "fits": true
+  },
+  {
+    "recipe": "paper",
+    "width": 1000,
+    "height": 900,
+    "fits": true
+  },
+  {
+    "recipe": "paper",
+    "width": 700,
+    "height": 844,
+    "fits": true
+  },
+  {
+    "recipe": "paper",
+    "width": 390,
+    "height": 844,
+    "fits": true
+  },
+  {
+    "recipe": "paper",
+    "width": 320,
+    "height": 700,
+    "fits": true
+  },
+  {
+    "recipe": "nocturne",
+    "width": 1920,
+    "height": 1080,
+    "fits": true
+  },
+  {
+    "recipe": "nocturne",
+    "width": 1460,
+    "height": 923,
+    "fits": true
+  },
+  {
+    "recipe": "nocturne",
+    "width": 1280,
+    "height": 720,
+    "fits": true
+  },
+  {
+    "recipe": "nocturne",
+    "width": 1000,
+    "height": 900,
+    "fits": true
+  },
+  {
+    "recipe": "nocturne",
+    "width": 700,
+    "height": 844,
+    "fits": true
+  },
+  {
+    "recipe": "nocturne",
+    "width": 390,
+    "height": 844,
+    "fits": true
+  },
+  {
+    "recipe": "nocturne",
+    "width": 320,
+    "height": 700,
+    "fits": true
+  },
+  {
+    "recipe": "sisters",
+    "width": 1920,
+    "height": 1080,
+    "fits": true
+  },
+  {
+    "recipe": "sisters",
+    "width": 1460,
+    "height": 923,
+    "fits": true
+  },
+  {
+    "recipe": "sisters",
+    "width": 1280,
+    "height": 720,
+    "fits": true
+  },
+  {
+    "recipe": "sisters",
+    "width": 1000,
+    "height": 900,
+    "fits": true
+  },
+  {
+    "recipe": "sisters",
+    "width": 700,
+    "height": 844,
+    "fits": true
+  },
+  {
+    "recipe": "sisters",
+    "width": 390,
+    "height": 844,
+    "fits": true
+  },
+  {
+    "recipe": "sisters",
+    "width": 320,
+    "height": 700,
+    "fits": true
+  }
+]

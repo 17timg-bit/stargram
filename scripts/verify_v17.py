@@ -1,6 +1,7 @@
 """Independently verify the handwritten v1.7 sample and both portable entries."""
 from pathlib import Path
 import array
+import argparse
 import hashlib
 import json
 import math
@@ -68,6 +69,10 @@ report = {
     'application': {'bytes': len(entry), 'sha256': hashlib.sha256(entry).hexdigest(), 'offline_and_web_identical': True},
     'files': [{'name': p.name, 'bytes': p.stat().st_size, 'sha256': hashlib.sha256(p.read_bytes()).hexdigest()} for p in sorted(FOLDER.iterdir()) if p.suffix in ['.json', '.wav', '.mid', '.png']]
 }
-destination = ROOT / '验证记录' / 'v1.7.0' / '产物校验.json'
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--report', type=Path, default=Path('验证记录/v1.7.0/产物校验.json'))
+args = parser.parse_args()
+destination = args.report if args.report.is_absolute() else ROOT / args.report
+destination.parent.mkdir(parents=True, exist_ok=True)
 destination.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', 'utf-8', newline='\n')
 print(json.dumps({key: value for key, value in report.items() if key != 'files'}, ensure_ascii=False, indent=2))

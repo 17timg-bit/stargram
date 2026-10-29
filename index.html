@@ -724,6 +724,55 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
   *,*::before,*::after { transition:none !important; animation:none !important; scroll-behavior:auto !important; }
 }
 
+/* v1.8: a small postal desk, with the sender's light kept inside the letter. */
+.letter-entry { margin:24px 0; padding:18px 0; border-block:1px solid var(--border); display:flex; flex-wrap:wrap; align-items:center; gap:12px; }
+.letter-entry>div { flex:1 1 100%; }
+.letter-entry .eyebrow { font-size:8px; color:var(--orange); }
+.letter-entry strong { display:block; margin-top:8px; font:400 23px var(--serif); }
+.letter-entry button { font-size:11px; padding:12px 16px; }
+.letter-dialog { width:1060px; max-height:92svh; padding:32px; }
+.letter-dialog h2 { font-size:34px; margin-bottom:5px; }
+.letter-layout { display:grid; grid-template-columns:1.05fr 1fr; gap:34px; align-items:start; margin:30px 0; }
+.letter-card { position:relative; padding:26px 24px; min-width:0; color:var(--ink); background:var(--paper); border:1px solid var(--border); box-shadow:6px 7px 0 var(--shadow); }
+.letter-card:empty { min-height:310px; display:grid; place-items:center; background:var(--wash); box-shadow:none; border-style:dashed; }
+.letter-card:empty::after { content:"等待一封星际来信"; color:var(--muted); font:22px var(--serif); }
+.letter-card::before { content:""; position:absolute; inset:9px; border:1px solid var(--line); pointer-events:none; }
+.letter-card-head { display:flex; align-items:start; justify-content:space-between; gap:12px; font:8px/1.8 var(--mono); letter-spacing:1.3px; }
+.letter-stamp { flex-shrink:0; width:64px; height:72px; display:grid; place-items:center; white-space:pre-line; text-align:center; color:var(--orange); border:1px dashed var(--orange); transform:rotate(7deg); font:11px/1.8 var(--mono); }
+.letter-card h3 { font:400 32px/1.6 var(--serif); overflow-wrap:anywhere; margin:22px 0 12px; }
+.letter-card canvas { display:block; width:100%; height:auto; margin:22px 0; border-block:1px solid var(--line); }
+.letter-card-meta { font:10px/1.9 var(--mono); color:var(--ink); }
+.letter-card>small { display:block; padding-top:17px; margin-top:20px; border-top:1px solid var(--line); color:var(--muted); font:9px/1.9 var(--mono); }
+.letter-step { color:var(--orange); font:9px/1.8 var(--mono); letter-spacing:1px; }
+.letter-writing { min-width:0; }
+.letter-writing h3 { font:400 25px/1.6 var(--serif); margin:12px 0; }
+.letter-copy { color:var(--muted); font-size:11px; line-height:2; margin:12px 0 20px; }
+.letter-writing label:not(.letter-choice) { display:block; color:var(--ink); font-size:11px; margin-bottom:10px; }
+.letter-writing textarea { display:block; resize:vertical; width:100%; max-height:220px; min-height:110px; padding:12px; color:var(--ink); background:var(--field); border:1px solid var(--border); border-radius:2px; font:10px/1.8 var(--mono); overflow-wrap:anywhere; }
+.letter-writing .fine-print { margin:12px 0; }
+.letter-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
+.letter-actions button,#letterParse { font-size:11px; padding:12px 16px; }
+#letterParse { margin-top:12px; }
+.letter-choice { display:flex; gap:10px; align-items:start; margin:24px 0 12px; font-size:12px; line-height:1.8; cursor:pointer; }
+.letter-choice input { accent-color:var(--button); margin-top:5px; }
+.letter-choice small { display:block; color:var(--muted); font-size:10px; }
+.letter-status { margin-top:25px; padding-left:12px; border-left:2px solid var(--orange); font-size:11px; color:var(--muted); line-height:2; }
+.letter-footer { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px; padding-top:20px; border-top:1px solid var(--line); }
+.letter-footer>span { color:var(--muted); font:9px/1.8 var(--mono); }
+.letter-footer button { font-size:12px; padding:15px 24px; }
+@media (max-width:700px) {
+  .letter-dialog { padding:25px 17px; }
+  .letter-dialog h2 { font-size:26px; line-height:1.6; }
+  .letter-layout { grid-template-columns:1fr; gap:28px; margin:24px 0; }
+  .letter-card { padding:22px 18px; }
+  .letter-card h3 { font-size:25px; }
+  .letter-card-head { font-size:7px; }
+  .letter-writing h3 { font-size:23px; }
+  .letter-footer { flex-direction:column; align-items:stretch; }
+  .letter-footer>span { text-align:center; }
+  .letter-entry button { flex:1; padding:12px 7px; }
+}
+
 </style>
 </head>
 <body>
@@ -734,7 +783,7 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
   </header>
   <section class="studio-intro" aria-label="星际唱片室">
     <div><div class="eyebrow">SOUNDS OF A SMALL UNIVERSE</div><h1>让偶然，<span>成为旋律。</span><i aria-hidden="true">✳</i></h1></div>
-    <div class="studio-note"><p>把一颗星放上轨道。<br>下一次相遇，就有了声音。</p><div class="edition">VOL. 008 / ECHO MANUSCRIPT <b>v1.7</b></div></div>
+    <div class="studio-note"><p>把一颗星放上轨道。<br>下一次相遇，就有了声音。</p><div class="edition">VOL. 009 / INTERSTELLAR POST <b>v1.8</b></div></div>
   </section>
   <main class="workspace">
     <section class="observatory" aria-label="互动星图">
@@ -844,7 +893,34 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
   <dialog id="renameDialog"><button class="dialog-close" data-close aria-label="关闭命名">×</button><div class="eyebrow">NAME THIS LITTLE UNIVERSE</div><h2>给这片星空一个名字。</h2><form id="renameForm"><label class="control-label" for="titleInput">星图名称 <span>最多 60 字</span></label><input id="titleInput" type="text" maxlength="60" required autocomplete="off"><button class="primary wide" type="submit">保存名字</button></form></dialog>
   <dialog id="shelfDialog" class="shelf-dialog"><button class="dialog-close" data-close aria-label="关闭星图书架">×</button><div class="eyebrow">YOUR PRIVATE PRESSING / 24 RECORDS</div><h2>把喜欢的偶然，收进书架。</h2><p class="dialog-intro">每一张都是独立快照。随时回来看，继续拨动它的星星。</p><form id="shelfForm" class="shelf-save"><label for="shelfTitle" class="control-label">这次相遇的名字</label><div><input id="shelfTitle" type="text" maxlength="60" required autocomplete="off"><button class="primary" type="submit">收藏当前星图</button></div></form><div class="shelf-meta"><span id="shelfSummary">0 / 24 张星图</span><span>仅保存在此浏览器 · 可另存 JSON</span></div><div id="shelfFeedback" class="shelf-feedback" role="status" aria-live="polite"></div><div id="shelfUndo" class="shelf-undo" hidden><span>一张星图已移出书架</span><button id="restoreShelfBtn" class="text-button">撤销移除</button></div><div id="shelfGrid" class="shelf-grid"></div></dialog>
   <dialog id="helpDialog"><button class="dialog-close" data-close aria-label="关闭玩法">×</button><div class="eyebrow">A SMALL GUIDE TO YOUR UNIVERSE</div><h2>这片星空，由你来调音。</h2><p class="dialog-intro">每一圈都是一条旋律。彗星与星星相遇，声音就会发生。</p><ol class="guide"><li><b>先听，再动手。</b>点击播放，或者按空格。选一张喜欢的星图作起点。</li><li><b>把音符种在轨道上。</b>点击空位添加，再点一次删除。拖到另一个位置改变时机，拖到另一圈改变音色。右击星星可升高音高。切到「调音」可选中星星改音高、轻重；Shift+点击可快速改变力度。也可以打开「织星台」，从当前轨道抄下一张星谱纸，点格子改音高与轻重，用 A/B 分别听原轨与手稿。想找新旋律时，展开「织一个新念头」，再按「织出候选」；喜欢后种回本轨。关窗可在本次页面接着写，刷新会结束手稿暂存。</li><li><b>让循环错开。</b>选中一条轨道，把一圈从 16 格改成 12 格。相同音符会在下一圈遇到不同的伙伴。</li><li><b>留下属于你的偶然。</b>给星图命名，收藏进自己的星图书架；也可以导出 WAV、MIDI 和保留全部设置的星图文件。</li></ol><div class="shortcut-row"><span><kbd>Space</kbd> 播放</span><span><kbd>Ctrl Z</kbd> 撤销</span><span><kbd>Ctrl Shift Z</kbd> 重做</span><span><kbd>1–5</kbd> 选轨</span><span><kbd>?</kbd> 玩法</span></div><p class="fine-print">完全离线 · 无账号 · 无上传 · 所有声音在本机合成<br>切到其他标签页会自动暂停。浏览器首次播放需要你点击一下。</p><button class="primary wide" data-close>知道了，去种星星</button></dialog>
-  <dialog id="exportDialog"><button class="dialog-close" data-close aria-label="关闭导出">×</button><div class="eyebrow">THE TAKEAWAY COUNTER / 留下这一刻</div><h2>把这次相遇带走。</h2><p class="dialog-intro">音乐从第一格开始导出；星图保留你现在的全部编排。</p><div class="export-options"><button id="wavBtn"><span class="export-icon">WAV</span><span><strong>一段音乐</strong><small>WAV · 8 小节 + 混响尾音 · 44.1 kHz 立体声</small></span><b>↓</b></button><button id="midiBtn"><span class="export-icon">MIDI</span><span><strong>继续编曲</strong><small>MIDI · 五条独立音轨 · 含速度信息</small></span><b>↓</b></button><button id="jsonBtn"><span class="export-icon">MAP</span><span><strong>保存这张星图</strong><small>STARGRAM v2 · 保留音符力度、独奏与分轨音量</small></span><b>↓</b></button><button id="posterExportBtn"><span class="export-icon">PNG</span><span><strong>一张封面</strong><small>明信片 · 1600 × 1200 · 当前星图</small></span><b>↓</b></button></div><div class="import-row"><span>有一张以前保存的星图？</span><button id="importBtn" class="outline">导入星图 ↗</button><input type="file" id="importInput" accept=".json,application/json" hidden></div><p id="exportStatus" class="fine-print" aria-live="polite">文件由浏览器保存到下载位置。MIDI 音色由播放软件决定。</p></dialog>
+  <dialog id="exportDialog"><button class="dialog-close" data-close aria-label="关闭导出">×</button><div class="eyebrow">THE TAKEAWAY COUNTER / 留下这一刻</div><h2>把这次相遇带走。</h2><p class="dialog-intro">音乐从第一格开始导出；星图保留你现在的全部编排。</p><div class="letter-entry"><div><span class="eyebrow">INTERSTELLAR POST</span><strong>把你的星空，寄给某个人。</strong></div><button id="letterSendBtn" class="primary">寄出当前星图 ↗</button><button id="letterReadBtn" class="outline">读一封来信</button></div><div class="export-options"><button id="wavBtn"><span class="export-icon">WAV</span><span><strong>一段音乐</strong><small>WAV · 8 小节 + 混响尾音 · 44.1 kHz 立体声</small></span><b>↓</b></button><button id="midiBtn"><span class="export-icon">MIDI</span><span><strong>继续编曲</strong><small>MIDI · 五条独立音轨 · 含速度信息</small></span><b>↓</b></button><button id="jsonBtn"><span class="export-icon">MAP</span><span><strong>保存这张星图</strong><small>STARGRAM v2 · 保留音符力度、独奏与分轨音量</small></span><b>↓</b></button><button id="posterExportBtn"><span class="export-icon">PNG</span><span><strong>一张封面</strong><small>明信片 · 1600 × 1200 · 当前星图</small></span><b>↓</b></button></div><div class="import-row"><span>有一张以前保存的星图？</span><button id="importBtn" class="outline">导入星图 ↗</button><input type="file" id="importInput" accept=".json,application/json" hidden></div><p id="exportStatus" class="fine-print" aria-live="polite">文件由浏览器保存到下载位置。MIDI 音色由播放软件决定。</p></dialog>
+  <dialog id="letterDialog" class="letter-dialog" aria-labelledby="letterTitle">
+    <button class="dialog-close" data-close aria-label="关闭星际来信">×</button>
+    <div class="eyebrow">THE INTERSTELLAR POST / 星际来信</div>
+    <h2 id="letterTitle">把这一圈，寄到另一片星空。</h2>
+    <p class="dialog-intro">有些偶然，可以寄给某个人。让同一段旋律，在另一台唱片机上响起。</p>
+    <div class="letter-layout">
+      <section id="letterPreview" class="letter-card" aria-label="信中作品预览"></section>
+      <div class="letter-writing">
+        <div id="letterSend">
+          <div class="letter-step">01 / 写好的这一刻</div><h3>连同这束光，一起寄出。</h3>
+          <p class="letter-copy">五条轨道、每颗星星的轻重，以及你选的宇宙配方，都藏在这一封信里。</p>
+          <label for="letterOutput">你的星图信笺</label><textarea id="letterOutput" rows="4" readonly spellcheck="false"></textarea>
+          <p id="letterAddressHint" class="fine-print"></p>
+          <div class="letter-actions"><button id="letterCopy" class="primary">复制游玩链接</button><button id="letterTry" class="outline">先拆开看看 ↗</button></div>
+        </div>
+        <div id="letterRead" hidden>
+          <div class="letter-step">02 / 来自另一片星空</div><h3>这封信，先由你展开。</h3>
+          <label for="letterInput">粘贴游玩链接或 SL1 信笺码</label><textarea id="letterInput" rows="4" maxlength="8192" spellcheck="false" placeholder="https://…/#letter=SL1.… 或 SL1.…"></textarea>
+          <button id="letterParse" class="outline">展开来信</button>
+          <label class="letter-choice"><input id="letterAppearance" type="checkbox" checked><span>也采用信中的宇宙配方<small>外观会单独记住；撤销乐曲时保留这束光。</small></span></label>
+          <p class="letter-copy">放上唱片机后，工作台会换成信中的星图，可以一次撤销。收藏仍留在你的书架里。声音等你按下播放再开始。</p>
+        </div>
+        <p id="letterStatus" class="letter-status" role="status" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="letter-footer"><span>一封信 · 一张星图 · 同一次相遇</span><button id="letterAccept" class="primary" hidden disabled>放到我的唱片机 <span>↗</span></button></div>
+  </dialog>
   <script>
 /* Stargram — deterministic musical model. No DOM and no dependencies. */
 (function (root, factory) {
@@ -1317,6 +1393,112 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
     return {render,playhead};
   }
   root.OrbitScorePaper=Object.freeze({create});
+})(globalThis);
+
+/* SL1 letters: a bounded, lossless musical snapshot carried in the URL fragment. */
+(function(root,factory){
+  const api=typeof module==='object'&&module.exports?factory(require('./core'),require('./appearance')):factory(root.OrbitCore,root.AstroAppearance);
+  if(typeof module==='object'&&module.exports)module.exports=api;else root.OrbitLetters=api;
+})(globalThis,function(C,A){
+  'use strict';
+  const ALPHABET='0123456789ABCDEFGHIJKLMNOPQRSTUVW',LIMIT=4096;
+  const fail=()=>{throw new Error('这封信不完整或版本暂不支持。请重新复制完整链接或 SL1 信笺码。');};
+  function checksum(text){let h=2166136261;for(const byte of new TextEncoder().encode(text))h=Math.imul(h^byte,16777619);return (h>>>0).toString(16).padStart(8,'0');}
+  function base64(text){return btoa(String.fromCharCode(...new TextEncoder().encode(text))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
+  function encode(raw,appearance){
+    const s=C.validate(raw),code=A.code(A.validate(appearance));
+    if(new TextDecoder('utf-8',{fatal:true}).decode(new TextEncoder().encode(s.title))!==s.title)fail();
+    const rows=s.tracks.map(t=>[t.length,t.shift,t.gain,+t.muted,+t.solo,t.notes.map((p,i)=>ALPHABET[(p+1)*3+C.ACCENTS.indexOf(t.accents[i])]).join('')]);
+    const body=base64(JSON.stringify([s.title,s.bpm,s.scale,s.volume,s.space,rows,code]));
+    const result='SL1.'+body+'.'+checksum(body);if(result.length>LIMIT)fail();return result;
+  }
+  function decode(code){
+    if(typeof code!=='string'||code.length>LIMIT)fail();
+    const m=/^SL1\.([A-Za-z0-9_-]+)\.([0-9a-f]{8})$/.exec(code);if(!m||checksum(m[1])!==m[2]||m[1].length%4===1)fail();
+    try{
+      const bytes=Uint8Array.from(atob(m[1].replace(/-/g,'+').replace(/_/g,'/')),c=>c.charCodeAt(0));
+      const text=new TextDecoder('utf-8',{fatal:true}).decode(bytes);if(base64(text)!==m[1])fail();
+      const p=JSON.parse(text);if(!Array.isArray(p)||p.length!==7||!Array.isArray(p[5])||p[5].length!==5)fail();
+      const tracks=p[5].map(row=>{
+        if(!Array.isArray(row)||row.length!==6||!C.LENGTHS.includes(row[0])||![0,1].includes(row[3])||![0,1].includes(row[4])||typeof row[5]!=='string'||row[5].length!==row[0])fail();
+        const values=[...row[5]].map(c=>{const n=ALPHABET.indexOf(c);if(n<0)fail();return n;});
+        return {length:row[0],shift:row[1],gain:row[2],muted:!!row[3],solo:!!row[4],notes:values.map(n=>Math.floor(n/3)-1),accents:values.map(n=>C.ACCENTS[n%3])};
+      });
+      const state=C.validate({format:'stargram',version:2,title:p[0],bpm:p[1],scale:p[2],volume:p[3],space:p[4],tracks});
+      if(new TextDecoder('utf-8',{fatal:true}).decode(new TextEncoder().encode(state.title))!==state.title)fail();
+      return {state,appearance:A.decode(p[6]),code};
+    }catch{fail();}
+  }
+  function parse(input){
+    if(typeof input!=='string'||input.length>8192)fail();const text=input.trim();
+    if(text.startsWith('SL1.'))return decode(text);
+    try{const url=new URL(text);if(!['https:','http:'].includes(url.protocol)||url.username||url.password)fail();return fromHash(url.hash)||fail();}catch{fail();}
+  }
+  function fromHash(hash){
+    if(typeof hash!=='string')fail();if(!hash.startsWith('#letter='))return null;
+    if(hash.length>LIMIT+8)fail();return decode(hash.slice(8));
+  }
+  function link(code,base){
+    decode(code);
+    try{const url=new URL(base);if(!['https:','http:'].includes(url.protocol)||url.username||url.password)return code;url.search='';url.hash='letter='+code;return url.href;}catch{return code;}
+  }
+  return Object.freeze({encode,decode,parse,fromHash,link,LIMIT});
+});
+
+/* The letter desk never writes a received composition until the reader accepts. */
+(function(root){
+  'use strict';
+  function create({getState,getAppearance,accept,onOpen}){
+    const $=id=>document.getElementById(id),L=OrbitLetters,C=OrbitCore,A=AstroAppearance,d=$('letterDialog');
+    let letter=null,mode='send',revision=0;
+    function status(text){$('letterStatus').textContent=text;}
+    function paint(){
+      const preview=$('letterPreview');preview.replaceChildren();if(!letter)return;
+      const s=letter.state,a=letter.appearance,tokens=A.applyTo(preview,a);
+      const header=document.createElement('div');header.className='letter-card-head';
+      const label=document.createElement('span');label.textContent='STARGRAM / INTERSTELLAR POST';
+      const stamp=document.createElement('span');stamp.className='letter-stamp';stamp.textContent='✳\nSL / 01';header.append(label,stamp);
+      const title=document.createElement('h3');title.textContent=s.title;
+      const canvas=document.createElement('canvas');canvas.width=640;canvas.height=300;canvas.setAttribute('aria-label','五条声部的星星与循环');
+      const c=canvas.getContext('2d');c.strokeStyle=tokens.border;c.lineWidth=1;
+      s.tracks.forEach((t,index)=>{
+        const y=30+index*57;c.beginPath();c.moveTo(20,y);c.lineTo(620,y);c.stroke();
+        t.notes.forEach((p,i)=>{if(p<0)return;const x=25+C.mod(i+t.shift,t.length)/t.length*590;c.globalAlpha=C.audible(s,index)?0.9:0.25;c.fillStyle=tokens.button;c.beginPath();c.arc(x,y,2.5+t.accents[i]*2,0,Math.PI*2);c.fill();});c.globalAlpha=1;
+      });
+      const meta=document.createElement('p');meta.className='letter-card-meta';meta.textContent=`${s.bpm} BPM / ${C.countNotes(s)} 颗星 / ${C.SCALES[s.scale].label}`;
+      const recipe=document.createElement('small');recipe.textContent='观测配方 '+A.code(a)+' · 五条声部，带着各自的时间';
+      preview.append(header,title,canvas,meta,recipe);
+    }
+    function setMode(next){
+      mode=next;revision++;$('letterSend').hidden=next!=='send';$('letterRead').hidden=next!=='read';
+      $('letterTitle').textContent=next==='send'?'把这一圈，寄到另一片星空。':'有一片星空，正在等你拆开。';
+      $('letterAccept').hidden=next!=='read';$('letterAccept').disabled=!letter;
+      $('letterAppearance').checked=true;paint();
+    }
+    function show(){onOpen();if(!d.open)d.showModal();}
+    function send(){
+      try{letter=L.decode(L.encode(getState(),getAppearance()));}catch{letter=null;setMode('send');$('letterOutput').value='';$('letterCopy').disabled=true;$('letterTry').disabled=true;status('这张星图暂时无法封成信，请检查名称是否含不完整的字符。');show();return;}
+      setMode('send');$('letterCopy').disabled=false;$('letterTry').disabled=false;const value=L.link(letter.code,location.href);$('letterOutput').value=value;
+      $('letterCopy').textContent=value===letter.code?'复制信笺码':'复制游玩链接';
+      $('letterAddressHint').textContent=value===letter.code?'离线信笺码：对方可在 v1.8 或更新版的“读一封来信”中粘贴打开。':/^(localhost|127\.|\[::1\])/.test(location.hostname)?'这是本机预览地址。发布网页后，从公开网址生成的信才可以寄给朋友。':'链接包含当前作品和外观，保留这个版本。对方需要 v1.8 或更新版；之后修改作品不影响已寄出的信。';
+      status('信里装着音符、轻重、混音与这束光。没有上传作品，也没有收件人名单。');show();
+    }
+    function receive(value){
+      revision++;letter=null;$('letterInput').value=value;setMode('read');
+      if(!value.trim()){status('粘贴完整链接或 SL1 信笺码，再点“展开来信”。');show();return;}
+      try{letter=L.parse(value);paint();$('letterAccept').disabled=false;status('已读到这封信。先看看，再决定是否放上你的唱片机。');}catch(e){status(e.message);}
+      show();
+    }
+    $('letterCopy').onclick=async()=>{const token=revision,value=$('letterOutput').value;try{await navigator.clipboard.writeText(value);if(token===revision&&d.open)status('已复制。把这封信交给你想分享的人。');}catch{if(token===revision&&d.open){$('letterOutput').focus();$('letterOutput').select();status('已选中整封信，按 Ctrl+C 或长按复制即可。');}}};
+    $('letterReadBtn').onclick=()=>receive('');$('letterSendBtn').onclick=send;
+    $('letterParse').onclick=()=>receive($('letterInput').value);
+    $('letterInput').oninput=()=>{letter=null;revision++;paint();$('letterAccept').disabled=true;status('内容已改变，点“展开来信”重新查看。');};
+    $('letterTry').onclick=()=>receive($('letterOutput').value);
+    $('letterAccept').onclick=()=>{if(!letter)return;accept(C.clone(letter.state),$('letterAppearance').checked?A.validate(letter.appearance):null);d.close();};
+    d.addEventListener('close',()=>{revision++;});
+    return {send,receive,arrival(){try{const value=L.fromHash(location.hash);if(value)receive(value.code);}catch{receive(location.href);}}};
+  }
+  root.OrbitLetterDesk=Object.freeze({create});
 })(globalThis);
 
 /* Deterministic astronomical motifs, drawn once into cached textures. */
@@ -2095,6 +2277,22 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
   setAppearance(appearance, false);
   darkroom = AstroDarkroom.create({get:()=>appearance,apply:setAppearance,draw:target=>{const c=target.getContext('2d');c.setTransform(.5,0,0,.5,0,0);scene(c,1600,1200,engine.phase(),performance.now(),true);}});
   renderUI(); resize(); requestAnimationFrame(frame);
+  function clearLetterAddress(){try{const url=new URL(window.location.href);if(!url.hash.startsWith('#letter='))return;url.hash='';window.history.replaceState(null,'',url.href);}catch{}}
+  const letters=OrbitLetterDesk.create({
+    getState:()=>C.clone(state),getAppearance:()=>A.validate(appearance),
+    onOpen:()=>{for(const d of document.querySelectorAll('dialog[open]'))if(d.id!=='letterDialog')d.close();engine.pause();engine.cutVoices();queue=[];stopLoomAudition();updatePlaybackUI();},
+    accept:(song,look)=>{
+      clearLetterAddress();
+      manuscriptCache.reset();engine.pause();engine.cutVoices();queue=[];pulses.clear();
+      edit(()=>{state=C.validate(song);focusNote=null;},'这封来信已放上唱片机 · 可以撤销');
+      engine.reset();updatePlaybackUI();if(look)setAppearance(look);
+    }
+  });
+  $('letterDialog').addEventListener('close',clearLetterAddress);
+  $('letterDialog').addEventListener('cancel',clearLetterAddress);
+  $('letterDialog').querySelector('[data-close]').addEventListener('click',clearLetterAddress);
+  window.addEventListener('hashchange',()=>letters.arrival());
+  letters.arrival();
   if (saveError) { $('saveStatus').textContent = '未能恢复本地星图，请导出文件留存'; toast('本地存档不可用，已打开默认星图'); }
   else if (stored) $('saveStatus').textContent = '已恢复上次的星图';
 })();

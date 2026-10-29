@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-29",
+  "version": "1.8.0",
+  "origin": "http://127.0.0.1:49923",
+  "browser": "Codex in-app browser through CUA",
+  "model_tests": {"passed":44,"failed":0},
+  "verified_behaviors": [
+    "Export desk opens a snapshot letter with a real share URL and the original title, score and appearance.",
+    "A new hash arrival and real reload only preview; the existing dawn song and moon appearance remain before acceptance.",
+    "Acceptance with appearance unchecked restores the received song while retaining the reader's sky.",
+    "One music undo returns the previous dawn song and redo restores the received song; reload remembers it without reopening the letter.",
+    "Acceptance with appearance checked adopts the sender's sky; corrupt pasted and hash letters never replace the workspace.",
+    "Editing pasted content immediately disables acceptance until it is parsed again.",
+    "The original collection still has one entry and opening the manuscript after receipt begins from an original-track copy.",
+    "At 390px the copy, unfold and accept actions are reachable and complete through actual clicks.",
+    "A fresh receiver page has zero captured error logs and accepts a plain SL1 code; fresh accept and reload leave its dialog closed."
+  ],
+  "layout_cases": 21,
+  "layout_details": "排版矩阵.json",
+  "fresh_receiver_error_logs": [],
+  "sample": {"code_characters":340,"actual_json_download":true,"actual_midi_download":true,"independent_letter_json_match":true,"midi_notes":70},
+  "cleanup": {"own_qa_tabs_closed":true,"viewport_reset":true,"qa_server_stopped":true},
+  "limitations": [
+    "Physical phone, full screen reader and denied-clipboard branches were not independently retested in this release.",
+    "In-app evaluate only exposes read-only DOM; application state was checked by visible controls, the letter payload and actual downloads rather than private globals.",
+    "Tabbit could not create a page; its two reusable v1.8 scripts were not executed successfully this release.",
+    "Some screenshot requests captured the preceding frame; screenshots were inspected and named for their actual contents, and a natural-window letter was captured again.",
+    "Musical and visual preference remain for the user's local trial."
+  ]
+}

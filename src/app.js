@@ -691,6 +691,22 @@
   setAppearance(appearance, false);
   darkroom = AstroDarkroom.create({get:()=>appearance,apply:setAppearance,draw:target=>{const c=target.getContext('2d');c.setTransform(.5,0,0,.5,0,0);scene(c,1600,1200,engine.phase(),performance.now(),true);}});
   renderUI(); resize(); requestAnimationFrame(frame);
+  function clearLetterAddress(){try{const url=new URL(window.location.href);if(!url.hash.startsWith('#letter='))return;url.hash='';window.history.replaceState(null,'',url.href);}catch{}}
+  const letters=OrbitLetterDesk.create({
+    getState:()=>C.clone(state),getAppearance:()=>A.validate(appearance),
+    onOpen:()=>{for(const d of document.querySelectorAll('dialog[open]'))if(d.id!=='letterDialog')d.close();engine.pause();engine.cutVoices();queue=[];stopLoomAudition();updatePlaybackUI();},
+    accept:(song,look)=>{
+      clearLetterAddress();
+      manuscriptCache.reset();engine.pause();engine.cutVoices();queue=[];pulses.clear();
+      edit(()=>{state=C.validate(song);focusNote=null;},'这封来信已放上唱片机 · 可以撤销');
+      engine.reset();updatePlaybackUI();if(look)setAppearance(look);
+    }
+  });
+  $('letterDialog').addEventListener('close',clearLetterAddress);
+  $('letterDialog').addEventListener('cancel',clearLetterAddress);
+  $('letterDialog').querySelector('[data-close]').addEventListener('click',clearLetterAddress);
+  window.addEventListener('hashchange',()=>letters.arrival());
+  letters.arrival();
   if (saveError) { $('saveStatus').textContent = '未能恢复本地星图，请导出文件留存'; toast('本地存档不可用，已打开默认星图'); }
   else if (stored) $('saveStatus').textContent = '已恢复上次的星图';
 })();

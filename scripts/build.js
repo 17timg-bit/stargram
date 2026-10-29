@@ -6,7 +6,7 @@ const root = path.resolve(__dirname, '..');
 const read = name => fs.readFileSync(path.join(root, 'src', name), 'utf8');
 const css = read('style.css').replace(/^@charset[^;]+;\s*/, '');
 const appearance = read('appearance.js');
-const js = ['core.js', 'audio.js', 'shelf.js', 'loom.js', 'manuscript.js', 'score-paper.js', 'sky-paint.js', 'darkroom.js', 'app.js'].map(read).join('\n');
+const js = ['core.js', 'audio.js', 'shelf.js', 'loom.js', 'manuscript.js', 'score-paper.js', 'letters.js', 'letter-desk.js', 'sky-paint.js', 'darkroom.js', 'app.js'].map(read).join('\n');
 if (/<\/script/i.test(js + appearance)) throw new Error('Inline script terminator found');
 const html = read('index.html').replace('<!-- APPEARANCE -->', `<script>\n${appearance}\n</script>`).replace('<!-- STYLE -->', `<style>\n${css}\n</style>`).replace('<!-- SCRIPTS -->', `<script>\n${js}\n</script>`);
 const destination = path.join(root, '打开星轨留声机.html');
