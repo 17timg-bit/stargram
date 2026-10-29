@@ -1,0 +1,802 @@
+{
+  "matrix": [
+    {
+      "preset": "paper",
+      "width": 1920,
+      "height": 1080,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "paper",
+      "width": 1460,
+      "height": 1000,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "paper",
+      "width": 1280,
+      "height": 720,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "paper",
+      "width": 1000,
+      "height": 900,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "paper",
+      "width": 700,
+      "height": 844,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "paper",
+      "width": 390,
+      "height": 844,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "paper",
+      "width": 320,
+      "height": 700,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "nocturne",
+      "width": 1920,
+      "height": 1080,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "nocturne",
+      "width": 1460,
+      "height": 1000,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "nocturne",
+      "width": 1280,
+      "height": 720,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "nocturne",
+      "width": 1000,
+      "height": 900,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "nocturne",
+      "width": 700,
+      "height": 844,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "nocturne",
+      "width": 390,
+      "height": 844,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "nocturne",
+      "width": 320,
+      "height": 700,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "mist",
+      "width": 1920,
+      "height": 1080,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "mist",
+      "width": 1460,
+      "height": 1000,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "mist",
+      "width": 1280,
+      "height": 720,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "mist",
+      "width": 1000,
+      "height": 900,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "mist",
+      "width": 700,
+      "height": 844,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "mist",
+      "width": 390,
+      "height": 844,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "mist",
+      "width": 320,
+      "height": 700,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "rosette",
+      "width": 1920,
+      "height": 1080,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "rosette",
+      "width": 1460,
+      "height": 1000,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "rosette",
+      "width": 1280,
+      "height": 720,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "rosette",
+      "width": 1000,
+      "height": 900,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "rosette",
+      "width": 700,
+      "height": 844,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "rosette",
+      "width": 390,
+      "height": 844,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "rosette",
+      "width": 320,
+      "height": 700,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "sisters",
+      "width": 1920,
+      "height": 1080,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "sisters",
+      "width": 1460,
+      "height": 1000,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "sisters",
+      "width": 1280,
+      "height": 720,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "sisters",
+      "width": 1000,
+      "height": 900,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "sisters",
+      "width": 700,
+      "height": 844,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "sisters",
+      "width": 390,
+      "height": 844,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "sisters",
+      "width": 320,
+      "height": 700,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "polar",
+      "width": 1920,
+      "height": 1080,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "polar",
+      "width": 1460,
+      "height": 1000,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "polar",
+      "width": 1280,
+      "height": 720,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "polar",
+      "width": 1000,
+      "height": 900,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "polar",
+      "width": 700,
+      "height": 844,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "polar",
+      "width": 390,
+      "height": 844,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    },
+    {
+      "preset": "polar",
+      "width": 320,
+      "height": 700,
+      "browse": {
+        "bodyFits": true,
+        "dialogFits": true,
+        "footerSeparate": true,
+        "pageFits": true,
+        "rows": 12,
+        "takeReceivesHit": true
+      },
+      "save": {
+        "bodyFits": true,
+        "count": "12 / 12",
+        "dialogFits": true,
+        "status": "这一稿已经在匣中，不重复占位置。"
+      }
+    }
+  ]
+}

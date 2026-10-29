@@ -1,0 +1,430 @@
+TAP version 13
+# Subtest: all presets validate, are independent, and contain five audible roles
+ok 1 - all presets validate, are independent, and contain five audible roles
+  ---
+  duration_ms: 6.182
+  type: 'test'
+  ...
+# Subtest: shift and loop positions agree, including wraparound
+ok 2 - shift and loop positions agree, including wraparound
+  ---
+  duration_ms: 0.3941
+  type: 'test'
+  ...
+# Subtest: pitch mapping respects scale and octave across all roles
+ok 3 - pitch mapping respects scale and octave across all roles
+  ---
+  duration_ms: 0.4752
+  type: 'test'
+  ...
+# Subtest: resizing preserves phase proportion and creates valid tracks
+ok 4 - resizing preserves phase proportion and creates valid tracks
+  ---
+  duration_ms: 0.655
+  type: 'test'
+  ...
+# Subtest: seeded generator is reproducible and bounded for 1000 universes
+ok 5 - seeded generator is reproducible and bounded for 1000 universes
+  ---
+  duration_ms: 71.1555
+  type: 'test'
+  ...
+# Subtest: common cycle is a real least common multiple
+ok 6 - common cycle is a real least common multiple
+  ---
+  duration_ms: 0.5499
+  type: 'test'
+  ...
+# Subtest: import rejects corrupt, oversized and unexpected structures
+ok 7 - import rejects corrupt, oversized and unexpected structures
+  ---
+  duration_ms: 0.9737
+  type: 'test'
+  ...
+# Subtest: MIDI has valid independent tracks, real tempo and balanced note events
+ok 8 - MIDI has valid independent tracks, real tempo and balanced note events
+  ---
+  duration_ms: 8.2383
+  type: 'test'
+  ...
+# Subtest: single-file distribution has no network, imports or external assets
+ok 9 - single-file distribution has no network, imports or external assets
+  ---
+  duration_ms: 5.6408
+  type: 'test'
+  ...
+# Subtest: v1.0 maps migrate without changing notes, gain or event amplitudes
+ok 10 - v1.0 maps migrate without changing notes, gain or event amplitudes
+  ---
+  duration_ms: 11.9349
+  type: 'test'
+  ...
+# Subtest: solo intersects mute and zero gain; multiple solo tracks remain audible
+ok 11 - solo intersects mute and zero gain; multiple solo tracks remain audible
+  ---
+  duration_ms: 4.2042
+  type: 'test'
+  ...
+# Subtest: accents alter exact event amplitude; resizing carries accent with its star
+ok 12 - accents alter exact event amplitude; resizing carries accent with its star
+  ---
+  duration_ms: 2.0449
+  type: 'test'
+  ...
+# Subtest: MIDI preserves expressive velocity, clamps max gain and respects solo
+ok 13 - MIDI preserves expressive velocity, clamps max gain and respects solo
+  ---
+  duration_ms: 2.3963
+  type: 'test'
+  ...
+# Subtest: collections persist independent snapshots, suppress duplicates and survive reload
+ok 14 - collections persist independent snapshots, suppress duplicates and survive reload
+  ---
+  duration_ms: 1.365
+  type: 'test'
+  ...
+# Subtest: removal and undo preserve full expressive snapshot and relative order
+ok 15 - removal and undo preserve full expressive snapshot and relative order
+  ---
+  duration_ms: 0.5069
+  type: 'test'
+  ...
+# Subtest: full shelf and failed writes never evict or mutate existing snapshots
+ok 16 - full shelf and failed writes never evict or mutate existing snapshots
+  ---
+  duration_ms: 6.573
+  type: 'test'
+  ...
+# Subtest: corrupt shelf remains untouched; collection input is bounded and validated
+ok 17 - corrupt shelf remains untouched; collection input is bounded and validated
+  ---
+  duration_ms: 0.6067
+  type: 'test'
+  ...
+# Subtest: phrase transforms follow audible time for every period and phase, preserving all other slots and mix
+ok 18 - phrase transforms follow audible time for every period and phase, preserving all other slots and mix
+  ---
+  duration_ms: 85.0534
+  type: 'test'
+  ...
+# Subtest: diatonic moves preserve gaps and accents and reject the whole phrase at pitch limits
+ok 19 - diatonic moves preserve gaps and accents and reject the whole phrase at pitch limits
+  ---
+  duration_ms: 0.7357
+  type: 'test'
+  ...
+# Subtest: reversing, contour inversion and opposite rotations are reversible without quantizing expression
+ok 20 - reversing, contour inversion and opposite rotations are reversible without quantizing expression
+  ---
+  duration_ms: 0.9853
+  type: 'test'
+  ...
+# Subtest: repetition copies the whole phrase including gaps and accents into the following blank span
+ok 21 - repetition copies the whole phrase including gaps and accents into the following blank span
+  ---
+  duration_ms: 10.6086
+  type: 'test'
+  ...
+# Subtest: repetition refuses occupied or out-of-bounds destinations without history or partial changes
+ok 22 - repetition refuses occupied or out-of-bounds destinations without history or partial changes
+  ---
+  duration_ms: 1.6383
+  type: 'test'
+  ...
+# Subtest: erase affects only the selected interval and is one undo step; redo restores it exactly
+ok 23 - erase affects only the selected interval and is one undo step; redo restores it exactly
+  ---
+  duration_ms: 1.4459
+  type: 'test'
+  ...
+# Subtest: empty, symmetric and single-note no-ops add no history and preserve a redo branch
+ok 24 - empty, symmetric and single-note no-ops add no history and preserve a redo branch
+  ---
+  duration_ms: 1.0512
+  type: 'test'
+  ...
+# Subtest: bad selection and operation inputs fail before modifying the manuscript or history
+ok 25 - bad selection and operation inputs fail before modifying the manuscript or history
+  ---
+  duration_ms: 1.1037
+  type: 'test'
+  ...
+# Subtest: transformed phrases keep their actual events through JSON and SL1 round trips
+ok 26 - transformed phrases keep their actual events through JSON and SL1 round trips
+  ---
+  duration_ms: 8.6549
+  type: 'test'
+  ...
+# Subtest: saved manuscripts reload as independent exact source and draft snapshots
+ok 27 - saved manuscripts reload as independent exact source and draft snapshots
+  ---
+  duration_ms: 5.068
+  type: 'test'
+  ...
+# Subtest: duplicate snapshots do not consume capacity or write a new revision
+ok 28 - duplicate snapshots do not consume capacity or write a new revision
+  ---
+  duration_ms: 1.6878
+  type: 'test'
+  ...
+# Subtest: listener volume changes alone do not create duplicate pages or artificial revisions
+ok 29 - listener volume changes alone do not create duplicate pages or artificial revisions
+  ---
+  duration_ms: 1.2246
+  type: 'test'
+  ...
+# Subtest: updating a linked revision preserves identity and source, while a stale revision cannot overwrite it
+ok 30 - updating a linked revision preserves identity and source, while a stale revision cannot overwrite it
+  ---
+  duration_ms: 3.5258
+  type: 'test'
+  ...
+# Subtest: each mutation reads the current drawer so sequential changes from another instance are preserved
+ok 31 - each mutation reads the current drawer so sequential changes from another instance are preserved
+  ---
+  duration_ms: 2.8716
+  type: 'test'
+  ...
+# Subtest: full drawers never evict old manuscripts and failed writes leave storage and memory intact
+ok 32 - full drawers never evict old manuscripts and failed writes leave storage and memory intact
+  ---
+  duration_ms: 17.3823
+  type: 'test'
+  ...
+# Subtest: corrupt, oversized and unavailable storage cannot be overwritten or clear previously readable memory
+ok 33 - corrupt, oversized and unavailable storage cannot be overwritten or clear previously readable memory
+  ---
+  duration_ms: 5.7535
+  type: 'test'
+  ...
+# Subtest: remove and undo keep the exact manuscript and order, rejecting an updated or full destination
+ok 34 - remove and undo keep the exact manuscript and order, rejecting an updated or full destination
+  ---
+  duration_ms: 14.7057
+  type: 'test'
+  ...
+# Subtest: portable draft files retain periods, phase, silence, all expression and their source for all roles
+ok 35 - portable draft files retain periods, phase, silence, all expression and their source for all roles
+  ---
+  duration_ms: 7.1953
+  type: 'test'
+  ...
+# Subtest: invalid payloads, altered mix, unsupported files and duplicate IDs fail before writes
+ok 36 - invalid payloads, altered mix, unsupported files and duplicate IDs fail before writes
+  ---
+  duration_ms: 0.9896
+  type: 'test'
+  ...
+# Subtest: restored source and edited track keep the original event meanings through existing JSON and SL1
+ok 37 - restored source and edited track keep the original event meanings through existing JSON and SL1
+  ---
+  duration_ms: 7.3599
+  type: 'test'
+  ...
+# Subtest: all legal densities contain the exact star count and balanced cyclic gaps
+ok 38 - all legal densities contain the exact star count and balanced cyclic gaps
+  ---
+  duration_ms: 14.5844
+  type: 'test'
+  ...
+# Subtest: drafts are deterministic, independent, and preserve gain, mute, solo and relative phase
+ok 39 - drafts are deterministic, independent, and preserve gain, mute, solo and relative phase
+  ---
+  duration_ms: 1.7614
+  type: 'test'
+  ...
+# Subtest: contours and both registers remain in their selected five-note range
+ok 40 - contours and both registers remain in their selected five-note range
+  ---
+  duration_ms: 43.0783
+  type: 'test'
+  ...
+# Subtest: breathing accents are valid, support a single star, and can be disabled
+ok 41 - breathing accents are valid, support a single star, and can be disabled
+  ---
+  duration_ms: 0.8536
+  type: 'test'
+  ...
+# Subtest: isolated auditions preserve the original mix and use ordinary sequencer events
+ok 42 - isolated auditions preserve the original mix and use ordinary sequencer events
+  ---
+  duration_ms: 0.9886
+  type: 'test'
+  ...
+# Subtest: invalid or unbounded parameters are rejected before a draft is created
+ok 43 - invalid or unbounded parameters are rejected before a draft is created
+  ---
+  duration_ms: 0.8164
+  type: 'test'
+  ...
+# Subtest: all 360 recipes have unique roundtrip codes and readable semantic foregrounds
+ok 44 - all 360 recipes have unique roundtrip codes and readable semantic foregrounds
+  ---
+  duration_ms: 46.121
+  type: 'test'
+  ...
+# Subtest: legacy preferences migrate in memory, current recipes win, and loading never overwrites data
+ok 45 - legacy preferences migrate in memory, current recipes win, and loading never overwrites data
+  ---
+  duration_ms: 0.6821
+  type: 'test'
+  ...
+# Subtest: corrupt and oversized preferences stay untouched and unavailable storage falls back safely
+ok 46 - corrupt and oversized preferences stay untouched and unavailable storage falls back safely
+  ---
+  duration_ms: 0.6888
+  type: 'test'
+  ...
+# Subtest: recipe validation rejects invalid fields and codes before any write, preserving unrelated keys
+ok 47 - recipe validation rejects invalid fields and codes before any write, preserving unrelated keys
+  ---
+  duration_ms: 0.3881
+  type: 'test'
+  ...
+# Subtest: editing returned recipes or tokens cannot modify presets or catalogs
+ok 48 - editing returned recipes or tokens cannot modify presets or catalogs
+  ---
+  duration_ms: 0.3061
+  type: 'test'
+  ...
+# Subtest: published SG1 examples retain their meanings across later application releases
+ok 49 - published SG1 examples retain their meanings across later application releases
+  ---
+  duration_ms: 0.1192
+  type: 'test'
+  ...
+# Subtest: a new manuscript is an exact independent copy including irregular notes, silence and expression
+ok 50 - a new manuscript is an exact independent copy including irregular notes, silence and expression
+  ---
+  duration_ms: 4.8242
+  type: 'test'
+  ...
+# Subtest: writing uses heard ticks and preserves expression when moving a note within its column
+ok 51 - writing uses heard ticks and preserves expression when moving a note within its column
+  ---
+  duration_ms: 2.2176
+  type: 'test'
+  ...
+# Subtest: draft undo, redo, blanking and reset never mutate the original and a new edit drops redo
+ok 52 - draft undo, redo, blanking and reset never mutate the original and a new edit drops redo
+  ---
+  duration_ms: 0.5709
+  type: 'test'
+  ...
+# Subtest: resize and rotation keep the shared timing rules while reports handle different periods
+ok 53 - resize and rotation keep the shared timing rules while reports handle different periods
+  ---
+  duration_ms: 0.7989
+  type: 'test'
+  ...
+# Subtest: the original and edited auditions isolate the correct role without changing either snapshot
+ok 54 - the original and edited auditions isolate the correct role without changing either snapshot
+  ---
+  duration_ms: 1.18
+  type: 'test'
+  ...
+# Subtest: generation is explicit, undoable and uses the current period while preserving original mix
+ok 55 - generation is explicit, undoable and uses the current period while preserving original mix
+  ---
+  duration_ms: 1.1623
+  type: 'test'
+  ...
+# Subtest: invalid edits fail before mutation, no-op writes add no history, and history stays bounded
+ok 56 - invalid edits fail before mutation, no-op writes add no history, and history stays bounded
+  ---
+  duration_ms: 3.8835
+  type: 'test'
+  ...
+# Subtest: page-local cache resumes only the matching source and role and bounds retained drafts
+ok 57 - page-local cache resumes only the matching source and role and bounds retained drafts
+  ---
+  duration_ms: 3.4364
+  type: 'test'
+  ...
+# Subtest: SL1 losslessly carries all music expression, irregular phases and Unicode titles
+ok 58 - SL1 losslessly carries all music expression, irregular phases and Unicode titles
+  ---
+  duration_ms: 76.6954
+  type: 'test'
+  ...
+# Subtest: all 360 appearance recipes preserve published SG1 meanings through a letter
+ok 59 - all 360 appearance recipes preserve published SG1 meanings through a letter
+  ---
+  duration_ms: 29.2898
+  type: 'test'
+  ...
+# Subtest: legacy maps migrate and empty, muted or zero-gain scores stay exact
+ok 60 - legacy maps migrate and empty, muted or zero-gain scores stay exact
+  ---
+  duration_ms: 0.3763
+  type: 'test'
+  ...
+# Subtest: codes are deterministic, independent snapshots and reject malformed Unicode at creation
+ok 61 - codes are deterministic, independent snapshots and reject malformed Unicode at creation
+  ---
+  duration_ms: 0.5969
+  type: 'test'
+  ...
+# Subtest: copy damage, unsupported versions, noncanonical bytes and oversized input are rejected
+ok 62 - copy damage, unsupported versions, noncanonical bytes and oversized input are rejected
+  ---
+  duration_ms: 2.4508
+  type: 'test'
+  ...
+# Subtest: valid checksums do not bypass structural, musical or appearance validation
+ok 63 - valid checksums do not bypass structural, musical or appearance validation
+  ---
+  duration_ms: 1.5012
+  type: 'test'
+  ...
+# Subtest: links carry only fragments, strip prior query and credentials, and offline copies stay portable
+ok 64 - links carry only fragments, strip prior query and credentials, and offline copies stay portable
+  ---
+  duration_ms: 0.8702
+  type: 'test'
+  ...
+# Subtest: encounters are deterministic, independent, preserve master volume and reject invalid input atomically
+ok 65 - encounters are deterministic, independent, preserve master volume and reject invalid input atomically
+  ---
+  duration_ms: 3.4839
+  type: 'test'
+  ...
+# Subtest: all six musical climates, three scales, many tempos and spaces occur for the same starting map
+ok 66 - all six musical climates, three scales, many tempos and spaces occur for the same starting map
+  ---
+  duration_ms: 19.7753
+  type: 'test'
+  ...
+# Subtest: gravity and ember have substantial rhythmic diversity instead of fixed positions or three templates
+ok 67 - gravity and ember have substantial rhythmic diversity instead of fixed positions or three templates
+  ---
+  duration_ms: 10.4291
+  type: 'test'
+  ...
+# Subtest: musical climates retain breathing space, bounded levels, audible roles and compatible loop timing
+ok 68 - musical climates retain breathing space, bounded levels, audible roles and compatible loop timing
+  ---
+  duration_ms: 55.2618
+  type: 'test'
+  ...
+# Subtest: generated performances survive v2 JSON and SL1 with phases, dynamics and mix intact
+ok 69 - generated performances survive v2 JSON and SL1 with phases, dynamics and mix intact
+  ---
+  duration_ms: 66.0567
+  type: 'test'
+  ...
+# Subtest: generated names carry the full unsigned seed and do not redefine old musical or appearance formats
+ok 70 - generated names carry the full unsigned seed and do not redefine old musical or appearance formats
+  ---
+  duration_ms: 0.5148
+  type: 'test'
+  ...
+1..70
+# tests 70
+# suites 0
+# pass 70
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 811.4156

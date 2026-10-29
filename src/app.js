@@ -6,6 +6,7 @@
   let editMode = 'plant', focusNote = null, shelfRemoved = null, immersive = false;
   let shelfStorage = null; try { shelfStorage = localStorage; } catch {}
   const shelf = new OrbitShelf.Store(shelfStorage);
+  const draftStore = new OrbitDrafts.Store(shelfStorage),draftLinks=new WeakMap();
   let discoveries = { plant: false, orbit: false, listen: false }, encounters = 0, stored = false;
   let saveError = false;
   try {
@@ -110,6 +111,7 @@
       $('steps').append(b);
     });
     $('shelfCount').textContent = `${shelf.entries.length} 张本地收藏`;
+    $('draftCount').textContent = `${draftStore.size} 页，等下一次续写`;
     renderedStep = -1; renderDiscoveries(); updatePlaybackUI();
   }
   function selectTrack(i) { selected = i; focusNote = null; renderUI(); }
@@ -293,6 +295,7 @@
   };
 
   const manuscriptCache = new OrbitManuscript.DraftCache();
+  const draftSignature=(base,draft)=>{const canonical=C.validate(base);canonical.volume=0;return JSON.stringify({base:canonical,draft});};
   const loom = { original:null, base:null, draft:null, doc:null, index:2, shape:'arc', seed:0, token:0, worker:false, pending:false, source:null, gain:null, nodes:new Set(), start:0, message:'', readout:'', target:'draft', mode:'copy', resumed:false };
   const scorePaper = OrbitScorePaper.create({
     getOriginal:()=>loom.original,getDraft:()=>loom.draft,
@@ -342,21 +345,26 @@
     $('manuscriptBadge').textContent=!info.changed?'原轨副本':loom.mode==='generated'?'新织候选':loom.mode==='resumed'?'接回手稿':'手写手稿';
     $('manuscriptDiff').textContent=`原轨 ${info.originalCount} → 手稿 ${info.draftCount} 颗 · `+(info.periodChanged?`周期 ${loom.original.length} → ${loom.draft.length} 格`:`${info.changedTicks} 格变化`);
     $('manuscriptUndo').disabled=!loom.doc.canUndo;$('manuscriptRedo').disabled=!loom.doc.canRedo;$('loomApply').disabled=!info.changed;
+    const link=draftLinks.get(loom.doc),same=link?.signature===draftSignature(loom.base,loom.draft);
+    $('manuscriptKeepStatus').textContent=link?(same?'这一稿已入匣；之后的改动记得再保存。':'有未存进匣中的改动，可以保存这份修订。'):'存入手稿匣后，刷新也能取回。';
+    $('manuscriptSave').textContent=link?'保存这份修订 ↗':'存一页手稿 ↗';
     scorePaper.render();renderLoomAudio();drawLoom();
   }
   function changeManuscript(action,mode='written') {
     stopLoomAudition();loom.message='';action();loom.mode=mode;refreshManuscript();
   }
-  $('loomBtn').onclick=()=>{
+  function openManuscript(saved=null){
     engine.pause();engine.cutVoices();engine.update();queue=[];updatePlaybackUI();stopLoomAudition();
     loom.index=selected;loom.base=C.clone(state);const entry=manuscriptCache.open(selected,state.tracks[selected]);
-    loom.doc=entry.doc;loom.original=loom.doc.original;loom.resumed=entry.resumed;loom.mode=entry.resumed?'resumed':'copy';loom.target='draft';
+    loom.doc=entry.doc;if(saved)loom.doc.replace(saved.draft);loom.original=loom.doc.original;loom.resumed=entry.resumed;loom.mode=saved?'archived':entry.resumed?'resumed':'copy';loom.target='draft';
     loom.shape='arc';loom.seed=crypto.getRandomValues(new Uint32Array(1))[0];loom.draft=loom.doc.snapshot();
     $('loomCount').value=Math.max(1,loom.draft.notes.filter(p=>p>=0).length);const pitches=loom.draft.notes.filter(p=>p>=0);
     $('loomRegister').value=pitches.length&&pitches.every(p=>p>=5)?'5':'0';$('loomDynamics').checked=true;$('loomGenerator').open=false;
-    $('manuscriptNotice').textContent=entry.resumed?'已接回这条轨道在本次页面里的手稿。应用前，原轨不变。':'已抄下当前「'+C.ROLES[selected].name+'」轨道。点星谱纸写一点变化，或展开下方织一个新念头。';
+    if(saved)draftLinks.set(loom.doc,{id:saved.id,revision:saved.revision,title:saved.title,signature:draftSignature(loom.base,loom.draft)});
+    $('manuscriptNotice').textContent=saved?'已取回「'+saved.title+'」与原星图。原轨和稿面都在，撤回历史从本次取回开始。':entry.resumed?'已接回这条轨道在本次页面里的手稿。应用前，原轨不变。':'已抄下当前「'+C.ROLES[selected].name+'」轨道。点星谱纸写一点变化，或展开下方织一个新念头。';
     scorePaper.resetSelection();refreshManuscript();$('loomDialog').showModal();drawLoom();
-  };
+  }
+  $('loomBtn').onclick=()=>openManuscript();
   $('loomLength').onchange=()=>changeManuscript(()=>loom.doc.resize(Number($('loomLength').value)));
   for(const [id,event] of [['loomCount','input'],['loomRegister','change'],['loomDynamics','change']])$(id).addEventListener(event,()=>{stopLoomAudition();generatorControls();});
   document.querySelectorAll('[data-shape]').forEach(b=>b.onclick=()=>{stopLoomAudition();loom.shape=b.dataset.shape;generatorControls();});
@@ -369,6 +377,24 @@
     if(!loom.doc.summary().changed)return;const index=loom.index,draft=loom.doc.snapshot();stopLoomAudition();manuscriptCache.forget(index);
     edit(()=>{state.tracks[index]=draft;selected=index;focusNote=null;},'已把'+C.ROLES[index].name+'的手稿种回星图 · 可以撤销');$('loomDialog').close();
   };
+  const draftDesk=OrbitDraftDesk.create({
+    store:draftStore,
+    getCurrent:()=>{
+      if(!$('loomDialog').open||!loom.doc)return null;const link=draftLinks.get(loom.doc);
+      return {doc:loom.doc,target:link?{id:link.id,revision:link.revision}:null,payload:{title:link?.title||(loom.base.title+' · '+C.ROLES[loom.index].name).slice(0,60),base:C.clone(loom.base),index:loom.index,draft:loom.doc.snapshot()}};
+    },
+    onOpen:()=>{engine.pause();engine.cutVoices();queue=[];stopLoomAudition();updatePlaybackUI();},
+    onCount:count=>$('draftCount').textContent=count+' 页，等下一次续写',
+    onSaved:(entry,doc,data)=>{draftLinks.set(doc,{id:entry.id,revision:entry.revision,title:entry.title,signature:draftSignature(data.base,data.draft)});if(loom.doc===doc)refreshManuscript();},
+    onTake:entry=>{
+      const next=C.validate(entry.base),volume=state.volume;next.volume=volume;
+      for(const d of document.querySelectorAll('dialog[open]'))d.close();
+      manuscriptCache.reset();engine.pause();engine.cutVoices();engine.reset();queue=[];pulses.clear();particles=[];
+      edit(()=>{state=next;selected=entry.index;focusNote=null;},'已取回原星图 · 主星图可以一次撤销');openManuscript(entry);
+    },
+    download:(text,title)=>download(new Blob([text],{type:'application/json'}),'Stargram_手稿_'+title.replace(/[<>:"/\\|?*\x00-\x1f]/g,'_').slice(0,40)+'.json')
+  });
+  $('manuscriptSave').onclick=()=>draftDesk.open(true);$('manuscriptVault').onclick=()=>draftDesk.open();$('draftsBtn').onclick=()=>draftDesk.open();
   async function auditionManuscript(kind) {
     if((loom.pending||loom.source)&&loom.target===kind){stopLoomAudition();return;}
     if(loom.worker)return;stopLoomAudition();loom.target=kind;
@@ -701,7 +727,7 @@
   };
   window.addEventListener('beforeunload', persist);
   // Read-only diagnostics for local regression checks; no bypass for UI operations.
-  window.Stargram = Object.freeze({ snapshot: () => C.clone(state), collection: () => C.clone(shelf.entries), loom: () => $('loomDialog').open ? { index: loom.index, original:C.clone(loom.original), draft:C.clone(loom.draft), summary:loom.doc.summary(), resumed:loom.resumed, audition:loom.target, seed:loom.seed } : null, status: () => ({ playing: engine.running, theme, appearance:A.validate(appearance), recipeCode:A.code(appearance), tonearm: armProgress, reducedMotion, geometry: geometry(), phase: engine.phase(), encounters, selected, editMode, focusedNote: focusNote ? { ...focusNote } : null, immersive, saved: !saveError, audioState: engine.ctx?.state || 'uninitialized', activeVoices: engine.voices.size, loomOpen: $('loomDialog').open, loomPreparing: loom.pending, loomPlaying: !!loom.source, loomVoices: loom.nodes.size }), exportWav: OrbitAudio.renderWav });
+  window.Stargram = Object.freeze({ snapshot: () => C.clone(state), collection: () => C.clone(shelf.entries), drafts: () => draftStore.entries, loom: () => $('loomDialog').open ? { index: loom.index, original:C.clone(loom.original), draft:C.clone(loom.draft), summary:loom.doc.summary(), resumed:loom.resumed, audition:loom.target, seed:loom.seed } : null, status: () => ({ playing: engine.running, theme, appearance:A.validate(appearance), recipeCode:A.code(appearance), tonearm: armProgress, reducedMotion, geometry: geometry(), phase: engine.phase(), encounters, selected, editMode, focusedNote: focusNote ? { ...focusNote } : null, immersive, saved: !saveError, audioState: engine.ctx?.state || 'uninitialized', activeVoices: engine.voices.size, loomOpen: $('loomDialog').open, loomPreparing: loom.pending, loomPlaying: !!loom.source, loomVoices: loom.nodes.size }), exportWav: OrbitAudio.renderWav });
   setAppearance(appearance, false);
   darkroom = AstroDarkroom.create({get:()=>appearance,apply:setAppearance,draw:target=>{const c=target.getContext('2d');c.setTransform(.5,0,0,.5,0,0);scene(c,1600,1200,engine.phase(),performance.now(),true);}});
   renderUI(); resize(); requestAnimationFrame(frame);

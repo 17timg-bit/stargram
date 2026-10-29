@@ -1,0 +1,153 @@
+{
+  "date": "2026-10-29",
+  "origin": "http://127.0.0.1:49926/",
+  "checks": [
+    {
+      "check": "saved draft survives reload; viewing preserves the current workbench",
+      "observed": {
+        "count": "1 / 12",
+        "main": "回来时的工作台",
+        "origin": "出自「夜航的玻璃船」",
+        "preview": "把这一句留给明天",
+        "scale": "dawn",
+        "tempo": "88",
+        "theme": "极地电台",
+        "volume": "30"
+      }
+    },
+    {
+      "check": "explicit retrieval restores the source and separate 24-step draft, preserving volume and appearance without autoplay",
+      "observed": {
+        "draftPeriod": "24",
+        "keep": "这一稿已入匣；之后的改动记得再保存。",
+        "main": "夜航的玻璃船",
+        "mainPeriod": "16",
+        "notes": [
+          [
+            "1",
+            "8",
+            "soft"
+          ],
+          [
+            "23",
+            "2",
+            "strong"
+          ]
+        ],
+        "playing": "开始演奏",
+        "scale": "glass",
+        "tempo": "72",
+        "theme": "极地电台",
+        "volume": "30"
+      }
+    },
+    {
+      "check": "source retrieval is one main undo and redo step",
+      "observed": {
+        "scale": "dawn",
+        "tempo": "88",
+        "title": "回来时的工作台",
+        "volume": "30"
+      }
+    },
+    {
+      "check": "linked update advances one revision, repeated save deduplicates, status tracks canonical state, and a real portable revision downloads",
+      "observed": {
+        "count": "1 / 12",
+        "keep": "这一稿已入匣；之后的改动记得再保存。",
+        "status": "这一稿已经在匣中，不重复占位置。",
+        "revisionLabel": "10/29 16:01 / 第 2 稿"
+      }
+    },
+    {
+      "check": "removal is reversible and restores the exact second revision",
+      "observed": "10/29 16:01 / 第 2 稿"
+    },
+    {
+      "check": "a real exported draft file previews before writing and is explicitly imported as an independent archived page",
+      "observed": {
+        "count": "1 / 12",
+        "main": "夜航的玻璃船",
+        "status": "文件已展开，尚未写入手稿匣，也没有改变工作台。",
+        "title": "把这一句留给明天"
+      }
+    },
+    {
+      "check": "unsupported file invalidates the previous preview and cannot change stored drafts or the workbench",
+      "observed": {
+        "actionsHidden": true,
+        "count": "2 / 12",
+        "status": "请选择 STARGRAM 手稿文件，不是普通星图。"
+      }
+    },
+    {
+      "check": "opening the drawer stops the audition UI; save-as creates a separate page and retains prior revisions",
+      "observed": {
+        "main": "夜航的玻璃船",
+        "preview": "另一种回信",
+        "revisions": [
+          "10/29 16:06 / 第 1 稿",
+          "10/29 16:04 / 第 1 稿",
+          "10/29 16:01 / 第 2 稿"
+        ],
+        "status": "先看看这一页。只有按下“取回”才改变工作台。",
+        "titles": [
+          "另一种回信",
+          "把这一句留给明天",
+          "把这一句留给明天"
+        ],
+        "auditionBefore": "true"
+      }
+    },
+    {
+      "check": "actual UI fills all 12 slots, then refuses a thirteenth without evicting saved pages",
+      "observed": {
+        "count": "12 / 12",
+        "keep": "这一稿已入匣；之后的改动记得再保存。",
+        "status": "手稿匣已放满12页。请另存文件，或先移出一页；不会挤掉旧手稿。"
+      }
+    },
+    {
+      "check": "six appearances, three typography styles and seven viewport sizes validate browse and save panels with 12 entries and a 60-character title",
+      "observed": {
+        "combinations": 42,
+        "panelViews": 84
+      }
+    },
+    {
+      "check": "the imported original manuscript retrieves, applies to its original source, and exports real JSON/MIDI/WAV/PNG at the retained 30 percent volume"
+    },
+    {
+      "check": "retrieved composition plays and pauses; restoring source preserves the existing shelf and the original workbench can still be undone",
+      "observed": {
+        "playLabel": "暂停演奏",
+        "shelf": "1 张本地收藏"
+      }
+    },
+    {
+      "check": "after actual reload, all 12 archived pages and the shelf remain, and the exported composition is byte-identical",
+      "observed": {
+        "drafts": "12 页，等下一次续写",
+        "period": "24",
+        "shelf": "1 张本地收藏",
+        "title": "未完星笺_续写样片",
+        "volume": "30"
+      }
+    },
+    {
+      "check": "final build: retrieval at a different master volume still shows saved, and saving without music changes does not advance the revision",
+      "observed": {
+        "revision": "10/29 16:04 / 第 1 稿",
+        "count": "12 页，等下一次续写"
+      }
+    }
+  ],
+  "consoleErrors": [],
+  "final_images": [
+    "未完星笺.png",
+    "保存一页.png",
+    "手稿匣长标题320px.png"
+  ],
+  "matrix_combinations": 42,
+  "panel_views": 84
+}

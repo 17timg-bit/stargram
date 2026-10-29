@@ -823,6 +823,100 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
   .phrase-desk { padding:11px; }
 }
 
+/* A drawer of unfinished leaves, with its own scroll area and no covering bar. */
+.library-actions { flex-wrap:wrap; }
+.library-actions>.shelf-button { min-width:155px; }
+.manuscript-keep { margin-top:16px; padding-top:13px; border-top:1px dashed var(--border); }
+.manuscript-keep>.eyebrow { font-size:7px; letter-spacing:1px; }
+.manuscript-keep p { font:17px var(--serif); margin:7px 0 10px; }
+.manuscript-keep>div { display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center; }
+.manuscript-keep .outline { font-size:10px; padding:9px 10px; }
+.manuscript-keep .text-button { font-size:10px; }
+.manuscript-keep small { display:block; font-size:9px; color:var(--muted); line-height:1.8; margin-top:9px; }
+.draft-dialog { width:1060px; height:min(900px,92svh); max-height:92svh; padding:0; overflow:hidden; }
+.draft-dialog[open] { display:flex; flex-direction:column; }
+.draft-dialog [hidden] { display:none!important; }
+.draft-dialog>.dialog-close { z-index:6; background:var(--paper); }
+.draft-head { padding:25px 30px 0; flex-shrink:0; border-bottom:1px solid var(--border); }
+.draft-head .eyebrow { color:var(--orange); font-size:9px; }
+.draft-head h2 { font-size:34px; margin:11px 0 7px; }
+.draft-head>p { color:var(--muted); font-size:11px; line-height:1.9; }
+.draft-tabs { display:flex; gap:22px; margin-top:16px; }
+.draft-tabs button { padding:11px 0; font-size:11px; border-bottom:3px solid transparent; }
+.draft-tabs [aria-pressed=true] { color:var(--orange); border-bottom-color:var(--orange); }
+.draft-tabs span { font:9px var(--mono); margin-left:9px; color:var(--muted); }
+.draft-scroll { flex:1; min-height:0; overflow:auto; padding:22px 30px; scroll-padding-block:16px; scrollbar-width:thin; scrollbar-color:var(--border) transparent; }
+.draft-toolbar { display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; align-items:center; margin-bottom:16px; font-size:10px; color:var(--muted); }
+.draft-toolbar button { font-size:10px; }
+.draft-layout { display:grid; grid-template-columns:minmax(220px,.8fr) minmax(0,1.2fr); gap:24px; align-items:start; }
+.draft-list { display:flex; flex-direction:column; gap:12px; min-width:0; max-height:calc(92svh - 280px); overflow:auto; padding:1px 5px 5px 1px; scrollbar-width:thin; scrollbar-color:var(--border) transparent; }
+.draft-leaf { position:relative; width:100%; display:block; min-width:0; text-align:left; padding:18px 18px 15px 42px; border:1px solid var(--border); background:var(--card); box-shadow:3px 3px var(--shadow); }
+.draft-leaf::after { content:""; position:absolute; left:25px; top:0; bottom:0; border-left:1px dashed var(--line); }
+.draft-leaf.selected { border-color:var(--orange); background:var(--accent-wash); }
+.draft-leaf:hover { background:var(--selected); }
+.draft-leaf-number { position:absolute; left:8px; top:20px; font:8px var(--mono); color:var(--orange); }
+.draft-leaf strong { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; word-break:break-word; font:400 20px/1.5 var(--serif); }
+.draft-leaf-meta { display:block; margin-top:10px; color:var(--muted); font-size:10px; }
+.draft-leaf small { display:block; margin-top:9px; color:var(--muted); font:8px var(--mono); }
+.draft-detail { min-width:0; padding:22px; background:var(--wash); border:1px solid var(--border); }
+.draft-detail h3,.draft-save-copy h3 { font:400 27px/1.55 var(--serif); margin:10px 0; overflow-wrap:anywhere; }
+.draft-origin { font-size:10px; color:var(--muted); overflow-wrap:anywhere; }
+.draft-context { font:9px/1.9 var(--mono); color:var(--muted); margin:7px 0 18px; }
+.draft-strip { position:relative; margin:12px 0; padding-top:7px; border-top:1px solid var(--line); }
+.draft-strip-label { font:9px var(--mono); color:var(--muted); }
+.draft-strip svg { display:block; width:100%; height:78px; }
+.draft-tick { stroke:var(--muted); stroke-width:1; opacity:.6; }
+.draft-contour { stroke:var(--orange); stroke-width:1; fill:none; opacity:.6; }
+.draft-star { fill:var(--orange); stroke:var(--wash); stroke-width:1; }
+.draft-strip.original-strip .draft-star { fill:var(--wash); stroke:var(--ink); }
+.draft-silence { position:absolute; right:0; top:7px; color:var(--muted); font-size:9px; }
+.draft-return-note { font-size:10px; line-height:1.9; color:var(--muted); padding:10px 0; border-top:1px solid var(--line); }
+.draft-detail .primary { font-size:12px; padding:13px 9px; margin-top:10px; }
+.draft-detail-tools { display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-top:16px; }
+.draft-detail-tools button { font-size:10px; }
+.draft-waiting { min-height:300px; display:grid; place-items:center; font:18px/1.9 var(--serif); color:var(--muted); text-align:center; padding:25px; }
+.draft-empty { padding:28px 15px; text-align:center; border:1px dashed var(--border); color:var(--muted); }
+.draft-empty>span { font:44px var(--serif); color:var(--orange); }
+.draft-empty h3 { font:22px var(--serif); margin:12px 0; }
+.draft-empty p { font-size:11px; line-height:1.9; }
+.draft-undo { display:flex; align-items:center; justify-content:space-between; gap:10px; border:1px dashed var(--orange); padding:12px; margin:0 0 16px; color:var(--orange); font-size:10px; }
+.draft-foot { flex-shrink:0; border-top:1px solid var(--border); padding:13px 30px; font-size:10px; line-height:1.9; color:var(--muted); background:var(--paper); }
+.draft-foot p { min-height:19px; }
+.draft-save-pane:not([hidden]) { display:grid; grid-template-columns:1fr 1fr; gap:30px; }
+.draft-save-copy { min-width:0; }
+.draft-save-copy>p { font-size:11px; line-height:1.9; color:var(--muted); margin:10px 0 20px; }
+.draft-save-copy>.eyebrow { font-size:8px; color:var(--orange); }
+.draft-save-copy>h3 { font-size:29px; margin-top:12px; }
+#draftSaveForm { min-width:0; padding:20px; border:1px solid var(--border); background:var(--wash); align-self:start; }
+#draftSaveForm label { display:block; font:22px var(--serif); margin-bottom:14px; }
+#draftSaveForm input { width:100%; }
+#draftSaveForm p { font-size:11px; color:var(--muted); line-height:1.9; margin:15px 0 20px; }
+.draft-save-actions { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+.draft-save-actions button { font-size:11px; padding:12px; }
+.draft-save-actions .text-button { width:100%; text-align:left; margin-top:6px; padding-left:0; }
+@media (max-height:850px) { .draft-detail,.loom-paper { position:static; } }
+@media (max-width:800px) {
+  .draft-head { padding:22px 18px 0; }
+  .draft-head h2 { font-size:27px; padding-right:10px; }
+  .draft-scroll { padding:18px; }
+  .draft-layout,.draft-save-pane:not([hidden]) { grid-template-columns:1fr; gap:22px; }
+  .draft-detail { position:static; padding:17px; }
+  .draft-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); max-height:240px; }
+  .draft-leaf { padding:14px 10px 14px 30px; }
+  .draft-leaf strong { font-size:18px; }
+  .draft-leaf::after { left:23px; }
+  .draft-empty { grid-column:1/-1; }
+  .draft-foot { padding:11px 18px; }
+}
+@media (max-width:440px) {
+  .draft-list { grid-template-columns:1fr; }
+  .draft-head h2 { font-size:23px; }
+  .draft-head>p { font-size:10px; }
+  .draft-head .eyebrow { font-size:7px; }
+  .draft-tabs { gap:16px; margin-top:11px; }
+  .draft-tabs button { font-size:10px; }
+}
+
 </style>
 </head>
 <body>
@@ -833,7 +927,7 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
   </header>
   <section class="studio-intro" aria-label="星际唱片室">
     <div><div class="eyebrow">SOUNDS OF A SMALL UNIVERSE</div><h1>让偶然，<span>成为旋律。</span><i aria-hidden="true">✳</i></h1></div>
-    <div class="studio-note"><p>把一颗星放上轨道。<br>下一次相遇，就有了声音。</p><div class="edition">VOL. 011 / PHRASE CUTOUTS <b>v1.10</b></div></div>
+    <div class="studio-note"><p>把一颗星放上轨道。<br>下一次相遇，就有了声音。</p><div class="edition">VOL. 012 / UNFINISHED LETTERS <b>v1.11</b></div></div>
   </section>
   <main class="workspace">
     <section class="observatory" aria-label="互动星图">
@@ -872,7 +966,7 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
         <button class="preset" data-preset="tide"><span class="preset-art tide" aria-hidden="true"><svg viewBox="0 0 100 100"><path fill="#b8d2cb" d="M0 0h100v100H0z"/><circle cx="70" cy="26" r="15" fill="#f1e7cb"/><path d="M-10 62Q18 16 46 62T102 62v44H-10" fill="#2e6b67"/><path d="M-10 75Q18 29 46 75T102 75" fill="none" stroke="#81aaa2" stroke-width="2"/><path d="M-10 88Q18 42 46 88T102 88" fill="none" stroke="#c9dbbd" stroke-width="1"/></svg><em>B / 02</em></span><span><small>FLOWING & ALIVE · 104 BPM</small><strong>潮汐来信</strong><span class="preset-caption">让不同的循环相互追逐</span></span><span class="preset-arrow">↗</span></button>
         <button class="preset" data-preset="glass"><span class="preset-art glass" aria-hidden="true"><svg viewBox="0 0 100 100"><path fill="#c8c0d0" d="M0 0h100v100H0z"/><path d="m50 12 34 40-34 38-34-38Z" fill="#74657e"/><path d="m50 12 12 40-12 38-12-38Z" fill="#e8dfcd"/><path d="M16 52h68M33 32h34M33 72h34" stroke="#e8dfcd" fill="none" stroke-width="1"/><circle cx="82" cy="17" r="3" fill="#f1e7cb"/></svg><em>C / 03</em></span><span><small>AIRY & SLOW · 72 BPM</small><strong>夜航的玻璃船</strong><span class="preset-caption">留一段轻轻悬浮的余音</span></span><span class="preset-arrow">↗</span></button>
       </div>
-      <div class="library-actions"><div class="wander-launch"><button id="randomBtn" class="random-button"><span>✳</span> 偶遇一片新星空 <span>↗</span></button><p id="randomStatus" class="wander-status" role="status">轨道、速度、调性与回响一起生成</p><small class="wander-volume">主音量与外观由你保留 · 可撤销</small></div><button id="shelfBtn" class="shelf-button"><span>▤</span><span>我的星图书架<small id="shelfCount">0 张本地收藏</small></span><span>↗</span></button></div>
+      <div class="library-actions"><div class="wander-launch"><button id="randomBtn" class="random-button"><span>✳</span> 偶遇一片新星空 <span>↗</span></button><p id="randomStatus" class="wander-status" role="status">轨道、速度、调性与回响一起生成</p><small class="wander-volume">主音量与外观由你保留 · 可撤销</small></div><button id="shelfBtn" class="shelf-button"><span>▤</span><span>我的星图书架<small id="shelfCount">0 张本地收藏</small></span><span>↗</span></button><button id="draftsBtn" class="shelf-button draft-launch"><span>▱</span><span>未完星笺 · 手稿匣<small id="draftCount">0 页，等下一次续写</small></span><span>↗</span></button></div>
       <details class="field-notes"><summary>观测手记 <span id="discoveryCount">0 / 3</span><i>＋</i></summary><div class="discoveries"><div class="discovery" data-discovery="plant"><span>01</span> 亲手点亮一颗星星 <b>○</b></div><div class="discovery" data-discovery="orbit"><span>02</span> 改变一次轨道周期 <b>○</b></div><div class="discovery" data-discovery="listen"><span>03</span> 听见三十二次相遇 <b>○</b></div></div><p id="discoveryMessage">不必懂乐理，只需要一点好奇心。</p></details>
     </aside>
   </main>
@@ -911,6 +1005,7 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
         <canvas id="loomCanvas" width="720" height="720" aria-label="织星草稿预览，内圈音低，外圈音高"></canvas>
         <div class="loom-paper-caption"><span>内圈音低，外圈音高</span><span id="loomDraftMeta">5 颗星 / 16 格</span></div>
         <div id="loomPhrase" class="loom-phrase" aria-label="草稿的音符序列"></div>
+        <div class="manuscript-keep"><span class="eyebrow">A LETTER FOR TOMORROW</span><p>写到一半，也可以先留下。</p><div><button id="manuscriptSave" class="outline">存一页手稿 ↗</button><button id="manuscriptVault" class="text-button">打开手稿匣</button></div><small id="manuscriptKeepStatus">存入手稿匣后，刷新也能取回。</small></div>
       </section>
       <div class="loom-workspace">
         <section class="manuscript-sheet" aria-label="编辑旋律手稿">
@@ -950,11 +1045,26 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
       </div>
     </div>
     </div>
-    <div class="loom-footer"><p>关闭后可在本次页面继续手稿；刷新或换星图会结束暂存。<br>种回这条轨道后才保存到作品，仍可一次撤销。</p><button id="loomApply" class="primary">把手稿种回这条轨道 <span>↗</span></button></div>
+    <div class="loom-footer"><p>刷新前，可先「存一页手稿」留到下次。<br>种回这条轨道才改变作品，仍可一次撤销。</p><button id="loomApply" class="primary">把手稿种回这条轨道 <span>↗</span></button></div>
+  </dialog>
+  <dialog id="draftDialog" class="draft-dialog" aria-labelledby="draftTitle">
+    <button class="dialog-close" data-close aria-label="关闭手稿匣">×</button>
+    <header class="draft-head"><div class="eyebrow">UNFINISHED LETTERS / 未完星笺</div><h2 id="draftTitle">留给下一次相遇的你。</h2><p>原轨、手稿，以及它出发的那片星空，一起留在这里。</p><div class="draft-tabs" role="group" aria-label="手稿匣操作"><button id="draftBrowseTab" aria-pressed="true">翻开手稿匣 <span id="draftTotal">0 / 12</span></button><button id="draftSaveTab" aria-pressed="false">存当前手稿</button></div></header>
+    <div class="draft-scroll">
+      <section id="draftSavePane" class="draft-save-pane" hidden>
+        <div class="draft-save-copy"><span class="eyebrow">ONE PAGE, STILL BECOMING</span><h3>还没写完，也值得保存。</h3><p id="draftSaveSummary"></p><div id="draftSavePreview"></div></div>
+        <form id="draftSaveForm"><label for="draftName">给这一页取个名字</label><input id="draftName" type="text" maxlength="60" required autocomplete="off"><p>保存稿面和原星图，不保存选区、撤回历史或试听。工作台保持原样。</p><div class="draft-save-actions"><button id="draftSaveSubmit" class="primary" type="submit">存进手稿匣</button><button id="draftSaveAs" class="outline" type="button" hidden>另存一页</button><button id="draftSaveFile" class="text-button" type="button">另存手稿文件 ↓</button></div></form>
+      </section>
+      <section id="draftBrowsePane">
+        <div class="draft-toolbar"><span id="draftSummary">12页以内的小小抽屉</span><button id="draftImport" class="text-button">读入手稿文件 ↗</button><input id="draftImportFile" type="file" accept=".json,application/json" hidden></div>
+        <div id="draftUndo" class="draft-undo" hidden><span>刚才移出的一页，还可以回来。</span><button id="draftRestore" class="text-button">撤销移出</button></div>
+        <div class="draft-layout"><div id="draftList" class="draft-list" aria-label="已保存的手稿"></div><section id="draftDetail" class="draft-detail" aria-label="手稿预览"><div id="draftPreview"></div><div id="draftDetailActions" hidden><p class="draft-return-note">取回会把工作台换成原星图，再打开手稿，主星图可一次撤销。当前未入匣的页面手稿会结束。主音量和外观保留，不自动播放。</p><button id="draftTake" class="primary wide">取回原星图，继续写 ↗</button><button id="draftImportSave" class="primary wide" hidden>把这页收入手稿匣</button><div class="draft-detail-tools"><button id="draftExport" class="text-button">另存手稿文件 ↓</button><button id="draftRemove" class="text-button">移出这一页</button></div></div></section></div>
+      </section>
+    </div><footer class="draft-foot"><p id="draftStatus" role="status" aria-live="polite">只留在此浏览器。重要的一页，也可以另存手稿文件带走。</p></footer>
   </dialog>
   <dialog id="renameDialog"><button class="dialog-close" data-close aria-label="关闭命名">×</button><div class="eyebrow">NAME THIS LITTLE UNIVERSE</div><h2>给这片星空一个名字。</h2><form id="renameForm"><label class="control-label" for="titleInput">星图名称 <span>最多 60 字</span></label><input id="titleInput" type="text" maxlength="60" required autocomplete="off"><button class="primary wide" type="submit">保存名字</button></form></dialog>
   <dialog id="shelfDialog" class="shelf-dialog"><button class="dialog-close" data-close aria-label="关闭星图书架">×</button><div class="eyebrow">YOUR PRIVATE PRESSING / 24 RECORDS</div><h2>把喜欢的偶然，收进书架。</h2><p class="dialog-intro">每一张都是独立快照。随时回来看，继续拨动它的星星。</p><form id="shelfForm" class="shelf-save"><label for="shelfTitle" class="control-label">这次相遇的名字</label><div><input id="shelfTitle" type="text" maxlength="60" required autocomplete="off"><button class="primary" type="submit">收藏当前星图</button></div></form><div class="shelf-meta"><span id="shelfSummary">0 / 24 张星图</span><span>仅保存在此浏览器 · 可另存 JSON</span></div><div id="shelfFeedback" class="shelf-feedback" role="status" aria-live="polite"></div><div id="shelfUndo" class="shelf-undo" hidden><span>一张星图已移出书架</span><button id="restoreShelfBtn" class="text-button">撤销移除</button></div><div id="shelfGrid" class="shelf-grid"></div></dialog>
-  <dialog id="helpDialog"><button class="dialog-close" data-close aria-label="关闭玩法">×</button><div class="eyebrow">A SMALL GUIDE TO YOUR UNIVERSE</div><h2>这片星空，由你来调音。</h2><p class="dialog-intro">每一圈都是一条旋律。彗星与星星相遇，声音就会发生。</p><ol class="guide"><li><b>先听，再动手。</b>点击播放，或者按空格。选一张喜欢的星图作起点。</li><li><b>把音符种在轨道上。</b>点击空位添加，再点一次删除。拖到另一个位置改变时机，拖到另一圈改变音色。右击星星可升高音高。切到「调音」可选中星星改音高、轻重；Shift+点击可快速改变力度。也可以打开「织星台」，从当前轨道抄下一张星谱纸，点格子改音高与轻重，用 A/B 分别听原轨与手稿。想找新旋律时，展开「织一个新念头」，再按「织出候选」；喜欢后种回本轨。关窗可在本次页面接着写，刷新会结束手稿暂存。</li><li><b>让循环错开。</b>选中一条轨道，把一圈从 16 格改成 12 格。相同音符会在下一圈遇到不同的伙伴。</li><li><b>留下属于你的偶然。</b>给星图命名，收藏进自己的星图书架；也可以导出 WAV、MIDI 和保留全部设置的星图文件。</li></ol><div class="shortcut-row"><span><kbd>Space</kbd> 播放</span><span><kbd>Ctrl Z</kbd> 撤销</span><span><kbd>Ctrl Shift Z</kbd> 重做</span><span><kbd>1–5</kbd> 选轨</span><span><kbd>?</kbd> 玩法</span></div><p class="fine-print">完全离线 · 无账号 · 无上传 · 所有声音在本机合成<br>切到其他标签页会自动暂停。浏览器首次播放需要你点击一下。</p><button class="primary wide" data-close>知道了，去种星星</button></dialog>
+  <dialog id="helpDialog"><button class="dialog-close" data-close aria-label="关闭玩法">×</button><div class="eyebrow">A SMALL GUIDE TO YOUR UNIVERSE</div><h2>这片星空，由你来调音。</h2><p class="dialog-intro">每一圈都是一条旋律。彗星与星星相遇，声音就会发生。</p><ol class="guide"><li><b>先听，再动手。</b>点击播放，或者按空格。选一张喜欢的星图作起点。</li><li><b>把音符种在轨道上。</b>点击空位添加，再点一次删除。拖到另一个位置改变时机，拖到另一圈改变音色。右击星星可升高音高。切到「调音」可选中星星改音高、轻重；Shift+点击可快速改变力度。也可以打开「织星台」，从当前轨道抄下一张星谱纸，点格子改音高与轻重，用 A/B 分别听原轨与手稿。想找新旋律时，展开「织一个新念头」，再按「织出候选」；喜欢后种回本轨。关窗可在本次页面接着写；存入“未完星笺”后，刷新也能取回。</li><li><b>让循环错开。</b>选中一条轨道，把一圈从 16 格改成 12 格。相同音符会在下一圈遇到不同的伙伴。</li><li><b>留下属于你的偶然。</b>给星图命名，收藏进自己的星图书架；也可以导出 WAV、MIDI 和保留全部设置的星图文件。</li></ol><div class="shortcut-row"><span><kbd>Space</kbd> 播放</span><span><kbd>Ctrl Z</kbd> 撤销</span><span><kbd>Ctrl Shift Z</kbd> 重做</span><span><kbd>1–5</kbd> 选轨</span><span><kbd>?</kbd> 玩法</span></div><p class="fine-print">完全离线 · 无账号 · 无上传 · 所有声音在本机合成<br>切到其他标签页会自动暂停。浏览器首次播放需要你点击一下。</p><button class="primary wide" data-close>知道了，去种星星</button></dialog>
   <dialog id="exportDialog"><button class="dialog-close" data-close aria-label="关闭导出">×</button><div class="eyebrow">THE TAKEAWAY COUNTER / 留下这一刻</div><h2>把这次相遇带走。</h2><p class="dialog-intro">音乐从第一格开始导出；星图保留你现在的全部编排。</p><div class="letter-entry"><div><span class="eyebrow">INTERSTELLAR POST</span><strong>把你的星空，寄给某个人。</strong></div><button id="letterSendBtn" class="primary">寄出当前星图 ↗</button><button id="letterReadBtn" class="outline">读一封来信</button></div><div class="export-options"><button id="wavBtn"><span class="export-icon">WAV</span><span><strong>一段音乐</strong><small>WAV · 8 小节 + 混响尾音 · 44.1 kHz 立体声</small></span><b>↓</b></button><button id="midiBtn"><span class="export-icon">MIDI</span><span><strong>继续编曲</strong><small>MIDI · 五条独立音轨 · 含速度信息</small></span><b>↓</b></button><button id="jsonBtn"><span class="export-icon">MAP</span><span><strong>保存这张星图</strong><small>STARGRAM v2 · 保留音符力度、独奏与分轨音量</small></span><b>↓</b></button><button id="posterExportBtn"><span class="export-icon">PNG</span><span><strong>一张封面</strong><small>明信片 · 1600 × 1200 · 当前星图</small></span><b>↓</b></button></div><div class="import-row"><span>有一张以前保存的星图？</span><button id="importBtn" class="outline">导入星图 ↗</button><input type="file" id="importInput" accept=".json,application/json" hidden></div><p id="exportStatus" class="fine-print" aria-live="polite">文件由浏览器保存到下载位置。MIDI 音色由播放软件决定。</p></dialog>
   <dialog id="letterDialog" class="letter-dialog" aria-labelledby="letterTitle">
     <button class="dialog-close" data-close aria-label="关闭星际来信">×</button>
@@ -1590,6 +1700,172 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
   root.OrbitScorePaper=Object.freeze({create});
 })(globalThis);
 
+/* Explicit, bounded manuscript snapshots. No implicit replacement or eviction. */
+(function(root,factory){
+  const api=factory(typeof module==='object'&&module.exports?require('./core'):root.OrbitCore);
+  if(typeof module==='object'&&module.exports)module.exports=api;else root.OrbitDrafts=api;
+})(globalThis,function(C){
+  'use strict';
+  const KEY='stargram.drafts.v1',LIMIT=12,MAX_BYTES=200000,FILE_LIMIT=50000;
+  function content(raw){
+    if(!raw||typeof raw.title!=='string'||!raw.title.trim()||raw.title.length>60||!Number.isInteger(raw.index)||raw.index<0||raw.index>4)throw new Error('这页手稿的格式无效。');
+    const base=C.validate(raw.base),holder=C.clone(base);holder.tracks[raw.index]=raw.draft;
+    const draft=C.validate(holder).tracks[raw.index],original=base.tracks[raw.index];
+    for(const key of ['gain','muted','solo'])if(draft[key]!==original[key])throw new Error('手稿与原轨的混音不一致。');
+    return {title:raw.title.trim(),base,index:raw.index,draft};
+  }
+  function validate(raw){
+    if(!raw||raw.version!==1||!Array.isArray(raw.entries)||raw.entries.length>LIMIT)throw new Error('手稿匣格式无效。');
+    const ids=new Set();return raw.entries.map(e=>{
+      if(!e||typeof e.id!=='string'||!/^draft-[a-zA-Z0-9-]{1,60}$/.test(e.id)||ids.has(e.id)||!Number.isSafeInteger(e.revision)||e.revision<1||!Number.isSafeInteger(e.created)||e.created<0||!Number.isSafeInteger(e.updated)||e.updated<e.created)throw new Error('手稿匣格式无效。');
+      ids.add(e.id);return {id:e.id,revision:e.revision,created:e.created,updated:e.updated,...content(e)};
+    });
+  }
+  // Master volume belongs to the listener; retrieval retains their current level.
+  const signature=raw=>{const data=content(raw);data.base.volume=0;return JSON.stringify(data);};
+  function encode(raw){return JSON.stringify({format:'stargram-draft',version:1,...content(raw)},null,2);}
+  function decode(text){
+    if(typeof text!=='string'||text.length>FILE_LIMIT)throw new Error('手稿文件太大或不是文本。');
+    let raw;try{raw=JSON.parse(text);}catch{throw new Error('无法读懂这份手稿文件。');}
+    if(raw?.format!=='stargram-draft'||raw.version!==1)throw new Error('请选择 STARGRAM 手稿文件，不是普通星图。');
+    return content(raw);
+  }
+  class Store{
+    #entries=[];
+    constructor(storage){this.storage=storage;this.readError=false;this.refresh();}
+    get entries(){return C.clone(this.#entries);}
+    get size(){return this.#entries.length;}
+    read(){
+      if(!this.storage)throw new Error('此浏览器无法保存手稿，请另存手稿文件。');
+      try{const raw=this.storage.getItem(KEY);if(raw!==null&&raw.length>MAX_BYTES)throw new Error();const entries=raw===null?[]:validate(JSON.parse(raw));this.readError=false;return entries;}
+      catch{this.readError=true;throw new Error('手稿匣读取失败，原始数据已保留。可以先另存手稿文件。');}
+    }
+    refresh(){try{this.#entries=this.read();this.readError=false;return true;}catch{return false;}}
+    commit(entries){
+      const safe=validate({version:1,entries}),text=JSON.stringify({version:1,entries:safe});
+      if(text.length>MAX_BYTES)throw new Error('手稿匣容量不足，请另存手稿文件。');
+      try{this.storage.setItem(KEY,text);}catch{throw new Error('这次没有保存成功，可能是浏览器空间已满。稿面还在，可以另存文件。');}
+      this.#entries=safe;this.readError=false;
+    }
+    save(raw,target=null){
+      const data=content(raw),entries=this.read(),now=Date.now();let entry;
+      if(target){
+        const i=entries.findIndex(e=>e.id===target.id);
+        if(i<0||entries[i].revision!==target.revision)throw new Error('这页手稿已被其他窗口更新或移出。请另存一份，或回匣中重新查看。');
+        if(signature(entries[i])===signature(data)){this.#entries=entries;return {entry:C.clone(entries[i]),duplicate:true};}
+        entry={...entries[i],...data,revision:entries[i].revision+1,updated:Math.max(now,entries[i].updated)};entries.splice(i,1);entries.unshift(entry);
+      }else{
+        const same=entries.find(e=>signature(e)===signature(data));
+        if(same){this.#entries=entries;return {entry:C.clone(same),duplicate:true};}
+        if(entries.length>=LIMIT)throw new Error('手稿匣已放满12页。请另存文件，或先移出一页；不会挤掉旧手稿。');
+        let id;do{id='draft-'+now.toString(36)+'-'+Math.random().toString(36).slice(2,12);}while(entries.some(e=>e.id===id));
+        entry={id,revision:1,created:now,updated:now,...data};entries.unshift(entry);
+      }
+      this.commit(entries);return {entry:C.clone(entry),duplicate:false};
+    }
+    load(id,revision){const entries=this.read(),entry=entries.find(e=>e.id===id);if(!entry||revision!==undefined&&entry.revision!==revision)throw new Error('这页手稿已改变，请回匣中重新查看。');this.#entries=entries;return C.clone(entry);}
+    remove(id,revision){
+      const entries=this.read(),index=entries.findIndex(e=>e.id===id);if(index<0)return null;
+      if(entries[index].revision!==revision)throw new Error('这页手稿已被更新，请重新查看后再移出。');
+      const removed={entry:C.clone(entries[index]),index};entries.splice(index,1);this.commit(entries);return removed;
+    }
+    restore(removed){
+      if(!removed)return;const entries=this.read(),entry=validate({version:1,entries:[removed.entry]})[0];
+      if(entries.some(e=>e.id===entry.id))throw new Error('这页手稿已经在匣中。');
+      if(entries.length>=LIMIT)throw new Error('手稿匣已满，暂时无法撤销移出。');
+      entries.splice(Math.min(Math.max(0,removed.index),entries.length),0,entry);this.commit(entries);
+    }
+  }
+  return {KEY,LIMIT,FILE_LIMIT,Store,content,validate,signature,encode,decode};
+});
+
+/* A small drawer for explicit, portable manuscripts; browsing never restores. */
+(function(root){
+  'use strict';
+  function create({store,getCurrent,onOpen,onSaved,onTake,download,onCount}){
+    const D=OrbitDrafts,C=OrbitCore,$=id=>document.getElementById(id),dialog=$('draftDialog');
+    let pending=null,chosen=null,imported=false,removed=null,token=0;
+    const node=(tag,className,text)=>{const n=document.createElement(tag);if(className)n.className=className;if(text!==undefined)n.textContent=text;return n;};
+    function status(text){$('draftStatus').textContent=text;}
+    function strip(track,label){
+      const box=node('div','draft-strip'),caption=node('div','draft-strip-label',label+' / '+track.length+' 格'),svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+      if(label==='A 原轨')box.classList.add('original-strip');
+      svg.setAttribute('viewBox','0 0 360 78');svg.setAttribute('aria-hidden','true');
+      const shape=(tag,attrs)=>{const e=document.createElementNS(svg.namespaceURI,tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,String(v));return e;};
+      const points=[];
+      for(let tick=0;tick<track.length;tick++){
+        const note=OrbitManuscript.heard(track,tick),x=14+tick*332/(track.length-1);
+        svg.append(shape('line',{x1:x,x2:x,y1:65,y2:68,class:'draft-tick'}));
+        if(note.pitch>=0)points.push({x,y:52-note.pitch*4.4,note});
+      }
+      if(points.length>1)svg.append(shape('polyline',{points:points.map(p=>p.x+','+p.y).join(' '),class:'draft-contour'}));
+      for(const p of points)svg.append(shape('circle',{cx:p.x,cy:p.y,r:p.note.accent>1?4.3:p.note.accent<1?2.2:3.3,class:'draft-star'}));
+      if(!points.length)box.append(node('span','draft-silence','这一圈，暂时留白。'));
+      box.append(caption,svg);return box;
+    }
+    function preview(data,target){
+      target.replaceChildren(node('div','eyebrow','0'+(data.index+1)+' / '+C.ROLES[data.index].name),node('h3','',data.title));
+      target.append(node('p','draft-origin','出自「'+data.base.title+'」'),node('p','draft-context',data.base.bpm+' BPM · '+C.SCALES[data.base.scale].label+' · '+Math.round(data.base.space*100)+'% 回响'));
+      target.append(strip(data.base.tracks[data.index],'A 原轨'),strip(data.draft,'B 手稿'));
+    }
+    function counts(){onCount?.(store.size);$('draftTotal').textContent=store.size+' / '+D.LIMIT;$('draftSummary').textContent=store.readError?'原始数据保留中，暂时不能写入':store.size+' / '+D.LIMIT+' 页 · 各自保留原星图';}
+    function renderList(){
+      counts();const list=$('draftList'),scrollTop=list.scrollTop;list.replaceChildren();
+      for(const [index,e] of store.entries.entries()){
+        const b=node('button','draft-leaf'+(chosen?.id===e.id?' selected':''));b.type='button';b.dataset.draftId=e.id;b.setAttribute('aria-pressed',String(chosen?.id===e.id));
+        b.append(node('span','draft-leaf-number',String(index+1).padStart(2,'0')),node('strong','',e.title),node('span','draft-leaf-meta',C.ROLES[e.index].name+' · '+e.draft.length+' 格 · '+e.base.bpm+' BPM'),node('small','',new Date(e.updated).toLocaleString('zh-CN',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'})+' / 第 '+e.revision+' 稿'));
+        b.onclick=()=>{try{chosen=store.load(e.id,e.revision);imported=false;renderList();renderDetail();status('先看看这一页。只有按下“取回”才改变工作台。');}catch(error){status(error.message);refresh();}};list.append(b);
+      }
+      if(!store.size){const empty=node('div','draft-empty');empty.append(node('span','','▱'),node('h3','','未完，也是一种抵达。'),node('p','','在织星台存一页手稿，下次再从这里续写。'));list.append(empty);}
+      $('draftUndo').hidden=!removed;
+      list.scrollTop=scrollTop;
+    }
+    function renderDetail(){
+      $('draftDetailActions').hidden=!chosen;
+      if(!chosen){$('draftPreview').replaceChildren(node('div','draft-waiting','从左边翻开一页，或读入一份手稿文件。'));return;}
+      preview(chosen,$('draftPreview'));
+      $('draftTake').hidden=imported;$('draftImportSave').hidden=!imported;$('draftRemove').hidden=imported;
+      $('draftDetail').classList.toggle('import-preview',imported);
+    }
+    function refresh(){store.refresh();renderList();if(store.readError)status('手稿匣暂时无法读取。原始数据没有被覆盖，可先另存当前手稿文件。');}
+    function mode(save){
+      $('draftSavePane').hidden=!save;$('draftBrowsePane').hidden=save;
+      $('draftBrowseTab').setAttribute('aria-pressed',String(!save));$('draftSaveTab').setAttribute('aria-pressed',String(save));
+      if(save){
+        pending=getCurrent();if(!pending){mode(false);return;}
+        $('draftName').value=pending.payload.title;$('draftName').setCustomValidity('');
+        $('draftSaveSubmit').textContent=pending.target?'更新这份手稿':'存进手稿匣';$('draftSaveAs').hidden=!pending.target;
+        $('draftSaveSummary').textContent='保存「'+C.ROLES[pending.payload.index].name+'」的当前稿面，连同原星图一起。';preview(pending.payload,$('draftSavePreview'));
+        status('没有自动保存进匣；按下保存后，才留下这一份。');
+      }else{refresh();renderDetail();status(store.readError?'手稿匣读取失败，原始数据仍保留。':'只留在此浏览器。重要的一页，也可以另存手稿文件带走。');}
+    }
+    function open(save=false){token++;onOpen();chosen=null;imported=false;$('draftSaveTab').disabled=!getCurrent();mode(save);dialog.showModal();}
+    function formData(){const title=$('draftName').value.trim();if(!title){$('draftName').setCustomValidity('给这一页取个名字吧。');$('draftName').reportValidity();return null;}return D.content({...pending.payload,title});}
+    function save(asNew=false){
+      if(!pending)return;const data=formData();if(!data)return;
+      try{const result=store.save(data,asNew?null:pending.target);onSaved(result.entry,pending.doc,data);pending={...pending,payload:data,target:{id:result.entry.id,revision:result.entry.revision}};chosen=result.entry;imported=false;counts();$('draftSaveSubmit').textContent='更新这份手稿';$('draftSaveAs').hidden=false;status(result.duplicate?'这一稿已经在匣中，不重复占位置。':'已存进手稿匣。刷新或换星图后，仍可以从这里取回。');}
+      catch(error){status(error.message);}
+    }
+    $('draftSaveForm').onsubmit=e=>{e.preventDefault();save();};$('draftSaveAs').onclick=()=>save(true);$('draftName').oninput=()=>$('draftName').setCustomValidity('');
+    $('draftSaveFile').onclick=()=>{try{const data=formData();if(data){download(D.encode(data),data.title);status('手稿文件已交给浏览器下载，包含原星图与稿面。');}}catch(error){status(error.message);}};
+    $('draftBrowseTab').onclick=()=>mode(false);$('draftSaveTab').onclick=()=>mode(true);
+    $('draftTake').onclick=()=>{try{const entry=store.load(chosen.id,chosen.revision);dialog.close();onTake(entry);}catch(error){status(error.message);}};
+    $('draftExport').onclick=()=>{if(!chosen)return;try{download(D.encode(chosen),chosen.title);status('手稿文件已交给浏览器下载。');}catch(error){status(error.message);}};
+    $('draftRemove').onclick=()=>{if(!chosen)return;try{removed=store.remove(chosen.id,chosen.revision);chosen=null;renderList();renderDetail();status('这一页已移出，可撤销刚才的移出。');}catch(error){status(error.message);}};
+    $('draftRestore').onclick=()=>{try{store.restore(removed);chosen=removed.entry;removed=null;renderList();renderDetail();status('刚才移出的这一页回来了。');}catch(error){status(error.message);}};
+    $('draftImport').onclick=()=>$('draftImportFile').click();
+    $('draftImportFile').onchange=async e=>{
+      const file=e.target.files?.[0],current=++token;if(!file)return;chosen=null;imported=false;renderList();renderDetail();
+      try{if(file.size>D.FILE_LIMIT)throw new Error('手稿文件太大，请使用应用导出的单页JSON。');const text=await file.text();if(current!==token||!dialog.open)return;chosen=D.decode(text);imported=true;renderList();renderDetail();status('文件已展开，尚未写入手稿匣，也没有改变工作台。');}
+      catch(error){if(current===token&&dialog.open)status(error.message);}finally{e.target.value='';}
+    };
+    $('draftImportSave').onclick=()=>{try{const result=store.save(chosen);chosen=result.entry;imported=false;renderList();renderDetail();status(result.duplicate?'同一页已经在匣中。':'已收入手稿匣，现在可以取回续写。');}catch(error){status(error.message);}};
+    dialog.addEventListener('close',()=>token++);window.addEventListener('storage',e=>{if(e.key===D.KEY){refresh();if(dialog.open)status('手稿匣在其他窗口发生了变化。取回或更新时会再次核对这一稿。');}});
+    refresh();renderDetail();return {open,refresh};
+  }
+  root.OrbitDraftDesk=Object.freeze({create});
+})(globalThis);
+
 /* SL1 letters: a bounded, lossless musical snapshot carried in the URL fragment. */
 (function(root,factory){
   const api=typeof module==='object'&&module.exports?factory(require('./core'),require('./appearance')):factory(root.OrbitCore,root.AstroAppearance);
@@ -1787,6 +2063,7 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
   let editMode = 'plant', focusNote = null, shelfRemoved = null, immersive = false;
   let shelfStorage = null; try { shelfStorage = localStorage; } catch {}
   const shelf = new OrbitShelf.Store(shelfStorage);
+  const draftStore = new OrbitDrafts.Store(shelfStorage),draftLinks=new WeakMap();
   let discoveries = { plant: false, orbit: false, listen: false }, encounters = 0, stored = false;
   let saveError = false;
   try {
@@ -1891,6 +2168,7 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
       $('steps').append(b);
     });
     $('shelfCount').textContent = `${shelf.entries.length} 张本地收藏`;
+    $('draftCount').textContent = `${draftStore.size} 页，等下一次续写`;
     renderedStep = -1; renderDiscoveries(); updatePlaybackUI();
   }
   function selectTrack(i) { selected = i; focusNote = null; renderUI(); }
@@ -2074,6 +2352,7 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
   };
 
   const manuscriptCache = new OrbitManuscript.DraftCache();
+  const draftSignature=(base,draft)=>{const canonical=C.validate(base);canonical.volume=0;return JSON.stringify({base:canonical,draft});};
   const loom = { original:null, base:null, draft:null, doc:null, index:2, shape:'arc', seed:0, token:0, worker:false, pending:false, source:null, gain:null, nodes:new Set(), start:0, message:'', readout:'', target:'draft', mode:'copy', resumed:false };
   const scorePaper = OrbitScorePaper.create({
     getOriginal:()=>loom.original,getDraft:()=>loom.draft,
@@ -2123,21 +2402,26 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
     $('manuscriptBadge').textContent=!info.changed?'原轨副本':loom.mode==='generated'?'新织候选':loom.mode==='resumed'?'接回手稿':'手写手稿';
     $('manuscriptDiff').textContent=`原轨 ${info.originalCount} → 手稿 ${info.draftCount} 颗 · `+(info.periodChanged?`周期 ${loom.original.length} → ${loom.draft.length} 格`:`${info.changedTicks} 格变化`);
     $('manuscriptUndo').disabled=!loom.doc.canUndo;$('manuscriptRedo').disabled=!loom.doc.canRedo;$('loomApply').disabled=!info.changed;
+    const link=draftLinks.get(loom.doc),same=link?.signature===draftSignature(loom.base,loom.draft);
+    $('manuscriptKeepStatus').textContent=link?(same?'这一稿已入匣；之后的改动记得再保存。':'有未存进匣中的改动，可以保存这份修订。'):'存入手稿匣后，刷新也能取回。';
+    $('manuscriptSave').textContent=link?'保存这份修订 ↗':'存一页手稿 ↗';
     scorePaper.render();renderLoomAudio();drawLoom();
   }
   function changeManuscript(action,mode='written') {
     stopLoomAudition();loom.message='';action();loom.mode=mode;refreshManuscript();
   }
-  $('loomBtn').onclick=()=>{
+  function openManuscript(saved=null){
     engine.pause();engine.cutVoices();engine.update();queue=[];updatePlaybackUI();stopLoomAudition();
     loom.index=selected;loom.base=C.clone(state);const entry=manuscriptCache.open(selected,state.tracks[selected]);
-    loom.doc=entry.doc;loom.original=loom.doc.original;loom.resumed=entry.resumed;loom.mode=entry.resumed?'resumed':'copy';loom.target='draft';
+    loom.doc=entry.doc;if(saved)loom.doc.replace(saved.draft);loom.original=loom.doc.original;loom.resumed=entry.resumed;loom.mode=saved?'archived':entry.resumed?'resumed':'copy';loom.target='draft';
     loom.shape='arc';loom.seed=crypto.getRandomValues(new Uint32Array(1))[0];loom.draft=loom.doc.snapshot();
     $('loomCount').value=Math.max(1,loom.draft.notes.filter(p=>p>=0).length);const pitches=loom.draft.notes.filter(p=>p>=0);
     $('loomRegister').value=pitches.length&&pitches.every(p=>p>=5)?'5':'0';$('loomDynamics').checked=true;$('loomGenerator').open=false;
-    $('manuscriptNotice').textContent=entry.resumed?'已接回这条轨道在本次页面里的手稿。应用前，原轨不变。':'已抄下当前「'+C.ROLES[selected].name+'」轨道。点星谱纸写一点变化，或展开下方织一个新念头。';
+    if(saved)draftLinks.set(loom.doc,{id:saved.id,revision:saved.revision,title:saved.title,signature:draftSignature(loom.base,loom.draft)});
+    $('manuscriptNotice').textContent=saved?'已取回「'+saved.title+'」与原星图。原轨和稿面都在，撤回历史从本次取回开始。':entry.resumed?'已接回这条轨道在本次页面里的手稿。应用前，原轨不变。':'已抄下当前「'+C.ROLES[selected].name+'」轨道。点星谱纸写一点变化，或展开下方织一个新念头。';
     scorePaper.resetSelection();refreshManuscript();$('loomDialog').showModal();drawLoom();
-  };
+  }
+  $('loomBtn').onclick=()=>openManuscript();
   $('loomLength').onchange=()=>changeManuscript(()=>loom.doc.resize(Number($('loomLength').value)));
   for(const [id,event] of [['loomCount','input'],['loomRegister','change'],['loomDynamics','change']])$(id).addEventListener(event,()=>{stopLoomAudition();generatorControls();});
   document.querySelectorAll('[data-shape]').forEach(b=>b.onclick=()=>{stopLoomAudition();loom.shape=b.dataset.shape;generatorControls();});
@@ -2150,6 +2434,24 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
     if(!loom.doc.summary().changed)return;const index=loom.index,draft=loom.doc.snapshot();stopLoomAudition();manuscriptCache.forget(index);
     edit(()=>{state.tracks[index]=draft;selected=index;focusNote=null;},'已把'+C.ROLES[index].name+'的手稿种回星图 · 可以撤销');$('loomDialog').close();
   };
+  const draftDesk=OrbitDraftDesk.create({
+    store:draftStore,
+    getCurrent:()=>{
+      if(!$('loomDialog').open||!loom.doc)return null;const link=draftLinks.get(loom.doc);
+      return {doc:loom.doc,target:link?{id:link.id,revision:link.revision}:null,payload:{title:link?.title||(loom.base.title+' · '+C.ROLES[loom.index].name).slice(0,60),base:C.clone(loom.base),index:loom.index,draft:loom.doc.snapshot()}};
+    },
+    onOpen:()=>{engine.pause();engine.cutVoices();queue=[];stopLoomAudition();updatePlaybackUI();},
+    onCount:count=>$('draftCount').textContent=count+' 页，等下一次续写',
+    onSaved:(entry,doc,data)=>{draftLinks.set(doc,{id:entry.id,revision:entry.revision,title:entry.title,signature:draftSignature(data.base,data.draft)});if(loom.doc===doc)refreshManuscript();},
+    onTake:entry=>{
+      const next=C.validate(entry.base),volume=state.volume;next.volume=volume;
+      for(const d of document.querySelectorAll('dialog[open]'))d.close();
+      manuscriptCache.reset();engine.pause();engine.cutVoices();engine.reset();queue=[];pulses.clear();particles=[];
+      edit(()=>{state=next;selected=entry.index;focusNote=null;},'已取回原星图 · 主星图可以一次撤销');openManuscript(entry);
+    },
+    download:(text,title)=>download(new Blob([text],{type:'application/json'}),'Stargram_手稿_'+title.replace(/[<>:"/\\|?*\x00-\x1f]/g,'_').slice(0,40)+'.json')
+  });
+  $('manuscriptSave').onclick=()=>draftDesk.open(true);$('manuscriptVault').onclick=()=>draftDesk.open();$('draftsBtn').onclick=()=>draftDesk.open();
   async function auditionManuscript(kind) {
     if((loom.pending||loom.source)&&loom.target===kind){stopLoomAudition();return;}
     if(loom.worker)return;stopLoomAudition();loom.target=kind;
@@ -2482,7 +2784,7 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
   };
   window.addEventListener('beforeunload', persist);
   // Read-only diagnostics for local regression checks; no bypass for UI operations.
-  window.Stargram = Object.freeze({ snapshot: () => C.clone(state), collection: () => C.clone(shelf.entries), loom: () => $('loomDialog').open ? { index: loom.index, original:C.clone(loom.original), draft:C.clone(loom.draft), summary:loom.doc.summary(), resumed:loom.resumed, audition:loom.target, seed:loom.seed } : null, status: () => ({ playing: engine.running, theme, appearance:A.validate(appearance), recipeCode:A.code(appearance), tonearm: armProgress, reducedMotion, geometry: geometry(), phase: engine.phase(), encounters, selected, editMode, focusedNote: focusNote ? { ...focusNote } : null, immersive, saved: !saveError, audioState: engine.ctx?.state || 'uninitialized', activeVoices: engine.voices.size, loomOpen: $('loomDialog').open, loomPreparing: loom.pending, loomPlaying: !!loom.source, loomVoices: loom.nodes.size }), exportWav: OrbitAudio.renderWav });
+  window.Stargram = Object.freeze({ snapshot: () => C.clone(state), collection: () => C.clone(shelf.entries), drafts: () => draftStore.entries, loom: () => $('loomDialog').open ? { index: loom.index, original:C.clone(loom.original), draft:C.clone(loom.draft), summary:loom.doc.summary(), resumed:loom.resumed, audition:loom.target, seed:loom.seed } : null, status: () => ({ playing: engine.running, theme, appearance:A.validate(appearance), recipeCode:A.code(appearance), tonearm: armProgress, reducedMotion, geometry: geometry(), phase: engine.phase(), encounters, selected, editMode, focusedNote: focusNote ? { ...focusNote } : null, immersive, saved: !saveError, audioState: engine.ctx?.state || 'uninitialized', activeVoices: engine.voices.size, loomOpen: $('loomDialog').open, loomPreparing: loom.pending, loomPlaying: !!loom.source, loomVoices: loom.nodes.size }), exportWav: OrbitAudio.renderWav });
   setAppearance(appearance, false);
   darkroom = AstroDarkroom.create({get:()=>appearance,apply:setAppearance,draw:target=>{const c=target.getContext('2d');c.setTransform(.5,0,0,.5,0,0);scene(c,1600,1200,engine.phase(),performance.now(),true);}});
   renderUI(); resize(); requestAnimationFrame(frame);

@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-29",
+  "command": [
+    "node",
+    "--test",
+    "--test-reporter=tap",
+    "tests/core.test.js",
+    "tests/v1.1.test.js",
+    "tests/v1.3.test.js",
+    "tests/v1.6.test.js",
+    "tests/v1.7.test.js",
+    "tests/v1.8.test.js",
+    "tests/v1.9.test.js",
+    "tests/v1.10.test.js",
+    "tests/v1.11.test.js"
+  ],
+  "summary": {
+    "tests": 70,
+    "pass": 70,
+    "fail": 0
+  },
+  "new_draft_cases": 11
+}

@@ -1,0 +1,71 @@
+{
+  "date": "2026-10-29",
+  "version": "1.11.0",
+  "source": "实际界面下载的两份手稿文件，及取回原稿、应用后实际下载的四种作品文件",
+  "portable_files": {
+    "count": 2,
+    "original_and_draft_exact": true,
+    "revised_pitches_preserve_phase_and_accents": true
+  },
+  "retrieved_composition": {
+    "all_source_parameters_and_other_tracks_match": true,
+    "retained_volume": 0.3,
+    "applied_draft_matches_file": true
+  },
+  "wav": {
+    "seconds": 29.866666666666667,
+    "sample_rate": 44100,
+    "channels": 2,
+    "bit_depth": 16,
+    "peak_dbfs": -17.881318129561297,
+    "rms_dbfs": -36.23818879781326,
+    "clipped_samples": 0
+  },
+  "midi": {
+    "tracks": 6,
+    "notes": 40,
+    "pitch_time_velocity_match": true
+  },
+  "png": {
+    "width": 1600,
+    "height": 1200,
+    "chunk_crc_valid": true
+  },
+  "application": {
+    "bytes": 246889,
+    "sha256": "38ed2f0afd5ac0a111e0176742110cf0ee1477faa262b828de5a0f82ef14d9a2",
+    "offline_and_web_identical": true
+  },
+  "files": [
+    {
+      "name": "把这一句留给明天.draft.json",
+      "bytes": 4311,
+      "sha256": "c10a75fdba9f45776edf332c3d87e893175266b90fc04cc489b232656140cbdc"
+    },
+    {
+      "name": "把这一句留给明天_修订稿.draft.json",
+      "bytes": 4310,
+      "sha256": "bf6742f600b30f4bab114299d5d6090374ac4f16060454378c2a668e8a5c5732"
+    },
+    {
+      "name": "未完星笺_续写样片.json",
+      "bytes": 3286,
+      "sha256": "d574888cda5a4bc3d94437cfd92a5129daab9519803e883870b71066becff55d"
+    },
+    {
+      "name": "未完星笺_续写样片.mid",
+      "bytes": 573,
+      "sha256": "61ad8aa708a21cf563b0d90e2b111539857dc3346e0c51c272f6bad39973eeb9"
+    },
+    {
+      "name": "未完星笺_续写样片.png",
+      "bytes": 2111685,
+      "sha256": "8ad6d1dd2116f5c835fdfcb0c89a1ace8f6d0c440bc6627de77e06883f548b56"
+    },
+    {
+      "name": "未完星笺_续写样片.wav",
+      "bytes": 5268524,
+      "sha256": "adb4473d808ed20d61540c681d301758c20efef51ccf5560b47bdaeacedf1c9f"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-29",
+  "test_origin": "http://127.0.0.1:49926/",
+  "browser_test_tab_closed": true,
+  "viewport_override_reset": true,
+  "server_listeners_after_stop": 0,
+  "file_or_public_origin_write_tests": false,
+  "tabbit_fallback": {
+    "initial_page_creation_failed": true,
+    "active_request": null,
+    "queued_requests": 0,
+    "owned_pages": 0,
+    "finish_confirmed": true
+  },
+  "application": {
+    "bytes": 246889,
+    "sha256": "38ed2f0afd5ac0a111e0176742110cf0ee1477faa262b828de5a0f82ef14d9a2",
+    "identical_entries": true,
+    "raw_and_git_filtered_blob_match": true,
+    "git_blob": "6ce765557ac0e32d4fc6857b88c32e5f755f1505"
+  },
+  "git_push_or_deploy": false
+}
