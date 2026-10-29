@@ -1,0 +1,144 @@
+{
+  "date": "2026-10-29",
+  "version": "1.9.0",
+  "samples": [
+    {
+      "style": "玻璃漂流",
+      "bpm": 66,
+      "scale": "glass",
+      "space": 0.76,
+      "periods": [
+        16,
+        24,
+        16,
+        12,
+        20
+      ],
+      "wav": {
+        "seconds": 32.29092970521542,
+        "sample_rate": 44100,
+        "channels": 2,
+        "bit_depth": 16,
+        "peak_dbfs": -8.362463984878904,
+        "rms_dbfs": -29.750929279327515,
+        "clipped_samples": 0
+      },
+      "midi": {
+        "tracks": 6,
+        "notes": 58,
+        "pitch_time_velocity_match": true
+      }
+    },
+    {
+      "style": "近日巡游",
+      "bpm": 108,
+      "scale": "dawn",
+      "space": 0.33,
+      "periods": [
+        16,
+        16,
+        24,
+        12,
+        20
+      ],
+      "wav": {
+        "seconds": 20.977777777777778,
+        "sample_rate": 44100,
+        "channels": 2,
+        "bit_depth": 16,
+        "peak_dbfs": -10.068291516203772,
+        "rms_dbfs": -28.15625314613286,
+        "clipped_samples": 0
+      },
+      "midi": {
+        "tracks": 6,
+        "notes": 92,
+        "pitch_time_velocity_match": true
+      }
+    },
+    {
+      "style": "潮汐回航",
+      "bpm": 72,
+      "scale": "tide",
+      "space": 0.57,
+      "periods": [
+        20,
+        20,
+        12,
+        24,
+        20
+      ],
+      "wav": {
+        "seconds": 29.866666666666667,
+        "sample_rate": 44100,
+        "channels": 2,
+        "bit_depth": 16,
+        "peak_dbfs": -7.677266934398192,
+        "rms_dbfs": -29.020186292213054,
+        "clipped_samples": 0
+      },
+      "midi": {
+        "tracks": 6,
+        "notes": 65,
+        "pitch_time_velocity_match": true
+      }
+    }
+  ],
+  "application": {
+    "bytes": 205401,
+    "sha256": "31f89761ab8f352399cc325949d3ea84919b7847bfe3e00a340f974a468b7916",
+    "offline_and_web_identical": true
+  },
+  "files": [
+    {
+      "name": "样片说明.json",
+      "bytes": 768,
+      "sha256": "9d7ad5af734ad542578a8a63300e7089beb252878161b64a371700fa383ea287"
+    },
+    {
+      "name": "潮汐回航.json",
+      "bytes": 3231,
+      "sha256": "1308a986a786cf8a9df76f29d6ba824375340fd9c91f728c6fb874b836b8634c"
+    },
+    {
+      "name": "潮汐回航.mid",
+      "bytes": 815,
+      "sha256": "2def33dbc4ca823b84f6816362c3cc86646a547b94551a5f7246832fb1cf20c6"
+    },
+    {
+      "name": "潮汐回航.wav",
+      "bytes": 5268524,
+      "sha256": "86aebb98351e3dd1cd1980353a458e8f4a4c4b4d9444297211ac2c50a7ad9bf5"
+    },
+    {
+      "name": "玻璃漂流.json",
+      "bytes": 3040,
+      "sha256": "4e71ae1881bd6e6afbcfff9981e7b676926494d8c8d3787546e3fc5e87334543"
+    },
+    {
+      "name": "玻璃漂流.mid",
+      "bytes": 742,
+      "sha256": "3545a92c739628bebfb83ae74ac6b1d8151e8dafcf806b1e6b760dc040ed562b"
+    },
+    {
+      "name": "玻璃漂流.wav",
+      "bytes": 5696164,
+      "sha256": "a3147e6bee890fbae8955a8123d38cd26f9aaa4ee2adeb90d3eb9ecb9c1ba9d3"
+    },
+    {
+      "name": "近日巡游.json",
+      "bytes": 3044,
+      "sha256": "0ed24a283623a7c6150b6d53f680c11f73bb6506c6135445f9b2358915878ce5"
+    },
+    {
+      "name": "近日巡游.mid",
+      "bytes": 1075,
+      "sha256": "b9be511638589eee370de78ba29c9359a2187e0d96f1924b7137dfa3863d15aa"
+    },
+    {
+      "name": "近日巡游.wav",
+      "bytes": 3700524,
+      "sha256": "6b41c76a8a78c104a5ca322f60e208be3ee674942afe8c49e80e91d5abf21595"
+    }
+  ]
+}

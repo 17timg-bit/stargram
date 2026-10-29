@@ -1,0 +1,50 @@
+[
+  {
+    "style": "玻璃漂流",
+    "seed": 14,
+    "title": "玻璃漂流 · 000000E",
+    "bpm": 66,
+    "scale": "glass",
+    "space": 0.76,
+    "base": "dawn / volume 0.55",
+    "periods": [
+      16,
+      24,
+      16,
+      12,
+      20
+    ]
+  },
+  {
+    "style": "近日巡游",
+    "seed": 1,
+    "title": "近日巡游 · 0000001",
+    "bpm": 108,
+    "scale": "dawn",
+    "space": 0.33,
+    "base": "dawn / volume 0.55",
+    "periods": [
+      16,
+      16,
+      24,
+      12,
+      20
+    ]
+  },
+  {
+    "style": "潮汐回航",
+    "seed": 0,
+    "title": "潮汐回航 · 0000000",
+    "bpm": 72,
+    "scale": "tide",
+    "space": 0.57,
+    "base": "dawn / volume 0.55",
+    "periods": [
+      20,
+      20,
+      12,
+      24,
+      20
+    ]
+  }
+]

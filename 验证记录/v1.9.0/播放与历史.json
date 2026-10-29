@@ -1,0 +1,35 @@
+{
+  "undoRedoReload": true,
+  "whilePlaying": {
+    "bpm": 108,
+    "periods": [
+      16,
+      24,
+      20,
+      20,
+      20
+    ],
+    "playing": "暂停演奏",
+    "scale": "dawn",
+    "sky": "zodiac",
+    "space": 43,
+    "title": "近日巡游 · 0A4SRY1",
+    "volume": 30
+  },
+  "silent": {
+    "bpm": 134,
+    "periods": [
+      24,
+      16,
+      20,
+      20,
+      20
+    ],
+    "playing": "开始演奏",
+    "scale": "dawn",
+    "sky": "zodiac",
+    "space": 22,
+    "title": "近日巡游 · 1BOXG9Q",
+    "volume": 0
+  }
+}

@@ -1,6 +1,7 @@
 """Independently read SL1, the actual received JSON and exported MIDI."""
 from pathlib import Path
 import base64
+import argparse
 import hashlib
 import json
 import math
@@ -40,5 +41,10 @@ for index,t in enumerate(tracks):
 app=(ROOT/'index.html').read_bytes()
 assert app==(ROOT/'打开星轨留声机.html').read_bytes()
 report={'date':'2026-10-29','version':'1.8.0','sample':TITLE,'sl1':{'characters':len(code),'checksum_valid':True,'exact_json_match':True,'recipe':p[6]},'midi':{'tracks':len(midi),'notes':sum(len(t['notes']) for t in midi),'pitch_time_velocity_match':True},'application':{'bytes':len(app),'sha256':hashlib.sha256(app).hexdigest(),'offline_and_web_identical':True},'files':[{'name':f.name,'bytes':f.stat().st_size,'sha256':hashlib.sha256(f.read_bytes()).hexdigest()} for f in sorted(FOLDER.iterdir())]}
-(ROOT/'验证记录'/'v1.8.0'/'产物校验.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n','utf-8',newline='\n')
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--report',type=Path,default=Path('验证记录/v1.8.0/产物校验.json'))
+args=parser.parse_args()
+destination=args.report if args.report.is_absolute() else ROOT/args.report
+destination.parent.mkdir(parents=True,exist_ok=True)
+destination.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n','utf-8',newline='\n')
 print(json.dumps({k:v for k,v in report.items() if k!='files'},ensure_ascii=False,indent=2))

@@ -1,0 +1,30 @@
+{
+  "date":"2026-10-29",
+  "version":"1.9.0",
+  "origin":"http://127.0.0.1:49924",
+  "browser":"Codex in-app browser through CUA",
+  "verified":{
+    "ten_actual_button_encounters_match_generator":true,
+    "master_volume_30_and_appearance_preserved":true,
+    "undo_redo_reload_restore_visible_parameters":true,
+    "playing_encounter_continues_with_new_score":true,
+    "paused_encounter_stays_paused":true,
+    "zero_master_volume_stays_zero":true,
+    "phone_encounter_button_reachable":true,
+    "new_score_starts_manuscript_as_original_copy":true,
+    "new_score_has_readable_sl1_preview":true,
+    "three_actual_json_downloads_match_generator":true,
+    "three_actual_wav_and_midi_downloads_verified":true
+  },
+  "layout_cases":21,
+  "layout_details":"排版矩阵.json",
+  "captured_error_logs":[],
+  "cleanup":{"own_qa_tab_closed":true,"viewport_reset":true,"loopback_server_stopped":true},
+  "details":["连续偶遇.json","播放与历史.json","多样性测量.json","产物校验.json"],
+  "limitations":[
+    "UI state was read through DOM and real downloads; private application globals were not accessed.",
+    "Phone dimensions are browser simulation, not physical device verification.",
+    "Background-tab and failed-audio-resume branches were not artificially forced.",
+    "Variation and file checks do not establish musical preference."
+  ]
+}

@@ -86,21 +86,63 @@
     t.notes.forEach((p, i) => { if (p >= 0) { const at = Math.floor(i / t.length * length); notes[at] = p; accents[at] = t.accents?.[i] ?? 1; } });
     t.shift = Math.floor(t.shift / t.length * length); t.length = length; t.notes = notes; t.accents = accents;
   }
+  const encounterStyles = [
+    {name:'晨光信号',scale:'dawn',tempo:[84,110],space:[.28,.52],density:1,contour:1},
+    {name:'潮汐回航',scale:'tide',tempo:[72,98],space:[.52,.76],density:.9,contour:-1},
+    {name:'玻璃漂流',scale:'glass',tempo:[56,80],space:[.66,.86],density:.7,contour:0},
+    {name:'近日巡游',scale:'dawn',tempo:[108,136],space:[.20,.44],density:1.25,contour:1},
+    {name:'月背电台',scale:'tide',tempo:[88,118],space:[.36,.62],density:1.15,contour:0},
+    {name:'彗尾慢行',scale:'glass',tempo:[64,92],space:[.50,.76],density:.85,contour:-1}
+  ];
+  const ENCOUNTERS = Object.freeze(encounterStyles.map(({name,scale})=>Object.freeze({name,scale})));
   function generate(seed, base = preset()) {
-    const random = rng(seed), s = clone(base);
-    const motifs = [[0, 2, 4, 3, 1], [0, 3, 2, 4, 2], [4, 3, 1, 2, 0]];
-    const motif = motifs[Math.floor(random() * motifs.length)];
-    s.tracks.forEach((t, i) => {
-      const count = [2, 4, 5, 3, 2][i];
-      t.notes.fill(-1); t.accents = Array(t.length).fill(1); t.muted = false; t.solo = false; t.shift = 0;
-      for (let k = 0; k < count; k++) {
-        const pos = mod(Math.floor(k * t.length / count) + (i > 1 ? Math.floor(random() * 3) : 0), t.length);
-        t.notes[pos] = i === 0 ? [0, 3][k % 2] : motif[(k + i) % motif.length];
-        t.accents[pos] = k === 0 ? 1.35 : k % 3 === 2 ? 0.55 : 1;
+    if(!Number.isInteger(seed)||seed<0||seed>0xffffffff)throw new Error('Invalid encounter seed');
+    const original=validate(base),random=rng(seed),pick=xs=>xs[Math.floor(random()*xs.length)];
+    const style=pick(encounterStyles),integer=(a,b)=>a+Math.floor(random()*(b-a+1));
+    const s=preset(style.scale);s.volume=original.volume;
+    s.bpm=integer(...style.tempo);if(s.bpm===original.bpm)s.bpm+=s.bpm<style.tempo[1]?1:-1;
+    s.space=Math.round((style.space[0]+random()*(style.space[1]-style.space[0]))*100)/100;
+    // A short shared idea supplies pitches; the roles answer it in different registers.
+    const root=pick([0,0,2,3,4]),motif=[root],motifLength=integer(4,7);let wandering=root;
+    for(let n=1;n<motifLength;n++){
+      const direction=random()<.28?style.contour:pick([-2,-1,1,2]);
+      wandering=Math.max(0,Math.min(7,wandering+direction));motif.push(wandering);
+    }
+    const families=[[[8,12,16],[8,12,16],[12,16,24],[8,12,20],[16,20,24]],[[16,24],[12,16,24],[16,20,24],[12,20,24],[20,24]],[[16,20,24],[12,20],[8,12,20],[16,20,24],[12,20,24]]];
+    const family=pick(families),lengths=family.map(pick);
+    if(new Set(lengths).size===1)lengths[4]=pick(LENGTHS.filter(n=>n!==lengths[0]));
+    const pulse=pick([[0,2],[0,3],[0,1,3],[0,2,3]]),answer=integer(0,motif.length-1);
+    s.tracks=lengths.map((length,i)=>{
+      const density=[.18,.28,.37,.20,.12][i]*style.density*(.85+random()*.35);
+      const count=Math.max([2,3,4,2,2][i],Math.min(Math.floor(length*.6),Math.round(length*density)));
+      const notes=Array(length).fill(-1),accents=Array(length).fill(1),chosen=[];
+      // Weighted sampling without replacement gives exact density without lost collisions.
+      const candidates=Array.from({length},(_,tick)=>{
+        let weight=i===0?(tick%4===0?5:tick%2===0?2:.35):i===1?(tick%4===2?4:pulse.includes(tick%4)?1.8:.7):pulse.includes(tick%4)?2.8:1;
+        return {tick,rank:-Math.log(Math.max(random(),1e-9))/weight};
+      }).sort((a,b)=>a.rank-b.rank);
+      for(const {tick} of candidates){
+        if(chosen.length===count)break;
+        if(i===0&&chosen.some(t=>Math.min(mod(tick-t,length),mod(t-tick,length))<2))continue;
+        chosen.push(tick);
       }
+      // Very short bass circles can exhaust the spaced choices; keep the chosen density.
+      for(const {tick} of candidates){if(chosen.length===count)break;if(!chosen.includes(tick))chosen.push(tick);}
+      chosen.sort((a,b)=>a-b).forEach((tick,k)=>{
+        let pitch;
+        if(i===0)pitch=k===0?root:pick([root,mod(root+2,5),mod(root+3,5)]);
+        else if(i===1)pitch=mod(motif[(k+answer)%motif.length]+pick([0,0,2]),5)+(random()<.18?5:0);
+        else if(i===2)pitch=Math.min(9,motif[(k+answer)%motif.length]+(random()<.28?5:0));
+        else if(i===3)pitch=Math.min(9,motif[mod(answer-k,motif.length)]+(random()<.25?5:0));
+        else pitch=mod(motif[(k*2+answer)%motif.length],5);
+        notes[tick]=pitch;accents[tick]=k===0?1.35:k===count-1?.55:tick%4===0&&random()<.65?1.35:pick([.55,1,1]);
+      });
+      const reference=[.18,.28,.37,.20,.12][i],energy=Math.sqrt(reference/(count/length));
+      const gain=Math.round(Math.max(.38,Math.min(.82,[.74,.64,.70,.56,.50][i]*energy*(.9+random()*.2)))*100)/100;
+      return {length,notes,accents,gain,muted:false,solo:false,shift:i===0?pick([0,2,4,6])%length:integer(0,length-1)};
     });
-    s.title = '偶遇 · ' + (seed >>> 0).toString(36).toUpperCase().slice(-6);
-    return s;
+    s.title=style.name+' · '+seed.toString(36).toUpperCase().padStart(7,'0');
+    return validate(s);
   }
   function gcd(a, b) { return b ? gcd(b, a % b) : a; }
   function cycleTicks(state) { return state.tracks.filter((t, i) => audible(state, i)).reduce((a, t) => a * t.length / gcd(a, t.length), 1); }
@@ -144,5 +186,5 @@
       return { id: entry.id, created: entry.created, state: validate(entry.state) };
     });
   }
-  return { LENGTHS, ACCENTS, COLLECTION_LIMIT, SCALES, ROLES, clone, mod, rng, preset, validate, validateCollection, midiNote, audible, eventsAt, resizeTrack, generate, cycleTicks, countNotes, midiBytes };
+  return { LENGTHS, ACCENTS, COLLECTION_LIMIT, SCALES, ROLES, ENCOUNTERS, clone, mod, rng, preset, validate, validateCollection, midiNote, audible, eventsAt, resizeTrack, generate, cycleTicks, countNotes, midiBytes };
 });

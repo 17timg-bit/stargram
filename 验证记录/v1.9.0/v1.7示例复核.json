@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-28",
+  "version": "1.7.0",
+  "sample": "回声手稿_本地样片",
+  "map_version": 2,
+  "wav": {
+    "seconds": 25.018185941043082,
+    "sample_rate": 44100,
+    "channels": 2,
+    "bit_depth": 16,
+    "peak_dbfs": -9.85960644383897,
+    "rms_dbfs": -27.902021375218226,
+    "clipped_samples": 0
+  },
+  "midi": {
+    "tracks": 6,
+    "notes": 83,
+    "pitch_time_velocity_match": true
+  },
+  "png": {
+    "width": 1600,
+    "height": 1200,
+    "chunk_crc_valid": true
+  },
+  "application": {
+    "bytes": 205401,
+    "sha256": "31f89761ab8f352399cc325949d3ea84919b7847bfe3e00a340f974a468b7916",
+    "offline_and_web_identical": true
+  },
+  "files": [
+    {
+      "name": "回声手稿_本地样片.json",
+      "bytes": 2728,
+      "sha256": "afd7a8b206d84b8b51ec622f882a3027f55382629c1e7dcbe0a1601b1e903b90"
+    },
+    {
+      "name": "回声手稿_本地样片.mid",
+      "bytes": 992,
+      "sha256": "51e5c644d508628b8f81c10acc1dc36130364204ffc26bf14f18f7a993d07072"
+    },
+    {
+      "name": "回声手稿_本地样片.png",
+      "bytes": 2087853,
+      "sha256": "45ae22c4e3d1d3ac665da02fe304332152e89bb43943015c09ff615d97d1b48d"
+    },
+    {
+      "name": "回声手稿_本地样片.wav",
+      "bytes": 4413252,
+      "sha256": "fc24cc19536616e4dc3fa6359555c13e7747fde41600a5941f87b515ee684db0"
+    }
+  ]
+}

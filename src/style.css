@@ -150,6 +150,9 @@ input[type=range]::-moz-range-thumb { width:10px; height:10px; background:var(--
 .preset-caption { display:block; font-size:9px; color:var(--muted); margin-top:7px; line-height:1.7; }
 .preset-arrow { display:none; }
 .library-actions { display:flex; flex-direction:column; gap:10px; justify-content:center; padding-bottom:14px; }
+.wander-launch { min-width:0; flex:1; }
+.wander-status { margin-top:8px; color:var(--ink); font:9px/1.8 var(--mono); overflow-wrap:anywhere; }
+.wander-volume { display:block; margin-top:3px; color:var(--muted); font:8px/1.8 var(--mono); }
 .random-button,.shelf-button { display:flex; align-items:center; width:100%; gap:10px; font-size:11px; padding:13px 11px; border:1px solid var(--ink); text-align:left; }
 .random-button { background:var(--button); color:var(--button-ink); }
 .random-button>span:first-child { color:var(--gold); font-size:17px; }

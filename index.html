@@ -235,6 +235,9 @@ input[type=range]::-moz-range-thumb { width:10px; height:10px; background:var(--
 .preset-caption { display:block; font-size:9px; color:var(--muted); margin-top:7px; line-height:1.7; }
 .preset-arrow { display:none; }
 .library-actions { display:flex; flex-direction:column; gap:10px; justify-content:center; padding-bottom:14px; }
+.wander-launch { min-width:0; flex:1; }
+.wander-status { margin-top:8px; color:var(--ink); font:9px/1.8 var(--mono); overflow-wrap:anywhere; }
+.wander-volume { display:block; margin-top:3px; color:var(--muted); font:8px/1.8 var(--mono); }
 .random-button,.shelf-button { display:flex; align-items:center; width:100%; gap:10px; font-size:11px; padding:13px 11px; border:1px solid var(--ink); text-align:left; }
 .random-button { background:var(--button); color:var(--button-ink); }
 .random-button>span:first-child { color:var(--gold); font-size:17px; }
@@ -783,7 +786,7 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
   </header>
   <section class="studio-intro" aria-label="星际唱片室">
     <div><div class="eyebrow">SOUNDS OF A SMALL UNIVERSE</div><h1>让偶然，<span>成为旋律。</span><i aria-hidden="true">✳</i></h1></div>
-    <div class="studio-note"><p>把一颗星放上轨道。<br>下一次相遇，就有了声音。</p><div class="edition">VOL. 009 / INTERSTELLAR POST <b>v1.8</b></div></div>
+    <div class="studio-note"><p>把一颗星放上轨道。<br>下一次相遇，就有了声音。</p><div class="edition">VOL. 010 / WANDERING ORBITS <b>v1.9</b></div></div>
   </section>
   <main class="workspace">
     <section class="observatory" aria-label="互动星图">
@@ -822,7 +825,7 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
         <button class="preset" data-preset="tide"><span class="preset-art tide" aria-hidden="true"><svg viewBox="0 0 100 100"><path fill="#b8d2cb" d="M0 0h100v100H0z"/><circle cx="70" cy="26" r="15" fill="#f1e7cb"/><path d="M-10 62Q18 16 46 62T102 62v44H-10" fill="#2e6b67"/><path d="M-10 75Q18 29 46 75T102 75" fill="none" stroke="#81aaa2" stroke-width="2"/><path d="M-10 88Q18 42 46 88T102 88" fill="none" stroke="#c9dbbd" stroke-width="1"/></svg><em>B / 02</em></span><span><small>FLOWING & ALIVE · 104 BPM</small><strong>潮汐来信</strong><span class="preset-caption">让不同的循环相互追逐</span></span><span class="preset-arrow">↗</span></button>
         <button class="preset" data-preset="glass"><span class="preset-art glass" aria-hidden="true"><svg viewBox="0 0 100 100"><path fill="#c8c0d0" d="M0 0h100v100H0z"/><path d="m50 12 34 40-34 38-34-38Z" fill="#74657e"/><path d="m50 12 12 40-12 38-12-38Z" fill="#e8dfcd"/><path d="M16 52h68M33 32h34M33 72h34" stroke="#e8dfcd" fill="none" stroke-width="1"/><circle cx="82" cy="17" r="3" fill="#f1e7cb"/></svg><em>C / 03</em></span><span><small>AIRY & SLOW · 72 BPM</small><strong>夜航的玻璃船</strong><span class="preset-caption">留一段轻轻悬浮的余音</span></span><span class="preset-arrow">↗</span></button>
       </div>
-      <div class="library-actions"><button id="randomBtn" class="random-button"><span>✳</span> 偶遇一片新星空 <span>↗</span></button><button id="shelfBtn" class="shelf-button"><span>▤</span><span>我的星图书架<small id="shelfCount">0 张本地收藏</small></span><span>↗</span></button></div>
+      <div class="library-actions"><div class="wander-launch"><button id="randomBtn" class="random-button"><span>✳</span> 偶遇一片新星空 <span>↗</span></button><p id="randomStatus" class="wander-status" role="status">轨道、速度、调性与回响一起生成</p><small class="wander-volume">主音量与外观由你保留 · 可撤销</small></div><button id="shelfBtn" class="shelf-button"><span>▤</span><span>我的星图书架<small id="shelfCount">0 张本地收藏</small></span><span>↗</span></button></div>
       <details class="field-notes"><summary>观测手记 <span id="discoveryCount">0 / 3</span><i>＋</i></summary><div class="discoveries"><div class="discovery" data-discovery="plant"><span>01</span> 亲手点亮一颗星星 <b>○</b></div><div class="discovery" data-discovery="orbit"><span>02</span> 改变一次轨道周期 <b>○</b></div><div class="discovery" data-discovery="listen"><span>03</span> 听见三十二次相遇 <b>○</b></div></div><p id="discoveryMessage">不必懂乐理，只需要一点好奇心。</p></details>
     </aside>
   </main>
@@ -1010,21 +1013,63 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
     t.notes.forEach((p, i) => { if (p >= 0) { const at = Math.floor(i / t.length * length); notes[at] = p; accents[at] = t.accents?.[i] ?? 1; } });
     t.shift = Math.floor(t.shift / t.length * length); t.length = length; t.notes = notes; t.accents = accents;
   }
+  const encounterStyles = [
+    {name:'晨光信号',scale:'dawn',tempo:[84,110],space:[.28,.52],density:1,contour:1},
+    {name:'潮汐回航',scale:'tide',tempo:[72,98],space:[.52,.76],density:.9,contour:-1},
+    {name:'玻璃漂流',scale:'glass',tempo:[56,80],space:[.66,.86],density:.7,contour:0},
+    {name:'近日巡游',scale:'dawn',tempo:[108,136],space:[.20,.44],density:1.25,contour:1},
+    {name:'月背电台',scale:'tide',tempo:[88,118],space:[.36,.62],density:1.15,contour:0},
+    {name:'彗尾慢行',scale:'glass',tempo:[64,92],space:[.50,.76],density:.85,contour:-1}
+  ];
+  const ENCOUNTERS = Object.freeze(encounterStyles.map(({name,scale})=>Object.freeze({name,scale})));
   function generate(seed, base = preset()) {
-    const random = rng(seed), s = clone(base);
-    const motifs = [[0, 2, 4, 3, 1], [0, 3, 2, 4, 2], [4, 3, 1, 2, 0]];
-    const motif = motifs[Math.floor(random() * motifs.length)];
-    s.tracks.forEach((t, i) => {
-      const count = [2, 4, 5, 3, 2][i];
-      t.notes.fill(-1); t.accents = Array(t.length).fill(1); t.muted = false; t.solo = false; t.shift = 0;
-      for (let k = 0; k < count; k++) {
-        const pos = mod(Math.floor(k * t.length / count) + (i > 1 ? Math.floor(random() * 3) : 0), t.length);
-        t.notes[pos] = i === 0 ? [0, 3][k % 2] : motif[(k + i) % motif.length];
-        t.accents[pos] = k === 0 ? 1.35 : k % 3 === 2 ? 0.55 : 1;
+    if(!Number.isInteger(seed)||seed<0||seed>0xffffffff)throw new Error('Invalid encounter seed');
+    const original=validate(base),random=rng(seed),pick=xs=>xs[Math.floor(random()*xs.length)];
+    const style=pick(encounterStyles),integer=(a,b)=>a+Math.floor(random()*(b-a+1));
+    const s=preset(style.scale);s.volume=original.volume;
+    s.bpm=integer(...style.tempo);if(s.bpm===original.bpm)s.bpm+=s.bpm<style.tempo[1]?1:-1;
+    s.space=Math.round((style.space[0]+random()*(style.space[1]-style.space[0]))*100)/100;
+    // A short shared idea supplies pitches; the roles answer it in different registers.
+    const root=pick([0,0,2,3,4]),motif=[root],motifLength=integer(4,7);let wandering=root;
+    for(let n=1;n<motifLength;n++){
+      const direction=random()<.28?style.contour:pick([-2,-1,1,2]);
+      wandering=Math.max(0,Math.min(7,wandering+direction));motif.push(wandering);
+    }
+    const families=[[[8,12,16],[8,12,16],[12,16,24],[8,12,20],[16,20,24]],[[16,24],[12,16,24],[16,20,24],[12,20,24],[20,24]],[[16,20,24],[12,20],[8,12,20],[16,20,24],[12,20,24]]];
+    const family=pick(families),lengths=family.map(pick);
+    if(new Set(lengths).size===1)lengths[4]=pick(LENGTHS.filter(n=>n!==lengths[0]));
+    const pulse=pick([[0,2],[0,3],[0,1,3],[0,2,3]]),answer=integer(0,motif.length-1);
+    s.tracks=lengths.map((length,i)=>{
+      const density=[.18,.28,.37,.20,.12][i]*style.density*(.85+random()*.35);
+      const count=Math.max([2,3,4,2,2][i],Math.min(Math.floor(length*.6),Math.round(length*density)));
+      const notes=Array(length).fill(-1),accents=Array(length).fill(1),chosen=[];
+      // Weighted sampling without replacement gives exact density without lost collisions.
+      const candidates=Array.from({length},(_,tick)=>{
+        let weight=i===0?(tick%4===0?5:tick%2===0?2:.35):i===1?(tick%4===2?4:pulse.includes(tick%4)?1.8:.7):pulse.includes(tick%4)?2.8:1;
+        return {tick,rank:-Math.log(Math.max(random(),1e-9))/weight};
+      }).sort((a,b)=>a.rank-b.rank);
+      for(const {tick} of candidates){
+        if(chosen.length===count)break;
+        if(i===0&&chosen.some(t=>Math.min(mod(tick-t,length),mod(t-tick,length))<2))continue;
+        chosen.push(tick);
       }
+      // Very short bass circles can exhaust the spaced choices; keep the chosen density.
+      for(const {tick} of candidates){if(chosen.length===count)break;if(!chosen.includes(tick))chosen.push(tick);}
+      chosen.sort((a,b)=>a-b).forEach((tick,k)=>{
+        let pitch;
+        if(i===0)pitch=k===0?root:pick([root,mod(root+2,5),mod(root+3,5)]);
+        else if(i===1)pitch=mod(motif[(k+answer)%motif.length]+pick([0,0,2]),5)+(random()<.18?5:0);
+        else if(i===2)pitch=Math.min(9,motif[(k+answer)%motif.length]+(random()<.28?5:0));
+        else if(i===3)pitch=Math.min(9,motif[mod(answer-k,motif.length)]+(random()<.25?5:0));
+        else pitch=mod(motif[(k*2+answer)%motif.length],5);
+        notes[tick]=pitch;accents[tick]=k===0?1.35:k===count-1?.55:tick%4===0&&random()<.65?1.35:pick([.55,1,1]);
+      });
+      const reference=[.18,.28,.37,.20,.12][i],energy=Math.sqrt(reference/(count/length));
+      const gain=Math.round(Math.max(.38,Math.min(.82,[.74,.64,.70,.56,.50][i]*energy*(.9+random()*.2)))*100)/100;
+      return {length,notes,accents,gain,muted:false,solo:false,shift:i===0?pick([0,2,4,6])%length:integer(0,length-1)};
     });
-    s.title = '偶遇 · ' + (seed >>> 0).toString(36).toUpperCase().slice(-6);
-    return s;
+    s.title=style.name+' · '+seed.toString(36).toUpperCase().padStart(7,'0');
+    return validate(s);
   }
   function gcd(a, b) { return b ? gcd(b, a % b) : a; }
   function cycleTicks(state) { return state.tracks.filter((t, i) => audible(state, i)).reduce((a, t) => a * t.length / gcd(a, t.length), 1); }
@@ -1068,7 +1113,7 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
       return { id: entry.id, created: entry.created, state: validate(entry.state) };
     });
   }
-  return { LENGTHS, ACCENTS, COLLECTION_LIMIT, SCALES, ROLES, clone, mod, rng, preset, validate, validateCollection, midiNote, audible, eventsAt, resizeTrack, generate, cycleTicks, countNotes, midiBytes };
+  return { LENGTHS, ACCENTS, COLLECTION_LIMIT, SCALES, ROLES, ENCOUNTERS, clone, mod, rng, preset, validate, validateCollection, midiNote, audible, eventsAt, resizeTrack, generate, cycleTicks, countNotes, midiBytes };
 });
 
 /* Original procedural voices. Audio clock drives the sequencer. */
@@ -1651,6 +1696,8 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
   function renderUI() {
     document.body.dataset.scale = state.scale;
     $('sceneTitle').textContent = state.title;
+    const encounter=C.ENCOUNTERS.find(item=>state.title.startsWith(item.name+' · '));
+    $('randomStatus').textContent=encounter?`${encounter.name} / ${state.bpm} BPM · ${Math.round(state.space*100)}% 回响`:'轨道、速度、调性与回响一起生成';
     $('noteCount').textContent = C.countNotes(state);
     const cycle = C.cycleTicks(state);
     $('cycleLabel').textContent = !state.tracks.some((t, i) => C.audible(state, i)) ? '所有轨道已静音' : `${cycle / 2} 拍后重逢`;
@@ -1739,7 +1786,18 @@ body.immersive .scene-title-row h2 { font-size:32px; max-width:650px; }
   $('undoBtn').onclick = () => { if (!history.length) return; future.push(C.clone(state)); state = history.pop(); focusNote = null; engine.update(); persist(); renderUI(); toast('已撤销上一次修改'); };
   $('redoBtn').onclick = () => { if (!future.length) return; history.push(C.clone(state)); state = future.pop(); focusNote = null; engine.update(); persist(); renderUI(); toast('已重做这次修改'); };
   document.querySelectorAll('[data-preset]').forEach(b => b.onclick = async () => { manuscriptCache.reset(); edit(() => { const volume = state.volume; state = C.preset(b.dataset.preset); state.volume = volume; focusNote = null; }, '换了一片星空'); queue = []; await engine.reset(); engine.update(); });
-  $('randomBtn').onclick = () => { manuscriptCache.reset(); const seed = crypto.getRandomValues(new Uint32Array(1))[0]; edit(() => { state = C.generate(seed, state); focusNote = null; }, '一次新的偶遇。喜欢就把它带走。'); };
+  $('randomBtn').onclick = async () => {
+    const button=$('randomBtn');if(button.disabled)return;button.disabled=true;
+    const wasPlaying=engine.running;let applied=false;
+    try{
+      const next=C.generate(crypto.getRandomValues(new Uint32Array(1))[0],state);
+      engine.pause();engine.cutVoices();engine.reset();queue=[];particles=[];pulses.clear();renderedStep=-1;manuscriptCache.reset();
+      edit(()=>{state=next;focusNote=null;},`抵达${next.title.split(' · ')[0]} · ${next.bpm} BPM · 可以撤销`);
+      applied=true;
+      if(wasPlaying&&!document.hidden){await engine.play();if(document.hidden)engine.pause();}
+    }catch{toast(applied?'新星图已生成，声音暂未启动，请点播放重试。':'这次漫游没有出发，请再试一次。');}
+    finally{button.disabled=false;updatePlaybackUI();}
+  };
   $('lengthSelect').onchange = e => { edit(() => { C.resizeTrack(state.tracks[selected], Number(e.target.value)); focusNote = null; }, '周期改变了，留意下一次重逢'); discover('orbit'); };
   $('rotateBtn').onclick = () => edit(() => { const t = state.tracks[selected]; t.shift = (t.shift + 1) % t.length; }, '整条轨道晚一格相遇');
   $('clearBtn').onclick = () => edit(() => { state.tracks[selected].notes.fill(-1); state.tracks[selected].accents.fill(1); }, '这条轨道空出来了 · 可以撤销');

@@ -65,6 +65,8 @@
   function renderUI() {
     document.body.dataset.scale = state.scale;
     $('sceneTitle').textContent = state.title;
+    const encounter=C.ENCOUNTERS.find(item=>state.title.startsWith(item.name+' · '));
+    $('randomStatus').textContent=encounter?`${encounter.name} / ${state.bpm} BPM · ${Math.round(state.space*100)}% 回响`:'轨道、速度、调性与回响一起生成';
     $('noteCount').textContent = C.countNotes(state);
     const cycle = C.cycleTicks(state);
     $('cycleLabel').textContent = !state.tracks.some((t, i) => C.audible(state, i)) ? '所有轨道已静音' : `${cycle / 2} 拍后重逢`;
@@ -153,7 +155,18 @@
   $('undoBtn').onclick = () => { if (!history.length) return; future.push(C.clone(state)); state = history.pop(); focusNote = null; engine.update(); persist(); renderUI(); toast('已撤销上一次修改'); };
   $('redoBtn').onclick = () => { if (!future.length) return; history.push(C.clone(state)); state = future.pop(); focusNote = null; engine.update(); persist(); renderUI(); toast('已重做这次修改'); };
   document.querySelectorAll('[data-preset]').forEach(b => b.onclick = async () => { manuscriptCache.reset(); edit(() => { const volume = state.volume; state = C.preset(b.dataset.preset); state.volume = volume; focusNote = null; }, '换了一片星空'); queue = []; await engine.reset(); engine.update(); });
-  $('randomBtn').onclick = () => { manuscriptCache.reset(); const seed = crypto.getRandomValues(new Uint32Array(1))[0]; edit(() => { state = C.generate(seed, state); focusNote = null; }, '一次新的偶遇。喜欢就把它带走。'); };
+  $('randomBtn').onclick = async () => {
+    const button=$('randomBtn');if(button.disabled)return;button.disabled=true;
+    const wasPlaying=engine.running;let applied=false;
+    try{
+      const next=C.generate(crypto.getRandomValues(new Uint32Array(1))[0],state);
+      engine.pause();engine.cutVoices();engine.reset();queue=[];particles=[];pulses.clear();renderedStep=-1;manuscriptCache.reset();
+      edit(()=>{state=next;focusNote=null;},`抵达${next.title.split(' · ')[0]} · ${next.bpm} BPM · 可以撤销`);
+      applied=true;
+      if(wasPlaying&&!document.hidden){await engine.play();if(document.hidden)engine.pause();}
+    }catch{toast(applied?'新星图已生成，声音暂未启动，请点播放重试。':'这次漫游没有出发，请再试一次。');}
+    finally{button.disabled=false;updatePlaybackUI();}
+  };
   $('lengthSelect').onchange = e => { edit(() => { C.resizeTrack(state.tracks[selected], Number(e.target.value)); focusNote = null; }, '周期改变了，留意下一次重逢'); discover('orbit'); };
   $('rotateBtn').onclick = () => edit(() => { const t = state.tracks[selected]; t.shift = (t.shift + 1) % t.length; }, '整条轨道晚一格相遇');
   $('clearBtn').onclick = () => edit(() => { state.tracks[selected].notes.fill(-1); state.tracks[selected].accents.fill(1); }, '这条轨道空出来了 · 可以撤销');

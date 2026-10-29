@@ -1,0 +1,342 @@
+[
+  {
+    "before": {
+      "bpm": 88,
+      "periods": [
+        16,
+        16,
+        16,
+        12,
+        20
+      ],
+      "playing": "开始演奏",
+      "scale": "dawn",
+      "sky": "zodiac",
+      "space": 48,
+      "title": "晨雾中的信号",
+      "volume": 30
+    },
+    "after": {
+      "bpm": 96,
+      "periods": [
+        16,
+        12,
+        20,
+        24,
+        24
+      ],
+      "playing": "开始演奏",
+      "scale": "tide",
+      "sky": "zodiac",
+      "space": 64,
+      "title": "潮汐回航 · 1P0XFQ6",
+      "volume": 30
+    }
+  },
+  {
+    "before": {
+      "bpm": 96,
+      "periods": [
+        16,
+        12,
+        20,
+        24,
+        24
+      ],
+      "playing": "开始演奏",
+      "scale": "tide",
+      "sky": "zodiac",
+      "space": 64,
+      "title": "潮汐回航 · 1P0XFQ6",
+      "volume": 30
+    },
+    "after": {
+      "bpm": 65,
+      "periods": [
+        16,
+        24,
+        20,
+        12,
+        20
+      ],
+      "playing": "开始演奏",
+      "scale": "glass",
+      "sky": "zodiac",
+      "space": 69,
+      "title": "彗尾慢行 · 1LQT7UZ",
+      "volume": 30
+    }
+  },
+  {
+    "before": {
+      "bpm": 65,
+      "periods": [
+        16,
+        24,
+        20,
+        12,
+        20
+      ],
+      "playing": "开始演奏",
+      "scale": "glass",
+      "sky": "zodiac",
+      "space": 69,
+      "title": "彗尾慢行 · 1LQT7UZ",
+      "volume": 30
+    },
+    "after": {
+      "bpm": 115,
+      "periods": [
+        12,
+        16,
+        24,
+        8,
+        20
+      ],
+      "playing": "开始演奏",
+      "scale": "dawn",
+      "sky": "zodiac",
+      "space": 22,
+      "title": "近日巡游 · 0IVDRU8",
+      "volume": 30
+    }
+  },
+  {
+    "before": {
+      "bpm": 115,
+      "periods": [
+        12,
+        16,
+        24,
+        8,
+        20
+      ],
+      "playing": "开始演奏",
+      "scale": "dawn",
+      "sky": "zodiac",
+      "space": 22,
+      "title": "近日巡游 · 0IVDRU8",
+      "volume": 30
+    },
+    "after": {
+      "bpm": 95,
+      "periods": [
+        12,
+        16,
+        12,
+        12,
+        20
+      ],
+      "playing": "开始演奏",
+      "scale": "tide",
+      "sky": "zodiac",
+      "space": 54,
+      "title": "潮汐回航 · 1N345NC",
+      "volume": 30
+    }
+  },
+  {
+    "before": {
+      "bpm": 95,
+      "periods": [
+        12,
+        16,
+        12,
+        12,
+        20
+      ],
+      "playing": "开始演奏",
+      "scale": "tide",
+      "sky": "zodiac",
+      "space": 54,
+      "title": "潮汐回航 · 1N345NC",
+      "volume": 30
+    },
+    "after": {
+      "bpm": 96,
+      "periods": [
+        16,
+        24,
+        24,
+        24,
+        24
+      ],
+      "playing": "开始演奏",
+      "scale": "tide",
+      "sky": "zodiac",
+      "space": 38,
+      "title": "月背电台 · 1ALIOOH",
+      "volume": 30
+    }
+  },
+  {
+    "before": {
+      "bpm": 96,
+      "periods": [
+        16,
+        24,
+        24,
+        24,
+        24
+      ],
+      "playing": "开始演奏",
+      "scale": "tide",
+      "sky": "zodiac",
+      "space": 38,
+      "title": "月背电台 · 1ALIOOH",
+      "volume": 30
+    },
+    "after": {
+      "bpm": 65,
+      "periods": [
+        24,
+        12,
+        20,
+        24,
+        20
+      ],
+      "playing": "开始演奏",
+      "scale": "glass",
+      "sky": "zodiac",
+      "space": 71,
+      "title": "彗尾慢行 · 0RGW7DN",
+      "volume": 30
+    }
+  },
+  {
+    "before": {
+      "bpm": 65,
+      "periods": [
+        24,
+        12,
+        20,
+        24,
+        20
+      ],
+      "playing": "开始演奏",
+      "scale": "glass",
+      "sky": "zodiac",
+      "space": 71,
+      "title": "彗尾慢行 · 0RGW7DN",
+      "volume": 30
+    },
+    "after": {
+      "bpm": 117,
+      "periods": [
+        24,
+        24,
+        16,
+        24,
+        20
+      ],
+      "playing": "开始演奏",
+      "scale": "dawn",
+      "sky": "zodiac",
+      "space": 29,
+      "title": "近日巡游 · 1Q4YWQL",
+      "volume": 30
+    }
+  },
+  {
+    "before": {
+      "bpm": 117,
+      "periods": [
+        24,
+        24,
+        16,
+        24,
+        20
+      ],
+      "playing": "开始演奏",
+      "scale": "dawn",
+      "sky": "zodiac",
+      "space": 29,
+      "title": "近日巡游 · 1Q4YWQL",
+      "volume": 30
+    },
+    "after": {
+      "bpm": 89,
+      "periods": [
+        16,
+        16,
+        24,
+        8,
+        24
+      ],
+      "playing": "开始演奏",
+      "scale": "tide",
+      "sky": "zodiac",
+      "space": 46,
+      "title": "月背电台 · 17U03LJ",
+      "volume": 30
+    }
+  },
+  {
+    "before": {
+      "bpm": 89,
+      "periods": [
+        16,
+        16,
+        24,
+        8,
+        24
+      ],
+      "playing": "开始演奏",
+      "scale": "tide",
+      "sky": "zodiac",
+      "space": 46,
+      "title": "月背电台 · 17U03LJ",
+      "volume": 30
+    },
+    "after": {
+      "bpm": 105,
+      "periods": [
+        8,
+        8,
+        24,
+        8,
+        24
+      ],
+      "playing": "开始演奏",
+      "scale": "dawn",
+      "sky": "zodiac",
+      "space": 36,
+      "title": "晨光信号 · 0A6BORA",
+      "volume": 30
+    }
+  },
+  {
+    "before": {
+      "bpm": 105,
+      "periods": [
+        8,
+        8,
+        24,
+        8,
+        24
+      ],
+      "playing": "开始演奏",
+      "scale": "dawn",
+      "sky": "zodiac",
+      "space": 36,
+      "title": "晨光信号 · 0A6BORA",
+      "volume": 30
+    },
+    "after": {
+      "bpm": 78,
+      "periods": [
+        20,
+        20,
+        12,
+        16,
+        24
+      ],
+      "playing": "开始演奏",
+      "scale": "tide",
+      "sky": "zodiac",
+      "space": 74,
+      "title": "潮汐回航 · 06XKMCK",
+      "volume": 30
+    }
+  }
+]

@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-29",
+  "version": "1.8.0",
+  "sample": "穿过玫瑰星云的信",
+  "sl1": {
+    "characters": 340,
+    "checksum_valid": true,
+    "exact_json_match": true,
+    "recipe": "SG1-4121"
+  },
+  "midi": {
+    "tracks": 6,
+    "notes": 70,
+    "pitch_time_velocity_match": true
+  },
+  "application": {
+    "bytes": 205401,
+    "sha256": "31f89761ab8f352399cc325949d3ea84919b7847bfe3e00a340f974a468b7916",
+    "offline_and_web_identical": true
+  },
+  "files": [
+    {
+      "name": "穿过玫瑰星云的信.json",
+      "bytes": 2998,
+      "sha256": "0205ad3d79f80b9436060dd85fbe562438f55964988730ba734bb819542b37db"
+    },
+    {
+      "name": "穿过玫瑰星云的信.mid",
+      "bytes": 871,
+      "sha256": "46a3f43862d7e0366d5845fba06a1eb2cb3ba4cd09e2b5734823b935b809763b"
+    },
+    {
+      "name": "穿过玫瑰星云的信.txt",
+      "bytes": 341,
+      "sha256": "fc3cc529e6bb89baa7cda005d89a2a55924f88e108ce2a324b9c1b1363886961"
+    }
+  ]
+}
