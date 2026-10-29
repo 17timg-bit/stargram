@@ -1,0 +1,29 @@
+{
+  "account": "17timg-bit",
+  "repository": "17timg-bit/stargram",
+  "repository_url": "https://github.com/17timg-bit/stargram",
+  "private": false,
+  "default_branch": "main",
+  "pages_http_status": 200,
+  "pages": {
+    "html_url": "https://17timg-bit.github.io/stargram/",
+    "status": "built",
+    "build_type": "legacy",
+    "source": {
+      "branch": "main",
+      "path": "/"
+    },
+    "https_enforced": true
+  },
+  "latest_build_http_status": 200,
+  "latest_build": {
+    "status": "built",
+    "commit": "e3bdcb46d1e033e7a021bf76e2f76d5b6b213c7d",
+    "duration": 32446,
+    "error": {
+      "message": null
+    },
+    "created_at": "2026-10-29T09:18:56Z",
+    "updated_at": "2026-10-29T09:19:28Z"
+  }
+}

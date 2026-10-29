@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-29",
+  "version": "1.11.0",
+  "repository": "https://github.com/17timg-bit/stargram",
+  "url": "https://17timg-bit.github.io/stargram/",
+  "release_commit": "e3bdcb46d1e033e7a021bf76e2f76d5b6b213c7d",
+  "functional_tag": { "name": "v1.11.0", "commit": "a3b1a53e328a32fd6f5d9324eb78c21aff85fcfd" },
+  "pages": { "status": "built", "https_enforced": true, "commit": "e3bdcb46d1e033e7a021bf76e2f76d5b6b213c7d", "source": { "branch": "main", "path": "/" } },
+  "anonymous_http": { "status": 200, "bytes": 246889, "sha256": "38ed2f0afd5ac0a111e0176742110cf0ee1477faa262b828de5a0f82ef14d9a2", "matches_local": true, "has_v111": true, "has_draft_drawer": true },
+  "prepublish_checks": { "model_tests_passed": 70, "portable_draft_files_rechecked": 2, "actual_composition_json_wav_midi_png_rechecked": true, "local_bytes_match_git_filtered_content": true },
+  "verification_scope": "本轮验证目标提交的Pages构建、HTTPS、匿名访问与成品字节一致性。没有在公开网页执行作品或手稿写入测试，也未宣称本轮完成生产浏览器逐项交互复测；功能交互证据为同一成品已有的独立loopback验收。"
+}
