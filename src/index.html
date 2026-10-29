@@ -18,7 +18,7 @@
   </header>
   <section class="studio-intro" aria-label="星际唱片室">
     <div><div class="eyebrow">SOUNDS OF A SMALL UNIVERSE</div><h1>让偶然，<span>成为旋律。</span><i aria-hidden="true">✳</i></h1></div>
-    <div class="studio-note"><p>把一颗星放上轨道。<br>下一次相遇，就有了声音。</p><div class="edition">VOL. 010 / WANDERING ORBITS <b>v1.9</b></div></div>
+    <div class="studio-note"><p>把一颗星放上轨道。<br>下一次相遇，就有了声音。</p><div class="edition">VOL. 011 / PHRASE CUTOUTS <b>v1.10</b></div></div>
   </section>
   <main class="workspace">
     <section class="observatory" aria-label="互动星图">
@@ -85,6 +85,7 @@
   </dialog>
   <dialog id="loomDialog" class="loom-dialog" aria-labelledby="loomTitle">
     <button class="dialog-close" data-close aria-label="关闭织星台">×</button>
+    <div class="loom-scroll">
     <div class="eyebrow">ECHO MANUSCRIPT / 回声手稿</div>
     <h2 id="loomTitle">从这一圈，写向下一圈。</h2>
     <p class="dialog-intro">原轨留在这里，手稿可以慢慢改。听过，再决定留下哪一圈。</p><p class="loom-notice" id="manuscriptNotice">已抄下当前轨道。原轨还没有改变。</p>
@@ -102,6 +103,16 @@
           <div class="manuscript-toolbar"><label for="loomLength">手稿一圈</label><select id="loomLength" aria-label="手稿周期"><option value="8">8 格</option><option value="12">12 格</option><option value="16">16 格</option><option value="20">20 格</option><option value="24">24 格</option></select><span id="manuscriptDiff"></span></div>
           <div class="score-scroll" tabindex="-1"><div id="manuscriptGrid" class="manuscript-grid" role="grid" aria-label="手稿星谱，左右是时间，上下是音高" aria-rowcount="11"></div></div>
           <p id="manuscriptGhostHint" class="score-hint"></p>
+          <section class="phrase-desk" aria-labelledby="phraseTitle">
+            <div class="phrase-heading"><div><span class="eyebrow">PHRASE CUTOUTS / 星句剪影</span><h4 id="phraseTitle">让这一句，换个方向。</h4></div><div class="phrase-range-tools"><button id="phraseAll" class="text-button">圈选整轨</button><button id="phraseCancel" class="text-button" disabled>取消圈选</button></div></div>
+            <div class="phrase-strip"><svg id="phraseContour" viewBox="0 0 320 56" aria-hidden="true"></svg><span id="phraseRange">尚未圈选</span></div>
+            <p id="phraseHint" class="phrase-hint">点谱纸上方的格号选起点，再点终点；也可 Shift + 方向键圈选。</p>
+            <div class="phrase-actions" role="group" aria-label="选中片段的变换">
+              <button data-phrase="up"><span aria-hidden="true">↗</span>升一音</button><button data-phrase="down"><span aria-hidden="true">↘</span>降一音</button><button data-phrase="reverse"><span aria-hidden="true">⇄</span>反转音序</button><button data-phrase="invert"><span aria-hidden="true">↕</span>高低倒影</button>
+              <button data-phrase="earlier"><span aria-hidden="true">←</span>提前一格</button><button data-phrase="later"><span aria-hidden="true">→</span>推后一格</button><button data-phrase="repeat"><span aria-hidden="true">＋</span>接到后一句</button><button data-phrase="erase"><span aria-hidden="true">·</span>擦掉这句</button>
+            </div>
+            <p id="phraseStatus" class="phrase-status" role="status" aria-live="polite">只改圈出的手稿 · 每次变换都可撤回</p>
+          </section>
           <div class="manuscript-expression"><span id="manuscriptSelection">第 1 格</span><div role="group" aria-label="手稿音符力度"><button data-manuscript-accent="0.55">◔ 轻</button><button data-manuscript-accent="1">◑ 中</button><button data-manuscript-accent="1.35">● 重</button></div></div>
           <div class="manuscript-tools"><button id="manuscriptUndo" disabled>↶ 撤回</button><button id="manuscriptRedo" disabled>↷ 重做</button><button id="loomRotate">↗ 错开一格</button><button id="manuscriptReset">抄回原轨</button><button id="manuscriptClear">留一张空白</button></div>
         </section>
@@ -122,6 +133,7 @@
         <button id="loomAgain" class="primary wide">✧ 织出候选</button>
         </div></details>
       </div>
+    </div>
     </div>
     <div class="loom-footer"><p>关闭后可在本次页面继续手稿；刷新或换星图会结束暂存。<br>种回这条轨道后才保存到作品，仍可一次撤销。</p><button id="loomApply" class="primary">把手稿种回这条轨道 <span>↗</span></button></div>
   </dialog>

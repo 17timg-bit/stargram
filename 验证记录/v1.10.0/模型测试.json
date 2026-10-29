@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-29",
+  "version": "1.10.0",
+  "command": "node --test tests/core.test.js tests/v1.1.test.js tests/v1.3.test.js tests/v1.6.test.js tests/v1.7.test.js tests/v1.8.test.js tests/v1.9.test.js tests/v1.10.test.js",
+  "passed": 59,
+  "failed": 0,
+  "new_cases": 9,
+  "scope": [
+    "all five legal periods and every phase use actual heard ticks",
+    "outside slots, gains, mute, solo and phase remain unchanged",
+    "diatonic transpose is atomic at pitch bounds",
+    "reverse carries rests and accents; inversion and opposite rotations roundtrip",
+    "repeat accepts a following blank span and rejects overflow or occupied targets",
+    "erase and a whole phrase edit use one history step",
+    "empty and symmetric no-ops preserve redo; invalid requests do not mutate",
+    "v2 JSON and SL1 retain exact transformed playback events",
+    "all existing models, distributions and appearance compatibility remain passing"
+  ]
+}

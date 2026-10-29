@@ -1,0 +1,23 @@
+// A regression pass on the final split-scroll dialog, after the layout matrix.
+await page.keyboard.press('Escape');await page.setViewportSize({width:1460,height:1000});
+await page.locator('#themeBtn').click();await page.locator('[data-recipe="paper"]').click();await page.keyboard.press('Escape');
+const before=await page.evaluate(()=>Stargram.snapshot());
+await page.emulateMedia({reducedMotion:'reduce'});await page.waitForFunction(()=>Stargram.status().reducedMotion);
+await page.locator('#loomBtn').click();await page.locator('#manuscriptReset').click();
+await page.locator('[data-range-tick="1"]').click();await page.locator('[data-range-tick="4"]').click();
+await page.locator('#loomListen').click();await page.waitForFunction(()=>Stargram.status().loomPlaying);
+await page.locator('[data-phrase="up"]').click();await page.waitForFunction(()=>!Stargram.status().loomPlaying&&Stargram.status().loomVoices===0);
+const draft=await page.evaluate(()=>Stargram.loom().draft);
+expect(await page.evaluate(()=>Stargram.snapshot())).toEqual(before);
+await page.locator('#loomApply').click();expect((await page.evaluate(()=>Stargram.snapshot())).tracks[2]).toEqual(draft);
+await page.locator('#undoBtn').click();expect(await page.evaluate(()=>Stargram.snapshot())).toEqual(before);
+await page.locator('#redoBtn').click();expect((await page.evaluate(()=>Stargram.snapshot())).tracks[2]).toEqual(draft);
+await page.locator('#undoBtn').click();
+await page.locator('#playBtn').click();await page.waitForFunction(()=>Stargram.status().playing&&Stargram.status().phase>0);
+await page.locator('#playBtn').click();await page.waitForFunction(()=>!Stargram.status().playing&&Stargram.status().activeVoices===0);
+await page.reload({waitUntil:'domcontentloaded'});expect(await page.evaluate(()=>Stargram.snapshot())).toEqual(before);
+await page.locator('#loomBtn').click();await page.locator('[data-range-tick="1"]').click();await page.locator('[data-range-tick="8"]').click();
+await page.locator('.loom-scroll').evaluate(e=>e.scrollTop=e.scrollHeight);
+const image=await page.screenshot({fullPage:false});
+assert.equal(phraseQA.errors.length,0);
+return {checks:['final split-scroll dialog: selection, B audition cancellation, apply via separate footer, whole main undo/redo and reload','reduced motion remains active and main play/pause clears voices'],errors:phraseQA.errors,image};

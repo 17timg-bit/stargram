@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-29",
+  "version": "1.10.0",
+  "sample": "星句剪影_本地样片",
+  "source": "真实界面逐格手写、反转、升一音与接句后，点击下载的四个文件；不是独立脚本合成替代浏览器下载",
+  "heard_phrase_matches_independent_expected_notes": true,
+  "wav": {
+    "seconds": 25.018185941043082,
+    "sample_rate": 44100,
+    "channels": 2,
+    "bit_depth": 16,
+    "peak_dbfs": -10.37613887208491,
+    "rms_dbfs": -28.365730717436733,
+    "clipped_samples": 0
+  },
+  "midi": {
+    "tracks": 6,
+    "notes": 74,
+    "pitch_time_velocity_match": true
+  },
+  "png": {
+    "width": 1600,
+    "height": 1200,
+    "chunk_crc_valid": true
+  },
+  "application": {
+    "bytes": 218412,
+    "sha256": "b719f997a5949d01d2cd2b8dc8436c67f7169d480c9a946c945f0a7e89e2062c",
+    "offline_and_web_identical": true
+  },
+  "files": [
+    {
+      "name": "星句剪影_本地样片.json",
+      "bytes": 2826,
+      "sha256": "38d32be2243ff83b5e721ef20ecbc675b452610786b85e08679a3bf074f6ab84"
+    },
+    {
+      "name": "星句剪影_本地样片.mid",
+      "bytes": 901,
+      "sha256": "dbf830664ef61ba3babec8070b11e865aeeba609ddea561c360e947f37c13d3a"
+    },
+    {
+      "name": "星句剪影_本地样片.png",
+      "bytes": 2283377,
+      "sha256": "9ef5ee796c3eae78ad71ba599144b5af031efdee6e281344b384eb3fb4e7ee96"
+    },
+    {
+      "name": "星句剪影_本地样片.wav",
+      "bytes": 4413252,
+      "sha256": "29fdae3bbfa3f69449711289a3fca10c232d470f48586a143b0f770fba241e21"
+    },
+    {
+      "name": "样片信笺.txt",
+      "bytes": 331,
+      "sha256": "6ed875b745e85505341265afbb59b3deea7784c8710c9042a70df86a86f075ae"
+    }
+  ]
+}

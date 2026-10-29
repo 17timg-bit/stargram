@@ -300,7 +300,8 @@
     onAccent:(tick,value)=>changeManuscript(()=>loom.doc.accent(tick,value)),
     onUndo:()=>changeManuscript(()=>loom.doc.undo()),onRedo:()=>changeManuscript(()=>loom.doc.redo()),
     onReset:()=>changeManuscript(()=>loom.doc.reset()),onClear:()=>changeManuscript(()=>loom.doc.clear()),
-    onRotate:()=>changeManuscript(()=>loom.doc.rotate())
+    onRotate:()=>changeManuscript(()=>loom.doc.rotate()),
+    onPhrase:(start,end,action)=>{let result;changeManuscript(()=>{result=loom.doc.transform(start,end,action);});return result;}
   });
   function renderLoomAudio() {
     const active=!!loom.source||loom.pending;
@@ -354,7 +355,7 @@
     $('loomCount').value=Math.max(1,loom.draft.notes.filter(p=>p>=0).length);const pitches=loom.draft.notes.filter(p=>p>=0);
     $('loomRegister').value=pitches.length&&pitches.every(p=>p>=5)?'5':'0';$('loomDynamics').checked=true;$('loomGenerator').open=false;
     $('manuscriptNotice').textContent=entry.resumed?'已接回这条轨道在本次页面里的手稿。应用前，原轨不变。':'已抄下当前「'+C.ROLES[selected].name+'」轨道。点星谱纸写一点变化，或展开下方织一个新念头。';
-    refreshManuscript();$('loomDialog').showModal();drawLoom();
+    scorePaper.resetSelection();refreshManuscript();$('loomDialog').showModal();drawLoom();
   };
   $('loomLength').onchange=()=>changeManuscript(()=>loom.doc.resize(Number($('loomLength').value)));
   for(const [id,event] of [['loomCount','input'],['loomRegister','change'],['loomDynamics','change']])$(id).addEventListener(event,()=>{stopLoomAudition();generatorControls();});
