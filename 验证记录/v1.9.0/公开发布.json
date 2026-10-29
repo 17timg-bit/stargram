@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-29",
+  "release": "v1.9.0 漫游星图（包含 v1.8.0 星际来信）",
+  "repository": "https://github.com/17timg-bit/stargram",
+  "url": "https://17timg-bit.github.io/stargram/",
+  "release_commit": "67a71e61b19a1ca0aa5f135328dac07d7ef727d3",
+  "tags": {
+    "v1.8.0": "7db019ab7e2aae041e4b5ab2f026a999fa94a63c",
+    "v1.9.0": "7b54c72fdee68f5c39ba5c8d6c55a39422939be4"
+  },
+  "pages": {
+    "status": "built",
+    "https_enforced": true,
+    "commit": "67a71e61b19a1ca0aa5f135328dac07d7ef727d3",
+    "source": { "branch": "main", "path": "/" }
+  },
+  "anonymous_http": {
+    "status": 200,
+    "bytes": 205401,
+    "sha256": "31f89761ab8f352399cc325949d3ea84919b7847bfe3e00a340f974a468b7916",
+    "matches_local": true
+  },
+  "prepublish_verification": {
+    "model_tests_passed": 50,
+    "v19_wav_midi_json_samples_passed": 3
+  },
+  "production_browser": {
+    "status": "not_verified",
+    "reason": "公开示例信笺页已出现在标签清单中，但创建及绑定标签均超时，未取得可核验DOM或截图。",
+    "actions": "未执行接收信笺、播放、偶遇或收藏写入；未将本轮浏览器交互记作通过。"
+  },
+  "functional_browser_evidence": "发布的HTML与已有隔离loopback浏览器验收的本地成品逐字节一致；详见浏览器验收.json、连续偶遇.json、播放与历史.json和排版矩阵.json。这不等同于本轮生产浏览器功能复测。"
+}
