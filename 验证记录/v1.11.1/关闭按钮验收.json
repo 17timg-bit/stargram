@@ -1,0 +1,420 @@
+{
+  "date": "2026-10-30",
+  "origin": "http://127.0.0.1:49927/",
+  "version": "v1.11.1",
+  "checks": [
+    {
+      "height": 32,
+      "hiddenIcon": "true",
+      "hit": true,
+      "id": "themeDialog",
+      "label": "关闭宇宙暗房",
+      "pathDx": 0,
+      "pathDy": 0,
+      "sky": "rosette",
+      "svgDx": 0,
+      "svgDy": 0,
+      "type": "field",
+      "viewport": {
+        "h": 779,
+        "w": 1459
+      },
+      "width": 32
+    },
+    {
+      "height": 32,
+      "hiddenIcon": "true",
+      "hit": true,
+      "id": "loomDialog",
+      "label": "关闭织星台",
+      "pathDx": 0,
+      "pathDy": 0,
+      "sky": "rosette",
+      "svgDx": 0,
+      "svgDy": 0,
+      "type": "field",
+      "viewport": {
+        "h": 779,
+        "w": 1459
+      },
+      "width": 32
+    },
+    {
+      "height": 32,
+      "hiddenIcon": "true",
+      "hit": true,
+      "id": "draftDialog",
+      "label": "关闭手稿匣",
+      "pathDx": 0,
+      "pathDy": 0,
+      "sky": "rosette",
+      "svgDx": 0,
+      "svgDy": 0,
+      "type": "field",
+      "viewport": {
+        "h": 779,
+        "w": 1459
+      },
+      "width": 32
+    },
+    {
+      "height": 32,
+      "hiddenIcon": "true",
+      "hit": true,
+      "id": "renameDialog",
+      "label": "关闭命名",
+      "pathDx": 0,
+      "pathDy": 0,
+      "sky": "rosette",
+      "svgDx": 0,
+      "svgDy": 0,
+      "type": "field",
+      "viewport": {
+        "h": 779,
+        "w": 1459
+      },
+      "width": 32
+    },
+    {
+      "height": 32,
+      "hiddenIcon": "true",
+      "hit": true,
+      "id": "shelfDialog",
+      "label": "关闭星图书架",
+      "pathDx": 0,
+      "pathDy": 0,
+      "sky": "rosette",
+      "svgDx": 0,
+      "svgDy": 0,
+      "type": "field",
+      "viewport": {
+        "h": 779,
+        "w": 1459
+      },
+      "width": 32
+    },
+    {
+      "height": 32,
+      "hiddenIcon": "true",
+      "hit": true,
+      "id": "helpDialog",
+      "label": "关闭玩法",
+      "pathDx": 0,
+      "pathDy": 0,
+      "sky": "rosette",
+      "svgDx": 0,
+      "svgDy": 0,
+      "type": "field",
+      "viewport": {
+        "h": 779,
+        "w": 1459
+      },
+      "width": 32
+    },
+    {
+      "height": 32,
+      "hiddenIcon": "true",
+      "hit": true,
+      "id": "exportDialog",
+      "label": "关闭导出",
+      "pathDx": 0,
+      "pathDy": 0,
+      "sky": "rosette",
+      "svgDx": 0,
+      "svgDy": 0,
+      "type": "field",
+      "viewport": {
+        "h": 779,
+        "w": 1459
+      },
+      "width": 32
+    },
+    {
+      "height": 32,
+      "hiddenIcon": "true",
+      "hit": true,
+      "id": "letterDialog",
+      "label": "关闭星际来信",
+      "pathDx": 0,
+      "pathDy": 0,
+      "sky": "rosette",
+      "svgDx": 0,
+      "svgDy": 0,
+      "type": "field",
+      "viewport": {
+        "h": 779,
+        "w": 1459
+      },
+      "width": 32
+    },
+    {
+      "height": 32,
+      "hiddenIcon": "true",
+      "hit": true,
+      "id": "themeDialog",
+      "label": "关闭宇宙暗房",
+      "pathDx": 0,
+      "pathDy": 0,
+      "sky": "rosette",
+      "svgDx": 0,
+      "svgDy": 0,
+      "type": "field",
+      "viewport": {
+        "h": 844,
+        "w": 390
+      },
+      "width": 32
+    },
+    {
+      "height": 32,
+      "hiddenIcon": "true",
+      "hit": true,
+      "id": "loomDialog",
+      "label": "关闭织星台",
+      "pathDx": 0,
+      "pathDy": 0,
+      "sky": "rosette",
+      "svgDx": 0,
+      "svgDy": 0,
+      "type": "field",
+      "viewport": {
+        "h": 844,
+        "w": 390
+      },
+      "width": 32
+    },
+    {
+      "height": 32,
+      "hiddenIcon": "true",
+      "hit": true,
+      "id": "draftDialog",
+      "label": "关闭手稿匣",
+      "pathDx": 0,
+      "pathDy": 0,
+      "sky": "rosette",
+      "svgDx": 0,
+      "svgDy": 0,
+      "type": "field",
+      "viewport": {
+        "h": 844,
+        "w": 390
+      },
+      "width": 32
+    },
+    {
+      "height": 32,
+      "hiddenIcon": "true",
+      "hit": true,
+      "id": "renameDialog",
+      "label": "关闭命名",
+      "pathDx": 0,
+      "pathDy": 0,
+      "sky": "rosette",
+      "svgDx": 0,
+      "svgDy": 0,
+      "type": "field",
+      "viewport": {
+        "h": 844,
+        "w": 390
+      },
+      "width": 32
+    },
+    {
+      "height": 32,
+      "hiddenIcon": "true",
+      "hit": true,
+      "id": "shelfDialog",
+      "label": "关闭星图书架",
+      "pathDx": 0,
+      "pathDy": 0,
+      "sky": "rosette",
+      "svgDx": 0,
+      "svgDy": 0,
+      "type": "field",
+      "viewport": {
+        "h": 844,
+        "w": 390
+      },
+      "width": 32
+    },
+    {
+      "height": 32,
+      "hiddenIcon": "true",
+      "hit": true,
+      "id": "helpDialog",
+      "label": "关闭玩法",
+      "pathDx": 0,
+      "pathDy": 0,
+      "sky": "rosette",
+      "svgDx": 0,
+      "svgDy": 0,
+      "type": "field",
+      "viewport": {
+        "h": 844,
+        "w": 390
+      },
+      "width": 32
+    },
+    {
+      "height": 32,
+      "hiddenIcon": "true",
+      "hit": true,
+      "id": "exportDialog",
+      "label": "关闭导出",
+      "pathDx": 0,
+      "pathDy": 0.000003814697265625,
+      "sky": "rosette",
+      "svgDx": 0,
+      "svgDy": 0,
+      "type": "field",
+      "viewport": {
+        "h": 844,
+        "w": 390
+      },
+      "width": 32
+    },
+    {
+      "height": 32,
+      "hiddenIcon": "true",
+      "hit": true,
+      "id": "letterDialog",
+      "label": "关闭星际来信",
+      "pathDx": 0,
+      "pathDy": 0,
+      "sky": "rosette",
+      "svgDx": 0,
+      "svgDy": 0,
+      "type": "field",
+      "viewport": {
+        "h": 844,
+        "w": 390
+      },
+      "width": 32
+    },
+    {
+      "height": 32,
+      "hiddenIcon": "true",
+      "hit": true,
+      "id": "shelfDialog",
+      "label": "关闭星图书架",
+      "pathDx": 0,
+      "pathDy": 0,
+      "sky": "zodiac",
+      "svgDx": 0,
+      "svgDy": 0,
+      "type": "book",
+      "viewport": {
+        "h": 779,
+        "w": 1459
+      },
+      "width": 32
+    },
+    {
+      "height": 32,
+      "hiddenIcon": "true",
+      "hit": true,
+      "id": "shelfDialog",
+      "label": "关闭星图书架",
+      "pathDx": 0,
+      "pathDy": 0,
+      "sky": "deep",
+      "svgDx": 0,
+      "svgDy": 0,
+      "type": "book",
+      "viewport": {
+        "h": 779,
+        "w": 1459
+      },
+      "width": 32
+    },
+    {
+      "height": 32,
+      "hiddenIcon": "true",
+      "hit": true,
+      "id": "shelfDialog",
+      "label": "关闭星图书架",
+      "pathDx": 0,
+      "pathDy": 0,
+      "sky": "moon",
+      "svgDx": 0,
+      "svgDy": 0,
+      "type": "book",
+      "viewport": {
+        "h": 779,
+        "w": 1459
+      },
+      "width": 32
+    },
+    {
+      "height": 32,
+      "hiddenIcon": "true",
+      "hit": true,
+      "id": "shelfDialog",
+      "label": "关闭星图书架",
+      "pathDx": 0,
+      "pathDy": 0,
+      "sky": "rosette",
+      "svgDx": 0,
+      "svgDy": 0,
+      "type": "book",
+      "viewport": {
+        "h": 779,
+        "w": 1459
+      },
+      "width": 32
+    },
+    {
+      "height": 32,
+      "hiddenIcon": "true",
+      "hit": true,
+      "id": "shelfDialog",
+      "label": "关闭星图书架",
+      "pathDx": 0,
+      "pathDy": 0,
+      "sky": "pleiades",
+      "svgDx": 0,
+      "svgDy": 0,
+      "type": "field",
+      "viewport": {
+        "h": 779,
+        "w": 1459
+      },
+      "width": 32
+    },
+    {
+      "height": 32,
+      "hiddenIcon": "true",
+      "hit": true,
+      "id": "shelfDialog",
+      "label": "关闭星图书架",
+      "pathDx": 0,
+      "pathDy": 0,
+      "sky": "aurora",
+      "svgDx": 0,
+      "svgDy": 0,
+      "type": "signal",
+      "viewport": {
+        "h": 779,
+        "w": 1459
+      },
+      "width": 32
+    }
+  ],
+  "errors": [],
+  "keyboard": {
+    "enter": true,
+    "escape": true
+  },
+  "coreTests": {
+    "command": "node --test --test-reporter=dot tests/core.test.js",
+    "passed": 9
+  },
+  "build": {
+    "bytes": 248579,
+    "sha256": "764749f1a204928a5c9c748f88f2c1579b22d184400403581148977e3752b5b7",
+    "gitBlob": "3d870c95bf83604b71eafdb8acb439c323d971aa",
+    "onlineOfflineIdentical": true,
+    "gitRawFilteredIdentical": true
+  },
+  "scope": "Isolated loopback Tabbit/Chromium; no production or file-origin storage writes, no physical mobile device test."
+}

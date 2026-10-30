@@ -192,7 +192,8 @@ input[type=range]::-moz-range-thumb { width:10px; height:10px; background:var(--
 dialog { color:var(--ink); background:var(--paper); border:1px solid var(--ink); border-radius:4px; padding:35px; width:580px; max-width:calc(100vw - 28px); max-height:90svh; overflow:auto; scrollbar-width:thin; scrollbar-color:var(--border) transparent; box-shadow:9px 9px 0 var(--shadow),0 30px 90px var(--shadow); }
 dialog::backdrop { background:var(--backdrop); backdrop-filter:blur(6px); }
 dialog>.eyebrow { color:var(--orange); }
-.dialog-close { position:absolute; top:12px; right:14px; width:32px; height:32px; font-size:26px; line-height:1; color:var(--ink); border:1px solid var(--line); border-radius:50%; }
+.dialog-close { position:absolute; top:12px; right:14px; display:grid; place-items:center; width:32px; height:32px; padding:0; line-height:0; color:var(--ink); border:1px solid var(--line); border-radius:50%; }
+.dialog-close>svg { display:block; width:18px; height:18px; pointer-events:none; }
 .dialog-close:hover { background:var(--wash); }
 dialog h2 { font:400 32px/1.5 var(--serif); margin:18px 0 12px; letter-spacing:1px; }
 .dialog-intro { color:var(--muted); font-size:12px; line-height:1.9; }
